@@ -46,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
         TextView txt = findViewById(R.id.draw_pile);
         String str = "";
         for (Card card : manager.getDrawPile()){
-            str = str.concat(card.getImages().toString() + "\n");
+            if (card == manager.getDrawPile().get(0)) {
+                str = str.concat(card.getImages().toString() + "\n");
+            }
+            else {
+                str = str.concat("[x, x, x]\n");
+            }
         }
         txt.setText(str);
     }
@@ -57,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
         String str = "";
         //Print Discard Pile
         for (Card card: manager.getDiscardPile()){
-            str = str.concat(card.getImages().toString() + "\n");
+            if (card == manager.getDiscardPile().get(0)){
+                str = str.concat(card.getImages().toString() + "\n");
+            }
+            else {
+                str = str.concat("[x, x, x]\n");
+            }
         }
         txt.setText(str);
         //Update Draw Pile

@@ -69,7 +69,7 @@ public class GameManager {
         // and remove the card from the draw pile
 
         if (draw_pile.size() > 0) {
-            discard_pile.add(draw_pile.get(0));
+            discard_pile.add(0,draw_pile.get(0));
             draw_pile.remove(0);
         }
 
