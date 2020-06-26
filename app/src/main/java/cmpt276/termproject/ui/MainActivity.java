@@ -2,11 +2,18 @@ package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.Scanner;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.Card;
@@ -21,19 +28,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Setup
         setup();
-
         //Temp function to show that all cards are created
         printDrawPile();
         tempDrawButton();
+
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         printDrawPile();
     }
+
+
+
 
     private void setup(){
         manager = GameManager.getInstance();
