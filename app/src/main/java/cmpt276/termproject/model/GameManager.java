@@ -12,12 +12,14 @@ public class GameManager {
 
     private List<Card> discard_pile;
 
-    private int[][] draw = new int[][]{ {0,1,2}, {0,2,5}, {0,3,6}, {1,2,6},
-                                        {1,3,5}, {2,3,5}, {4,5,6}};
+    int order = 2;
+
+    private List<int[]> draw;
+    //private int[][] draw = new int[][]{ {0,1,2}, {0,2,5}, {0,3,6}, {1,2,6},
+                                       // {1,3,5}, {2,3,5}, {4,5,6}};
 
     // Singleton for the Manager
     private GameManager (){
-        // Create cards ?
     }
 
     public static GameManager getInstance(){
@@ -55,7 +57,12 @@ public class GameManager {
 
 
     public void createCards(){
+
+        DrawGenerator card_generator = new DrawGenerator();
+        draw = card_generator.generateCards(order);
+
         updateCards();
+
 
         // Shuffle the draw pile so
         Collections.shuffle(draw_pile);
