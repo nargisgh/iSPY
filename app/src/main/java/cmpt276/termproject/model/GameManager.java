@@ -15,8 +15,7 @@ public class GameManager {
     int order = 2;
 
     private List<int[]> draw;
-    //private int[][] draw = new int[][]{ {0,1,2}, {0,2,5}, {0,3,6}, {1,2,6},
-                                       // {1,3,5}, {2,3,5}, {4,5,6}};
+
 
     // Singleton for the Manager
     private GameManager (){
