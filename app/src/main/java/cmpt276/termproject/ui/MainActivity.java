@@ -2,100 +2,79 @@ package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Resources;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.util.Scanner;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.Card;
-import cmpt276.termproject.model.GameManager;
 
 public class MainActivity extends AppCompatActivity {
-
-    private GameManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setup();
-        //Temp function to show that all cards are created
-        printDrawPile();
-        tempDrawButton();
-
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        printDrawPile();
+        setupPlayButton();
+        setupOptionButton();
+        setupHelpButton();
+        setupQuitButton();
     }
 
 
 
 
-    private void setup(){
-        manager = GameManager.getInstance();
-        manager.createCards();
-    }
 
-
-    private void printDrawPile(){
-
-        TextView txt = findViewById(R.id.draw_pile);
-        String str = "";
-        for (Card card : manager.getDrawPile()){
-            if (card == manager.getDrawPile().get(0)) {
-                str = str.concat(card.getImages().toString() + "\n");
-            }
-            else {
-                str = str.concat("[x, x, x]\n");
-            }
-        }
-        txt.setText(str);
-    }
-
-    private void drawCard(){
-        manager.drawCard();
-        TextView txt = findViewById(R.id.discard_pile);
-        String str = "";
-        //Print Discard Pile
-        for (Card card: manager.getDiscardPile()){
-            if (card == manager.getDiscardPile().get(0)){
-                str = str.concat(card.getImages().toString() + "\n");
-            }
-            else {
-                str = str.concat("[x, x, x]\n");
-            }
-        }
-        txt.setText(str);
-        //Update Draw Pile
-        printDrawPile();
-    }
-
-
-    private void tempDrawButton(){
-        Button btn = findViewById(R.id.draw_button);
-
-        btn.setOnClickListener(new View.OnClickListener() {
+    //Button setup for start , options and play
+    private void setupPlayButton(){
+        Button play_btn = findViewById(R.id.main_play_btn);
+        play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawCard();
+                Intent intent = PlayActivity.makeIntent(MainActivity.this);
+                startActivity(intent);
             }
         });
+    }
 
+    private void setupOptionButton(){
+        Button option_btn = findViewById(R.id.main_option_btn);
+        option_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = OptionActivity.makeIntent(MainActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
 
+    private void setupHelpButton(){
+        Button help_btn = findViewById(R.id.main_help_btn);
+        help_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = HelpActivity.makeIntent(MainActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    private void setupQuitButton(){
+        Button qt_btn = findViewById(R.id.main_quit_btn);
+        qt_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    public static Intent makeIntent(Context context){
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 }
