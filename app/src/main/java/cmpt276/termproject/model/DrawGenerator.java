@@ -3,6 +3,10 @@ package cmpt276.termproject.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/// Translated into Java from the python file that was provided at :
+/// https://github.com/WRadigan/pySpot-It
+
+
 public class DrawGenerator {
 
 
