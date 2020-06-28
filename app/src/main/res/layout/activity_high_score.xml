@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HighScoreActivity">
+    tools:context=".ui.HighScoreActivity"
+    android:background="@drawable/citybackdrop">
 
     <TextView
         android:id="@+id/highscore_title"
@@ -12,6 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/top_5_highscores"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +25,13 @@
         android:id="@+id/highscore2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="136dp"
+        android:background="#81FFFFFF"
         android:text="@string/score2"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,9 +39,14 @@
         android:id="@+id/highscore3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="176dp"
+        android:background="#88FFFFFF"
         android:text="@string/score3"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,9 +54,13 @@
         android:id="@+id/highscore1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
         android:layout_marginTop="100dp"
+        android:background="#A3FFFFFF"
         android:text="@string/score1"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,9 +68,13 @@
         android:id="@+id/highscore4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="216dp"
+        android:background="#94FFFFFF"
         android:text="@string/score4"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,9 +82,13 @@
         android:id="@+id/highscore5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="248dp"
+        android:layout_marginTop="260dp"
+        android:background="#8BFFFFFF"
         android:text="@string/score5"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,9 +96,9 @@
         android:id="@+id/highscore_reset_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="344dp"
-        android:layout_marginEnd="44dp"
-        android:text="Reset"
+        android:layout_marginTop="308dp"
+        android:layout_marginEnd="88dp"
+        android:text="@string/reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
