@@ -10,11 +10,11 @@
         android:id="@+id/main_play_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:text="Play"
         app:layout_constraintBottom_toTopOf="@+id/main_option_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -25,31 +25,31 @@
         android:text="Quit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_highscore_btn"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.456" />
 
     <Button
         android:id="@+id/main_help_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:text="Help"
         app:layout_constraintBottom_toTopOf="@+id/main_highscore_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/main_option_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="Options"
         app:layout_constraintBottom_toTopOf="@+id/main_help_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -67,9 +67,9 @@
         android:id="@+id/main_highscore_btn"
         android:layout_width="137dp"
         android:layout_height="51dp"
-        android:layout_marginTop="556dp"
-        android:layout_marginEnd="136dp"
-        android:text="Highscore"
+        android:layout_marginTop="452dp"
+        android:layout_marginEnd="148dp"
+        android:text="Highscores"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
