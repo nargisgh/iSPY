@@ -10,11 +10,11 @@
         android:id="@+id/main_play_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="12dp"
         android:text="Play"
         app:layout_constraintBottom_toTopOf="@+id/main_option_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -25,41 +25,42 @@
         android:text="Quit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_highscore_btn"
-        app:layout_constraintVertical_bias="0.456" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/main_help_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:text="Help"
         app:layout_constraintBottom_toTopOf="@+id/main_highscore_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/main_option_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="12dp"
         android:text="Options"
         app:layout_constraintBottom_toTopOf="@+id/main_help_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="28dp"
         android:text="Find daMatch"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,8 +68,8 @@
         android:id="@+id/main_highscore_btn"
         android:layout_width="137dp"
         android:layout_height="51dp"
-        android:layout_marginTop="452dp"
-        android:layout_marginEnd="148dp"
+        android:layout_marginTop="248dp"
+        android:layout_marginEnd="300dp"
         android:text="Highscores"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
