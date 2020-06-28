@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         setupOptionButton();
         setupHelpButton();
         setupQuitButton();
+        setupHighscoreButton();
     }
-
 
 
 
@@ -73,6 +73,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private void setupHighscoreButton() {
+        Button highscore = (Button) findViewById(R.id.main_highscore_btn);
+        highscore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = HighScoreActivity.makeIntent(MainActivity.this);
+                startActivity(intent);
+            }
+        });
+
+
+    }
     public static Intent makeIntent(Context context){
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
