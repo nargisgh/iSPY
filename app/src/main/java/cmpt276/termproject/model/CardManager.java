@@ -92,6 +92,7 @@ public class CardManager {
 
     public int[] getDrawCard(){
         //Grab the top card from the draw pile
+
         if (card_list.size() != 0){
             int [] card = card_list.get(0);
             card_list.remove(0);

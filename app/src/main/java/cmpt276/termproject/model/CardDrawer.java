@@ -7,10 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,9 @@ public class CardDrawer extends View {
     private CardManager cardManager;
     private List<Integer> draw_card_imgs;
 
+    private List<Bitmap> bitmap_list;
+    private List<int[]> bitmap_pos;
+
     public CardDrawer (Context context, AttributeSet attrs){
         super(context, attrs);
 
@@ -38,7 +42,8 @@ public class CardDrawer extends View {
     private void setup(){
         cardManager = CardManager.getInstance();
         draw_card_imgs = new ArrayList<>();
-
+        bitmap_list = new ArrayList<>();
+        bitmap_pos = new ArrayList<>();
         initialiseImagesArray();
 
     }
@@ -47,6 +52,7 @@ public class CardDrawer extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         this.canvas = canvas;
+
 
         drawCard((getWidth() / 2f)   , (getHeight() / 2f) - RADIUS );
     }
@@ -69,19 +75,24 @@ public class CardDrawer extends View {
     }
 
     private void createDrawableArray(){
-        int[] draw_card = cardManager.getDrawCard();
+        if (cardManager.getCardList().size() > 0 ) {
+            int[] draw_card = cardManager.getDrawCard();
+            //If card already exists, replace with new one
+            if (draw_card_imgs.size() > 0) {
+                draw_card_imgs = new ArrayList<>();
+            }
 
-        //If card already exists, replace with new one
-        if (draw_card_imgs.size() > 0) {
-            draw_card_imgs = new ArrayList<>();
-        }
-
-        //Create a mapped array of drawable items
-        if (draw_card[0] != -1) {
-            for (int value : draw_card) {
-                draw_card_imgs.add(images_list.get(value));
+            //Create a mapped array of drawable items
+            if (draw_card[0] != -1) {
+                for (int value : draw_card) {
+                    draw_card_imgs.add(images_list.get(value));
+                }
             }
         }
+        else{
+            Toast.makeText(getContext(), "GAME OVER ", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -106,10 +117,39 @@ public class CardDrawer extends View {
             Bitmap card_img = BitmapFactory.decodeResource(getContext().getResources(), draw_card_imgs.get(i));
             Bitmap scaled_img = Bitmap.createScaledBitmap(card_img, 150, 150, true);
 
-            canvas.drawBitmap(scaled_img,width + x - scaled_img.getWidth()/2f , height + y - scaled_img.getHeight()/2f, null);
+            int pos_x  = (int) (width + x - scaled_img.getWidth()/2f);
+            int pos_y = (int) (height + y - scaled_img.getHeight()/2f);
+            //Store bitmaps and their respective positions for accessing in the OnTouchEvent
+            //Since the bitmaps do not store any info on position
+            bitmap_list.add(scaled_img);
+            bitmap_pos.add(new int[] {pos_x,pos_y});
+            canvas.drawBitmap(scaled_img,pos_x ,pos_y , null);
         }
 
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+        int x = (int) event.getX();
+        int y = (int) event.getY();
 
+        if (action == MotionEvent.ACTION_DOWN) {
+            for (int i = 0; i < bitmap_list.size(); i++){
+                int pos_x = bitmap_pos.get(i)[0];
+                int pos_y = bitmap_pos.get(i)[1];
+                int width = bitmap_list.get(i).getWidth();
+                int height = bitmap_list.get(i).getHeight();
+
+                if (x > pos_x && x < pos_x + width && y > pos_y && y < pos_y + height) {
+                    Toast.makeText(getContext(), "BitMap Touched", Toast.LENGTH_SHORT).show();
+                    invalidate();
+                    bitmap_list = new ArrayList<>();
+                    bitmap_pos = new ArrayList<>();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
