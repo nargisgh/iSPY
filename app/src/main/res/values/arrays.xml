@@ -8,14 +8,7 @@
         <item>@drawable/test</item>
         <item>@drawable/test</item>
         <item>@drawable/test</item>
-        <item>@drawable/test</item>
-        <item>@drawable/test</item>
-<!--        <item>@drawable/shape4</item>-->
-<!--        <item>@drawable/shape5</item>-->
-<!--        <item>@drawable/shape6</item>-->
-<!--        <item>@drawable/shape7</item>-->
     </integer-array>
-
 
     <integer-array name="theme_2_images">
         <item>@drawable/circle</item>

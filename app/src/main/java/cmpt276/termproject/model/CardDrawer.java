@@ -26,14 +26,16 @@ public class CardDrawer extends View {
     private Canvas canvas;
 
     //TODO : Draw the Draw and Discard Piles
-    //TODO : Match The Bitmaps on the imgs
+
+
     private GameManager gameManager;
     private List<Integer> draw_card_imgs;
     private List<Integer> discard_card_imgs;
     private List<Integer> images_list;
 
 
-    private List<Bitmap> bitmap_list;
+    private List<Bitmap> discard_bitmap_list;
+    private List<Bitmap> draw_bitmap_list;
     private List<int[]> bitmap_pos;
 
     public CardDrawer (Context context, AttributeSet attrs){
@@ -48,10 +50,13 @@ public class CardDrawer extends View {
         draw_card_imgs = new ArrayList<>();
         discard_card_imgs = new ArrayList<>();
 
-        bitmap_list = new ArrayList<>();
+        discard_bitmap_list = new ArrayList<>();
+        draw_bitmap_list = new ArrayList<>();
         bitmap_pos = new ArrayList<>();
 
         initialiseImagesArray();
+
+        //TODO: Have to init all Bitmaps here for better performance
     }
 
 
@@ -109,6 +114,9 @@ public class CardDrawer extends View {
             ImagePlacer imagePlacer = new ImagePlacer(x, y, section_size, i, scaled_img).invoke();
             int pos_x = imagePlacer.getPos_x();
             int pos_y = imagePlacer.getPos_y();
+
+            discard_bitmap_list.add(scaled_img);
+
             //Draw Bitmap
             canvas.drawBitmap(scaled_img,pos_x ,pos_y , null);
         }
@@ -131,10 +139,7 @@ public class CardDrawer extends View {
             int section_size = 360 / draw_card_imgs.size();
 
             for (int i = 0; i < draw_card_imgs.size(); i++) {
-
-
                 //TODO: Add rotation offset so the images are not always in the same place
-
 
                 //Draw scaled Bitmaps
                 Bitmap card_img = BitmapFactory.decodeResource(getContext().getResources(), draw_card_imgs.get(i));
@@ -146,7 +151,7 @@ public class CardDrawer extends View {
 
                 //Store bitmaps and their respective positions for accessing in the OnTouchEvent
                 //Since the bitmaps do not store any info on position
-                bitmap_list.add(scaled_img);
+                draw_bitmap_list.add(scaled_img);
                 bitmap_pos.add(new int[]{pos_x, pos_y});
                 //Draw Bitmap
                 canvas.drawBitmap(scaled_img, pos_x, pos_y, null);
@@ -191,24 +196,31 @@ public class CardDrawer extends View {
         int y = (int) event.getY();
 
         if (action == MotionEvent.ACTION_DOWN) {
-            for (int i = 0; i < bitmap_list.size(); i++){
+            for (int i = 0; i < draw_bitmap_list.size(); i++){
                 int pos_x = bitmap_pos.get(i)[0];
                 int pos_y = bitmap_pos.get(i)[1];
-                int width = bitmap_list.get(i).getWidth();
-                int height = bitmap_list.get(i).getHeight();
+                int width = draw_bitmap_list.get(i).getWidth();
+                int height = draw_bitmap_list.get(i).getHeight();
 
                 if (x > pos_x && x < pos_x + width && y > pos_y && y < pos_y + height) {
-                    Toast.makeText(getContext(), "BitMap Touched", Toast.LENGTH_SHORT).show();
-                    invalidate();
-                    bitmap_list = new ArrayList<>();
-                    bitmap_pos = new ArrayList<>();
-                    return true;
+                    for (int j = 0 ; j < discard_bitmap_list.size(); j ++ ){
+                        if (draw_bitmap_list.get(i).sameAs(discard_bitmap_list.get(j))){
+                            Toast.makeText(getContext(), "Found Pair"  , Toast.LENGTH_SHORT).show();
+                            invalidate();
+                            discard_bitmap_list = new ArrayList<>();
+                            draw_bitmap_list = new ArrayList<>();
+                            bitmap_pos = new ArrayList<>();
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
 
+    // Sub Class for placing Images on the cards, (probably better way to do this, I just used the
+    // default Extract Method in Android Studio)
     private class ImagePlacer {
         private float x;
         private float y;
