@@ -57,7 +57,7 @@ public class GameManager {
 
     public void createCards(){
 
-        DrawGenerator card_generator = new DrawGenerator();
+        CardManager card_generator = CardManager.getInstance();
         draw = card_generator.generateCards(order);
 
         updateCards();
@@ -94,7 +94,6 @@ public class GameManager {
         }
         return false;
     }
-
 
 
 }
