@@ -71,8 +71,8 @@
         android:id="@+id/highscore_reset_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="344dp"
+        android:layout_marginEnd="44dp"
         android:text="Reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

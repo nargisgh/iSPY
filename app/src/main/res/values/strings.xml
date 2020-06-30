@@ -6,4 +6,5 @@
     <string name="score3">score3</string>
     <string name="score4">score4</string>
     <string name="score5">score5</string>
+    <string name="reset">Reset</string>
 </resources>
