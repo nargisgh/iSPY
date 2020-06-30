@@ -1,5 +1,7 @@
 package cmpt276.termproject.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +15,7 @@ public class GameManager {
     private List<Card> discard_pile;
 
     int order = 2;
+    int theme = 2;
 
     private List<int[]> draw;
 
@@ -56,13 +59,10 @@ public class GameManager {
 
 
     public void createCards(){
-
         CardManager card_generator = CardManager.getInstance();
         draw = card_generator.generateCards(order);
 
         updateCards();
-
-
         // Shuffle the draw pile so
         Collections.shuffle(draw_pile);
     }
@@ -73,14 +73,10 @@ public class GameManager {
     public void  drawCard() {
         // Draw a card if the draw pile is has cards left and place it into the discard pile
         // and remove the card from the draw pile
-
         if (draw_pile.size() > 0) {
             discard_pile.add(0,draw_pile.get(0));
             draw_pile.remove(0);
         }
-
-
-
     }
 
     public boolean matchItemOnCards(int item){
@@ -95,5 +91,12 @@ public class GameManager {
         return false;
     }
 
+    public void setTheme(int theme){
+        this.theme = theme;
+    }
+
+    public int getTheme() {
+        return theme;
+    }
 
 }

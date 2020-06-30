@@ -18,7 +18,6 @@ public class CardManager {
     private List<int[]> card_list;
     private static CardManager instance;
 
-    private int theme;
 
     //Use singleton to share the data between classes
     private CardManager(){
@@ -80,27 +79,6 @@ public class CardManager {
     }
 
 
-
-
-    public void setTheme(int theme){
-        this.theme = theme;
-    }
-
-    public int getTheme() {
-       return theme;
-    }
-
-    public int[] getDrawCard(){
-        //Grab the top card from the draw pile
-
-        if (card_list.size() != 0){
-            int [] card = card_list.get(0);
-            card_list.remove(0);
-            return card;
-        }
-        //If no cards left
-        return new int[] {-1,-1,-1};
-    }
 
     public List<int[]> getCardList() {
         return card_list;

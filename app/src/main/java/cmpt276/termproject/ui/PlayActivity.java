@@ -4,20 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.print.PrinterId;
+import android.util.Log;
+import android.util.MonthDisplayHelper;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.Card;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity  {
 
-    private GameManager manager;
+    private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,55 +41,20 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         setup();
-
-        //Temp function to show that all cards are created
-        printDrawPile();
-
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        printDrawPile();
-    }
 
 
 
     private void setup(){
-        manager = GameManager.getInstance();
-        manager.createCards();
+        //Setup Game Manager Class
+        gameManager = GameManager.getInstance();
+        gameManager.createCards();
+
+
         setupBackButton();
     }
 
-
-
-    private void printDrawPile(){
-        String str = "";
-        for (Card card : manager.getDrawPile()){
-            if (card == manager.getDrawPile().get(0)) {
-                str = str.concat(card.getImages().toString() + "\n");
-            }
-            else {
-                str = str.concat("[x, x, x]\n");
-            }
-        }
-    }
-
-    private void drawCard(){
-        manager.drawCard();
-        String str = "";
-        //Print Discard Pile
-        for (Card card: manager.getDiscardPile()){
-            if (card == manager.getDiscardPile().get(0)){
-                str = str.concat(card.getImages().toString() + "\n");
-            }
-            else {
-                str = str.concat("[x, x, x]\n");
-            }
-        }
-        //Update Draw Pile
-        printDrawPile();
-    }
 
 
 
@@ -89,9 +70,13 @@ public class PlayActivity extends AppCompatActivity {
         });
     }
 
+
+
+
     public static Intent makeIntent(Context context){
         Intent intent = new Intent(context, PlayActivity.class);
         return intent;
     }
+
 
 }
