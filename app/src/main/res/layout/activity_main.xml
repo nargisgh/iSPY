@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity"
-    android:background="@drawable/superherobackdrop">
+    android:background="@drawable/dc">
 
     <Button
         android:id="@+id/main_play_btn"
@@ -59,7 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Find daMatch"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
