@@ -9,14 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.OptionActivity"></activity>
-        <activity android:name=".ui.HelpActivity" />
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.PlayActivity" />
-        <activity android:name=".ui.SplashActivity">
+
+        <activity android:name=".ui.OptionActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ui.HelpActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ui.MainActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ui.PlayActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ui.SplashActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

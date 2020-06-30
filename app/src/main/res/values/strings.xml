@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Term Project</string>
+    <string name="splash_skip_btn">Tap Here to Skip</string>
+    <string name="splash_quit_btn">Quit</string>
 </resources>

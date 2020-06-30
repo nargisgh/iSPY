@@ -1,6 +1,7 @@
 package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +11,23 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.lang.invoke.ConstantCallSite;
+
 import cmpt276.termproject.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private int SPLASH_TIMER = 2000;
+    ConstraintLayout ws_Layout;
+
+    private int SPLASH_TIMER = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
+
+        ws_Layout = findViewById(R.id.ws_Layout);
+        ws_Layout.setBackgroundResource(R.drawable.bg_welcome);
 
         setupQuitBtn();
         setupSkipBtn();
