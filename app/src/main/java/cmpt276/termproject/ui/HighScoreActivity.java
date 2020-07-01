@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.Highscore;
 
 import android.view.View;
-import android.view.ViewStructure;
 import android.widget.Button;
 import android.widget.TextView;
 
