@@ -15,7 +15,7 @@
         android:fontFamily="@font/press_start_2p"
         android:text="@string/splash_skip_btn"
         android:textAlignment="gravity"
-        android:textColor="#FFF900"
+        android:textColor="#FF5900"
         android:textSize="14sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,6 +1,7 @@
 package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import cmpt276.termproject.R;
 
 public class HelpActivity extends AppCompatActivity {
 
+    ConstraintLayout hs_Layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,9 @@ public class HelpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_help);
 
         setupBackButton();
+
+        hs_Layout = findViewById(R.id.hs_Layout);
+        hs_Layout.setBackgroundResource(R.drawable.bg_help);
     }
 
 
