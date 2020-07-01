@@ -2,4 +2,7 @@
     <string name="app_name">Term Project</string>
     <string name="splash_skip_btn">Tap Here to Skip</string>
     <string name="splash_quit_btn">Quit</string>
+    <string name="splash_title1_text">Superheroes</string>
+    <string name="splash_title2_text">Hypnomob</string>
+    <string name="splash_author_text">A Game By:\nShaheen Eshghi\nHalakseka Jegatheesan\nMikhail Alexeev\nNargis Ghiasi</string>
 </resources>
