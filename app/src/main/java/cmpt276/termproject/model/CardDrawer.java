@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cmpt276.termproject.R;
@@ -34,6 +35,7 @@ public class CardDrawer extends View {
     private List<Integer> images_list;
 
 
+    private List<Bitmap> bitmaps;
     private List<Bitmap> discard_bitmap_list;
     private List<Bitmap> draw_bitmap_list;
     private List<int[]> bitmap_pos;
@@ -47,6 +49,7 @@ public class CardDrawer extends View {
     private void setup(){
         gameManager = GameManager.getInstance();
 
+        bitmaps = new ArrayList<>();
         draw_card_imgs = new ArrayList<>();
         discard_card_imgs = new ArrayList<>();
 
@@ -81,9 +84,12 @@ public class CardDrawer extends View {
         if (gameManager.getTheme() == 2){
             typedArray = getResources().obtainTypedArray(R.array.theme_2_images);
         }
-
+        // Grab the images from the XML all images stored in the imgs_list as drawables
         images_list = new ArrayList<>();
         for (int i = 0; i < typedArray.length(); i ++){
+            //Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), typedArray.getResourceId(i , -1));
+            //Bitmap scaled_bitmap = Bitmap.createScaledBitmap(bitmap,(int) IMG_WIDTH, (int) IMG_HEIGHT, true);
+            //bitmaps.add(scaled_bitmap);
             images_list.add(typedArray.getResourceId(i, -1));
         }
         //Recycle Typed array for garbage collection
@@ -105,6 +111,7 @@ public class CardDrawer extends View {
         //Drawing images around the card evenly distributed
         int section_size = 360 / discard_card_imgs.size();
 
+        Collections.shuffle(discard_card_imgs);
         for (int i = 0 ; i < discard_card_imgs.size() ; i ++) {
 
             //Draw scaled Bitmaps
@@ -112,8 +119,8 @@ public class CardDrawer extends View {
             Bitmap scaled_img = Bitmap.createScaledBitmap(card_img, (int) (IMG_WIDTH ), (int) (IMG_HEIGHT ), true);
 
             ImagePlacer imagePlacer = new ImagePlacer(x, y, section_size, i, scaled_img).invoke();
-            int pos_x = imagePlacer.getPos_x();
-            int pos_y = imagePlacer.getPos_y();
+            int pos_x = imagePlacer.getPosX();
+            int pos_y = imagePlacer.getPosY();
 
             discard_bitmap_list.add(scaled_img);
 
@@ -138,6 +145,7 @@ public class CardDrawer extends View {
             //Drawing images around the card evenly distributed
             int section_size = 360 / draw_card_imgs.size();
 
+            Collections.shuffle(draw_card_imgs);
             for (int i = 0; i < draw_card_imgs.size(); i++) {
                 //TODO: Add rotation offset so the images are not always in the same place
 
@@ -146,8 +154,8 @@ public class CardDrawer extends View {
                 Bitmap scaled_img = Bitmap.createScaledBitmap(card_img, (int) (IMG_WIDTH ), (int) (IMG_HEIGHT ), true);
 
                 ImagePlacer imagePlacer = new ImagePlacer(x, y, section_size, i, scaled_img).invoke();
-                int pos_x = imagePlacer.getPos_x();
-                int pos_y = imagePlacer.getPos_y();
+                int pos_x = imagePlacer.getPosX();
+                int pos_y = imagePlacer.getPosY();
 
                 //Store bitmaps and their respective positions for accessing in the OnTouchEvent
                 //Since the bitmaps do not store any info on position
@@ -238,15 +246,17 @@ public class CardDrawer extends View {
             this.scaled_img = scaled_img;
         }
 
-        public int getPos_x() {
+        public int getPosX() {
             return pos_x;
         }
 
-        public int getPos_y() {
+        public int getPosY() {
             return pos_y;
         }
 
         public ImagePlacer invoke() {
+            // TODO: Randomize the initial degree for placing the items so its not so obvious
+            // TODO: Randomize the x and y coord offsets a bit
             //Get Coordinates for placing bitmap within Circle
             float rad = (float) Math.toRadians( i * section_size);
             int width = (int) (Math.cos(rad) * RADIUS * (0.55f));
