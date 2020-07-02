@@ -61,7 +61,7 @@ public class SplashActivity extends AppCompatActivity {
                             //Check if process is being finished by the quit button, if not
                             // Make the next activity, otherwise exit
                             if (!isFinishing()) {
-                                Intent intent = PlayActivity.makeIntent(SplashActivity.this);
+                                Intent intent = MainActivity.makeIntent(SplashActivity.this);
                                 startActivity(intent);
                                 finish();
                             }

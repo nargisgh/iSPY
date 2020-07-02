@@ -90,8 +90,6 @@ public class Highscore {
 
                 editor.putString(DEFAULT_SCORE_1,"Name:" + username.getString("new username", "") + "Date:" +   LocalDate.now()+"Time:" + time.getString("new time", ""));
 
-
-
             }
 
             else if(latest_time < time2){
@@ -137,9 +135,6 @@ public class Highscore {
 
             }
 
-
-
-
         }
 
         // save name of player
@@ -159,13 +154,6 @@ public class Highscore {
             editor.commit();
 
         }
-
-
-
-
-
-
-
 
     }
 

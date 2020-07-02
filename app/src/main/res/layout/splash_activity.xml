@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SplashActivity"
-    android:background="@drawable/comicvs">
+    tools:context=".ui.SplashActivity">
 
     <TextView
         android:id="@+id/splash_title"
