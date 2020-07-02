@@ -169,6 +169,8 @@ public class PlayActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),entry,Toast.LENGTH_SHORT).show();
                     highscore.setNewValues(PlayActivity.this, entry);
                 }
+                Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
+                startActivity(gameInfo);
                 finish();
             }
         });

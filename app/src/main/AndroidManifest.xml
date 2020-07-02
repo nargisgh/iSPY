@@ -9,18 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.HighScoreActivity"
-        android:screenOrientation="landscape"/>
-        <activity android:name=".ui.OptionActivity"
-        android:screenOrientation="landscape"/>
-        <activity android:name=".ui.HelpActivity"
-        android:screenOrientation="landscape"/>
-        <activity android:name=".ui.MainActivity"
-        android:screenOrientation="landscape"/>
-        <activity android:name=".ui.PlayActivity"
-        android:screenOrientation="landscape"/>
-        <activity android:name=".ui.SplashActivity"
-        android:screenOrientation="landscape">
+        <activity android:name=".ui.PopUp"
+            android:screenOrientation="landscape"
+            android:theme= "@style/AppTheme.Pop"/>
+        <activity
+            android:name=".ui.HighScoreActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.OptionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.HelpActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.PlayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.SplashActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
