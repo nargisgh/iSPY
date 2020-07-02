@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/hs_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HelpActivity"
-    android:id="@+id/hs_Layout">
+    tools:context=".ui.HelpActivity">
 
     <TextView
         android:id="@+id/help_title_text"
@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <Button
         android:id="@+id/help_back_btn"
@@ -41,14 +41,115 @@
         android:id="@+id/help_desc_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#BA787878"
         android:fontFamily="@font/mclaren"
         android:text="@string/help_desc_text"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintVertical_bias="0.52" />
+
+    <TextView
+        android:id="@+id/help_source_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#BA787878"
+        android:fontFamily="@font/mclaren"
+        android:text="@string/help_source_text"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+
+    <TextView
+        android:id="@+id/help_source_text_a1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#BA787878"
+        android:fontFamily="@font/mclaren"
+        android:text="@string/help_source_text_a1"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84000003"
+        android:autoLink="web"
+        android:clickable="true"
+        android:focusable="true"/>
+
+
+    <TextView
+        android:id="@+id/help_source_text_a2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#BA787878"
+        android:fontFamily="@font/mclaren"
+        android:text="@string/help_source_text_a2"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88"
+        android:autoLink="web"
+        android:clickable="true"
+        android:focusable="true"/>
+
+
+    <TextView
+        android:id="@+id/help_source_text_a3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#BA787878"
+        android:fontFamily="@font/mclaren"
+        android:text="@string/help_source_text_a3"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.92"
+        android:autoLink="web"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/help_source_text_a4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#BA787878"
+        android:fontFamily="@font/mclaren"
+        android:text="@string/help_source_text_a4"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96"
+        android:autoLink="web"
+        android:clickable="true"
+        android:focusable="true"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
