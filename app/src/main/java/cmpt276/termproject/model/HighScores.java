@@ -22,13 +22,6 @@ public class HighScores{
     private String name_5;
     private String currentDateTime;
 
-    int score_1 = 5;
-    int score_2 = 4;
-    int score_3 = 3;
-    int score_4 = 2;
-    int score_5 = 1;
-
-
     private List<String> DEFAULT_SCORES = new ArrayList<>();
 
 
@@ -74,8 +67,13 @@ public class HighScores{
 
 
     // get default scores
-    public ArrayList<String> get_default_scores(){
+    public ArrayList<String> get_default_scores(Context context){
         //getScore();
+        arr = new ArrayList<>();
+        SharedPreferences shared_Preferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+        for (int i = 0; i < DEFAULT_SCORES.size(); i ++){
+            arr.add(shared_Preferences.getString(DEFAULT_SCORES.get(i), ""));
+        }
         return arr;
     }
 
@@ -93,7 +91,7 @@ public class HighScores{
         SharedPreferences shared_Preferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
         String newScore= shared_Preferences.getString("New Score","");
         if(newScore.length() == 0){
-            return get_default_scores();
+            return get_default_scores(context);
         }
         else {
             arr.add(newScore);
@@ -108,7 +106,6 @@ public class HighScores{
         editor.putString("New Score", entry);
         editor.apply();
 
-        //updateScores();
     }
 
 
