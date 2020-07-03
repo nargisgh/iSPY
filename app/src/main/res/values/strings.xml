@@ -17,5 +17,13 @@
     <string name="help_source_text_a2">https://www.kissclipart.com/gangster-vector-clipart-gangster-clip-art-3ha157/</string>
     <string name="help_source_text_a3">https://www.hiclipart.com/free-transparent-background-png-clipart-qlhgl</string>
     <string name="help_source_text_a4">https://ideas.ted.com/we-all-need-to-ask-for-help-to-get-through-life-heres-how-not-to-do-it/</string>
+    <string name="help_source_text_a5">https://hdqwalls.com/justice-league-superhero-wallpaper</string>
+    <string name="main_play_btn">Play</string>
+    <string name="main_quit_btn">Quit</string>
+    <string name="main_help_btn">Help</string>
+    <string name="main_option_btn">Options</string>
+    <string name="main_hscore_btn">Highscore</string>
+    <string name="main_title_text">Main Menu</string>
+
 
 </resources>

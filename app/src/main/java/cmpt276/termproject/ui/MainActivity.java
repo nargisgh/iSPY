@@ -13,10 +13,15 @@ import cmpt276.termproject.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    ConstraintLayout mm_Layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mm_Layout = findViewById(R.id.mm_Layout);
+        mm_Layout.setBackgroundResource(R.drawable.bg_menu);
 
         setupPlayButton();
         setupOptionButton();

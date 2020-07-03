@@ -152,4 +152,24 @@
         android:autoLink="web"
         android:clickable="true"
         android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/help_source_text_a5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:background="#BA787878"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/mclaren"
+        android:text="@string/help_source_text_a5"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

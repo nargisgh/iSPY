@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
 
     ConstraintLayout ss_Layout;
 
-    private int SPLASH_TIMER = 5000;
+    private int SPLASH_TIMER = 6000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,10 @@ public class SplashActivity extends AppCompatActivity {
         TextView title2 = findViewById(R.id.splash_title2_text);
         Animation title2_anim = AnimationUtils.loadAnimation(this, R.anim.splash_title2_animation);
         title2.startAnimation(title2_anim);
+
+        TextView skip = findViewById(R.id.splash_skip_btn);
+        Animation skip_anim = AnimationUtils.loadAnimation(this, R.anim.splash_skip_animation);
+        skip.startAnimation(skip_anim);
 
 
         // Multithreaded process that checks that the Animation is finished, waits for SPLASH_TIMER
