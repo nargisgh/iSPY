@@ -2,10 +2,12 @@ package cmpt276.termproject.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import cmpt276.termproject.ui.HighScoreActivity;
@@ -17,8 +19,8 @@ public class HighScores{
     private String name_3;
     private String name_4;
     private String name_5;
-    String currentTime;
-    String currentDate;
+    private String currentTime;
+    private String currentDate;
 
     int score_1 = 5;
     int score_2 = 4;
@@ -26,15 +28,17 @@ public class HighScores{
     int score_4 = 2;
     int score_5 = 1;
 
-    private static final String DEFAULT_SCORE_1 = "default score1";
-    private static final String DEFAULT_SCORE_2 = "default_score2";
-    private static final String DEFAULT_SCORE_3 = "default_score3";
-    private static final String DEFAULT_SCORE_4 = "default_score4";
-    private static final String DEFAULT_SCORE_5 = "default_score5";
+
+    private List<String> DEFAULT_SCORES = new ArrayList<>();
+
 
     ArrayList<String> arr = new ArrayList<>();
 
+    //Signleton Stuff
     private static HighScores instance;
+    private HighScores (){
+        init();
+    }
     public static HighScores getInstance(){
         if (instance == null){
             instance = new HighScores();
@@ -42,32 +46,35 @@ public class HighScores{
         return instance;
     }
 
-    //populate default_scores
-    public void set_default_scores(Context context){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(DEFAULT_SCORE_1, "Score1 Flash Jun 3, 2020 at 14:30");
-        editor.putString(DEFAULT_SCORE_2, "Score2 BigBrain Jun 1, 2020 at 10:00");
-        editor.putString(DEFAULT_SCORE_3, "Score3 SuperMan was here May 25, 2020 at 12:00");
-        editor.putString(DEFAULT_SCORE_4, "Score4 ... May 30, 2020 at 15:32");
-        editor.putString(DEFAULT_SCORE_5, "Score5 MrSlow Jun 2, 2020 at 1:37");
-        editor.apply();
 
-        SharedPreferences shared_Preferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
-        String score1 = shared_Preferences.getString(DEFAULT_SCORE_1,"");
-        String score2 = shared_Preferences.getString(DEFAULT_SCORE_2,"");
-        String score3 = shared_Preferences.getString(DEFAULT_SCORE_3,"");
-        String score4 = shared_Preferences.getString(DEFAULT_SCORE_4,"");
-        String score5 = shared_Preferences.getString(DEFAULT_SCORE_5,"");
-        arr.add(score1);
-        arr.add(score2);
-        arr.add(score3);
-        arr.add(score4);
-        arr.add(score5);
+    //Initialise DEF_Array
+    private void init(){
+        for (int i = 0; i < 5; i ++){
+            DEFAULT_SCORES.add("default_score" + i);
+        }
     }
 
+    //populate default_scores
+    public void set_default_scores(Context context, String[] default_scores){
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        for (int i = 0; i < DEFAULT_SCORES.size(); i ++){
+            editor.putString(DEFAULT_SCORES.get(i), default_scores[i]);
+        }
+        editor.apply();
+
+        //reinitialize the array to so we dont add more than 5 elements
+        arr = new ArrayList<>();
+        SharedPreferences shared_Preferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+        for (int i = 0; i < DEFAULT_SCORES.size(); i ++){
+            arr.add(shared_Preferences.getString(DEFAULT_SCORES.get(i), ""));
+        }
+    }
+
+
     // get default scores
-    public ArrayList<String> get_default_scores(Context context){
+    public ArrayList<String> get_default_scores(){
         //getScore();
         return arr;
     }
@@ -87,15 +94,15 @@ public class HighScores{
         SharedPreferences shared_Preferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
         String newScore= shared_Preferences.getString("New Score","");
         if(newScore.length() == 0){
-            return get_default_scores(context);
-
+            return get_default_scores();
         }
         else {
-            arr.remove(4);
             arr.add(newScore);
             return arr;
         }
     }
+
+
     public void setNewValues(Context context, String entry){
         SharedPreferences new_sharedPreferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = new_sharedPreferences.edit();

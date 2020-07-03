@@ -12,27 +12,28 @@ import cmpt276.termproject.model.Highscore;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
 public class HighScoreActivity extends AppCompatActivity {
 
-    HighScores highscore = new HighScores();
+    private HighScores highscore;
 
-    TextView score1;
-    TextView score2;
-    TextView score3;
-    TextView score4;
-    TextView score5;
+    private List<TextView> scores = new ArrayList<>();
 
-    TextView time1;
-    String currentTime;
+    private TextView time1;
+    private String currentTime;
+
+    private String[] default_scores;
 
     ArrayList<String> arr = new ArrayList<>();
     @Override
@@ -40,13 +41,19 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
 
-        highscore.set_default_scores(HighScoreActivity.this);
 
-        score1 = findViewById(R.id.highscore1);
-        score2 = findViewById(R.id.highscore2);
-        score3 = findViewById(R.id.highscore3);
-        score4 = findViewById(R.id.highscore4);
-        score5 = findViewById(R.id.highscore5);
+        highscore = HighScores.getInstance();
+
+        default_scores = getResources().getStringArray(R.array.default_highscores);
+        highscore.set_default_scores(HighScoreActivity.this, default_scores);
+
+        //Store the Textviews in a list for easier access
+//        scores.add((TextView) findViewById(R.id.highscore1));
+//        scores.add((TextView) findViewById(R.id.highscore2));
+//        scores.add((TextView) findViewById(R.id.highscore3));
+//        scores.add((TextView) findViewById(R.id.highscore4));
+//        scores.add((TextView) findViewById(R.id.highscore5));
+
 
         populateScores();
 
@@ -55,11 +62,19 @@ public class HighScoreActivity extends AppCompatActivity {
     private void populateScores() {
         arr = highscore.getNewscores(HighScoreActivity.this);
 
-        score1.setText(arr.get(0));
-        score2.setText(arr.get(1));
-        score3.setText(arr.get(2));
-        score4.setText(arr.get(3));
-        score5.setText(arr.get(4));
+        LinearLayout layout = findViewById(R.id.highscores_layout);
+        layout.removeAllViews();
+        for (int i = 0 ; i < arr.size(); i ++) {
+            TextView score_text = new TextView(this);
+            score_text.setText(arr.get(i));
+            score_text.setTextAppearance(R.style.highscore_text);
+            layout.addView(score_text);
+        }
+
+        for (int i = 0 ; i < scores.size(); i ++){
+            scores.get(i).setText(arr.get(i));
+        }
+
         Toast.makeText(getApplicationContext(),highscore.getScore(),Toast.LENGTH_SHORT).show();
 
         /*time1 = findViewById(R.id.Time1);
@@ -77,9 +92,8 @@ public class HighScoreActivity extends AppCompatActivity {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                highscore.set_default_scores(HighScoreActivity.this);
+                highscore.set_default_scores(HighScoreActivity.this,default_scores);
                 populateScores();
-
             }
         });
     }
