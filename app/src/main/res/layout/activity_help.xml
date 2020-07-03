@@ -45,13 +45,13 @@
         android:fontFamily="@font/mclaren"
         android:text="@string/help_desc_text"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52" />
+        app:layout_constraintVertical_bias="0.45" />
 
     <TextView
         android:id="@+id/help_source_text"
@@ -68,14 +68,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.7" />
 
 
     <TextView
         android:id="@+id/help_source_text_a1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoLink="web"
         android:background="#BA787878"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/mclaren"
         android:text="@string/help_source_text_a1"
         android:textColor="#FFFFFF"
@@ -86,17 +89,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84000003"
-        android:autoLink="web"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:layout_constraintVertical_bias="0.74" />
 
 
     <TextView
         android:id="@+id/help_source_text_a2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoLink="web"
         android:background="#BA787878"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/mclaren"
         android:text="@string/help_source_text_a2"
         android:textColor="#FFFFFF"
@@ -107,17 +110,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88"
-        android:autoLink="web"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:layout_constraintVertical_bias="0.78" />
 
 
     <TextView
         android:id="@+id/help_source_text_a3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoLink="web"
         android:background="#BA787878"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/mclaren"
         android:text="@string/help_source_text_a3"
         android:textColor="#FFFFFF"
@@ -128,16 +131,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92"
-        android:autoLink="web"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:layout_constraintVertical_bias="0.82" />
 
     <TextView
         android:id="@+id/help_source_text_a4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoLink="web"
         android:background="#BA787878"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/mclaren"
         android:text="@string/help_source_text_a4"
         android:textColor="#FFFFFF"
@@ -148,10 +151,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96"
-        android:autoLink="web"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:layout_constraintVertical_bias="0.86" />
 
     <TextView
         android:id="@+id/help_source_text_a5"
@@ -171,5 +171,25 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.9" />
+
+    <TextView
+        android:id="@+id/help_source_text_a6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:background="#BA787878"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/mclaren"
+        android:text="@string/help_source_text_a6"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.94" />
 </androidx.constraintlayout.widget.ConstraintLayout>
