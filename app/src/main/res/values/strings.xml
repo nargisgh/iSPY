@@ -18,12 +18,18 @@
     <string name="help_source_text_a3">https://www.hiclipart.com/free-transparent-background-png-clipart-qlhgl</string>
     <string name="help_source_text_a4">https://ideas.ted.com/we-all-need-to-ask-for-help-to-get-through-life-heres-how-not-to-do-it/</string>
     <string name="help_source_text_a5">https://hdqwalls.com/justice-league-superhero-wallpaper</string>
+    <string name="help_source_text_a6">https://www.shutterstock.com/video/clip-1021427137-settings-icon-animation-black-background-design-video</string>
     <string name="main_play_btn">Play</string>
     <string name="main_quit_btn">Quit</string>
     <string name="main_help_btn">Help</string>
     <string name="main_option_btn">Options</string>
     <string name="main_hscore_btn">Highscore</string>
     <string name="main_title_text">Main Menu</string>
+    <string name="options_back_btn">Back</string>
+    <string name="options_rgheader_text">Choose a theme:</string>
+    <string name="options_hypno_rbtn">HypnomobⓇ</string>
+    <string name="options_heroes_rbtn">Superheroes</string>
+    <string name="options_title_text">Options</string>
 
 
 </resources>
