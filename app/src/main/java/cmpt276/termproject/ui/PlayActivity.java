@@ -4,35 +4,42 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.Card;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
+import cmpt276.termproject.model.HighScores;
 
 public class PlayActivity extends AppCompatActivity  {
 
+    SharedPreferences preferences;
     private GameManager gameManager;
     CardDrawer cardDrawerCanvas;
 
     private GameManager manager;
+    int score;
+    String name;
+    String dateTime;
+    String entry;
+    String time;
+    private Chronometer chronometer;
+    EditText inputName;
+
+    HighScores highscore = HighScores.getInstance();
     public MusicManager musicManager;
 
     @Override
@@ -40,6 +47,11 @@ public class PlayActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        inputName = findViewById(R.id.inputName);
+        inputName.setFocusable(false);
+        chronometer = findViewById(R.id.stopwatch);
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
         musicManager = MusicManager.getInstance();
         setup();
 
@@ -48,6 +60,31 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
 
+
+    //add entry of name etc for Highscores.
+    private void addHighScore() {
+        inputName.setFocusableInTouchMode(true);
+        name = inputName.getText().toString();
+        int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
+        LocalTime score = LocalTime.ofSecondOfDay(elapsed);
+        String time = score.toString();
+        Toast.makeText(getApplicationContext(),time,Toast.LENGTH_SHORT).show();
+        if(name.length()!=0){
+            entry = (""+time+" "+name+" "+highscore.getCurrentDateTime());
+            Toast.makeText(getApplicationContext(),entry,Toast.LENGTH_SHORT).show();
+            highscore.setNewValues(PlayActivity.this, entry);
+        }
+        /*
+         * name = getUser nickname;
+         * current time = time user starts playing, call getCurrentTime();
+         * score = what timer collects how long they play for, after finally finding all images ends
+         *
+         * entry = (score+ " "+name+ " " + highscore.getCurrentDate() +" at "+ currentTime);
+         * highscore.setNewValues(PlayActivity.this, entry);
+         *
+         * */
+
+    }
 
 
     private void setup(){
@@ -79,6 +116,25 @@ public class PlayActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 musicManager.play();
+                inputName.setFocusableInTouchMode(true);
+                name = inputName.getText().toString();
+                if(name.length()!=0){
+                    int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
+                    LocalTime score = LocalTime.ofSecondOfDay(elapsed);
+                    time = score.toString();
+                    dateTime = highscore.getCurrentDateTime();
+                    Toast.makeText(getApplicationContext(),time,Toast.LENGTH_SHORT).show();
+                    entry = (""+time+" "+name+" "+dateTime);
+                    Toast.makeText(getApplicationContext(),entry,Toast.LENGTH_SHORT).show();
+                    highscore.setNewValues(PlayActivity.this, entry);
+
+                    Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
+                    gameInfo.putExtra("name", name);
+                    gameInfo.putExtra("dateTime", dateTime);
+                    gameInfo.putExtra("time",time);
+                    startActivity(gameInfo);
+                }
+
                 finish();
             }
         });
