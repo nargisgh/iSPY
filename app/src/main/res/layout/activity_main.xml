@@ -11,53 +11,86 @@
         android:id="@+id/main_play_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="Play"
-        app:layout_constraintBottom_toTopOf="@+id/main_option_btn"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/main_play_btn"
+        android:textColor="#FF5900"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
     <Button
         android:id="@+id/main_quit_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:text="Quit"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/main_quit_btn"
+        android:textColor="#FF5900"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
     <Button
         android:id="@+id/main_help_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="Help"
-        app:layout_constraintBottom_toTopOf="@+id/main_quit_btn"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/main_help_btn"
+        android:textColor="#FF5900"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
     <Button
         android:id="@+id/main_option_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="Options"
-        app:layout_constraintBottom_toTopOf="@+id/main_help_btn"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/main_option_btn"
+        android:textColor="#FF5900"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <Button
+        android:id="@+id/main_hscore_btn"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/main_hscore_btn"
+        android:textColor="#FF5900"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/main_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:text="Find daMatch"
-        android:textSize="24sp"
+        android:fontFamily="@font/faster_one"
+        android:text="@string/main_title_text"
+        android:textColor="#FF0000"
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

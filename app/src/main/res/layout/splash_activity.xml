@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SplashActivity"
-    android:id="@+id/ws_Layout">
+    android:id="@+id/ss_Layout">
 
     <Button
         android:id="@+id/splash_skip_btn"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="#00FFFFFF"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/press_start_2p"
         android:text="@string/splash_skip_btn"
-        android:textSize="18sp"
+        android:textAlignment="gravity"
+        android:textColor="#FF5900"
+        android:textSize="14sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,22 +27,60 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="#00FFFFFF"
-        android:fontFamily="serif-monospace"
+        android:fontFamily="monospace"
         android:text="@string/splash_quit_btn"
-        android:textSize="18sp"
+        android:textAlignment="gravity"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="48dp" />
 
     <TextView
-        android:id="@+id/splash_title"
+        android:id="@+id/splash_title1_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Superheros vs Hypnomob"
+        android:fontFamily="@font/faster_one"
+        android:text="@string/splash_title1_text"
+        android:textColor="#00FFD8"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <TextView
+        android:id="@+id/splash_title2_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/faster_one"
+        android:text="@string/splash_title2_text"
+        android:textColor="#00FFD8"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    <TextView
+        android:id="@+id/splash_author_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mclaren"
+        android:text="@string/splash_author_text"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.41000003" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
