@@ -5,7 +5,8 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PlayActivity">
+    tools:context=".ui.PlayActivity"
+    android:id="@+id/ps_Layout">
 
 
         <cmpt276.termproject.model.CardDrawer

@@ -11,12 +11,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.print.PrinterId;
-import android.util.Log;
-import android.util.MonthDisplayHelper;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -30,18 +24,22 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.Card;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
+import cmpt276.termproject.model.MusicManager;
 
 public class PlayActivity extends AppCompatActivity  {
 
     private GameManager gameManager;
     CardDrawer cardDrawerCanvas;
 
+    private GameManager manager;
+    public MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        musicManager = MusicManager.getInstance();
         setup();
 
         cardDrawerCanvas = findViewById(R.id.card_canvas);
@@ -79,6 +77,7 @@ public class PlayActivity extends AppCompatActivity  {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                musicManager.play();
                 finish();
             }
         });

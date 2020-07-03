@@ -1,6 +1,7 @@
 package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,16 +10,24 @@ import android.view.View;
 import android.widget.Button;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.MusicManager;
 
 public class HelpActivity extends AppCompatActivity {
 
+    ConstraintLayout hs_Layout;
+    public MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
+        musicManager = MusicManager.getInstance();
+        musicManager.play();
         setupBackButton();
+
+        hs_Layout = findViewById(R.id.hs_Layout);
+        hs_Layout.setBackgroundResource(R.drawable.bg_help);
     }
 
 

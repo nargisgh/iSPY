@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">Term Project</string>
+    <string name="splash_skip_btn">Tap Here to Skip</string>
+    <string name="splash_quit_btn">Quit</string>
+    <string name="splash_title1_text">Superheroes</string>
+    <string name="splash_title2_text">Hypnomob</string>
+    <string name="splash_author_text">A Game By:\nShaheen Eshghi\nHalakseka Jegatheesan\nMikhail Alexeev\nNargis Ghiasi</string>
+    <string name="help_title_text">Help</string>
+    <string name="help_back_btn">Back</string>
+    <string name="help_desc_text">Every round there will be two cards displayed on the screen. Each card will have 3 themed pictures displayed on it.
+        The cards will have some pictures in common with each other. Your task is to find which pictures are shared between the two cards and you must
+        do so in the least time possible. You can choose a theme for the pictures through the options menu. Choose the superheroes theme for a lower difficulty
+        and the patterns theme for a more challenging game.
+    </string>
+    <string name="help_source_text">Sources:</string>
+    <string name="help_source_text_a1">https://www.creativefabrica.com/product/versus-screen/</string>
+    <string name="help_source_text_a2">https://www.kissclipart.com/gangster-vector-clipart-gangster-clip-art-3ha157/</string>
+    <string name="help_source_text_a3">https://www.hiclipart.com/free-transparent-background-png-clipart-qlhgl</string>
+    <string name="help_source_text_a4">https://ideas.ted.com/we-all-need-to-ask-for-help-to-get-through-life-heres-how-not-to-do-it/</string>
+    <string name="help_source_text_a5">https://hdqwalls.com/justice-league-superhero-wallpaper</string>
+    <string name="help_source_text_a6">https://www.shutterstock.com/video/clip-1021427137-settings-icon-animation-black-background-design-video</string>
+    <string name="main_play_btn">Play</string>
+    <string name="main_quit_btn">Quit</string>
+    <string name="main_help_btn">Help</string>
+    <string name="main_option_btn">Options</string>
+    <string name="main_hscore_btn">Highscore</string>
+    <string name="main_title_text">Main Menu</string>
+    <string name="options_back_btn">Back</string>
+    <string name="options_rgheader_text">Choose a theme:</string>
+    <string name="options_hypno_rbtn">HypnomobⓇ</string>
+    <string name="options_heroes_rbtn">Superheroes</string>
+    <string name="options_title_text">Options</string>
+
+
 </resources>
