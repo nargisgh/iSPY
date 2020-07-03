@@ -47,14 +47,6 @@ public class HighScoreActivity extends AppCompatActivity {
         default_scores = getResources().getStringArray(R.array.default_highscores);
         highscore.set_default_scores(HighScoreActivity.this, default_scores);
 
-        //Store the Textviews in a list for easier access
-//        scores.add((TextView) findViewById(R.id.highscore1));
-//        scores.add((TextView) findViewById(R.id.highscore2));
-//        scores.add((TextView) findViewById(R.id.highscore3));
-//        scores.add((TextView) findViewById(R.id.highscore4));
-//        scores.add((TextView) findViewById(R.id.highscore5));
-
-
         populateScores();
 
     }
