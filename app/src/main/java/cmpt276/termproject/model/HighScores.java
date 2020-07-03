@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,8 +20,7 @@ public class HighScores{
     private String name_3;
     private String name_4;
     private String name_5;
-    private String currentTime;
-    private String currentDate;
+    private String currentDateTime;
 
     int score_1 = 5;
     int score_2 = 4;
@@ -79,15 +79,14 @@ public class HighScores{
         return arr;
     }
 
-    public String getCurrentTime() {
-        return currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-    }
-    public String getCurrentDate(){
-        return currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+    public String getCurrentDateTime(){
+        Date date = new Date();
+        return currentDateTime = DateFormat.getDateTimeInstance().format(date);
     }
 
     public void AddEntry(String name, String score, String time){
-        String entry = (score+ " "+name+ " " + getCurrentDate() +" at "+ time);
+        String entry = (score+ " "+name+ " " + getCurrentDateTime());
     }
 
     public ArrayList<String> getNewscores(Context context){

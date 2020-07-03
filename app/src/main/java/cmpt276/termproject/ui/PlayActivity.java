@@ -30,9 +30,10 @@ public class PlayActivity extends AppCompatActivity {
     SharedPreferences preferences;
     private GameManager manager;
     int score;
-    String currentTime;
     String name;
+    String dateTime;
     String entry;
+    String time;
     private Chronometer chronometer;
     EditText inputName;
 
@@ -70,10 +71,9 @@ public class PlayActivity extends AppCompatActivity {
         int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
         LocalTime score = LocalTime.ofSecondOfDay(elapsed);
         String time = score.toString();
-        currentTime = getCurrentTime();
         Toast.makeText(getApplicationContext(),time,Toast.LENGTH_SHORT).show();
         if(name.length()!=0){
-            entry = (""+time+" "+name+" "+highscore.getCurrentDate()+" at "+ currentTime);
+            entry = (""+time+" "+name+" "+highscore.getCurrentDateTime());
             Toast.makeText(getApplicationContext(),entry,Toast.LENGTH_SHORT).show();
             highscore.setNewValues(PlayActivity.this, entry);
         }
@@ -89,9 +89,6 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
-    public String getCurrentTime() {
-        return currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-    }
 
     private void setup(){
         manager = GameManager.getInstance();
@@ -148,9 +145,7 @@ public class PlayActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);
@@ -162,15 +157,20 @@ public class PlayActivity extends AppCompatActivity {
                 if(name.length()!=0){
                     int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
                     LocalTime score = LocalTime.ofSecondOfDay(elapsed);
-                    String time = score.toString();
-                    currentTime = getCurrentTime();
+                    time = score.toString();
+                    dateTime = highscore.getCurrentDateTime();
                     Toast.makeText(getApplicationContext(),time,Toast.LENGTH_SHORT).show();
-                    entry = (""+time+" "+name+" "+highscore.getCurrentDate()+" at "+ currentTime);
+                    entry = (""+time+" "+name+" "+dateTime);
                     Toast.makeText(getApplicationContext(),entry,Toast.LENGTH_SHORT).show();
                     highscore.setNewValues(PlayActivity.this, entry);
+
+                    Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
+                    gameInfo.putExtra("name", name);
+                    gameInfo.putExtra("dateTime", dateTime);
+                    gameInfo.putExtra("time",time);
+                    startActivity(gameInfo);
                 }
-                Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
-                startActivity(gameInfo);
+
                 finish();
             }
         });
