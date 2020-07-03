@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupHighscoreButton() {
-        Button highscore = (Button) findViewById(R.id.main_highscore_btn);
+        Button highscore = (Button) findViewById(R.id.main_hscore_btn);
         highscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
