@@ -1,13 +1,33 @@
 package cmpt276.termproject.model;
 
+
+
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /// Translated into Java from the python file that was provided at :
 /// https://github.com/WRadigan/pySpot-It
 
 
-public class DrawGenerator {
+public class CardManager {
+
+    private List<int[]> card_list;
+    private static CardManager instance;
+
+
+    //Use singleton to share the data between classes
+    private CardManager(){
+    }
+    public static CardManager getInstance(){
+        if (instance == null){
+            instance = new CardManager();
+        }
+        return instance;
+    }
 
 
     public List<int[]> generateCards(int p){
@@ -50,7 +70,17 @@ public class DrawGenerator {
             temp[i] = p * p + i;
         }
         cards.add(temp);
+
+        // Shuffle the cards before returning them
+        Collections.shuffle(cards);
+        card_list = cards;
+
         return cards;
     }
 
+
+
+    public List<int[]> getCardList() {
+        return card_list;
+    }
 }

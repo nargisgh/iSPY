@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="theme_1_images">
+        <item>@drawable/test</item>
+        <item>@drawable/test</item>
+        <item>@drawable/test</item>
+        <item>@drawable/test</item>
+        <item>@drawable/test</item>
+        <item>@drawable/test</item>
+        <item>@drawable/test</item>
+    </integer-array>
+
+    <integer-array name="theme_2_images">
+        <item>@drawable/circle</item>
+        <item>@drawable/square</item>
+        <item>@drawable/triangle</item>
+        <item>@drawable/shape4</item>
+        <item>@drawable/shape5</item>
+        <item>@drawable/shape6</item>
+        <item>@drawable/shape7</item>
+    </integer-array>
+
+
+</resources>

@@ -7,27 +7,29 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.print.PrinterId;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.Locale;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.Card;
+import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
+import cmpt276.termproject.model.MusicManager;
 import cmpt276.termproject.model.HighScores;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity  {
 
     SharedPreferences preferences;
+    private GameManager gameManager;
+    CardDrawer cardDrawerCanvas;
+
     private GameManager manager;
     int score;
     String name;
@@ -38,6 +40,7 @@ public class PlayActivity extends AppCompatActivity {
     EditText inputName;
 
     HighScores highscore = HighScores.getInstance();
+    public MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +52,13 @@ public class PlayActivity extends AppCompatActivity {
         chronometer = findViewById(R.id.stopwatch);
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
+        musicManager = MusicManager.getInstance();
         setup();
 
-        //Temp function to show that all cards are created
-        printDrawPile();
-        tempDrawButton();
+        cardDrawerCanvas = findViewById(R.id.card_canvas);
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        printDrawPile();
-    }
 
 
     //add entry of name etc for Highscores.
@@ -91,67 +88,34 @@ public class PlayActivity extends AppCompatActivity {
 
 
     private void setup(){
-        manager = GameManager.getInstance();
-        manager.createCards();
+        //Setup Game Manager Class
+        gameManager = GameManager.getInstance();
+        gameManager.createCards();
+
         setupBackButton();
     }
 
-    private void printDrawPile(){
 
-        TextView txt = findViewById(R.id.draw_pile);
-        String str = "";
-        for (Card card : manager.getDrawPile()){
-            if (card == manager.getDrawPile().get(0)) {
-                str = str.concat(card.getImages().toString() + "\n");
-            }
-            else {
-                str = str.concat("[x, x, x]\n");
-            }
+    //TODO: GAME OVER POPUP
+    //TODO: TIMER
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (gameManager.getDrawPile().size() == 0){
+            //PLACE CODE FOR THE GAME OVER POPUP IN HERE
+            Toast.makeText(getApplicationContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
         }
-        txt.setText(str);
-        if(str == ""){
-            chronometer.stop();
-            addHighScore();
-        }
-    }
-
-
-    private void drawCard(){
-        manager.drawCard();
-        TextView txt = findViewById(R.id.discard_pile);
-        String str = "";
-        //Print Discard Pile
-        for (Card card: manager.getDiscardPile()){
-            if (card == manager.getDiscardPile().get(0)){
-                str = str.concat(card.getImages().toString() + "\n");
-            }
-            else {
-                str = str.concat("[x, x, x]\n");
-            }
-        }
-        txt.setText(str);
-        //Update Draw Pile
-        printDrawPile();
+        return super.onTouchEvent(event);
     }
 
 
 
-    private void tempDrawButton(){
-        Button btn = findViewById(R.id.draw_button);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawCard();
-
-            }
-        });
-    }
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                musicManager.play();
                 inputName.setFocusableInTouchMode(true);
                 name = inputName.getText().toString();
                 if(name.length()!=0){
@@ -176,9 +140,13 @@ public class PlayActivity extends AppCompatActivity {
         });
     }
 
+
+
+
     public static Intent makeIntent(Context context){
         Intent intent = new Intent(context, PlayActivity.class);
         return intent;
     }
+
 
 }
