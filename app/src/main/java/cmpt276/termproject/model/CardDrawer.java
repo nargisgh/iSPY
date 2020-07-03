@@ -28,14 +28,12 @@ public class CardDrawer extends View {
 
     //TODO : Draw the Draw and Discard Piles
 
-
     private GameManager gameManager;
     private List<Integer> draw_card_imgs;
     private List<Integer> discard_card_imgs;
     private List<Integer> images_list;
 
 
-    private List<Bitmap> bitmaps;
     private List<Bitmap> discard_bitmap_list;
     private List<Bitmap> draw_bitmap_list;
     private List<int[]> bitmap_pos;
@@ -49,7 +47,6 @@ public class CardDrawer extends View {
     private void setup(){
         gameManager = GameManager.getInstance();
 
-        bitmaps = new ArrayList<>();
         draw_card_imgs = new ArrayList<>();
         discard_card_imgs = new ArrayList<>();
 
@@ -87,9 +84,6 @@ public class CardDrawer extends View {
         // Grab the images from the XML all images stored in the imgs_list as drawables
         images_list = new ArrayList<>();
         for (int i = 0; i < typedArray.length(); i ++){
-            //Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), typedArray.getResourceId(i , -1));
-            //Bitmap scaled_bitmap = Bitmap.createScaledBitmap(bitmap,(int) IMG_WIDTH, (int) IMG_HEIGHT, true);
-            //bitmaps.add(scaled_bitmap);
             images_list.add(typedArray.getResourceId(i, -1));
         }
         //Recycle Typed array for garbage collection
@@ -118,14 +112,12 @@ public class CardDrawer extends View {
             Bitmap card_img = BitmapFactory.decodeResource(getContext().getResources(), discard_card_imgs.get(i));
             Bitmap scaled_img = Bitmap.createScaledBitmap(card_img, (int) (IMG_WIDTH ), (int) (IMG_HEIGHT ), true);
 
-            ImagePlacer imagePlacer = new ImagePlacer(x, y, section_size, i, scaled_img).invoke();
-            int pos_x = imagePlacer.getPosX();
-            int pos_y = imagePlacer.getPosY();
+            ImagePlacer imagePlacer = new ImagePlacer().invoke(x, y, section_size, i, scaled_img);
 
             discard_bitmap_list.add(scaled_img);
 
             //Draw Bitmap
-            canvas.drawBitmap(scaled_img,pos_x ,pos_y , null);
+            canvas.drawBitmap(scaled_img, imagePlacer.getPosX() , imagePlacer.getPosY() , null);
         }
     }
 
@@ -153,7 +145,7 @@ public class CardDrawer extends View {
                 Bitmap card_img = BitmapFactory.decodeResource(getContext().getResources(), draw_card_imgs.get(i));
                 Bitmap scaled_img = Bitmap.createScaledBitmap(card_img, (int) (IMG_WIDTH ), (int) (IMG_HEIGHT ), true);
 
-                ImagePlacer imagePlacer = new ImagePlacer(x, y, section_size, i, scaled_img).invoke();
+                ImagePlacer imagePlacer = new ImagePlacer().invoke(x, y, section_size, i, scaled_img);
                 int pos_x = imagePlacer.getPosX();
                 int pos_y = imagePlacer.getPosY();
 
@@ -161,6 +153,7 @@ public class CardDrawer extends View {
                 //Since the bitmaps do not store any info on position
                 draw_bitmap_list.add(scaled_img);
                 bitmap_pos.add(new int[]{pos_x, pos_y});
+
                 //Draw Bitmap
                 canvas.drawBitmap(scaled_img, pos_x, pos_y, null);
             }
@@ -213,7 +206,6 @@ public class CardDrawer extends View {
                 if (x > pos_x && x < pos_x + width && y > pos_y && y < pos_y + height) {
                     for (int j = 0 ; j < discard_bitmap_list.size(); j ++ ){
                         if (draw_bitmap_list.get(i).sameAs(discard_bitmap_list.get(j))){
-                            Toast.makeText(getContext(), "Found Pair"  , Toast.LENGTH_SHORT).show();
                             invalidate();
                             discard_bitmap_list = new ArrayList<>();
                             draw_bitmap_list = new ArrayList<>();
@@ -227,34 +219,22 @@ public class CardDrawer extends View {
         return false;
     }
 
+
     // Sub Class for placing Images on the cards, (probably better way to do this, I just used the
     // default Extract Method in Android Studio)
     private class ImagePlacer {
-        private float x;
-        private float y;
-        private int section_size;
-        private int i;
-        private Bitmap scaled_img;
         private int pos_x;
         private int pos_y;
 
-        public ImagePlacer(float x, float y, int section_size, int i, Bitmap scaled_img ) {
-            this.x = x;
-            this.y = y;
-            this.section_size = section_size;
-            this.i = i;
-            this.scaled_img = scaled_img;
-        }
-
-        public int getPosX() {
+        int getPosX() {
             return pos_x;
         }
 
-        public int getPosY() {
+        int getPosY() {
             return pos_y;
         }
 
-        public ImagePlacer invoke() {
+        ImagePlacer invoke(float x, float y, int section_size, int i, Bitmap scaled_img) {
             // TODO: Randomize the initial degree for placing the items so its not so obvious
             // TODO: Randomize the x and y coord offsets a bit
             //Get Coordinates for placing bitmap within Circle

@@ -34,6 +34,8 @@ import cmpt276.termproject.model.GameManager;
 public class PlayActivity extends AppCompatActivity  {
 
     private GameManager gameManager;
+    CardDrawer cardDrawerCanvas;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,9 @@ public class PlayActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_play);
 
         setup();
+
+        cardDrawerCanvas = findViewById(R.id.card_canvas);
+
     }
 
 
@@ -51,11 +56,20 @@ public class PlayActivity extends AppCompatActivity  {
         gameManager = GameManager.getInstance();
         gameManager.createCards();
 
-
         setupBackButton();
     }
 
 
+    //TODO: GAME OVER POPUP
+    //TODO: TIMER
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (gameManager.getDrawPile().size() == 0){
+            //PLACE CODE FOR THE GAME OVER POPUP IN HERE
+            Toast.makeText(getApplicationContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
+        }
+        return super.onTouchEvent(event);
+    }
 
 
 
