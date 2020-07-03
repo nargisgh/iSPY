@@ -46,13 +46,12 @@ public class HighScoreActivity extends AppCompatActivity {
 
         default_scores = getResources().getStringArray(R.array.default_highscores);
         highscore.set_default_scores(HighScoreActivity.this, default_scores);
-
+        arr = highscore.getNewscores(HighScoreActivity.this);
         populateScores();
 
     }
 
     private void populateScores() {
-        arr = highscore.getNewscores(HighScoreActivity.this);
 
         LinearLayout layout = findViewById(R.id.highscores_layout);
         layout.removeAllViews();
@@ -85,6 +84,7 @@ public class HighScoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 highscore.set_default_scores(HighScoreActivity.this,default_scores);
+                arr = highscore.get_default_scores(HighScoreActivity.this);
                 populateScores();
             }
         });

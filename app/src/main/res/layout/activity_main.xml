@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity"
-    android:id="@+id/mm_Layout">
+    android:id="@+id/mm_Layout"
+    android:background="@drawable/dc">
 
     <Button
         android:id="@+id/main_play_btn"
