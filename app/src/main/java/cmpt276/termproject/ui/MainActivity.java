@@ -10,19 +10,22 @@ import android.view.View;
 import android.widget.Button;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.MusicManager;
 
 public class MainActivity extends AppCompatActivity {
 
     ConstraintLayout mm_Layout;
+    public MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        musicManager = MusicManager.getInstance();
+        musicManager.play();
 
         mm_Layout = findViewById(R.id.mm_Layout);
         mm_Layout.setBackgroundResource(R.drawable.bg_menu);
-
         setupPlayButton();
         setupOptionButton();
         setupHelpButton();
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = PlayActivity.makeIntent(MainActivity.this);
+                musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = OptionActivity.makeIntent(MainActivity.this);
+                musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = HelpActivity.makeIntent(MainActivity.this);
+                musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -74,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         qt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                musicManager.stop();
                 finish();
             }
         });

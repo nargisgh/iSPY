@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.print.PrinterId;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,17 +12,19 @@ import android.widget.TextView;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.Card;
 import cmpt276.termproject.model.GameManager;
+import cmpt276.termproject.model.MusicManager;
 
 public class PlayActivity extends AppCompatActivity {
 
     private GameManager manager;
+    public MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-
+        musicManager = MusicManager.getInstance();
         setup();
 
         //Temp function to show that all cards are created
@@ -99,6 +100,7 @@ public class PlayActivity extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                musicManager.play();
                 finish();
             }
         });

@@ -6,22 +6,24 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.MusicManager;
 
 public class OptionActivity extends AppCompatActivity {
 
     ConstraintLayout os_Layout;
+    public MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
+        musicManager = MusicManager.getInstance();
+        musicManager.play();
         os_Layout = findViewById(R.id.os_Layout);
         os_Layout.setBackgroundResource(R.drawable.bg_options);
 

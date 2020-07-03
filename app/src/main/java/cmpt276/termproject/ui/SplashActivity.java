@@ -4,27 +4,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.MusicManager;
 
 public class SplashActivity extends AppCompatActivity {
 
     ConstraintLayout ss_Layout;
 
     private int SPLASH_TIMER = 6000;
+    public MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
-
+        musicManager = MusicManager.getInstance();
+        musicManager.setThemeSong(SplashActivity.this);
+        musicManager.play();
+        // for audio https://www.youtube.com/watch?v=cVq4zJ1WbaQ
         ss_Layout = findViewById(R.id.ss_Layout);
         ss_Layout.setBackgroundResource(R.drawable.bg_welcome);
 
@@ -75,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
                             // Make the next activity, otherwise exit
                             if (!isFinishing()) {
                                 Intent intent = MainActivity.makeIntent(SplashActivity.this);
+                                musicManager.pause();
                                 startActivity(intent);
                                 finish();
                             }
@@ -98,6 +104,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = MainActivity.makeIntent(SplashActivity.this);
+                musicManager.pause();
                 startActivity(intent);
                 finish();
             }
@@ -110,6 +117,7 @@ public class SplashActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                musicManager.stop();
                 finish();
             }
         });
