@@ -4,24 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
-import cmpt276.termproject.model.Highscore;
 
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 public class HighScoreActivity extends AppCompatActivity {
@@ -32,7 +29,11 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private TextView time1;
     private String currentTime;
-
+    TableLayout table;
+    TableRow row;
+    TextView username;
+    TextView score;
+    TextView Date_Time;
     private String[] default_scores;
 
     ArrayList<String> arr = new ArrayList<>();
@@ -52,6 +53,40 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     private void populateScores() {
+        table = findViewById(R.id.table);
+        table.setColumnStretchable(0,true);
+        table.setColumnStretchable(1,true);
+        table.setColumnStretchable(2,true);
+        for(int i = 0; i<arr.size();i++){
+            row = new TableRow(this);
+            username = new TextView(this);
+            score = new TextView(this);
+            Date_Time = new TextView(this);
+
+            username.setText(arr.get(i).split(" ")[1]);
+            username.setGravity(Gravity.CENTER);
+            username.setTextSize(25);
+            username.setTextColor(Color.WHITE);
+            score.setText(arr.get(i).split(" ")[0]);
+            score.setGravity(Gravity.CENTER);
+            score.setTextSize(25);
+            score.setTextColor(Color.WHITE);
+            Date_Time.setText(arr.get(i).split(" ")[3]);
+            Date_Time.setGravity(Gravity.CENTER);
+            Date_Time.setTextSize(15);
+            Date_Time.setTextColor(Color.WHITE);
+            row.addView(username);
+            row.addView(score);
+            row.addView(Date_Time);
+            table.addView(row);
+        }
+
+        setupResetbtn();
+        //https://www.youtube.com/watch?v=iSCtFzbC7kA
+
+    }
+
+    /*private void populateScores() {
 
         LinearLayout layout = findViewById(R.id.highscores_layout);
         layout.removeAllViews();
@@ -72,9 +107,9 @@ public class HighScoreActivity extends AppCompatActivity {
         currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         time1.setText(currentTime);*/
 
-        setupResetbtn();
-
-    }
+       // setupResetbtn();
+/*
+    }*/
 
 
     // button to reset back to default scores
