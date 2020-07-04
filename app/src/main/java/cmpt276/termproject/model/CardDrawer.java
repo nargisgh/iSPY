@@ -69,8 +69,8 @@ public class CardDrawer extends View {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.GRAY);
 
-        drawCard((getWidth() / 2f),(getHeight() / 2f) + RADIUS );
-        discard((getWidth() / 2f),(getHeight() / 2f) - RADIUS);
+        drawCard((getWidth() / 2f) + RADIUS,(getHeight() / 2f) );
+        discard((getWidth() / 2f)- RADIUS,(getHeight() / 2f) );
 
     }
 
