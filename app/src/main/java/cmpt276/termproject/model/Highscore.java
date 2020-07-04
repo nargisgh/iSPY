@@ -123,8 +123,7 @@ public class Highscore {
             String temp = score4;
             score4 = entry;
             score5 = temp;
-
-
+            
             // shifting down the list
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("score4", score4);
