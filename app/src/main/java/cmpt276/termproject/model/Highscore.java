@@ -12,15 +12,164 @@ import java.util.Collections;
 
 public class Highscore {
 
-
-//    // default times for comparison
-//    private int time1 = convert_min_to_secs("2:30");
-//    private int time2 = convert_min_to_secs("3:00");
-//    private int time3 = convert_min_to_secs("3:10");
-//    private int time4 = convert_min_to_secs("3:30");
-//    private int time5 = convert_min_to_secs("3:40");
+   ArrayList arr = new ArrayList();
 
 
+
+   String score1;
+    String score2;
+    String score3;
+    String score4;
+    String score5;
+
+
+// Here we will input the default array just to setup the global string variables with default entries
+// save variables with string entries
+    public void set_default_scores(Context context, String[] default_scores){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+        editor.putString("score1", default_scores[0]);
+       editor.putString("score2", default_scores[1]);
+        editor.putString("score3", default_scores[2]);
+       editor.putString("score4", default_scores[3]);
+        editor.putString("score5", default_scores[4]);
+
+
+        score1 = sharedPreferences.getString("score1","");
+        score2 = sharedPreferences.getString("score2","");
+        score3 = sharedPreferences.getString("score3","");
+        score4 = sharedPreferences.getString("score4","");
+        score5 = sharedPreferences.getString("score5","");
+
+
+        editor.apply();
+    }
+
+
+ // Here all the times are converted  to secs for easier comparison
+ // As each time is compared, sharedpreferences are updated and every entry is moved down the list
+  // so when we are updating rows on tablelayout we just need to call the sharedpreferences
+    // cite: https://www.youtube.com/watch?v=_cV7cgQFDo0
+
+    public void update(String entry, Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+
+        int latest_time = convert_min_to_secs(getScore(entry));
+
+        int compare1 = convert_min_to_secs(getScore(sharedPreferences.getString("score1","")));
+        int compare2 = convert_min_to_secs(getScore(sharedPreferences.getString("score2","")));
+        int compare3 = convert_min_to_secs(getScore(sharedPreferences.getString("score3","")));
+        int compare4 = convert_min_to_secs(getScore(sharedPreferences.getString("score4","")));
+        int compare5 = convert_min_to_secs(getScore(sharedPreferences.getString("score5","")));
+
+        // score1 comparison
+        if(latest_time < compare1){
+
+
+            String temp = score1;
+            score1 = entry;
+            score2 = temp;
+
+
+
+            // shifting down the list
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("score2", score2);
+            editor.putString("score1",score1);
+            editor.apply();
+
+
+
+        }
+
+        //score2 comparison
+        else if(latest_time < compare2){
+            String temp = score2;
+            score2 = entry;
+            score3 = temp;
+
+
+            // shifting down the list
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("score2", score2);
+            editor.putString("score3",score3);
+            editor.apply();
+
+
+
+        }
+
+        //score3 comparison
+        else if(latest_time < compare3){
+            String temp = score3;
+            score3 = entry;
+            score4 = temp;
+
+
+            // shifting down the list
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("score3", score3);
+            editor.putString("score4",score4);
+            editor.apply();
+
+
+
+        }
+
+        //score4 comparison
+        else if(latest_time < compare4){
+            String temp = score4;
+            score4 = entry;
+            score5 = temp;
+
+
+            // shifting down the list
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("score4", score4);
+            editor.putString("score5",score5);
+            editor.apply();
+
+
+
+        }
+
+        //score5 comparison
+        else if(latest_time < compare5){
+            score5 = entry;
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("score5", score5);
+            editor.apply();
+
+
+        }
+
+
+
+
+    }
+
+
+
+    public String getName(String entry){
+        String[] arr = entry.split("/");
+        return arr[1];
+
+    }
+
+    public String getScore(String entry){
+        String[] arr = entry.split("/");
+        return arr[0];
+
+    }
+
+    public String getDate_time(String entry){
+        String[] arr = entry.split("/");
+        return arr[2];
+
+    }
 
 
 
@@ -64,32 +213,12 @@ public class Highscore {
 
         }
 
-        // getting current date
+        // getting current date and time
         public String current_date(){
-            DateTimeFormatter date = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+            DateTimeFormatter date = DateTimeFormatter.ofPattern("MMMM dd, yyyy at HH:mm:ss");
             LocalDateTime current = LocalDateTime.now();
             return date.format(current);
         }
-
-
-        // adding time to an arraylist where all the time is stored
-    // sorts list with the added time and get the index of added time
-    // so that at that index we can add the current username, date and time
-    public int add_time(int time, ArrayList list) {
-        String time_str = String.valueOf(time);
-        int index = 0;
-
-        list.add(time);
-        Collections.sort(list);
-        for (int i = 0; i < 5; i++) {
-            if (list.get(i).toString() == time_str) {
-                index = i;
-
-            }
-
-        }
-        return index;
-    }
 
 
 

@@ -5,6 +5,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highscore;
 
-    Highscore hs;
+    private Highscore hs=  new Highscore();
 
     private List<TextView> scores = new ArrayList<>();
 
@@ -43,10 +44,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     Typeface face;
 
-    // default values
-    String[] name_arr = {"Flash", "BigBrain", "SuperMan", "BatMan","MrSlow"};
-    String[] date_arr = {"Jun 3, 2020", "Jun 1, 2020", "May 25, 2020","May 30, 2020","Jun 2, 2020"};
-    String[] time_arr = {"2:30","3:00","3:10","3:30", "3:40"};
+    String test_input;
 
     ArrayList<String> arr = new ArrayList<>();
     @Override
@@ -55,13 +53,27 @@ public class HighScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_high_score);
 
 
+
+
         highscore = HighScores.getInstance();
 
         default_scores = getResources().getStringArray(R.array.default_highscores);
         highscore.set_default_scores(HighScoreActivity.this, default_scores);
         arr = highscore.getNewscores(HighScoreActivity.this);
-        populateScores();
+
+        hs.set_default_scores(HighScoreActivity.this,default_scores);
+
+
+
+        //populateScores();
         setupResetbtn();
+
+        test_input = "1:00/ testplayer / Jul 4 at 15:30";
+        hs.update(test_input,HighScoreActivity.this);
+
+        updated_table();
+
+
 
 
     }
@@ -97,6 +109,128 @@ public class HighScoreActivity extends AppCompatActivity {
         //https://www.youtube.com/watch?v=iSCtFzbC7kA
 
     }
+
+    private void updated_table(){
+        tableLayout = findViewById(R.id.table);
+        tableLayout.removeAllViews();
+        setHeadings();
+
+        for(int i = 0; i<arr.size();i++){
+
+            if(i==0){
+            row = new TableRow(this);
+            username = new TextView(this);
+            Date = new TextView(this);
+            Score = new TextView(this);
+
+            SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+
+            String[] entry = sharedPreferences.getString("score1","").split("/");
+
+            setEntry(entry, Score, 0);
+            setEntry(entry, username, 1);
+            setEntry(entry, Date, 2);
+
+
+            row.addView(Score);
+            row.addView(username);
+            row.addView(Date);
+            tableLayout.addView(row);
+            }
+
+
+        else if(i==1){
+            row = new TableRow(this);
+            username = new TextView(this);
+            Date = new TextView(this);
+            Score = new TextView(this);
+
+            SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+
+            String[] entry = sharedPreferences.getString("score2","").split("/");
+
+            setEntry(entry, Score, 0);
+            setEntry(entry, username, 1);
+            setEntry(entry, Date, 2);
+
+
+            row.addView(Score);
+            row.addView(username);
+            row.addView(Date);
+            tableLayout.addView(row);}
+
+            else if(i==2){
+                row = new TableRow(this);
+                username = new TextView(this);
+                Date = new TextView(this);
+                Score = new TextView(this);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+
+                String[] entry = sharedPreferences.getString("score3","").split("/");
+
+                setEntry(entry, Score, 0);
+                setEntry(entry, username, 1);
+                setEntry(entry, Date, 2);
+
+
+                row.addView(Score);
+                row.addView(username);
+                row.addView(Date);
+                tableLayout.addView(row);}
+
+            else if(i==3){
+                row = new TableRow(this);
+                username = new TextView(this);
+                Date = new TextView(this);
+                Score = new TextView(this);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+
+                String[] entry = sharedPreferences.getString("score4","").split("/");
+
+                setEntry(entry, Score, 0);
+                setEntry(entry, username, 1);
+                setEntry(entry, Date, 2);
+
+
+                row.addView(Score);
+                row.addView(username);
+                row.addView(Date);
+                tableLayout.addView(row);}
+
+            else if(i==4){
+                row = new TableRow(this);
+                username = new TextView(this);
+                Date = new TextView(this);
+                Score = new TextView(this);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+
+                String[] entry = sharedPreferences.getString("score5","").split("/");
+
+                setEntry(entry, Score, 0);
+                setEntry(entry, username, 1);
+                setEntry(entry, Date, 2);
+
+
+                row.addView(Score);
+                row.addView(username);
+                row.addView(Date);
+                tableLayout.addView(row);}
+
+        }
+
+
+        }
+
+
+
+
+
+
+
+
 
     private void setEntry(String[] entry, TextView score, int index) {
         score.setText(entry[index]);
