@@ -129,12 +129,12 @@ public class HighScoreActivity extends AppCompatActivity {
 
     }
 
-    private void HeadingName(TextView name_hd, String id) {
-        name_hd.setText(id);
-        name_hd.setTypeface(face);
-        name_hd.setTextSize(36);
-        name_hd.setTextColor(Color.WHITE);
-        name_hd.setGravity(Gravity.CENTER);
+    private void HeadingName(TextView hd, String id) {
+        hd.setText(id);
+        hd.setTypeface(face);
+        hd.setTextSize(36);
+        hd.setTextColor(Color.WHITE);
+        hd.setGravity(Gravity.CENTER);
     }
 
 
