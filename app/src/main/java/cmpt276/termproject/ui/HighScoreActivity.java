@@ -116,9 +116,9 @@ public class HighScoreActivity extends AppCompatActivity {
         score_hd = new TextView(this);
         dateT_hd = new TextView(this);
 
-        HeadingName(name_hd, "Username");
+        HeadingName(name_hd, "Score");
 
-        HeadingName(score_hd, "Score");
+        HeadingName(score_hd, "Username");
 
         HeadingName(dateT_hd, "Date/Time");
 
