@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="default_highscores">
-        <item>Score1 Flash Jun 3, 2020 at 14:30</item>
-        <item>Score2 BigBrain Jun 1, 2020 at 10:00</item>
-        <item>Score3 SuperMan May 25, 2020 at 12:00</item>
-        <item>Score4 … May 30, 2020 at 15:32</item>
-        <item>Score5 MrSlow Jun 2, 2020 at 1:37</item>
+        <item>Score1 / Flash / Jun 3, 2020 at 14:30</item>
+        <item>Score2 / BigBrain / Jun 1, 2020 at 10:00</item>
+        <item>Score3 / SuperMan / May 25, 2020 at 12:00</item>
+        <item>Score4 / BatMan /  May 30, 2020 at 15:32</item>
+        <item>Score5 / MrSlow / Jun 2, 2020 at 1:37</item>
     </string-array>
 </resources>

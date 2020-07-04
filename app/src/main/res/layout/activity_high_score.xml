@@ -52,6 +52,16 @@
         <TableRow>
 
 
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:fontFamily="@font/faster_one"
+                android:text="Score"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/name"
@@ -60,6 +70,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
+                android:gravity="center"
                 android:text="Name"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp" />
@@ -68,23 +79,11 @@
                 android:id="@+id/date_T"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:fontFamily="@font/faster_one"
-                android:gravity="center"
-                android:text="Date"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
                 android:gravity="end"
-                android:text="Time"
+                android:text="Date/Time"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp" />
         </TableRow>

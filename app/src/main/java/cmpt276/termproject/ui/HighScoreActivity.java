@@ -35,7 +35,7 @@ public class HighScoreActivity extends AppCompatActivity {
     TableLayout table;
     TableRow row;
     TextView username;
-    TextView Time;
+    TextView Score;
     TextView Date;
     private String[] default_scores;
 
@@ -78,28 +78,31 @@ public class HighScoreActivity extends AppCompatActivity {
             row = new TableRow(this);
             username = new TextView(this);
             Date = new TextView(this);
-            Time = new TextView(this);
+            Score = new TextView(this);
+
+            String[] entry = default_scores[i].split("/");
+
+            Score.setText(entry[0]);
+            Score.setGravity(Gravity.LEFT);
+            Score.setTextSize(25);
+            Score.setTextColor(Color.WHITE);
 
 
-            username.setText(name_arr[i]);
-            username.setGravity(Gravity.LEFT);
+            username.setText(entry[1]);
+            username.setGravity(Gravity.CENTER);
             username.setTextSize(25);
             username.setTextColor(Color.WHITE);
 
-            Date.setText(date_arr[i]);
-            Date.setGravity(Gravity.CENTER);
+            Date.setText(entry[2]);
+            Date.setGravity(Gravity.RIGHT);
             Date.setTextSize(25);
             Date.setTextColor(Color.WHITE);
 
-            Time.setText(time_arr[i]);
-            Time.setGravity(Gravity.RIGHT);
-            Time.setTextSize(25);
-            Time.setTextColor(Color.WHITE);
 
 
+            row.addView(Score);
             row.addView(username);
             row.addView(Date);
-            row.addView(Time);
             tableLayout.addView(row);
 
 
