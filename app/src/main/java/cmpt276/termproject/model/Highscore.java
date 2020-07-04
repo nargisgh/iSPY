@@ -67,20 +67,15 @@ public class Highscore {
         // score1 comparison
         if(latest_time < compare1){
 
-
             String temp = score1;
             score1 = entry;
             score2 = temp;
-
-
 
             // shifting down the list
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("score2", score2);
             editor.putString("score1",score1);
             editor.apply();
-
-
 
         }
 

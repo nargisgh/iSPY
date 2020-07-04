@@ -67,6 +67,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
         populateScores();
         setupResetbtn();
+        setupBackbtn();
 
 //        test_input = "1:10/ testplayer / Jul 4 at 15:30";
 //        hs.update(test_input,HighScoreActivity.this);
@@ -76,6 +77,18 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void setupBackbtn() {
+        Button back = findViewById(R.id.highscore_back_btn);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = MainActivity.makeIntent(HighScoreActivity.this);
+                startActivity(i);
+
+            }
+        });
     }
 
 
