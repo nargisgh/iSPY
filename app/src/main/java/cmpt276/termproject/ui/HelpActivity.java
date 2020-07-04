@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +35,7 @@ public class HelpActivity extends AppCompatActivity {
         hs_Layout = findViewById(R.id.hs_Layout);
         hs_Layout.setBackgroundResource(R.drawable.bg_help);
         sources = findViewById(R.id.sources);
-        sources.setMovementMethod(new ScrollingMovementMethod());
+        sources.setMovementMethod(new LinkMovementMethod());
     }
 
 
