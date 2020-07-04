@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
+import cmpt276.termproject.model.Highscore;
 
 import android.view.Gravity;
 import android.view.View;
@@ -25,6 +26,8 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highscore;
 
+    Highscore hs;
+
     private List<TextView> scores = new ArrayList<>();
 
     private TextView time1;
@@ -35,6 +38,7 @@ public class HighScoreActivity extends AppCompatActivity {
     TextView Time;
     TextView Date;
     private String[] default_scores;
+
 
     // default values
     String[] name_arr = {"Flash", "BigBrain", "SuperMan", "BatMan","MrSlow"};
@@ -54,14 +58,23 @@ public class HighScoreActivity extends AppCompatActivity {
         highscore.set_default_scores(HighScoreActivity.this, default_scores);
         arr = highscore.getNewscores(HighScoreActivity.this);
         populateScores();
+
+
+
         setupResetbtn();
+
 
     }
 
+
+
     private void populateScores() {
+
+
         TableLayout tableLayout = findViewById(R.id.table);
 
         for(int i = 0; i<arr.size();i++){
+
             row = new TableRow(this);
             username = new TextView(this);
             Date = new TextView(this);
@@ -72,6 +85,7 @@ public class HighScoreActivity extends AppCompatActivity {
             username.setGravity(Gravity.LEFT);
             username.setTextSize(25);
             username.setTextColor(Color.WHITE);
+
             Date.setText(date_arr[i]);
             Date.setGravity(Gravity.CENTER);
             Date.setTextSize(25);
@@ -87,6 +101,8 @@ public class HighScoreActivity extends AppCompatActivity {
             row.addView(Date);
             row.addView(Time);
             tableLayout.addView(row);
+
+
         }
 
        // setupResetbtn();
@@ -127,13 +143,16 @@ public class HighScoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
 //                highscore.set_default_scores(HighScoreActivity.this,default_scores);
 //                arr = highscore.get_default_scores(HighScoreActivity.this);
                 populateScores();
             }
         });
     }
+
+
+
+
 
 
 
