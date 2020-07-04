@@ -83,9 +83,33 @@ public class HighScores{
         return currentDateTime = DateFormat.getDateTimeInstance().format(date);
     }
 
-    public void AddEntry(String name, String score, String time){
-        String entry = (score+ " "+name+ " " + getCurrentDateTime());
+    // This is the format I am thinking of so that we can split string with "/"
+    // format : score / name/ currentdate , so all entries should look like this
+
+    public void AddEntry(String name, String score){
+        String entry = (score+ "/ "+name+ "/ " + getCurrentDateTime());
     }
+
+
+    public String getName(String entry){
+        String[] arr = entry.split("/");
+        return arr[1];
+
+    }
+
+    public String getScore(String entry){
+        String[] arr = entry.split("/");
+        return arr[0];
+
+    }
+
+    public String getDate_time(String entry){
+        String[] arr = entry.split("/");
+        return arr[2];
+
+    }
+
+
 
     public ArrayList<String> getNewscores(Context context){
         SharedPreferences shared_Preferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
