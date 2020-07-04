@@ -32,9 +32,14 @@ public class HighScoreActivity extends AppCompatActivity {
     TableLayout table;
     TableRow row;
     TextView username;
-    TextView score;
-    TextView Date_Time;
+    TextView Time;
+    TextView Date;
     private String[] default_scores;
+
+    // default values
+    String[] name_arr = {"Flash", "BigBrain", "SuperMan", "BatMan","MrSlow"};
+    String[] date_arr = {"Jun 3, 2020", "Jun 1, 2020", "May 25, 2020","May 30, 2020","Jun 2, 2020"};
+    String[] time_arr = {"2:30","3:00","3:10","3:30", "3:40"};
 
     ArrayList<String> arr = new ArrayList<>();
     @Override
@@ -49,39 +54,42 @@ public class HighScoreActivity extends AppCompatActivity {
         highscore.set_default_scores(HighScoreActivity.this, default_scores);
         arr = highscore.getNewscores(HighScoreActivity.this);
         populateScores();
+        setupResetbtn();
 
     }
 
     private void populateScores() {
-        table = findViewById(R.id.table);
-        table.setColumnStretchable(0,true);
-        table.setColumnStretchable(1,true);
-        table.setColumnStretchable(2,true);
+        TableLayout tableLayout = findViewById(R.id.table);
+
         for(int i = 0; i<arr.size();i++){
             row = new TableRow(this);
             username = new TextView(this);
-            score = new TextView(this);
-            Date_Time = new TextView(this);
+            Date = new TextView(this);
+            Time = new TextView(this);
 
-            username.setText(arr.get(i).split(" ")[1]);
-            username.setGravity(Gravity.CENTER);
+
+            username.setText(name_arr[i]);
+            username.setGravity(Gravity.LEFT);
             username.setTextSize(25);
             username.setTextColor(Color.WHITE);
-            score.setText(arr.get(i).split(" ")[0]);
-            score.setGravity(Gravity.CENTER);
-            score.setTextSize(25);
-            score.setTextColor(Color.WHITE);
-            Date_Time.setText(arr.get(i).split(" ")[3]);
-            Date_Time.setGravity(Gravity.CENTER);
-            Date_Time.setTextSize(15);
-            Date_Time.setTextColor(Color.WHITE);
+            Date.setText(date_arr[i]);
+            Date.setGravity(Gravity.CENTER);
+            Date.setTextSize(25);
+            Date.setTextColor(Color.WHITE);
+
+            Time.setText(time_arr[i]);
+            Time.setGravity(Gravity.RIGHT);
+            Time.setTextSize(25);
+            Time.setTextColor(Color.WHITE);
+
+
             row.addView(username);
-            row.addView(score);
-            row.addView(Date_Time);
-            table.addView(row);
+            row.addView(Date);
+            row.addView(Time);
+            tableLayout.addView(row);
         }
 
-        setupResetbtn();
+       // setupResetbtn();
         //https://www.youtube.com/watch?v=iSCtFzbC7kA
 
     }
@@ -118,8 +126,10 @@ public class HighScoreActivity extends AppCompatActivity {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                highscore.set_default_scores(HighScoreActivity.this,default_scores);
-                arr = highscore.get_default_scores(HighScoreActivity.this);
+
+
+//                highscore.set_default_scores(HighScoreActivity.this,default_scores);
+//                arr = highscore.get_default_scores(HighScoreActivity.this);
                 populateScores();
             }
         });
