@@ -65,13 +65,13 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
 
-        //populateScores();
+        populateScores();
         setupResetbtn();
 
-        test_input = "1:10/ testplayer / Jul 4 at 15:30";
-        hs.update(test_input,HighScoreActivity.this);
-
-        updated_table();
+//        test_input = "1:10/ testplayer / Jul 4 at 15:30";
+//        hs.update(test_input,HighScoreActivity.this);
+//
+//        updated_table();
 
 
 
