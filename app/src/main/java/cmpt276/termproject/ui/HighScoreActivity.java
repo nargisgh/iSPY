@@ -46,13 +46,22 @@ public class HighScoreActivity extends AppCompatActivity {
 
     String test_input;
 
+
+
+    boolean initialized;
+
     ArrayList<String> arr = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
 
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("initialized",false);
 
+        setupResetbtn();
+        setupBackbtn();
 
 
         highscore = HighScores.getInstance();
@@ -60,24 +69,23 @@ public class HighScoreActivity extends AppCompatActivity {
         default_scores = getResources().getStringArray(R.array.default_highscores);
         highscore.set_default_scores(HighScoreActivity.this, default_scores);
         arr = highscore.getNewscores(HighScoreActivity.this);
-
-        hs.set_default_scores(HighScoreActivity.this,default_scores);
-
+        //hs.set_default_scores(HighScoreActivity.this, default_scores);
 
 
-        populateScores();
-        setupResetbtn();
-        setupBackbtn();
-
-//        test_input = "1:10/ testplayer / Jul 4 at 15:30";
-//        hs.update(test_input,HighScoreActivity.this);
-//
-//        updated_table();
+            hs.set_default_scores(HighScoreActivity.this, default_scores);
+            populateScores();
 
 
+            test_input = "1:10/ testplayer / Jul 4 at 15:30";
+            hs.update(test_input, HighScoreActivity.this);
+
+
+            updated_table();
 
 
     }
+
+
 
     private void setupBackbtn() {
         Button back = findViewById(R.id.backBtn);
@@ -92,6 +100,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
     private void populateScores() {
+        initialized = true;
 
         tableLayout = findViewById(R.id.table);
         tableLayout.removeAllViews();

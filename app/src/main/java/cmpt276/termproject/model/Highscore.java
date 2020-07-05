@@ -67,7 +67,7 @@ public class Highscore {
         // score1 comparison
         if(latest_time < compare1){
 
-            String temp = score1;
+            String temp = sharedPreferences.getString("score1","");
             score1 = entry;
             score2 = temp;
 
@@ -77,19 +77,21 @@ public class Highscore {
             editor.putString("score1",score1);
             editor.apply();
 
+
+
         }
 
         //score2 comparison
         else if(latest_time < compare2){
-            String temp = score2;
+            String temp = sharedPreferences.getString("score2","");
             score2 = entry;
             score3 = temp;
 
 
             // shifting down the list
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("score2", score2);
-            editor.putString("score3",score3);
+            editor.putString("score3", score3);
+            editor.putString("score2",score2);
             editor.apply();
 
 
@@ -98,15 +100,15 @@ public class Highscore {
 
         //score3 comparison
         else if(latest_time < compare3){
-            String temp = score3;
+            String temp = sharedPreferences.getString("score3","");;
             score3 = entry;
             score4 = temp;
 
 
             // shifting down the list
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("score3", score3);
-            editor.putString("score4",score4);
+            editor.putString("score4", score4);
+            editor.putString("score3",score3);
             editor.apply();
 
 
@@ -115,14 +117,14 @@ public class Highscore {
 
         //score4 comparison
         else if(latest_time < compare4){
-            String temp = score4;
+            String temp = sharedPreferences.getString("score4","");;
             score4 = entry;
             score5 = temp;
             
             // shifting down the list
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("score4", score4);
-            editor.putString("score5",score5);
+            editor.putString("score5", score5);
+            editor.putString("score4",score4);
             editor.apply();
 
 
