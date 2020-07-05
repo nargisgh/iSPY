@@ -124,7 +124,16 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicManager.play();
+    }
 
 
 }

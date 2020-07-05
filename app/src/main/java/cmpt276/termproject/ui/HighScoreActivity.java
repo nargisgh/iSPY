@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.Highscore;
+import cmpt276.termproject.model.MusicManager;
 
 import android.view.Gravity;
 import android.view.View;
@@ -45,6 +47,7 @@ public class HighScoreActivity extends AppCompatActivity {
     Typeface face;
 
     String test_input;
+    public MusicManager musicManager;
 
     ArrayList<String> arr = new ArrayList<>();
     @Override
@@ -53,7 +56,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_high_score);
 
 
-
+        musicManager = MusicManager.getInstance();
 
         highscore = HighScores.getInstance();
 
@@ -84,8 +87,7 @@ public class HighScoreActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = MainActivity.makeIntent(HighScoreActivity.this);
-                startActivity(i);
+                finish();
 
             }
         });
@@ -303,5 +305,17 @@ public class HighScoreActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context){
         Intent intent = new Intent(context, HighScoreActivity.class);
         return intent;
+    }
+
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicManager.play();
     }
 }
