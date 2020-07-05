@@ -12,6 +12,10 @@
         <activity android:name=".ui.HighScoreActivity"
             android:screenOrientation = "landscape">
         </activity>
+        <activity android:name=".ui.PopUp"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.Pop">
+        </activity>
         <activity android:name=".ui.OptionActivity"
             android:screenOrientation="landscape">
         </activity>

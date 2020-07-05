@@ -80,12 +80,11 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     private void setupBackbtn() {
-        Button back = findViewById(R.id.highscore_back_btn);
+        Button back = findViewById(R.id.backBtn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = MainActivity.makeIntent(HighScoreActivity.this);
-                startActivity(i);
+                finish();
 
             }
         });

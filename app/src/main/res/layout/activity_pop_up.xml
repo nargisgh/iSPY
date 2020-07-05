@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PopUp"
+    tools:context=".ui.MainActivity"
     android:background="@drawable/comicbackdrop">
 
     <TableLayout
@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
-                android:text="Username"
+                android:text="@string/username"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
@@ -36,7 +36,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
-                android:text="Score"
+                android:text="@string/score"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
@@ -46,7 +46,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
-                android:text="Date/Time"
+                android:text="@string/date_time"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
@@ -67,14 +67,15 @@
 
         <TableRow>
 
-            <TextView
+            <EditText
                 android:id="@+id/userId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:text="UserID"
+                android:hint="Username"
+                android:inputType="text"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -85,7 +86,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:text="Score"
+                android:text="@string/score"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -96,7 +97,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:text="Date/Time"
+                android:text="@string/date_time"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -110,11 +111,21 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/faster_one"
-        android:text="Great Job!"
+        android:text="@string/great_job"
         android:textColor="#3F51B5"
         android:textSize="70sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="76dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="336dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

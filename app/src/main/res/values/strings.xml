@@ -46,7 +46,10 @@
 \n https://stackoverflow.com/questions/12128331/how-to-change-fontfamily-of-textview-in-android
 \n https://www.freepik.com/search?dates=any&amp;format=search&amp;page=1&amp;query=superhero&amp;sort=popular
 \n https://developer.android.com/guide/topics/media/mediaplayer</string>
-
+    <string name="great_job">Great Job!</string>
+    <string name="save">Save</string>
+    <string name="date_time">Date/Time</string>
+    <string name="score">Score</string>
 
 
 </resources>
