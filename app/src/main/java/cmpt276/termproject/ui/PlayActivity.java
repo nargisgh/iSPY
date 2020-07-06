@@ -20,11 +20,13 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.Card;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
+import cmpt276.termproject.model.Highscore;
 import cmpt276.termproject.model.MusicManager;
 import cmpt276.termproject.model.HighScores;
 
 public class PlayActivity extends AppCompatActivity  {
 
+    private Highscore hs;
     SharedPreferences preferences;
     private GameManager gameManager;
     CardDrawer cardDrawerCanvas;
@@ -50,6 +52,7 @@ public class PlayActivity extends AppCompatActivity  {
         setup();
 
         cardDrawerCanvas = findViewById(R.id.card_canvas);
+
 
     }
 
@@ -103,24 +106,40 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 if (gameManager.getDrawPile().size() == 0){
                     //PLACE CODE FOR THE GAME OVER POPUP IN HERE
-                    int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
                     chronometer.stop();
+                    int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
+                   // chronometer.stop();
+
                     LocalTime score = LocalTime.ofSecondOfDay(elapsed);
                     time = score.toString();
                     dateTime = highscore.getCurrentDateTime();
 
+
+
+
                     Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
+
                     gameInfo.putExtra("name", name);
                     gameInfo.putExtra("dateTime", dateTime);
                     gameInfo.putExtra("time",time);
+
                     startActivity(gameInfo);
                     finish();
+//
+//                    Intent data = HighScoreActivity.makeIntent(PlayActivity.this);
+//                    data.putExtra("name1", name);
+//                    data.putExtra("dateTime1", dateTime);
+//                    data.putExtra("time1",new_time);
+//                    //startActivity(data);
+//                    finish();
+
 
                 }
-                finish();
+
             }
         });
     }
+
 
 
 

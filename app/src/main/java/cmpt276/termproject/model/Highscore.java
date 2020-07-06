@@ -2,17 +2,27 @@ package cmpt276.termproject.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.TextView;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Highscore {
 
    ArrayList arr = new ArrayList();
+
+
+    private static Highscore instance;
+    private Highscore (){
+
+    }
+    public static Highscore getInstance(){
+        if (instance == null){
+            instance = new Highscore();
+        }
+        return instance;
+    }
+
 
 
 
@@ -23,10 +33,11 @@ public class Highscore {
     String score5;
 
 
+
 // Here we will input the default array just to setup the global string variables with default entries
 // save variables with string entries
     public void set_default_scores(Context context, String[] default_scores){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores1", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
@@ -54,7 +65,7 @@ public class Highscore {
     // cite: https://www.youtube.com/watch?v=_cV7cgQFDo0
 
     public void update(String entry, Context context){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores1", Context.MODE_PRIVATE);
 
         int latest_time = convert_min_to_secs(getScore(entry));
 
@@ -172,9 +183,10 @@ public class Highscore {
         // convert string time to secs for easier comparison
         public int convert_min_to_secs(String str){
             String[] time = str.split(":");
-            int min = Integer.parseInt(time[0]);
-            int sec = Integer.parseInt(time[1]);
-            int result = (min*60) + sec;
+            int hr = Integer.parseInt(time[0]);
+            int min = Integer.parseInt(time[1]);
+            int sec = Integer.parseInt(time[2]);
+            int result = (hr*3600)+(min*60) + sec;
             return result;
         }
 
@@ -185,7 +197,7 @@ public class Highscore {
             SharedPreferences username = context.getSharedPreferences("username", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = username.edit();
             editor.putString("new username", str);
-            editor.commit();
+            editor.apply();
 
         }
 
@@ -199,7 +211,7 @@ public class Highscore {
             SharedPreferences time = context.getSharedPreferences("time", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = time.edit();
             editor.putInt("new time", num);
-            editor.commit();
+            editor.apply();
 
         }
 
@@ -211,7 +223,7 @@ public class Highscore {
 
         // getting current date and time
         public String current_date(){
-            DateTimeFormatter date = DateTimeFormatter.ofPattern("MMMM dd, yyyy at HH:mm:ss");
+            DateTimeFormatter date = DateTimeFormatter.ofPattern("MMMM dd, yyyy HH:mm");
             LocalDateTime current = LocalDateTime.now();
             return date.format(current);
         }

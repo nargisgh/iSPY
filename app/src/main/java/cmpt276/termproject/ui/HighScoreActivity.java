@@ -21,8 +21,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highscore;
 
-    private Highscore hs=  new Highscore();
+    private Highscore hs;
 
     private List<TextView> scores = new ArrayList<>();
 
@@ -39,16 +37,16 @@ public class HighScoreActivity extends AppCompatActivity {
     TextView username;
     TextView Score;
     TextView Date;
-    private String[] default_scores;
+    String[] default_scores;
     TableLayout tableLayout;
 
     Typeface face;
 
     String test_input;
 
+private static boolean isreset = false;
 
-
-    boolean initialized;
+    private static boolean isinitialized = false;
 
     ArrayList<String> arr = new ArrayList<>();
     @Override
@@ -56,51 +54,149 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
 
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("initialized",false);
-
-        setupResetbtn();
-        setupBackbtn();
 
 
-        highscore = HighScores.getInstance();
+
+       highscore = HighScores.getInstance();
+
+       hs = Highscore.getInstance();
+
+
 
         default_scores = getResources().getStringArray(R.array.default_highscores);
-        highscore.set_default_scores(HighScoreActivity.this, default_scores);
-        arr = highscore.getNewscores(HighScoreActivity.this);
+
+        //hs.set_default_scores(HighScoreActivity.this, default_scores);
+        //populateScores();
+
+//        highscore.set_default_scores(HighScoreActivity.this,default_scores);
+//        arr = highscore.get_default_scores(HighScoreActivity.this);
+        //populateScores();
+
+       // highscore.set_default_scores(HighScoreActivity.this, default_scores);
+        //arr = highscore.getNewscores(HighScoreActivity.this);
+
+//        if(!initialized) {
+//
+//            highscore.set_default_scores(HighScoreActivity.this,default_scores);
+//            arr = highscore.get_default_scores(HighScoreActivity.this);
+//            hs.set_default_scores(HighScoreActivity.this, default_scores);
+//            populateScores();
+//        }
+//        else {
+//
+//            int time = getIntent().getIntExtra("time", 0);
+//            String name = getIntent().getStringExtra("name");
+//            String date_time = getIntent().getStringExtra("dateTime");
+//
+//            test_input = hs.convert_sec_to_timeformat(70) + "/ name / Jul 4,2020";
+//            hs.update(test_input, HighScoreActivity.this);
+//
+//
+//            updated_table();
+//        }
+
+
         //hs.set_default_scores(HighScoreActivity.this, default_scores);
 
+        if(!isinitialized) {
+            // run your one time code here
 
+            highscore.set_default_scores(HighScoreActivity.this,default_scores);
+            arr = highscore.get_default_scores(HighScoreActivity.this);
             hs.set_default_scores(HighScoreActivity.this, default_scores);
             populateScores();
 
-
-            test_input = "1:10/ testplayer / Jul 4 at 15:30";
-            hs.update(test_input, HighScoreActivity.this);
+            isinitialized = true;
 
 
-            updated_table();
-
-
-    }
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putBoolean("firstTime", false);
+//            editor.commit();
+        }
 
 
 
-    private void setupBackbtn() {
-        Button back = findViewById(R.id.backBtn);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
 
+
+//        if(!initialized) {
+//
+//            highscore.set_default_scores(HighScoreActivity.this,default_scores);
+//            arr = highscore.get_default_scores(HighScoreActivity.this);
+//            hs.set_default_scores(HighScoreActivity.this, default_scores);
+//            populateScores();
+//        }
+
+//        else {
+//            String time = getIntent().getStringExtra("time");
+//            String name = getIntent().getStringExtra("name");
+//            String date_time = getIntent().getStringExtra("dateTime");
+//
+//            int convert_time = Integer.parseInt(time);
+//
+//            test_input = hs.convert_sec_to_timeformat(convert_time) + "/" + name + "/" + date_time;
+//            hs.update(test_input, HighScoreActivity.this);
+//
+//
+//            updated_table();
+//
+//        }
+
+        else if (isinitialized) {
+
+//
+            highscore.set_default_scores(HighScoreActivity.this,default_scores);
+            arr = highscore.get_default_scores(HighScoreActivity.this);
+            //hs.set_default_scores(HighScoreActivity.this, default_scores);
+            populateScores();
+//
+            //test_input = "1:10" + "/ name / Jul 4,2020";
+//            String input2 = hs.convert_sec_to_timeformat(71) + "/ name / Jul 4,2020";
+//            String input3 = hs.convert_sec_to_timeformat(72) + "/ name / Jul 4,2020";
+            //hs.update(test_input, HighScoreActivity.this);
+//            hs.update(input2, HighScoreActivity.this);
+//            hs.update(input3, HighScoreActivity.this);
+
+
+//            String time = getIntent().getStringExtra("time1");
+//            String name = getIntent().getStringExtra("name1");
+//            String date_time = getIntent().getStringExtra("dateTime1");
+
+            //String convert_time = hs.convert_sec_to_timeformat(time);
+
+            //test_input = time + "/" + name + "/" + hs.current_date();
+
+            SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+            test_input = entry_new.getString("new entry",null);
+            if(test_input != null) {
+                hs.update(test_input, HighScoreActivity.this);
+                updated_table();
             }
-        });
+
+
+
+
+//            if(isreset){
+//                highscore.set_default_scores(HighScoreActivity.this,default_scores);
+//                arr = highscore.get_default_scores(HighScoreActivity.this);
+//                hs.set_default_scores(HighScoreActivity.this, default_scores);
+//                populateScores();
+//                isreset = false;
+//
+//            }
+
+
+        }
+
+            setupResetbtn();
+            setupBackbtn();
+
+
     }
+
 
 
     private void populateScores() {
-        initialized = true;
+
 
         tableLayout = findViewById(R.id.table);
         tableLayout.removeAllViews();
@@ -144,7 +240,7 @@ public class HighScoreActivity extends AppCompatActivity {
             Date = new TextView(this);
             Score = new TextView(this);
 
-            SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("default scores1", Context.MODE_PRIVATE);
 
             String[] entry = sharedPreferences.getString("score1","").split("/");
 
@@ -166,7 +262,7 @@ public class HighScoreActivity extends AppCompatActivity {
             Date = new TextView(this);
             Score = new TextView(this);
 
-            SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("default scores1", Context.MODE_PRIVATE);
 
             String[] entry = sharedPreferences.getString("score2","").split("/");
 
@@ -186,7 +282,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 Date = new TextView(this);
                 Score = new TextView(this);
 
-                SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("default scores1", Context.MODE_PRIVATE);
 
                 String[] entry = sharedPreferences.getString("score3","").split("/");
 
@@ -206,7 +302,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 Date = new TextView(this);
                 Score = new TextView(this);
 
-                SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("default scores1", Context.MODE_PRIVATE);
 
                 String[] entry = sharedPreferences.getString("score4","").split("/");
 
@@ -226,7 +322,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 Date = new TextView(this);
                 Score = new TextView(this);
 
-                SharedPreferences sharedPreferences = getSharedPreferences("default scores", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("default scores1", Context.MODE_PRIVATE);
 
                 String[] entry = sharedPreferences.getString("score5","").split("/");
 
@@ -302,6 +398,22 @@ public class HighScoreActivity extends AppCompatActivity {
                 highscore.set_default_scores(HighScoreActivity.this,default_scores);
                 arr = highscore.get_default_scores(HighScoreActivity.this);
                 populateScores();
+                isreset = true;
+                SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+                entry_new.edit().clear().apply();
+
+
+            }
+        });
+    }
+
+    private void setupBackbtn() {
+        Button back = findViewById(R.id.backBtn);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
             }
         });
     }

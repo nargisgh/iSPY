@@ -2,7 +2,9 @@ package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
@@ -19,9 +21,12 @@ import java.time.LocalTime;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
+import cmpt276.termproject.model.Highscore;
 
 public class PopUp extends AppCompatActivity {
 
+
+    private Highscore hs;
     public static final int X_PARAM = 0;
     public static final int Y_PARAM = -20;
     EditText userId;
@@ -59,6 +64,12 @@ public class PopUp extends AppCompatActivity {
                     userId.setEnabled(false);
                     entry = ("" + (gameInfo.getStringExtra("time")) + "/ " + name + "/" + (gameInfo.getStringExtra("dateTime")));
                     highScores.setNewValues(PopUp.this, entry);
+
+
+                    SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = entry_new.edit();
+                    editor.putString("new entry", entry);
+                    editor.apply();
                 }
                 finish();
             }
