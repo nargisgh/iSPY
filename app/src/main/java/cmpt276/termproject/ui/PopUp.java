@@ -38,9 +38,9 @@ public class PopUp extends AppCompatActivity {
     }
 
     private void populate() {
-        userId = findViewById(R.id.userId);
-        score = findViewById(R.id.score);
-        dateTime = findViewById(R.id.dateTime);
+        userId = findViewById(R.id.pop_userid_text);
+        score = findViewById(R.id.pop_uscore_text);
+        dateTime = findViewById(R.id.pop_udate_text);
         Intent gameInfo = getIntent();
         userId.setText((gameInfo.getStringExtra("name")));
         score.setText((gameInfo.getStringExtra("time")));

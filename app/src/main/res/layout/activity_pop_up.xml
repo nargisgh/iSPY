@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pop_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PopUp"
-    android:background="@drawable/comicbackdrop">
+    android:background="@drawable/comicbackdrop"
+    tools:context=".ui.PopUp">
 
     <TableLayout
         android:layout_width="568dp"
@@ -21,32 +22,35 @@
         <TableRow>
 
             <TextView
+                android:id="@+id/pop_username_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
-                android:text="Username"
+                android:text="@string/pop_username_text"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
             <TextView
+                android:id="@+id/pop_score_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
-                android:text="Score"
+                android:text="@string/pop_score_text"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
             <TextView
+                android:id="@+id/pop_date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
-                android:text="Date/Time"
+                android:text="@string/pop_date_text"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
@@ -68,35 +72,35 @@
         <TableRow>
 
             <TextView
-                android:id="@+id/userId"
+                android:id="@+id/pop_userid_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:text="UserID"
+                android:text="@string/pop_userid_text"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/score"
+                android:id="@+id/pop_uscore_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:text="Score"
+                android:text="@string/pop_uscore_text"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/dateTime"
+                android:id="@+id/pop_udate_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:text="Date/Time"
+                android:text="@string/pop_udate_text"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -104,13 +108,13 @@
     </TableLayout>
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/pop_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/faster_one"
-        android:text="Great Job!"
+        android:text="@string/pop_title_text"
         android:textColor="#3F51B5"
         android:textSize="70sp"
         app:layout_constraintStart_toStartOf="parent"
