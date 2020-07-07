@@ -1,5 +1,6 @@
 package cmpt276.termproject.model;
 
+import android.graphics.Canvas;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -30,6 +31,15 @@ public class GameManager {
         return  instance;
     }
 
+
+    public Card getTopDrawCard(){
+        return draw_pile.get(0);
+    }
+
+    public Card getTopDiscardCard(){
+        return discard_pile.get(0);
+    }
+
     public List<Card> getDrawPile(){
         return draw_pile;
     }
@@ -37,7 +47,6 @@ public class GameManager {
     public List<Card> getDiscardPile(){
         return discard_pile;
     }
-
 
 
     public void updateCards(){
@@ -63,11 +72,12 @@ public class GameManager {
         draw = card_generator.generateCards(order);
 
         updateCards();
-        // Shuffle the draw pile so
+        // Shuffle the draw pile
         Collections.shuffle(draw_pile);
+
+        //Draw first card at start
+        drawCard();
     }
-
-
 
 
     public void  drawCard() {
@@ -79,17 +89,6 @@ public class GameManager {
         }
     }
 
-    public boolean matchItemOnCards(int item){
-        // Loop through all the items in the topmost discard_pile card and check if the
-        // Click item is on that card => Return True if it is found, other wise return false
-
-        for (int discard_item: discard_pile.get(0).getImages()){
-            if (item == discard_item){
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void setTheme(int theme){
         this.theme = theme;

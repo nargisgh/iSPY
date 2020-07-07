@@ -1,5 +1,7 @@
 package cmpt276.termproject.model;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -8,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -204,6 +207,11 @@ public class CardDrawer extends View {
                 int height = draw_bitmap_list.get(i).getHeight();
 
                 if (x > pos_x && x < pos_x + width && y > pos_y && y < pos_y + height) {
+
+                    Animator animator = ObjectAnimator.ofFloat(draw_bitmap_list.get(i), "SCALEX",20f, 100f );
+                    animator.setDuration(500);
+                    animator.start();
+
                     for (int j = 0 ; j < discard_bitmap_list.size(); j ++ ){
                         if (draw_bitmap_list.get(i).sameAs(discard_bitmap_list.get(j))){
                             invalidate();
