@@ -7,26 +7,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.Card;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
-import cmpt276.termproject.model.Highscore;
-import cmpt276.termproject.model.MusicManager;
 import cmpt276.termproject.model.HighScores;
 
 public class PlayActivity extends AppCompatActivity  {
 
-    private Highscore hs;
+
     SharedPreferences preferences;
     private GameManager gameManager;
     CardDrawer cardDrawerCanvas;
@@ -115,8 +109,6 @@ public class PlayActivity extends AppCompatActivity  {
                     dateTime = highscore.getCurrentDateTime();
 
 
-
-
                     Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
 
                     gameInfo.putExtra("name", name);
@@ -125,13 +117,7 @@ public class PlayActivity extends AppCompatActivity  {
 
                     startActivity(gameInfo);
                     finish();
-//
-//                    Intent data = HighScoreActivity.makeIntent(PlayActivity.this);
-//                    data.putExtra("name1", name);
-//                    data.putExtra("dateTime1", dateTime);
-//                    data.putExtra("time1",new_time);
-//                    //startActivity(data);
-//                    finish();
+
 
 
                 }

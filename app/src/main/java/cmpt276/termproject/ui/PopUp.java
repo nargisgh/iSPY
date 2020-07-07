@@ -6,27 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.time.LocalTime;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
-import cmpt276.termproject.model.Highscore;
 
 public class PopUp extends AppCompatActivity {
 
 
-    private Highscore hs;
+
     public static final int X_PARAM = 0;
     public static final int Y_PARAM = -20;
     EditText userId;
