@@ -133,19 +133,16 @@ public class HighScoreActivity extends AppCompatActivity {
         tableLayout.removeAllViews();
         setHeadings();
 
-        for(int i = 0; i<arr.size();i++){
+        for(int i = 1; i<=arr.size();i++){
 
             row = new TableRow(this);
             username = new TextView(this);
             Date = new TextView(this);
             Score = new TextView(this);
 
-
-            if(i==0){
-
             SharedPreferences sharedPreferences = getSharedPreferences("updated scores", Context.MODE_PRIVATE);
 
-            String[] entry = sharedPreferences.getString("score1","").split("/");
+            String[] entry = sharedPreferences.getString("score"+i,"").split("/");
 
             setEntry(entry, Score, 0);
             setEntry(entry, username, 1);
@@ -156,78 +153,6 @@ public class HighScoreActivity extends AppCompatActivity {
             row.addView(username);
             row.addView(Date);
             tableLayout.addView(row);
-            }
-
-
-        else if(i==1){
-
-
-            SharedPreferences sharedPreferences = getSharedPreferences("updated scores", Context.MODE_PRIVATE);
-
-            String[] entry = sharedPreferences.getString("score2","").split("/");
-
-            setEntry(entry, Score, 0);
-            setEntry(entry, username, 1);
-            setEntry(entry, Date, 2);
-
-
-            row.addView(Score);
-            row.addView(username);
-            row.addView(Date);
-            tableLayout.addView(row);
-        }
-
-            else if(i==2){
-
-
-                SharedPreferences sharedPreferences = getSharedPreferences("updated scores", Context.MODE_PRIVATE);
-
-                String[] entry = sharedPreferences.getString("score3","").split("/");
-
-                setEntry(entry, Score, 0);
-                setEntry(entry, username, 1);
-                setEntry(entry, Date, 2);
-
-
-                row.addView(Score);
-                row.addView(username);
-                row.addView(Date);
-                tableLayout.addView(row);
-            }
-
-            else if(i==3){
-
-
-                SharedPreferences sharedPreferences = getSharedPreferences("updated scores", Context.MODE_PRIVATE);
-
-                String[] entry = sharedPreferences.getString("score4","").split("/");
-
-                setEntry(entry, Score, 0);
-                setEntry(entry, username, 1);
-                setEntry(entry, Date, 2);
-
-
-                row.addView(Score);
-                row.addView(username);
-                row.addView(Date);
-                tableLayout.addView(row);
-            }
-
-            else if(i==4){
-
-                SharedPreferences sharedPreferences = getSharedPreferences("updated scores", Context.MODE_PRIVATE);
-
-                String[] entry = sharedPreferences.getString("score5","").split("/");
-
-                setEntry(entry, Score, 0);
-                setEntry(entry, username, 1);
-                setEntry(entry, Date, 2);
-
-
-                row.addView(Score);
-                row.addView(username);
-                row.addView(Date);
-                tableLayout.addView(row);}
 
         }
 
