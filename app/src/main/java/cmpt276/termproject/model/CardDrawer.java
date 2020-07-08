@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -115,11 +116,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         int y = (int) (getHeight() / 2f);
 
 
-        //When Game is over paint over old circle
-        if (game_over){
-            paint.setColor(Color.TRANSPARENT);
-            canvas.drawCircle(x - RADIUS,y, RADIUS, paint );
-        }
+
+
         paint.setColor(Color.DKGRAY);
 
         ImagePlacer imagePlacer= new ImagePlacer();
@@ -130,7 +128,14 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             saveCardInfo(gameManager.getTopDiscardCard(), i, imagePlacer, (int) (x + RADIUS), y , section_size);
         }
 
-        if (gameManager.getDrawPile().size() > 0 ) {
+        //When Game is over paint over old circle
+        if (game_over){
+            paint.setColor(Color.TRANSPARENT);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+            canvas.drawCircle(x - RADIUS,y, RADIUS, paint );
+        }
+
+        if (gameManager.getDrawPile().size() !=  0 ) {
             canvas.drawCircle( x - RADIUS , y, RADIUS, paint );
             //Draw Draw Card
             for (int i = 0; i < num_images; i++) {
@@ -138,7 +143,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
             }
         }
-
 
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
@@ -160,13 +164,12 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         int y = (int) event.getY();
 
         if (action == MotionEvent.ACTION_DOWN) {
+            if ( game_over){
+                return true;
+            }
+            Card card = gameManager.getTopDrawCard();
+
             for (int i = 0; i < gameManager.getNumberImages(); i ++){
-                if (gameManager.getDrawPile().size() == 0) {
-                    gameOver();
-                    return false;
-                }
-                Log.e("TOUCH", "Touched");
-                Card card = gameManager.getTopDrawCard();
                 Bitmap bitmap = card.getImageBitmaps().get(i);
                 int pos_x = card.getImageX(i);
                 int pos_y = card.getImageY(i);
@@ -182,13 +185,18 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                             // Image has been found, draw next card
                             gameManager.drawCard();
                             drawCards();
-                            Log.e("Size", String.valueOf(gameManager.getDrawPile().size()));
-                            Log.e("Match Found", String.valueOf(image));
                         }
                     }
                 }
             }
 
+        }
+
+        if (action == MotionEvent.ACTION_UP){
+            if (gameManager.getDrawPile().size() == 0) {
+                gameOver();
+                return true;
+            }
         }
         return true;
     }
