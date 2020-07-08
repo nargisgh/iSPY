@@ -24,7 +24,7 @@ public class ImagePlacer {
         return pos_y;
     }
 
-     public Bitmap placeBitmap(float x, float y, int section_size, int i ,  List<Bitmap> bitmaps, int bitmap_index) {
+     public Bitmap placeBitmap(Card card, float x, float y, int section_size, int i ,  List<Bitmap> bitmaps, int bitmap_index) {
         // TODO: Randomize the initial degree for placing the items so its not so obvious
         // TODO: Randomize the x and y coord offsets a bit
         //Get Coordinates for placing bitmap within Circle
@@ -44,7 +44,7 @@ public class ImagePlacer {
         pos_y = (int) (height + y - placed_bitmap.getHeight() / 2f);
 
         // Set coordinates of the image for the designated image on the card
-        gameManager.getTopDrawCard().setImageCoordinates(i ,new int[]{pos_x,pos_y});
+        card.setImageCoordinates(i ,new int[]{pos_x,pos_y});
 
         return placed_bitmap;
     }

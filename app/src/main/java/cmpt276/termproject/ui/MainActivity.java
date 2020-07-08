@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
-        musicManager.play();
+//        musicManager.play();
 
         mm_Layout = findViewById(R.id.mm_Layout);
         mm_Layout.setBackgroundResource(R.drawable.bg_menu);
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = PlayActivity.makeIntent(MainActivity.this);
-                musicManager.pause();
+               // musicManager.pause();
                 startActivity(intent);
             }
         });

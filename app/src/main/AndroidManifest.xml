@@ -24,6 +24,11 @@
         <activity android:name=".ui.PlayActivity"
             android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".ui.PopUp"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.Pop">
+        </activity>
+
         <activity android:name=".ui.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>

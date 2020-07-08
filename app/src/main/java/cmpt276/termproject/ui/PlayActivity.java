@@ -4,15 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.Surface;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -20,17 +14,13 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.util.Random;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.Card;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 import cmpt276.termproject.model.HighScores;
-import cmpt276.termproject.model.ScreenDrawer;
 
 public class PlayActivity extends AppCompatActivity  {
 
@@ -103,7 +93,7 @@ public class PlayActivity extends AppCompatActivity  {
 
         frameLayout = findViewById(R.id.frame);
 
-        ScreenDrawer surfaceView = new ScreenDrawer(getApplicationContext());
+        CardDrawer surfaceView = new CardDrawer(getApplicationContext());
 
         frameLayout.addView(surfaceView);
         //surfaceView.setOnTouchListener((View.OnTouchListener) this);

@@ -48,6 +48,10 @@ public class GameManager {
         return discard_pile;
     }
 
+    public int getNumberImages(){
+        return discard_pile.get(0).getImages().size();
+    }
+
 
     public void updateCards(){
         //Function for updating  the cards from the draw configuration that is given,
@@ -74,7 +78,10 @@ public class GameManager {
         updateCards();
         // Shuffle the draw pile
         Collections.shuffle(draw_pile);
-
+        //Shuffle Images on the cards
+        for (Card card: draw_pile){
+            Collections.shuffle(card.getImages());
+        }
         //Draw first card at start
         drawCard();
     }
