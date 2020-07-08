@@ -116,6 +116,11 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         int y = (int) (getHeight() / 2f);
 
 
+        // RESET THE BOARD
+        paint.setColor(Color.TRANSPARENT);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+        canvas.drawCircle(x - RADIUS,y, RADIUS, paint );
+        canvas.drawCircle(x + RADIUS, y, RADIUS, paint);
 
 
         paint.setColor(Color.DKGRAY);
@@ -128,12 +133,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             saveCardInfo(gameManager.getTopDiscardCard(), i, imagePlacer, (int) (x + RADIUS), y , section_size);
         }
 
-        //When Game is over paint over old circle
-        if (game_over){
-            paint.setColor(Color.TRANSPARENT);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
-            canvas.drawCircle(x - RADIUS,y, RADIUS, paint );
-        }
 
         if (gameManager.getDrawPile().size() !=  0 ) {
             canvas.drawCircle( x - RADIUS , y, RADIUS, paint );
@@ -143,7 +142,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
             }
         }
-
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
