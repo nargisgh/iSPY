@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalTime;
 
@@ -138,6 +139,7 @@ public class PlayActivity extends AppCompatActivity  {
         Window window = dialog.getWindow();
         assert window != null;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        //Toast
 
     }
 
