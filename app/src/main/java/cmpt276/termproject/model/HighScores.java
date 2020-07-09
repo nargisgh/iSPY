@@ -50,31 +50,37 @@ public class HighScores{
     //populate default_scores
     public void set_default_scores(Context context, String[] default_scores){
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        for (int i = 0; i < DEFAULT_SCORES.size(); i ++){
-            editor.putString(DEFAULT_SCORES.get(i), default_scores[i]);
+
+        for(int i=0;i<default_scores.length;i++){
+            int j = i+1;
+            editor.putString("score"+j, default_scores[i]);
         }
+        score1 = sharedPreferences.getString("score1","");
+        score2 = sharedPreferences.getString("score2","");
+        score3 = sharedPreferences.getString("score3","");
+        score4 = sharedPreferences.getString("score4","");
+        score5 = sharedPreferences.getString("score5","");
         editor.apply();
-        initialize_default_scores(context,default_scores);
 
     }
 
 
     // get default scores
     public ArrayList<String> get_default_scores(Context context){
-        //getScore();
         arr = new ArrayList<>();
-        SharedPreferences shared_Preferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
         for (int i = 0; i < DEFAULT_SCORES.size(); i ++){
-            arr.add(shared_Preferences.getString(DEFAULT_SCORES.get(i), ""));
+            SharedPreferences shared_Preferences = context.getSharedPreferences("scores"+i, Context.MODE_PRIVATE);
+            arr.add(shared_Preferences.getString("score"+i, ""));
         }
         return arr;
     }
     public ArrayList<String> getCurrentScores(Context context){
         arr = new ArrayList<>();
-        SharedPreferences shared_Preferences = context.getSharedPreferences("default scores", Context.MODE_PRIVATE);
+
         for (int i = 1; i <= 5; i ++){
+            SharedPreferences shared_Preferences = context.getSharedPreferences("score"+i, Context.MODE_PRIVATE);
             arr.add(shared_Preferences.getString("score"+i, ""));
         }
         return arr;
@@ -90,26 +96,6 @@ public class HighScores{
         String[] arr = entry.split("/");
         return arr[0];
 
-    }
-
-    // Here we will input the default array just to setup the global string variables with default entries
-// save variables with string entries
-    public void initialize_default_scores(Context context, String[] default_scores){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString("score1", default_scores[0]);
-        editor.putString("score2", default_scores[1]);
-        editor.putString("score3", default_scores[2]);
-        editor.putString("score4", default_scores[3]);
-        editor.putString("score5", default_scores[4]);
-
-        score1 = sharedPreferences.getString("score1","");
-        score2 = sharedPreferences.getString("score2","");
-        score3 = sharedPreferences.getString("score3","");
-        score4 = sharedPreferences.getString("score4","");
-        score5 = sharedPreferences.getString("score5","");
-        editor.apply();
     }
 
     // Here all the times are converted  to secs for easier comparison
@@ -131,7 +117,8 @@ public class HighScores{
         String[] temp_s = {sharedPreferences.getString("score1",""),
                 sharedPreferences.getString("score2",""),
                 sharedPreferences.getString("score3",""),
-                sharedPreferences.getString("score4",""),sharedPreferences.getString("score5","")};
+                sharedPreferences.getString("score4",""),
+                sharedPreferences.getString("score5","")};
 
         for(int i=0;i<5;i++){
             if(entry.equals(temp_s[i])){

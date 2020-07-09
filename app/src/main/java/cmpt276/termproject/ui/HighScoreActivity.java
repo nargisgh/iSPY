@@ -21,7 +21,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HighScoreActivity extends AppCompatActivity {
@@ -40,7 +39,7 @@ public class HighScoreActivity extends AppCompatActivity {
     String test_input;
 
 
-    private static boolean isinitialized = false;
+    private static boolean isInitialized = false;
 
     ArrayList<String> arr = new ArrayList<>();
     @Override
@@ -52,19 +51,16 @@ public class HighScoreActivity extends AppCompatActivity {
 
         default_scores = getResources().getStringArray(R.array.default_highscores);
         // initializing default scores once when app starts
-        if(!isinitialized) {
+        if(!isInitialized) {
 
             highscore.set_default_scores(HighScoreActivity.this,default_scores);
             arr = highscore.get_default_scores(HighScoreActivity.this);
-            highscore.initialize_default_scores(HighScoreActivity.this, default_scores);
             populateScores();
 
-            isinitialized = true;
+            isInitialized = true;
         }
 
-
-
-        else if (isinitialized) {
+        else if (isInitialized) {
             arr = highscore.getCurrentScores(HighScoreActivity.this);
             populateScores();
             SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
@@ -125,8 +121,6 @@ public class HighScoreActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void setEntry(String[] entry, TextView score, int index) {
         score.setText(entry[index]);
         score.setGravity(Gravity.CENTER);
@@ -146,14 +140,9 @@ public class HighScoreActivity extends AppCompatActivity {
         dateT_hd = new TextView(this);
 
         HeadingName(name_hd, "Score");
-
         HeadingName(score_hd, "Username");
-
         HeadingName(dateT_hd, "Date/Time");
 
-        row.addView(name_hd);
-        row.addView(score_hd);
-        row.addView(dateT_hd);
         tableLayout.addView(row);
 
     }
@@ -164,6 +153,7 @@ public class HighScoreActivity extends AppCompatActivity {
         hd.setTextSize(36);
         hd.setTextColor(Color.WHITE);
         hd.setGravity(Gravity.CENTER);
+        row.addView(hd);
     }
 
 
@@ -196,6 +186,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        return new Intent(context, HighScoreActivity.class);
+        Intent intent = new Intent(context, HighScoreActivity.class);
+        return intent;
     }
 }
