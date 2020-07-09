@@ -141,13 +141,6 @@ public class HighScores{
             applySwap(sharedPreferences,"score5",score5);
             applySwap(sharedPreferences,"score1",score1);
 
-//            editor.putString("score2",score2);
-//            editor.putString("score3",score3);
-//            editor.putString("score4",score4);
-//            editor.putString("score5",score5);
-//            editor.putString("score1",score1);
-//            editor.apply();
-
 
 
         }
@@ -167,11 +160,7 @@ public class HighScores{
             applySwap(sharedPreferences,"score5",score5);
             applySwap(sharedPreferences,"score2",score2);
 
-//            editor.putString("score3",score3);
-//            editor.putString("score4",score4);
-//            editor.putString("score5",score5);
-//            editor.putString("score2",score2);
-//            editor.apply();
+
 
         }
 
@@ -188,10 +177,6 @@ public class HighScores{
             applySwap(sharedPreferences,"score5",score5);
             applySwap(sharedPreferences,"score3",score3);
 
-//            editor.putString("score4",score4);
-//            editor.putString("score5",score5);
-//            editor.putString("score3",score3);
-//            editor.apply();
         }
 
         //score4 comparison
@@ -203,18 +188,13 @@ public class HighScores{
             applySwap(sharedPreferences,"score5",score5);
             applySwap(sharedPreferences,"score4",score4);
 
-//            editor.putString("score5",score5);
-//            editor.putString("score4",score4);
-//            editor.apply();
-
         }
 
         //score5 comparison
         else if(latest_time < compare5){
             score5 = entry;
             applySwap(sharedPreferences,"score5",score5);
-//            editor.putString("score5",score5);
-//            editor.apply();
+
         }
     }
     private void applySwap(SharedPreferences sharedPreferences, String score_key, String score_position){

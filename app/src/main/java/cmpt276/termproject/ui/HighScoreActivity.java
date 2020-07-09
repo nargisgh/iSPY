@@ -48,7 +48,7 @@ public class HighScoreActivity extends AppCompatActivity {
         highScores = HighScores.getInstance();
         default_scores = getResources().getStringArray(R.array.default_highscores);
 
-        entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+         entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
         input = entry_new.getString("new entry",null);
 
         if(input != null) {
@@ -66,8 +66,10 @@ public class HighScoreActivity extends AppCompatActivity {
         else if (isInitialized) {
             arr = highScores.getCurrentScores(HighScoreActivity.this);
             populateScores();
-            highScores.update(input, HighScoreActivity.this);
-            updated_table();
+            if(input!=null) {
+                highScores.update(input, HighScoreActivity.this);
+                updated_table();
+            }
         }
         setupResetbtn();
         setupBackbtn();
