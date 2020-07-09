@@ -38,7 +38,9 @@ public class PlayActivity extends AppCompatActivity  {
     String dateTime;
     String time;
     private Chronometer chronometer;
+
     private boolean dialog_open = false;
+    private double game_start_time;
 
     public HighScores highscore;
 
@@ -72,6 +74,13 @@ public class PlayActivity extends AppCompatActivity  {
     //TODO: TIMER
     // *@Override
     public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+
+        if (action == MotionEvent.ACTION_UP) {
+            if (gameManager.getDiscardPile().size() == 2) {
+                game_start_time = System.currentTimeMillis();
+            }
+        }
         if (gameManager.getDrawPile().size() == 0 && !dialog_open){
             //PLACE CODE FOR THE GAME OVER POPUP IN HERE
             int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
@@ -80,12 +89,13 @@ public class PlayActivity extends AppCompatActivity  {
             time = score.toString();
             dateTime = highscore.getCurrentDateTime();
 
+            double elapsed_time = System.currentTimeMillis() - game_start_time;
+            Log.e("Time", String.valueOf(elapsed_time));
+
             popup(dateTime,time);
             dialog_open = true;
-
         }
         return super.onTouchEvent(event);
-
     }
     //If I use the touch feature the pop up occurs twice.
 
@@ -94,7 +104,6 @@ public class PlayActivity extends AppCompatActivity  {
 
 
     private void popup(final String dateTime,final String time){
-        Log.e("ALERT", "opened");
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
 
