@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 
 public class OptionActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class OptionActivity extends AppCompatActivity {
     RadioButton hypno_rbtn;
     public MusicManager musicManager;
 
+    private GameManager gameManager;
 
 
     @Override
@@ -34,6 +36,7 @@ public class OptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
+        gameManager = GameManager.getInstance();
         musicManager = MusicManager.getInstance();
         musicManager.play();
         os_Layout = findViewById(R.id.os_Layout);
@@ -88,12 +91,14 @@ public class OptionActivity extends AppCompatActivity {
                         mEdit.putString("Theme", "Superheroes");
                         mEdit.commit();
                         Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
+                        gameManager.setTheme(2);
                         break;
 
                     case 2: //Hypnomob theme chosen
 
                         mEdit.putString("Theme", "Hypnomob");
                         mEdit.commit();
+                        gameManager.setTheme(1);
                         Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
