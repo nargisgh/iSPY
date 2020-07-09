@@ -1,8 +1,5 @@
 package cmpt276.termproject.model;
 
-import android.animation.Animator;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -13,18 +10,13 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.util.Log;
-import android.util.Property;
+
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.CycleInterpolator;
-import android.view.animation.LinearInterpolator;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 
 import cmpt276.termproject.R;
@@ -152,7 +144,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
         ImagePlacer imagePlacer= new ImagePlacer();
         canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
-        //canvas.drawCircle(x + RADIUS, y, RADIUS, paint);
         //Draw discard Cards
         int offset = (int) (Math.random() * 90);
         for (int i = 0; i <num_images; i ++){
@@ -162,7 +153,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
         if (gameManager.getDrawPile().size() !=  0 ) {
             canvas.drawBitmap(card_bitmap, x - (2 * RADIUS) - OFFSET , y - RADIUS, null);
-            //canvas.drawCircle( x - RADIUS , y, RADIUS, paint );
             //Draw Draw Card
             offset = (int) (Math.random() * 90);
             for (int i = 0; i < num_images; i++) {
