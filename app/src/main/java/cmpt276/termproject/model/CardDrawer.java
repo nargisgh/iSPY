@@ -1,8 +1,5 @@
 package cmpt276.termproject.model;
 
-import android.animation.Animator;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -13,18 +10,13 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.util.Log;
-import android.util.Property;
+
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.CycleInterpolator;
-import android.view.animation.LinearInterpolator;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 
 import cmpt276.termproject.R;
@@ -152,7 +144,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
         ImagePlacer imagePlacer= new ImagePlacer();
         canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
-        //canvas.drawCircle(x + RADIUS, y, RADIUS, paint);
         //Draw discard Cards
         int offset = (int) (Math.random() * 90);
         for (int i = 0; i <num_images; i ++){
@@ -162,7 +153,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
         if (gameManager.getDrawPile().size() !=  0 ) {
             canvas.drawBitmap(card_bitmap, x - (2 * RADIUS) - OFFSET , y - RADIUS, null);
-            //canvas.drawCircle( x - RADIUS , y, RADIUS, paint );
             //Draw Draw Card
             offset = (int) (Math.random() * 90);
             for (int i = 0; i < num_images; i++) {
@@ -182,39 +172,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-    public void activateBitmap(Bitmap bitmap,Card card, int index){
-        final int x = card.getImageX(index);
-        final int y = card.getImageY(index);
-
-//
-//        paint.setColor(Color.parseColor("#999999"));
-//        Thread drawCircle = new Thread(){
-//            public void run(){
-//                try {
-//                    synchronized (this){
-//                        canvas = surfaceHolder.lockCanvas();
-//                        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
-//                        paint.setColor(Color.parseColor("#999999"));
-//                        canvas.drawCircle(x-10,y-10, 200,paint);
-//                        wait(1000);
-//                    }
-//                }
-//                catch (Exception ignored){
-//                }
-//                finally {
-//                    Log.e("Fnishied", "return");
-//                     paint.setColor(Color.BLACK);
-//                     paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
-//                     canvas.drawCircle(x-10,y-10, 200,paint);
-//                    surfaceHolder.unlockCanvasAndPost(canvas);
-//
-////
-//                }
-//            }
-//        };
-//        drawCircle.start();
-
-    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -228,7 +185,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                 return true;
             }
             Card card = gameManager.getTopDrawCard();
-            activateBitmap(bitmaps.get(0), card, 0);
             for (int i = 0; i < gameManager.getNumberImages(); i ++){
                 Bitmap bitmap = card.getImageBitmaps().get(i);
                 int pos_x = card.getImageX(i);
