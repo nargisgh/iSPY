@@ -1,6 +1,7 @@
 package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Context;
@@ -31,6 +32,8 @@ import java.util.List;
 
 public class HighScoreActivity extends AppCompatActivity {
 
+    ConstraintLayout hs_Layout;
+
     private HighScores highscore;
 
     private Highscore hs=  new Highscore();
@@ -55,6 +58,8 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
 
+        hs_Layout = findViewById(R.id.hs_Layout);
+        hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
 
         musicManager = MusicManager.getInstance();
 
