@@ -41,7 +41,8 @@ public class PlayActivity extends AppCompatActivity  {
     String dateTime;
     String time;
     String ms;
-    String new_time;
+    float new_time;
+    String format;
 
     private Chronometer chronometer;
 
@@ -98,16 +99,24 @@ public class PlayActivity extends AppCompatActivity  {
             dateTime = highscore.getCurrentDateTime();
             double elapsed_time = System.currentTimeMillis() - game_start_time;
 
+
+
+
             Log.e("Time", String.valueOf((elapsed_time)));
 
             ms = String.valueOf((int)elapsed_time/1000);
 
-            //Ex format: 00:00:08.5
-            new_time = time + "." + ms;
-            Log.e("Time", new_time);
+
+            //Ex format: 8.5
+
+            format = elapsed + "."+ ms;
+            new_time = Float.parseFloat(format);
+
+            //float f = Float.parseFloat(new_time);
+            Log.e("Time", String.format("%.1f",new_time));
 
 
-            popup(dateTime,new_time);
+            popup(dateTime,String.format("%.1f",new_time));
             dialog_open = true;
         }
         return super.onTouchEvent(event);
@@ -138,7 +147,7 @@ public class PlayActivity extends AppCompatActivity  {
                     userId.setClickable(false);
                     userId.setFocusableInTouchMode(false);
                     userId.setEnabled(false);
-                    String entry = ("" + time + "/ " + name + "/" + dateTime);
+                    String entry = (time + "/ " + name + "/" + dateTime);
 
                     SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = entry_new.edit();

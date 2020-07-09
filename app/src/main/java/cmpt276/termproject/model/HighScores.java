@@ -104,14 +104,14 @@ public class HighScores{
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
-        int latest_time = convert_time_to_int(replace_dot(getScore(entry)));
+        int latest_time = convert_time_to_int(getScore(entry));
 
 
-        int compare1 = convert_time_to_int(replace_dot(getScore(sharedPreferences.getString("score1",""))));
-        int compare2 = convert_time_to_int(replace_dot(getScore(sharedPreferences.getString("score2",""))));
-        int compare3 = convert_time_to_int(replace_dot(getScore(sharedPreferences.getString("score3",""))));
-        int compare4 = convert_time_to_int(replace_dot(getScore(sharedPreferences.getString("score4",""))));
-        int compare5 = convert_time_to_int(replace_dot(getScore(sharedPreferences.getString("score5",""))));
+        int compare1 = convert_time_to_int(getScore(sharedPreferences.getString("score1","")));
+        int compare2 = convert_time_to_int(getScore(sharedPreferences.getString("score2","")));
+        int compare3 = convert_time_to_int(getScore(sharedPreferences.getString("score3","")));
+        int compare4 = convert_time_to_int(getScore(sharedPreferences.getString("score4","")));
+        int compare5 = convert_time_to_int(getScore(sharedPreferences.getString("score5","")));
 
         String[] temp_s = getCurrentScores(context).toArray(new String[0]);
 
@@ -202,14 +202,12 @@ public class HighScores{
     }
     // convert string time to secs for easier comparison
     public int convert_time_to_int(String str){
-        String[] time = str.split(":" );
+        String[] time = str.split("\\." );
 
-        int hr = Integer.parseInt(time[0]);
-        int min = Integer.parseInt(time[1]);
-        int sec = Integer.parseInt(time[2]);
-        int ms = Integer.parseInt(time[3]);
+        int sec = Integer.parseInt(time[0]);
+        int ms = Integer.parseInt(time[1]);
 
-        return (hr * 3600) + (min * 60) + sec + ms;
+        return sec + ms;
     }
 
     public String replace_dot(String str){

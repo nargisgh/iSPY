@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="default_highscores">
-        <item>00:02:30.5/Flash / Jun 3, 2020 2:30:06 PM</item>
-        <item>00:03:00.0/BigBrain / Jun 1, 2020 10:00:09 AM</item>
-        <item>00:03:30.1/SuperMan / May 25, 2020 12:00:14 PM</item>
-        <item>00:04:15.8/BatMan /  May 30, 2020 3:32:25 PM</item>
-        <item>00:05:00.0/MrSlow / Jun 2, 2020 1:37:59 PM</item>
+        <item>20.3/Flash / Jun 3, 2020 2:30:06 PM</item>
+        <item>30.5/BigBrain / Jun 1, 2020 10:00:09 AM</item>
+        <item>33.8/SuperMan / May 25, 2020 12:00:14 PM</item>
+        <item>45.6/BatMan /  May 30, 2020 3:32:25 PM</item>
+        <item>45.8/MrSlow / Jun 2, 2020 1:37:59 PM</item>
     </string-array>
 </resources>
