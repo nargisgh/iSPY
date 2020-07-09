@@ -101,7 +101,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         drawCards();
-
     }
 
     @Override
@@ -135,7 +134,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
 
     public void drawCards(){
-
         int num_images  = gameManager.getNumberImages();
         int section_size = 360 /num_images;
 
@@ -151,10 +149,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
         canvas.drawCircle(x - RADIUS - OFFSET, y, RADIUS + 1, paint );
         canvas.drawCircle(x + RADIUS + OFFSET, y, RADIUS + 1 , paint);
-
-
-
-
         paint.setColor(Color.DKGRAY);
 
         ImagePlacer imagePlacer= new ImagePlacer();
@@ -229,7 +223,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         int action = event.getAction();
         int x = (int) event.getX();
         int y = (int) event.getY();
-        Log.e("x,y " , x + " " + y);
 
         if (action == MotionEvent.ACTION_DOWN) {
             if (game_over || gameManager.getDrawPile().size() == 0) {
@@ -260,14 +253,16 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         if (action == MotionEvent.ACTION_UP){
-            if (gameManager.getDrawPile().size() == 0) {
-                gameOver();
-                return true;
-            }
             if (found_match ){
                 gameManager.drawCard();
-                drawCards();
-                found_match = false;
+                if (gameManager.getDrawPile().size() == 0) {
+                    gameOver();
+                }
+                else {
+                    drawCards();
+                    found_match = false;
+                }
+                return true;
             }
         }
       return true;

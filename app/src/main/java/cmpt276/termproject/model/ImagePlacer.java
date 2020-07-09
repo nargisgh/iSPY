@@ -29,7 +29,7 @@ public class ImagePlacer {
         // TODO: Randomize the x and y coord offsets a bit
 
         // Scale Randomizing
-        float min = 0.45f;
+        float min = 0.6f;
         float max = 1.3f;
         double scale = min + Math.random() * (max - min);
 
