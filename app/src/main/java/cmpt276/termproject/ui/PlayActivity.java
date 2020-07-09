@@ -8,18 +8,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.Card;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
@@ -27,13 +27,11 @@ import cmpt276.termproject.model.HighScores;
 
 public class PlayActivity extends AppCompatActivity  {
 
-    ConstraintLayout ps_Layout;
-    SharedPreferences preferences;
-    private GameManager gameManager;
-    CardDrawer cardDrawerCanvas;
+    private FrameLayout frameLayout;
 
-    private GameManager manager;
-    int score;
+    ConstraintLayout ps_Layout;
+    private GameManager gameManager;
+
     String name;
     String dateTime;
     String entry;
@@ -61,7 +59,6 @@ public class PlayActivity extends AppCompatActivity  {
         musicManager = MusicManager.getInstance();
         setup();
 
-        cardDrawerCanvas = findViewById(R.id.card_canvas);
 
     }
 
@@ -98,7 +95,14 @@ public class PlayActivity extends AppCompatActivity  {
         gameManager = GameManager.getInstance();
         gameManager.createCards();
 
+        frameLayout = findViewById(R.id.frame);
+
+        CardDrawer surfaceView = new CardDrawer(getApplicationContext());
+
+        frameLayout.addView(surfaceView);
+
         setupBackButton();
+
     }
 
 
@@ -153,6 +157,7 @@ public class PlayActivity extends AppCompatActivity  {
         Intent intent = new Intent(context, PlayActivity.class);
         return intent;
     }
+
 
 
 }

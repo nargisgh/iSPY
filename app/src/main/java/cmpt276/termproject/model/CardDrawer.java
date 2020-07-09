@@ -1,5 +1,8 @@
 package cmpt276.termproject.model;
 
+import android.animation.Animator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -7,10 +10,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.AttributeSet;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.util.Log;
+import android.util.Property;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Toast;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,234 +29,247 @@ import java.util.List;
 
 import cmpt276.termproject.R;
 
-public class CardDrawer extends View {
+public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
-    public static final int IMG_WIDTH = 150;
-    public static final int IMG_HEIGHT = 150;
-    private float RADIUS = 350f;
-    private Paint paint = new Paint();
-    private Canvas canvas;
+    private SurfaceHolder surfaceHolder  = null;
+    private Paint paint = null;
+    private GameManager gameManager;
+    private boolean game_over = false;
+
+    private Bitmap card_bitmap;
+    private List<Bitmap> bitmaps;
+    Canvas canvas;
+
+    private static final float RADIUS = 350f;
+    private static final int OFFSET = 20;
+
 
     //TODO : Draw the Draw and Discard Piles
 
-    private GameManager gameManager;
-    private List<Integer> draw_card_imgs;
-    private List<Integer> discard_card_imgs;
-    private List<Integer> images_list;
+
+    private boolean found_match = false;
 
 
-    private List<Bitmap> discard_bitmap_list;
-    private List<Bitmap> draw_bitmap_list;
-    private List<int[]> bitmap_pos;
+    public CardDrawer(Context context) {
+        super(context);
+        //setFocusable(true);
 
-    public CardDrawer (Context context, AttributeSet attrs){
-        super(context, attrs);
-        setup();
-    }
+        if (surfaceHolder == null){
+            surfaceHolder = getHolder();
+            surfaceHolder.addCallback(this);
+        }
 
+        if (paint == null){
+            paint = new Paint();
+            paint.setColor(Color.DKGRAY);
+            paint.setStyle(Paint.Style.FILL);
+        }
 
-    private void setup(){
         gameManager = GameManager.getInstance();
 
-        draw_card_imgs = new ArrayList<>();
-        discard_card_imgs = new ArrayList<>();
+        setCardTheme();
 
-        discard_bitmap_list = new ArrayList<>();
-        draw_bitmap_list = new ArrayList<>();
-        bitmap_pos = new ArrayList<>();
 
-        initialiseImagesArray();
+        card_bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.card);
+        card_bitmap = Bitmap.createScaledBitmap(card_bitmap,(int)RADIUS * 2 , (int)RADIUS * 2, true);
 
-        //TODO: Have to init all Bitmaps here for better performance
+        this.setZOrderOnTop(true);
+        this.getHolder().setFormat(PixelFormat.TRANSLUCENT);
     }
 
+
+    // Set the Theme from the available 2 and create bitmap array
+    public void setCardTheme(){
+        int theme = gameManager.getTheme();
+        bitmaps = new ArrayList<>();
+
+        TypedArray typedArray = getResources().obtainTypedArray(R.array.theme_1_images);
+        if (gameManager.getTheme() == 2){
+            typedArray = getResources().obtainTypedArray(R.array.theme_2_images);
+        }
+        for (int i = 0;  i < typedArray.length(); i ++) {
+
+            Bitmap decoded_bitmap = BitmapFactory.decodeResource(getResources(), typedArray.getResourceId(i, -1));
+            bitmaps.add(decoded_bitmap);
+        }
+
+        typedArray.recycle();
+
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        drawCards();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        this.canvas = canvas;
+        Bitmap bmp = bitmaps.get(4);
 
-        //Set Stroke Settings
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.GRAY);
 
-        drawCard((getWidth() / 2f) + RADIUS,(getHeight() / 2f) );
-        discard((getWidth() / 2f)- RADIUS,(getHeight() / 2f) );
+        paint.setColor(Color.DKGRAY);
+        canvas.drawBitmap(bmp,0,0,null);
 
     }
 
 
-    private void initialiseImagesArray(){
-        TypedArray typedArray = getResources().obtainTypedArray(R.array.theme_1_images);
-        //Change theme if applicable
-        if (gameManager.getTheme() == 2){
-            typedArray = getResources().obtainTypedArray(R.array.theme_2_images);
-        }
-        // Grab the images from the XML all images stored in the imgs_list as drawables
-        images_list = new ArrayList<>();
-        for (int i = 0; i < typedArray.length(); i ++){
-            images_list.add(typedArray.getResourceId(i, -1));
-        }
-        //Recycle Typed array for garbage collection
-        typedArray.recycle();
-    }
-
-
-    private void discard(float x, float y){
-        //Draw Card if possible
-        if (gameManager.getDiscardPile().size() == 0){
-            gameManager.drawCard();
-        }
-
-        //Generate the Drawables from the array of ints that was generated by the CardManager
-        createDiscardArray();
-
-        //Draw the Card Circle
-        canvas.drawCircle(x,y,RADIUS ,paint);
-        //Drawing images around the card evenly distributed
-        int section_size = 360 / discard_card_imgs.size();
-
-        Collections.shuffle(discard_card_imgs);
-        for (int i = 0 ; i < discard_card_imgs.size() ; i ++) {
-
-            //Draw scaled Bitmaps
-            Bitmap card_img = BitmapFactory.decodeResource(getContext().getResources(), discard_card_imgs.get(i));
-            Bitmap scaled_img = Bitmap.createScaledBitmap(card_img, (int) (IMG_WIDTH ), (int) (IMG_HEIGHT ), true);
-
-            ImagePlacer imagePlacer = new ImagePlacer().invoke(x, y, section_size, i, scaled_img);
-
-            discard_bitmap_list.add(scaled_img);
-
-            //Draw Bitmap
-            canvas.drawBitmap(scaled_img, imagePlacer.getPosX() , imagePlacer.getPosY() , null);
+    public void gameOver(){
+        //Update Canvas on Game Over
+        if (!game_over){
+            game_over = true;
+            drawCards();
         }
     }
 
-    private void drawCard(float x, float y){
-        //Draw Card if possible
-        if (gameManager.getDrawPile().size() > 0){
-            gameManager.drawCard();
 
+    public void drawCards(){
+        int num_images  = gameManager.getNumberImages();
+        int section_size = 360 /num_images;
+
+        // Lock Canvas for Drawing
+        canvas = surfaceHolder.lockCanvas();
+
+        int x  = (int) (getWidth() / 2f);
+        int y = (int) (getHeight() / 2f);
+
+
+        // RESET THE BOARD
+        paint.setColor(Color.TRANSPARENT);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+        canvas.drawCircle(x - RADIUS - OFFSET, y, RADIUS + 1, paint );
+        canvas.drawCircle(x + RADIUS + OFFSET, y, RADIUS + 1 , paint);
+        paint.setColor(Color.DKGRAY);
+
+        ImagePlacer imagePlacer= new ImagePlacer();
+        canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
+        //canvas.drawCircle(x + RADIUS, y, RADIUS, paint);
+        //Draw discard Cards
+        int offset = (int) (Math.random() * 90);
+        for (int i = 0; i <num_images; i ++){
+            saveCardInfo(gameManager.getTopDiscardCard(), i, imagePlacer, (int) (x + RADIUS + OFFSET), y, offset , section_size);
         }
-        //Generate the Drawables from the array of ints that was generated by the CardManager
-        boolean draw_pile_empty = createDrawArray();
 
-        if (!draw_pile_empty) {
-            //Draw the Card Circle
-            canvas.drawCircle(x, y, RADIUS, paint);
 
-            //Drawing images around the card evenly distributed
-            int section_size = 360 / draw_card_imgs.size();
+        if (gameManager.getDrawPile().size() !=  0 ) {
+            canvas.drawBitmap(card_bitmap, x - (2 * RADIUS) - OFFSET , y - RADIUS, null);
+            //canvas.drawCircle( x - RADIUS , y, RADIUS, paint );
+            //Draw Draw Card
+            offset = (int) (Math.random() * 90);
+            for (int i = 0; i < num_images; i++) {
+                saveCardInfo(gameManager.getTopDrawCard(), i, imagePlacer, (int) (x - RADIUS - OFFSET), y, offset, section_size);
 
-            Collections.shuffle(draw_card_imgs);
-            for (int i = 0; i < draw_card_imgs.size(); i++) {
-                //TODO: Add rotation offset so the images are not always in the same place
-
-                //Draw scaled Bitmaps
-                Bitmap card_img = BitmapFactory.decodeResource(getContext().getResources(), draw_card_imgs.get(i));
-                Bitmap scaled_img = Bitmap.createScaledBitmap(card_img, (int) (IMG_WIDTH ), (int) (IMG_HEIGHT ), true);
-
-                ImagePlacer imagePlacer = new ImagePlacer().invoke(x, y, section_size, i, scaled_img);
-                int pos_x = imagePlacer.getPosX();
-                int pos_y = imagePlacer.getPosY();
-
-                //Store bitmaps and their respective positions for accessing in the OnTouchEvent
-                //Since the bitmaps do not store any info on position
-                draw_bitmap_list.add(scaled_img);
-                bitmap_pos.add(new int[]{pos_x, pos_y});
-
-                //Draw Bitmap
-                canvas.drawBitmap(scaled_img, pos_x, pos_y, null);
             }
-
         }
+        surfaceHolder.unlockCanvasAndPost(canvas);
+    }
+
+    public void saveCardInfo(Card card, int i, ImagePlacer imagePlacer , int x , int y , int offset,  int section_size){
+        int bitmap_index = card.getImages().get(i);
+        Bitmap bitmap = imagePlacer.placeBitmap(card, x, y, offset, section_size,i, bitmaps,bitmap_index);
+        canvas.drawBitmap(bitmap, imagePlacer.getPosX(),imagePlacer.getPosY(),null);
+        card.setImageCoordinates(i, new int[]{imagePlacer.getPosX(),imagePlacer.getPosY()});
+        card.setImageBitmaps(i, bitmap);
     }
 
 
-    //Grab the top card from the draw pile and pull images from it, if the draw Pile is empty
-    //then game is over
-    private boolean createDrawArray(){
-        List<Integer> draw_card;
-        if (gameManager.getDrawPile().size() > 0) {
-            draw_card = gameManager.getDrawPile().get(0).getImages();
-            //Create a mapped array of drawable items
-            draw_card_imgs = new ArrayList<>();
-            for (int value : draw_card) {
-                draw_card_imgs.add(images_list.get(value));
-            }
-            return false;
-        }
-        return true;
+    public void activateBitmap(Bitmap bitmap,Card card, int index){
+        final int x = card.getImageX(index);
+        final int y = card.getImageY(index);
+
+//
+//        paint.setColor(Color.parseColor("#999999"));
+//        Thread drawCircle = new Thread(){
+//            public void run(){
+//                try {
+//                    synchronized (this){
+//                        canvas = surfaceHolder.lockCanvas();
+//                        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+//                        paint.setColor(Color.parseColor("#999999"));
+//                        canvas.drawCircle(x-10,y-10, 200,paint);
+//                        wait(1000);
+//                    }
+//                }
+//                catch (Exception ignored){
+//                }
+//                finally {
+//                    Log.e("Fnishied", "return");
+//                     paint.setColor(Color.BLACK);
+//                     paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+//                     canvas.drawCircle(x-10,y-10, 200,paint);
+//                    surfaceHolder.unlockCanvasAndPost(canvas);
+//
+////
+//                }
+//            }
+//        };
+//        drawCircle.start();
+
     }
-
-
-    private void createDiscardArray(){
-        List<Integer> discard_card = gameManager.getDiscardPile().get(0).getImages();
-        //If card already exists, replace with new one
-        discard_card_imgs = new ArrayList<>();
-        for (int value : discard_card){
-                discard_card_imgs.add(images_list.get(value));
-        }
-    }
-
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
         int action = event.getAction();
         int x = (int) event.getX();
         int y = (int) event.getY();
 
         if (action == MotionEvent.ACTION_DOWN) {
-            for (int i = 0; i < draw_bitmap_list.size(); i++){
-                int pos_x = bitmap_pos.get(i)[0];
-                int pos_y = bitmap_pos.get(i)[1];
-                int width = draw_bitmap_list.get(i).getWidth();
-                int height = draw_bitmap_list.get(i).getHeight();
+            if (game_over || gameManager.getDrawPile().size() == 0) {
+                return true;
+            }
+            Card card = gameManager.getTopDrawCard();
+            activateBitmap(bitmaps.get(0), card, 0);
+            for (int i = 0; i < gameManager.getNumberImages(); i ++){
+                Bitmap bitmap = card.getImageBitmaps().get(i);
+                int pos_x = card.getImageX(i);
+                int pos_y = card.getImageY(i);
+                int width = bitmap.getWidth();
+                int height = bitmap.getHeight();
 
+                int image = card.getImages().get(i);
+                //Check if click an Image
                 if (x > pos_x && x < pos_x + width && y > pos_y && y < pos_y + height) {
-                    for (int j = 0 ; j < discard_bitmap_list.size(); j ++ ){
-                        if (draw_bitmap_list.get(i).sameAs(discard_bitmap_list.get(j))){
-                            invalidate();
-                            discard_bitmap_list = new ArrayList<>();
-                            draw_bitmap_list = new ArrayList<>();
-                            bitmap_pos = new ArrayList<>();
-                            return true;
+                    Card discard_card = gameManager.getTopDiscardCard();
+                    for (int discard_image : discard_card.getImages()) {
+                        if (image == discard_image) {
+                            // Image has been found, Allow for drawing of next card
+                            found_match = true;
                         }
                     }
                 }
             }
+
         }
-        return false;
+
+        if (action == MotionEvent.ACTION_UP){
+            if (found_match ){
+                gameManager.drawCard();
+                if (gameManager.getDrawPile().size() == 0) {
+                    gameOver();
+                }
+                else {
+                    drawCards();
+                    found_match = false;
+                }
+                return true;
+            }
+        }
+      return true;
+
     }
 
 
-    // Sub Class for placing Images on the cards, (probably better way to do this, I just used the
-    // default Extract Method in Android Studio)
-    private class ImagePlacer {
-        private int pos_x;
-        private int pos_y;
-
-        int getPosX() {
-            return pos_x;
-        }
-
-        int getPosY() {
-            return pos_y;
-        }
-
-        ImagePlacer invoke(float x, float y, int section_size, int i, Bitmap scaled_img) {
-            // TODO: Randomize the initial degree for placing the items so its not so obvious
-            // TODO: Randomize the x and y coord offsets a bit
-            //Get Coordinates for placing bitmap within Circle
-            float rad = (float) Math.toRadians( i * section_size);
-            int width = (int) (Math.cos(rad) * RADIUS * (0.55f));
-            int height = (int) (Math.sin(rad) * RADIUS * (0.55f));
 
 
-            pos_x = (int) (width + x - scaled_img.getWidth() / 2f);
-            pos_y = (int) (height + y - scaled_img.getHeight() / 2f);
-            return this;
-        }
-    }
+
 }
