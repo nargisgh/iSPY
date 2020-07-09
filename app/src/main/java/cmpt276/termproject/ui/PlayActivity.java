@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -37,6 +38,7 @@ public class PlayActivity extends AppCompatActivity  {
     String dateTime;
     String time;
     private Chronometer chronometer;
+    private boolean dialog_open = false;
 
     public HighScores highscore;
 
@@ -70,7 +72,7 @@ public class PlayActivity extends AppCompatActivity  {
     //TODO: TIMER
     // *@Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (gameManager.getDrawPile().size() == 0){
+        if (gameManager.getDrawPile().size() == 0 && !dialog_open){
             //PLACE CODE FOR THE GAME OVER POPUP IN HERE
             int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
             chronometer.stop();
@@ -79,6 +81,7 @@ public class PlayActivity extends AppCompatActivity  {
             dateTime = highscore.getCurrentDateTime();
 
             popup(dateTime,time);
+            dialog_open = true;
 
         }
         return super.onTouchEvent(event);
@@ -89,38 +92,9 @@ public class PlayActivity extends AppCompatActivity  {
 
 
 
-    private void setupBackButton(){
-        Button back_btn = findViewById(R.id.play_back_btn);
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /*if (gameManager.getDrawPile().size() == 0){
-                    //PLACE CODE FOR THE GAME OVER POPUP IN HERE
-                    chronometer.stop();
-                    int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
-                   // chronometer.stop();
-
-                    LocalTime score = LocalTime.ofSecondOfDay(elapsed);
-                    time = score.toString();
-                    dateTime = highscore.getCurrentDateTime();
-                    Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
-
-                    gameInfo.putExtra("name", name);
-                    gameInfo.putExtra("dateTime", dateTime);
-                    gameInfo.putExtra("time",time);
-
-                    startActivity(gameInfo);
-                    finish();
-
-                }
-                else{finish();}*/
-                finish();
-            }
-        });
-    }
 
     private void popup(final String dateTime,final String time){
+        Log.e("ALERT", "opened");
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
 
@@ -155,6 +129,39 @@ public class PlayActivity extends AppCompatActivity  {
         Window window = dialog.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
+    }
+
+
+
+    private void setupBackButton(){
+        Button back_btn = findViewById(R.id.play_back_btn);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*if (gameManager.getDrawPile().size() == 0){
+                    //PLACE CODE FOR THE GAME OVER POPUP IN HERE
+                    chronometer.stop();
+                    int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
+                   // chronometer.stop();
+
+                    LocalTime score = LocalTime.ofSecondOfDay(elapsed);
+                    time = score.toString();
+                    dateTime = highscore.getCurrentDateTime();
+                    Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
+
+                    gameInfo.putExtra("name", name);
+                    gameInfo.putExtra("dateTime", dateTime);
+                    gameInfo.putExtra("time",time);
+
+                    startActivity(gameInfo);
+                    finish();
+
+                }
+                else{finish();}*/
+                finish();
+            }
+        });
     }
 
     public static Intent makeIntent(Context context){
