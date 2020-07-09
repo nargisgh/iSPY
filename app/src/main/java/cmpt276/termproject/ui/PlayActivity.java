@@ -55,11 +55,6 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
 
-
-    //add entry of name etc for Highscores.
-
-
-
     private void setup(){
         //Setup Game Manager Class
         gameManager = GameManager.getInstance();
@@ -71,7 +66,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     //TODO: GAME OVER POPUP
     //TODO: TIMER
-    /*// *@Override
+    // *@Override
     public boolean onTouchEvent(MotionEvent event) {
         if (gameManager.getDrawPile().size() == 0){
             //PLACE CODE FOR THE GAME OVER POPUP IN HERE
@@ -87,7 +82,7 @@ public class PlayActivity extends AppCompatActivity  {
         }
         return super.onTouchEvent(event);
 
-    }*/
+    }
     //If I use the touch feature the pop up occurs twice.
 
 
@@ -99,7 +94,7 @@ public class PlayActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
 
-                if (gameManager.getDrawPile().size() == 0){
+                /*if (gameManager.getDrawPile().size() == 0){
                     //PLACE CODE FOR THE GAME OVER POPUP IN HERE
                     chronometer.stop();
                     int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
@@ -118,7 +113,8 @@ public class PlayActivity extends AppCompatActivity  {
                     finish();
 
                 }
-                else{finish();}
+                else{finish();}*/
+                finish();
             }
         });
     }
@@ -153,7 +149,6 @@ public class PlayActivity extends AppCompatActivity  {
         dialog.show();
 
     }
-
 
     public static Intent makeIntent(Context context){
         return new Intent(context, PlayActivity.class);
