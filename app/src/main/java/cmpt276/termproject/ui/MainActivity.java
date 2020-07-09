@@ -5,7 +5,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     ConstraintLayout mm_Layout;
     public MusicManager musicManager;
+    SharedPreferences mPreferences;
+    SharedPreferences.Editor mEdit;
+    String curr_theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +31,21 @@ public class MainActivity extends AppCompatActivity {
         musicManager = MusicManager.getInstance();
 //        musicManager.play();
 
-        mm_Layout = findViewById(R.id.mm_Layout);
-        mm_Layout.setBackgroundResource(R.drawable.bg_menu);
         setupPlayButton();
         setupOptionButton();
         setupHelpButton();
         setupQuitButton();
         setupHighscoreButton();
+        setBackground();
     }
 
-
-
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        musicManager.play();
+        setBackground();
+    }
 
     //Button setup for start , options and play
     private void setupPlayButton(){
@@ -55,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = OptionActivity.makeIntent(MainActivity.this);
-                musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -68,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = HelpActivity.makeIntent(MainActivity.this);
-                musicManager.pause();
+                //musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -104,5 +114,30 @@ public class MainActivity extends AppCompatActivity {
         return intent;
     }
 
+
+    private void setBackground()
+    {
+        mm_Layout = findViewById(R.id.mm_Layout);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mEdit = mPreferences.edit();
+        curr_theme = mPreferences.getString("Theme", "Superheroes");
+
+        if (curr_theme.equals("Hypnomob"))
+        {
+            mm_Layout.setBackgroundResource(R.drawable.bg_menu_hypno);
+        }
+        else
+        {
+            mm_Layout.setBackgroundResource(R.drawable.bg_menu_heroes);
+        }
+
+    }
+
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
 
 }

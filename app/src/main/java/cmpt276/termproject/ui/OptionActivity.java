@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 
 public class OptionActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class OptionActivity extends AppCompatActivity {
     RadioButton hypno_rbtn;
     public MusicManager musicManager;
 
+    private GameManager gameManager;
 
 
     @Override
@@ -34,6 +36,7 @@ public class OptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
+        gameManager = GameManager.getInstance();
         musicManager = MusicManager.getInstance();
         musicManager.play();
         os_Layout = findViewById(R.id.os_Layout);
@@ -86,14 +89,16 @@ public class OptionActivity extends AppCompatActivity {
                     case 1: //Superhero theme chosen
 
                         mEdit.putString("Theme", "Superheroes");
-                        mEdit.commit();
+                        mEdit.apply();
                         Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
+                        gameManager.setTheme(2);
                         break;
 
                     case 2: //Hypnomob theme chosen
 
                         mEdit.putString("Theme", "Hypnomob");
-                        mEdit.commit();
+                        mEdit.apply();
+                        gameManager.setTheme(1);
                         Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
@@ -103,7 +108,16 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context,OptionActivity.class);
-        return intent;
+        return new Intent(context,OptionActivity.class);
+    }
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicManager.play();
     }
 }

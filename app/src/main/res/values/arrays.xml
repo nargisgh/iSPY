@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer-array name="theme_1_images">
-        <item>@drawable/test</item>
-        <item>@drawable/test</item>
-        <item>@drawable/test</item>
-        <item>@drawable/test</item>
-        <item>@drawable/test</item>
-        <item>@drawable/test</item>
-        <item>@drawable/test</item>
+        <item>@drawable/patt1</item>
+        <item>@drawable/patt2</item>
+        <item>@drawable/patt3</item>
+        <item>@drawable/patt4</item>
+        <item>@drawable/patt5</item>
+        <item>@drawable/patt6</item>
+        <item>@drawable/patt7</item>
     </integer-array>
 
     <integer-array name="theme_2_images">
-        <item>@drawable/circle</item>
-        <item>@drawable/square</item>
-        <item>@drawable/triangle</item>
-        <item>@drawable/shape4</item>
-        <item>@drawable/shape5</item>
-        <item>@drawable/shape6</item>
-        <item>@drawable/shape7</item>
+        <item>@drawable/spiderman</item>
+        <item>@drawable/superman</item>
+        <item>@drawable/cap_america</item>
+        <item>@drawable/wonderwoman</item>
+        <item>@drawable/batman</item>
+        <item>@drawable/flash</item>
+        <item>@drawable/ironman</item>
     </integer-array>
 
 

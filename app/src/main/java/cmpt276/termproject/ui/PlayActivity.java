@@ -1,9 +1,11 @@
 package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
@@ -27,6 +29,8 @@ public class PlayActivity extends AppCompatActivity  {
 
     private FrameLayout frameLayout;
 
+    ConstraintLayout ps_Layout;
+    SharedPreferences preferences;
     private GameManager gameManager;
     CardDrawer cardDrawerCanvas;
 
@@ -44,6 +48,10 @@ public class PlayActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        ps_Layout = findViewById(R.id.root);
+        ps_Layout.setBackgroundResource(R.drawable.bg_play);
+
 
         inputName = findViewById(R.id.inputName);
         inputName.setFocusable(false);
