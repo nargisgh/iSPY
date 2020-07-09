@@ -111,4 +111,14 @@ public class OptionActivity extends AppCompatActivity {
         Intent intent = new Intent(context,OptionActivity.class);
         return intent;
     }
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicManager.play();
+    }
 }
