@@ -182,39 +182,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-    public void activateBitmap(Bitmap bitmap,Card card, int index){
-        final int x = card.getImageX(index);
-        final int y = card.getImageY(index);
-
-//
-//        paint.setColor(Color.parseColor("#999999"));
-//        Thread drawCircle = new Thread(){
-//            public void run(){
-//                try {
-//                    synchronized (this){
-//                        canvas = surfaceHolder.lockCanvas();
-//                        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
-//                        paint.setColor(Color.parseColor("#999999"));
-//                        canvas.drawCircle(x-10,y-10, 200,paint);
-//                        wait(1000);
-//                    }
-//                }
-//                catch (Exception ignored){
-//                }
-//                finally {
-//                    Log.e("Fnishied", "return");
-//                     paint.setColor(Color.BLACK);
-//                     paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
-//                     canvas.drawCircle(x-10,y-10, 200,paint);
-//                    surfaceHolder.unlockCanvasAndPost(canvas);
-//
-////
-//                }
-//            }
-//        };
-//        drawCircle.start();
-
-    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -228,7 +195,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                 return true;
             }
             Card card = gameManager.getTopDrawCard();
-            activateBitmap(bitmaps.get(0), card, 0);
             for (int i = 0; i < gameManager.getNumberImages(); i ++){
                 Bitmap bitmap = card.getImageBitmaps().get(i);
                 int pos_x = card.getImageX(i);
