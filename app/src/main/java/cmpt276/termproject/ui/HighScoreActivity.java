@@ -33,11 +33,9 @@ public class HighScoreActivity extends AppCompatActivity {
     TextView Date;
     String[] default_scores;
     TableLayout tableLayout;
-
+    SharedPreferences entry_new;
     Typeface face;
-
-    String test_input;
-
+    String input;
 
     private static boolean isInitialized = false;
 
@@ -48,30 +46,31 @@ public class HighScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_high_score);
 
         highScores = HighScores.getInstance();
-
         default_scores = getResources().getStringArray(R.array.default_highscores);
+
+        entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+        input = entry_new.getString("new entry",null);
+
+        if(input != null) {
+            isInitialized = true;
+        }
         // initializing default scores once when app starts
         if(!isInitialized) {
 
             highScores.set_default_scores(HighScoreActivity.this,default_scores);
             arr = highScores.get_default_scores(HighScoreActivity.this);
             populateScores();
-
             isInitialized = true;
         }
 
         else if (isInitialized) {
             arr = highScores.getCurrentScores(HighScoreActivity.this);
             populateScores();
-            SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
-            test_input = entry_new.getString("new entry",null);
-            if(test_input != null) {
-                highScores.update(test_input, HighScoreActivity.this);
-                updated_table();
-            }
+            highScores.update(input, HighScoreActivity.this);
+            updated_table();
         }
-            setupResetbtn();
-            setupBackbtn();
+        setupResetbtn();
+        setupBackbtn();
     }
 
     private void populate(String[] entry){
@@ -98,7 +97,6 @@ public class HighScoreActivity extends AppCompatActivity {
             populate(entry);
             tableLayout.addView(row);
         }
-
         //https://www.youtube.com/watch?v=iSCtFzbC7kA
 
     }

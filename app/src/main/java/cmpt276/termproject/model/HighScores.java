@@ -108,11 +108,8 @@ public class HighScores{
 
         int latest_time = convert_min_to_secs(getScore(entry));
 
-        int compare1 = convert_min_to_secs(getScore(sharedPreferences.getString("score1","")));
-        int compare2 = convert_min_to_secs(getScore(sharedPreferences.getString("score2","")));
-        int compare3 = convert_min_to_secs(getScore(sharedPreferences.getString("score3","")));
-        int compare4 = convert_min_to_secs(getScore(sharedPreferences.getString("score4","")));
-        int compare5 = convert_min_to_secs(getScore(sharedPreferences.getString("score5","")));
+        int[] time = convertTime(sharedPreferences);
+
 
         String[] temp_s = getCurrentScores(context).toArray(new String[0]);
 
@@ -122,7 +119,7 @@ public class HighScores{
             }
         }
         // score1 comparison
-        if(latest_time < compare1){
+        if(latest_time < time[0]){
             String temp = sharedPreferences.getString("score1","");
             score1 = entry;
             score2 = temp;
@@ -132,7 +129,7 @@ public class HighScores{
         }
 
         //score2 comparison
-        else if(latest_time < compare2){
+        else if(latest_time < time[1]){
             String temp = sharedPreferences.getString("score2","");
             score2 = entry;
             score3 = temp;
@@ -142,7 +139,7 @@ public class HighScores{
         }
 
         //score3 comparison
-        else if(latest_time < compare3){
+        else if(latest_time < time[2]){
             String temp = sharedPreferences.getString("score3","");
             score3 = entry;
             score4 = temp;
@@ -153,7 +150,7 @@ public class HighScores{
         }
 
         //score4 comparison
-        else if(latest_time < compare4){
+        else if(latest_time < time[3]){
             String temp = sharedPreferences.getString("score4","");
             score4 = entry;
             score5 = temp;
@@ -164,11 +161,21 @@ public class HighScores{
         }
 
         //score5 comparison
-        else if(latest_time < compare5){
+        else if(latest_time < time[4]){
             score5 = entry;
             applySwap(sharedPreferences,"score5",score5);
         }
     }
+
+    private int[] convertTime(SharedPreferences sharedPreferences) {
+        int t1 = convert_min_to_secs(getScore(sharedPreferences.getString("score1","")));
+        int t2 = convert_min_to_secs(getScore(sharedPreferences.getString("score2","")));
+        int t3 = convert_min_to_secs(getScore(sharedPreferences.getString("score3","")));
+        int t4 = convert_min_to_secs(getScore(sharedPreferences.getString("score4","")));
+        int t5 = convert_min_to_secs(getScore(sharedPreferences.getString("score5","")));
+        return new int[]{t1,t2,t3,t4,t5};
+    }
+
     private void applySwap(SharedPreferences sharedPreferences, String score_key, String score_position){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(score_key, score_position);

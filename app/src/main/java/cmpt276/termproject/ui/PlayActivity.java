@@ -136,6 +136,7 @@ public class PlayActivity extends AppCompatActivity  {
         });
         dialog.show();
         Window window = dialog.getWindow();
+        assert window != null;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
     }
@@ -147,27 +148,6 @@ public class PlayActivity extends AppCompatActivity  {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*if (gameManager.getDrawPile().size() == 0){
-                    //PLACE CODE FOR THE GAME OVER POPUP IN HERE
-                    chronometer.stop();
-                    int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
-                   // chronometer.stop();
-
-                    LocalTime score = LocalTime.ofSecondOfDay(elapsed);
-                    time = score.toString();
-                    dateTime = highscore.getCurrentDateTime();
-                    Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
-
-                    gameInfo.putExtra("name", name);
-                    gameInfo.putExtra("dateTime", dateTime);
-                    gameInfo.putExtra("time",time);
-
-                    startActivity(gameInfo);
-                    finish();
-
-                }
-                else{finish();}*/
                 finish();
             }
         });
