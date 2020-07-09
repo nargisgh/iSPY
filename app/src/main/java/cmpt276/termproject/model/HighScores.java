@@ -15,11 +15,6 @@ import cmpt276.termproject.ui.HighScoreActivity;
 
 public class HighScores{
 
-
-    private String currentDateTime;
-
-
-
 // global variables for updating scores
     String score1;
     String score2;
@@ -88,7 +83,7 @@ public class HighScores{
 
     public String getCurrentDateTime(){
         Date date = new Date();
-        return currentDateTime = DateFormat.getDateTimeInstance().format(date);
+        return DateFormat.getDateTimeInstance().format(date);
     }
 
     public String getScore(String entry){
@@ -114,7 +109,6 @@ public class HighScores{
         score3 = sharedPreferences.getString("score3","");
         score4 = sharedPreferences.getString("score4","");
         score5 = sharedPreferences.getString("score5","");
-
         editor.apply();
     }
 
@@ -154,7 +148,6 @@ public class HighScores{
             editor.putString("score2", score2);
             editor.putString("score1",score1);
             editor.apply();
-
         }
 
         //score2 comparison
@@ -202,7 +195,6 @@ public class HighScores{
             editor.apply();
         }
     }
-
     // convert string time to secs for easier comparison
     public int convert_min_to_secs(String str){
         String[] time = str.split(":");
