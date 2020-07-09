@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
@@ -78,7 +80,6 @@ public class PlayActivity extends AppCompatActivity  {
 
             popup(dateTime,time);
 
-
         }
         return super.onTouchEvent(event);
 
@@ -125,13 +126,16 @@ public class PlayActivity extends AppCompatActivity  {
 
         Button save = dialog.findViewById(R.id.saveBtn);
         final EditText userId = dialog.findViewById(R.id.userId);
-        TextView score_p = dialog.findViewById(R.id.score);
-        TextView dateTime_p = dialog.findViewById(R.id.dateTime);
+        final TextView score_p = dialog.findViewById(R.id.score);
+        final TextView dateTime_p = dialog.findViewById(R.id.dateTime);
+        score_p.setText(time);
+        dateTime_p.setText(dateTime);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = userId.getText().toString();
                 userId.setText(name);
+
                 if(userId.getText().toString().length()!=0) {
                     userId.setClickable(false);
                     userId.setFocusableInTouchMode(false);
@@ -143,10 +147,13 @@ public class PlayActivity extends AppCompatActivity  {
                     editor.putString("new entry", entry);
                     editor.apply();
                     dialog.dismiss();
+                    finish();
                 }
             }
         });
         dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
     }
 
