@@ -57,7 +57,6 @@ public class PopUp extends AppCompatActivity {
                     userId.setFocusableInTouchMode(false);
                     userId.setEnabled(false);
                     entry = ("" + (gameInfo.getStringExtra("time")) + "/ " + name + "/" + (gameInfo.getStringExtra("dateTime")));
-                    highScores.setNewValues(PopUp.this, entry);
 
 
                     SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);

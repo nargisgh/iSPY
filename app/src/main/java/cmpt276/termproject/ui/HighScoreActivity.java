@@ -28,9 +28,6 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highscore;
 
-
-    private List<TextView> scores = new ArrayList<>();
-
     TableRow row;
     TextView username;
     TextView Score;
@@ -51,17 +48,15 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
 
-       highscore = HighScores.getInstance();
-
+        highscore = HighScores.getInstance();
 
         default_scores = getResources().getStringArray(R.array.default_highscores);
-
         // initializing default scores once when app starts
         if(!isinitialized) {
 
             highscore.set_default_scores(HighScoreActivity.this,default_scores);
             arr = highscore.get_default_scores(HighScoreActivity.this);
-           highscore.initialize_default_scores(HighScoreActivity.this, default_scores);
+            highscore.initialize_default_scores(HighScoreActivity.this, default_scores);
             populateScores();
 
             isinitialized = true;
@@ -70,57 +65,46 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
         else if (isinitialized) {
-
-
-            highscore.set_default_scores(HighScoreActivity.this,default_scores);
-            arr = highscore.get_default_scores(HighScoreActivity.this);
+            arr = highscore.getCurrentScores(HighScoreActivity.this);
             populateScores();
-
             SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
             test_input = entry_new.getString("new entry",null);
             if(test_input != null) {
                 highscore.update(test_input, HighScoreActivity.this);
                 updated_table();
             }
-
-
-
         }
-
             setupResetbtn();
             setupBackbtn();
+    }
 
+    private void populate(String[] entry){
+
+        row = new TableRow(this);
+        username = new TextView(this);
+        Date = new TextView(this);
+        Score = new TextView(this);
+
+        setEntry(entry, Score, 0);
+        setEntry(entry, username, 1);
+        setEntry(entry, Date, 2);
+
+        row.addView(Score);
+        row.addView(username);
+        row.addView(Date);
 
     }
 
-
-
     private void populateScores() {
-
 
         tableLayout = findViewById(R.id.table);
         tableLayout.removeAllViews();
         setHeadings();
 
         for(int i = 0; i<arr.size();i++){
-
-            row = new TableRow(this);
-            username = new TextView(this);
-            Date = new TextView(this);
-            Score = new TextView(this);
-
             String[] entry = default_scores[i].split("/");
-
-            setEntry(entry, Score, 0);
-            setEntry(entry, username, 1);
-            setEntry(entry, Date, 2);
-
-
-            row.addView(Score);
-            row.addView(username);
-            row.addView(Date);
+            populate(entry);
             tableLayout.addView(row);
-
         }
 
         //https://www.youtube.com/watch?v=iSCtFzbC7kA
@@ -134,30 +118,12 @@ public class HighScoreActivity extends AppCompatActivity {
         setHeadings();
 
         for(int i = 1; i<=arr.size();i++){
-
-            row = new TableRow(this);
-            username = new TextView(this);
-            Date = new TextView(this);
-            Score = new TextView(this);
-
             SharedPreferences sharedPreferences = getSharedPreferences("updated scores", Context.MODE_PRIVATE);
-
             String[] entry = sharedPreferences.getString("score"+i,"").split("/");
-
-            setEntry(entry, Score, 0);
-            setEntry(entry, username, 1);
-            setEntry(entry, Date, 2);
-
-
-            row.addView(Score);
-            row.addView(username);
-            row.addView(Date);
+            populate(entry);
             tableLayout.addView(row);
-
         }
-
-
-        }
+    }
 
 
 
@@ -207,12 +173,12 @@ public class HighScoreActivity extends AppCompatActivity {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                arr.clear();
                 highscore.set_default_scores(HighScoreActivity.this,default_scores);
                 arr = highscore.get_default_scores(HighScoreActivity.this);
                 populateScores();
                 SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                 entry_new.edit().clear().apply();
-
 
             }
         });
@@ -229,10 +195,7 @@ public class HighScoreActivity extends AppCompatActivity {
         });
     }
 
-
-
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context, HighScoreActivity.class);
-        return intent;
+        return new Intent(context, HighScoreActivity.class);
     }
 }

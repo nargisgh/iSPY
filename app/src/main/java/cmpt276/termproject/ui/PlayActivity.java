@@ -2,14 +2,18 @@ package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.time.LocalTime;
 
@@ -67,7 +71,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     //TODO: GAME OVER POPUP
     //TODO: TIMER
-    /*@Override
+    /*// *@Override
     public boolean onTouchEvent(MotionEvent event) {
         if (gameManager.getDrawPile().size() == 0){
             //PLACE CODE FOR THE GAME OVER POPUP IN HERE
@@ -77,12 +81,8 @@ public class PlayActivity extends AppCompatActivity  {
             time = score.toString();
             dateTime = highscore.getCurrentDateTime();
 
-            Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
-            gameInfo.putExtra("name", name);
-            gameInfo.putExtra("dateTime", dateTime);
-            gameInfo.putExtra("time",time);
-            startActivity(gameInfo);
-            finish();
+            popup(dateTime,time);
+
 
         }
         return super.onTouchEvent(event);
@@ -98,6 +98,7 @@ public class PlayActivity extends AppCompatActivity  {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (gameManager.getDrawPile().size() == 0){
                     //PLACE CODE FOR THE GAME OVER POPUP IN HERE
                     chronometer.stop();
@@ -107,8 +108,6 @@ public class PlayActivity extends AppCompatActivity  {
                     LocalTime score = LocalTime.ofSecondOfDay(elapsed);
                     time = score.toString();
                     dateTime = highscore.getCurrentDateTime();
-
-
                     Intent gameInfo = new Intent(PlayActivity.this, PopUp.class);
 
                     gameInfo.putExtra("name", name);
@@ -118,21 +117,45 @@ public class PlayActivity extends AppCompatActivity  {
                     startActivity(gameInfo);
                     finish();
 
-
-
                 }
-
             }
         });
     }
 
+    private void popup(final String dateTime,final String time){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.activity_pop_up);
 
+        Button save = dialog.findViewById(R.id.saveBtn);
+        final EditText userId = dialog.findViewById(R.id.userId);
+        TextView score_p = dialog.findViewById(R.id.score);
+        TextView dateTime_p = dialog.findViewById(R.id.dateTime);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name = userId.getText().toString();
+                userId.setText(name);
+                if(userId.getText().toString().length()!=0) {
+                    userId.setClickable(false);
+                    userId.setFocusableInTouchMode(false);
+                    userId.setEnabled(false);
+                    String entry = ("" + time + "/ " + name + "/" + dateTime);
 
+                    SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = entry_new.edit();
+                    editor.putString("new entry", entry);
+                    editor.apply();
+                    dialog.dismiss();
+                }
+            }
+        });
+        dialog.show();
+
+    }
 
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context, PlayActivity.class);
-        return intent;
+        return new Intent(context, PlayActivity.class);
     }
 
 
