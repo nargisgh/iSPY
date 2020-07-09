@@ -118,6 +118,7 @@ public class PlayActivity extends AppCompatActivity  {
                     finish();
 
                 }
+                else{finish();}
             }
         });
     }
