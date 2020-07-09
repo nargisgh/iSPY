@@ -19,7 +19,6 @@ import java.time.LocalTime;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
-import cmpt276.termproject.model.Drawer;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 import cmpt276.termproject.model.HighScores;
