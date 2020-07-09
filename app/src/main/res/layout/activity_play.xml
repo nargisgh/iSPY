@@ -8,23 +8,6 @@
     tools:context=".ui.PlayActivity"
     >
 
-    <LinearLayout
-        android:id="@+id/card_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="40dp"
-        android:dividerPadding="40dp"
-        android:gravity="center"
-        android:hapticFeedbackEnabled="true"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Chronometer
         android:id="@+id/stopwatch"
         android:layout_width="wrap_content"
@@ -38,17 +21,6 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/draw_pile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.484" />
 
 
     <EditText

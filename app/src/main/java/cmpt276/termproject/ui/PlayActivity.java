@@ -30,9 +30,7 @@ public class PlayActivity extends AppCompatActivity  {
     private FrameLayout frameLayout;
 
     ConstraintLayout ps_Layout;
-    SharedPreferences preferences;
     private GameManager gameManager;
-    CardDrawer cardDrawerCanvas;
 
     String name;
     String dateTime;
@@ -102,8 +100,6 @@ public class PlayActivity extends AppCompatActivity  {
         CardDrawer surfaceView = new CardDrawer(getApplicationContext());
 
         frameLayout.addView(surfaceView);
-        //surfaceView.setOnTouchListener((View.OnTouchListener) this);
-
 
         setupBackButton();
 

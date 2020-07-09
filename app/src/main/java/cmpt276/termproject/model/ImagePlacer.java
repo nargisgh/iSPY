@@ -11,8 +11,6 @@ public class ImagePlacer {
     private int pos_x;
     private int pos_y;
 
-    private GameManager gameManager = GameManager.getInstance();
-
     private static final float RADIUS = 350f;
     public static final int IMG_WIDTH = 150;
     public static final int IMG_HEIGHT = 150;

@@ -42,7 +42,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final float RADIUS = 350f;
     private static final int OFFSET = 20;
-    private static final int THRESHOLD = 100;
 
 
     //TODO : Draw the Draw and Discard Piles
