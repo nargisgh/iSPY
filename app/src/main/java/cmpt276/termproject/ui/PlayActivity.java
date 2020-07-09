@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import java.time.LocalTime;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
+import cmpt276.termproject.model.Drawer;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 import cmpt276.termproject.model.HighScores;
@@ -52,9 +54,6 @@ public class PlayActivity extends AppCompatActivity  {
         musicManager = MusicManager.getInstance();
         setup();
 
-
-
-        //cardDrawerCanvas = findViewById(R.id.card_canvas);
 
     }
 
