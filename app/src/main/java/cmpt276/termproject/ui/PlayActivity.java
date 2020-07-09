@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalTime;
 
 import cmpt276.termproject.R;
@@ -38,6 +40,9 @@ public class PlayActivity extends AppCompatActivity  {
     String name;
     String dateTime;
     String time;
+    String ms;
+    String new_time;
+
     private Chronometer chronometer;
 
     private boolean dialog_open = false;
@@ -86,14 +91,23 @@ public class PlayActivity extends AppCompatActivity  {
             //PLACE CODE FOR THE GAME OVER POPUP IN HERE
             int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
             chronometer.stop();
+
+
             LocalTime score = LocalTime.ofSecondOfDay(elapsed);
             time = score.toString();
             dateTime = highscore.getCurrentDateTime();
-
             double elapsed_time = System.currentTimeMillis() - game_start_time;
-            Log.e("Time", String.valueOf(elapsed_time));
 
-            popup(dateTime,time);
+            Log.e("Time", String.valueOf((elapsed_time)));
+
+            ms = String.valueOf((int)elapsed_time/1000);
+
+            //Ex format: 00:00:08.5
+            new_time = time + "." + ms;
+            Log.e("Time", new_time);
+
+
+            popup(dateTime,new_time);
             dialog_open = true;
         }
         return super.onTouchEvent(event);
