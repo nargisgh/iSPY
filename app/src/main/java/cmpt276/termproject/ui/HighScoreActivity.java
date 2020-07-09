@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class HighScoreActivity extends AppCompatActivity {
 
-    private HighScores highscore;
+    private HighScores highScores;
 
     TableRow row;
     TextView username;
@@ -47,26 +47,26 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
 
-        highscore = HighScores.getInstance();
+        highScores = HighScores.getInstance();
 
         default_scores = getResources().getStringArray(R.array.default_highscores);
         // initializing default scores once when app starts
         if(!isInitialized) {
 
-            highscore.set_default_scores(HighScoreActivity.this,default_scores);
-            arr = highscore.get_default_scores(HighScoreActivity.this);
+            highScores.set_default_scores(HighScoreActivity.this,default_scores);
+            arr = highScores.get_default_scores(HighScoreActivity.this);
             populateScores();
 
             isInitialized = true;
         }
 
         else if (isInitialized) {
-            arr = highscore.getCurrentScores(HighScoreActivity.this);
+            arr = highScores.getCurrentScores(HighScoreActivity.this);
             populateScores();
             SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
             test_input = entry_new.getString("new entry",null);
             if(test_input != null) {
-                highscore.update(test_input, HighScoreActivity.this);
+                highScores.update(test_input, HighScoreActivity.this);
                 updated_table();
             }
         }
@@ -84,10 +84,6 @@ public class HighScoreActivity extends AppCompatActivity {
         setEntry(entry, Score, 0);
         setEntry(entry, username, 1);
         setEntry(entry, Date, 2);
-
-        row.addView(Score);
-        row.addView(username);
-        row.addView(Date);
 
     }
 
@@ -126,6 +122,7 @@ public class HighScoreActivity extends AppCompatActivity {
         score.setGravity(Gravity.CENTER);
         score.setTextSize(25);
         score.setTextColor(Color.WHITE);
+        row.addView(score);
     }
 
     private void setHeadings() {
@@ -164,8 +161,8 @@ public class HighScoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 arr.clear();
-                highscore.set_default_scores(HighScoreActivity.this,default_scores);
-                arr = highscore.get_default_scores(HighScoreActivity.this);
+                highScores.set_default_scores(HighScoreActivity.this,default_scores);
+                arr = highScores.get_default_scores(HighScoreActivity.this);
                 populateScores();
                 SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                 entry_new.edit().clear().apply();
