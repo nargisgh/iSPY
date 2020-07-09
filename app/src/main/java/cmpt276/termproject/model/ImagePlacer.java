@@ -1,6 +1,7 @@
 package cmpt276.termproject.model;
 
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 
 import java.util.List;
 
@@ -25,12 +26,15 @@ public class ImagePlacer {
     }
 
      public Bitmap placeBitmap(Card card, float x, float y, int offset, int section_size, int i ,  List<Bitmap> bitmaps, int bitmap_index) {
-        // TODO: Randomize the initial degree for placing the items so its not so obvious
         // TODO: Randomize the x and y coord offsets a bit
 
-         float min = 0.65f;
-         float max = 1.3f;
-         double scale = min + Math.random() * (max - min);
+        // Scale Randomizing
+        float min = 0.45f;
+        float max = 1.3f;
+        double scale = min + Math.random() * (max - min);
+
+        //Rotation randomizing
+        int degree = (int) (Math.random() * 360);
 
          //Get Coordinates for placing bitmap within Circle
         float rad = (float) Math.toRadians( i * section_size + offset);
@@ -44,12 +48,19 @@ public class ImagePlacer {
                 (int) (IMG_HEIGHT * scale),
                 true);
 
-
-
-        // Return Bitmap?
-
         pos_x = (int) (width + x - placed_bitmap.getWidth() / 2f);
         pos_y = (int) (height + y - placed_bitmap.getHeight() / 2f);
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+
+        placed_bitmap = Bitmap.createBitmap(placed_bitmap,
+                0, 0,
+                (int) (IMG_WIDTH * scale),
+                (int) (IMG_HEIGHT * scale),
+                matrix , true);
+
+
 
         // Set coordinates of the image for the designated image on the card
         card.setImageCoordinates(i ,new int[]{pos_x,pos_y});
