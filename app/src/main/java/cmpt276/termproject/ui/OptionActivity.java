@@ -89,7 +89,7 @@ public class OptionActivity extends AppCompatActivity {
                     case 1: //Superhero theme chosen
 
                         mEdit.putString("Theme", "Superheroes");
-                        mEdit.commit();
+                        mEdit.apply();
                         Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
                         gameManager.setTheme(2);
                         break;
@@ -97,7 +97,7 @@ public class OptionActivity extends AppCompatActivity {
                     case 2: //Hypnomob theme chosen
 
                         mEdit.putString("Theme", "Hypnomob");
-                        mEdit.commit();
+                        mEdit.apply();
                         gameManager.setTheme(1);
                         Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
@@ -108,8 +108,7 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context,OptionActivity.class);
-        return intent;
+        return new Intent(context,OptionActivity.class);
     }
     @Override
     protected void onUserLeaveHint() {
