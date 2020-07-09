@@ -15,7 +15,7 @@ public class GameManager {
     private List<Card> discard_pile;
 
     int order = 2;
-    int theme = 2;
+    int theme = 1;
 
     private List<int[]> draw;
 
