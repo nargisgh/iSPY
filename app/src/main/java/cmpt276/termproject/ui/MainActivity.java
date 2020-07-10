@@ -8,27 +8,28 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    ConstraintLayout mm_Layout;
+    private ConstraintLayout mm_Layout;
     public MusicManager musicManager;
-    SharedPreferences mPreferences;
-    SharedPreferences.Editor mEdit;
-    String curr_theme;
+    private SharedPreferences mPreferences;
+    private SharedPreferences.Editor mEdit;
+    private String curr_theme;
+    private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
+        gameManager = GameManager.getInstance();
 //        musicManager.play();
 
         setupPlayButton();
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setupHelpButton();
         setupQuitButton();
         setupHighscoreButton();
-        setBackground();
+        setTheme();
     }
 
     @Override
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onResume();
         musicManager.play();
-        setBackground();
+        setTheme();
     }
 
     //Button setup for start , options and play
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void setBackground()
+    private void setTheme()
     {
         mm_Layout = findViewById(R.id.mm_Layout);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -125,12 +126,15 @@ public class MainActivity extends AppCompatActivity {
         if (curr_theme.equals("Hypnomob"))
         {
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_hypno);
+            gameManager.setTheme(1);
         }
         else
         {
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_heroes);
+            gameManager.setTheme(2);
         }
 
+        mEdit.apply();
     }
 
 

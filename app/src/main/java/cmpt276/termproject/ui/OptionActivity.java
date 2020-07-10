@@ -91,14 +91,12 @@ public class OptionActivity extends AppCompatActivity {
                         mEdit.putString("Theme", "Superheroes");
                         mEdit.apply();
                         Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
-                        gameManager.setTheme(2);
                         break;
 
                     case 2: //Hypnomob theme chosen
 
                         mEdit.putString("Theme", "Hypnomob");
                         mEdit.apply();
-                        gameManager.setTheme(1);
                         Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
