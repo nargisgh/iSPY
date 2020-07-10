@@ -96,7 +96,7 @@ public class PlayActivity extends AppCompatActivity  {
             String seconds = String.valueOf((int)elapsed_time/1000);
 
             //Ex format: 8.5
-
+            //Dont need to use the chrono since the elapsed time already includes seconds
             format = seconds + "."+ ms;
             new_time = Float.parseFloat(format);
 

@@ -95,12 +95,14 @@ public class HighScores{
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        //Get All the highscores into an array
         List<String> scores = new ArrayList<>();
         for (int i = 0; i < 5; i ++){
             scores.add(sharedPreferences.getString("score" + (i + 1), ""));
             Log.e("Scores", scores.get(i));
         }
 
+        // Check where to place new highscore
         int time = convert_time_to_int(getScore(entry));
         for (int i = 0; i < 5; i ++){
             if(time < convert_time_to_int(getScore(scores.get(i)))){
@@ -108,6 +110,7 @@ public class HighScores{
                 break;
             }
         }
+        //Reset the highscores preferences from the temp array
         for (int i = 0; i < 5; i ++){
             editor.putString("score" + (i+1), scores.get(i));
         }
