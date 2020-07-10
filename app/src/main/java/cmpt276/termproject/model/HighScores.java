@@ -5,19 +5,15 @@ import android.content.SharedPreferences;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class HighScores{
 
-// global variables for updating scores
-    String score1;
-    String score2;
-    String score3;
-    String score4;
-    String score5;
-
     private List<String> DEFAULT_SCORES = new ArrayList<>();
+
+    String[] arr2 = new String[5];
 
 
     ArrayList<String> arr = new ArrayList<>();
@@ -52,12 +48,6 @@ public class HighScores{
             int j = i+1;
             editor.putString("score"+j, default_scores[i]);
         }
-        score1 = sharedPreferences.getString("score1","");
-        score2 = sharedPreferences.getString("score2","");
-        score3 = sharedPreferences.getString("score3","");
-        score4 = sharedPreferences.getString("score4","");
-        score5 = sharedPreferences.getString("score5","");
-        editor.apply();
 
     }
 
@@ -98,101 +88,61 @@ public class HighScores{
     // so when we are updating rows on tablelayout we just need to call the sharedpreferences
     //  https://www.youtube.com/watch?v=_cV7cgQFDo0
 
-    public void update(String entry, Context context){
+    public void update(String entry, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-        int latest_time = convert_time_to_int(getScore(entry));
-
-
-        int compare1 = convert_time_to_int(getScore(sharedPreferences.getString("score1","")));
-        int compare2 = convert_time_to_int(getScore(sharedPreferences.getString("score2","")));
-        int compare3 = convert_time_to_int(getScore(sharedPreferences.getString("score3","")));
-        int compare4 = convert_time_to_int(getScore(sharedPreferences.getString("score4","")));
-        int compare5 = convert_time_to_int(getScore(sharedPreferences.getString("score5","")));
-
-        String[] temp_s = getCurrentScores(context).toArray(new String[0]);
-
-        for(int i=0;i<5;i++){
-            if(entry.equals(temp_s[i])){
-                return;
-            }
-        }
-        // score1 comparison
-        if(latest_time < compare1){
             String temp1 = sharedPreferences.getString("score1","");
             String temp2 = sharedPreferences.getString("score2","");
             String temp3 = sharedPreferences.getString("score3","");
             String temp4 = sharedPreferences.getString("score4","");
-            score1 = entry;
-            score2 = temp1;
-            score3 = temp2;
-            score4 = temp3;
-            score5= temp4;
 
+        String[] temp_s = getCurrentScores(context).toArray(new String[0]);
+
+        for (int i = 0; i < 5; i++) {
+            if (entry.equals(temp_s[i])) {
+                return;
+            }
+        }
+
+        int latest_time = convert_time_to_int(getScore(entry));
+
+            if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score1", "")))){
             // shifting down the list
-            applySwap(sharedPreferences,"score2",score2);
-            applySwap(sharedPreferences,"score3",score3);
-            applySwap(sharedPreferences,"score4",score4);
-            applySwap(sharedPreferences,"score5",score5);
-            applySwap(sharedPreferences,"score1",score1);
+            applySwap(sharedPreferences,"score2",temp1);
+            applySwap(sharedPreferences,"score3",temp2);
+            applySwap(sharedPreferences,"score4",temp3);
+            applySwap(sharedPreferences,"score5",temp4);
+            applySwap(sharedPreferences,"score1",entry);
 
-
-
-        }
-
-        //score2 comparison
-        else if(latest_time < compare2){
-            String temp2 = sharedPreferences.getString("score2","");
-            String temp3 = sharedPreferences.getString("score3","");
-            String temp4 = sharedPreferences.getString("score4","");
-            score2 = entry;
-            score3 = temp2;
-            score4 = temp3;
-            score5 = temp4;
+            }
+            else if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score2", "")))){
             // shifting down the list
-            applySwap(sharedPreferences,"score3",score3);
-            applySwap(sharedPreferences,"score4",score4);
-            applySwap(sharedPreferences,"score5",score5);
-            applySwap(sharedPreferences,"score2",score2);
+            applySwap(sharedPreferences,"score3",temp2);
+            applySwap(sharedPreferences,"score4",temp3);
+            applySwap(sharedPreferences,"score5",temp4);
+            applySwap(sharedPreferences,"score2",entry);
 
 
-
-        }
-
-        //score3 comparison
-        else if(latest_time < compare3){
-            String temp3 = sharedPreferences.getString("score3","");
-            String temp4 = sharedPreferences.getString("score4","");
-            score3 = entry;
-            score4 = temp3;
-            score5 = temp4;
-
+            }
+            else if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score3", "")))){
             // shifting down the list
-            applySwap(sharedPreferences,"score4",score4);
-            applySwap(sharedPreferences,"score5",score5);
-            applySwap(sharedPreferences,"score3",score3);
+            applySwap(sharedPreferences,"score4",temp3);
+            applySwap(sharedPreferences,"score5",temp4);
+            applySwap(sharedPreferences,"score3",entry);
 
-        }
-
-        //score4 comparison
-        else if(latest_time < compare4){
-            String temp4 = sharedPreferences.getString("score4","");
-            score4 = entry;
-            score5 = temp4;
+            }
+            else if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score4", "")))){
             // shifting down the list
-            applySwap(sharedPreferences,"score5",score5);
-            applySwap(sharedPreferences,"score4",score4);
+            applySwap(sharedPreferences,"score5",temp4);
+            applySwap(sharedPreferences,"score4",entry);
 
-        }
+            }
+            else if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score5", "")))){
+                // shifting down the list
+            applySwap(sharedPreferences,"score5",entry);
 
-        //score5 comparison
-        else if(latest_time < compare5){
-            score5 = entry;
-            applySwap(sharedPreferences,"score5",score5);
+            }
 
-        }
     }
     private void applySwap(SharedPreferences sharedPreferences, String score_key, String score_position){
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -209,9 +159,6 @@ public class HighScores{
         return sec + ms;
     }
 
-    public String replace_dot(String str){
-       return str.replaceAll("\\.",":");
-    }
 
 
 
