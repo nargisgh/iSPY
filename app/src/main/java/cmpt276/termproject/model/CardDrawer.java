@@ -11,6 +11,7 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -103,17 +104,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        Bitmap bmp = bitmaps.get(4);
-
-
-        paint.setColor(Color.DKGRAY);
-        canvas.drawBitmap(bmp,0,0,null);
-
-    }
-
 
     public void gameOver(){
         //Update Canvas on Game Over
@@ -136,11 +126,21 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
 
         // RESET THE BOARD
-        paint.setColor(Color.TRANSPARENT);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
-        canvas.drawCircle(x - RADIUS - OFFSET, y, RADIUS + 1, paint );
-        canvas.drawCircle(x + RADIUS + OFFSET, y, RADIUS + 1 , paint);
-        paint.setColor(Color.DKGRAY);
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+
+        //Draw Card Stacks
+        //Draw Pile
+        int card_pile_offset  = 30;
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
+        for(int i = 0; i < gameManager.getDrawPile().size(); i++){
+            canvas.drawBitmap(card_bitmap,x - (2 * RADIUS) - OFFSET, y - RADIUS - i * card_pile_offset, paint);
+
+        }
+
+        //Discard Pile
+        for (int i = 0; i < gameManager.getDiscardPile().size(); i++){
+            canvas.drawBitmap(card_bitmap,x + OFFSET, y - RADIUS - i * card_pile_offset, paint);
+        }
 
         ImagePlacer imagePlacer= new ImagePlacer();
         canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
@@ -171,6 +171,15 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         card.setImageBitmaps(i, bitmap);
     }
 
+    public void playClickSound(boolean failed){
+        MediaPlayer mp = MediaPlayer.create(getContext(),R.raw.fail);
+        mp.seekTo(715);
+        if (!failed){
+            mp = MediaPlayer.create(getContext(), R.raw.success);
+            mp.seekTo(290);
+        }
+        mp.start();
+    }
 
 
     @Override
@@ -200,7 +209,12 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                         if (image == discard_image) {
                             // Image has been found, Allow for drawing of next card
                             found_match = true;
+                            playClickSound(false);
+
                         }
+                    }
+                    if (!found_match) {
+                        playClickSound(true);
                     }
                 }
             }

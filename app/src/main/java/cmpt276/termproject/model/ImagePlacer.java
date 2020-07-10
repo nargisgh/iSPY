@@ -65,5 +65,7 @@ public class ImagePlacer {
 
         return placed_bitmap;
     }
+
+
 }
 
