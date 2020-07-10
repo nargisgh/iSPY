@@ -50,9 +50,7 @@ public class PlayActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_play);
 
         highscore = HighScores.getInstance();
-        chronometer = findViewById(R.id.stopwatch);
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        chronometer.start();
+
         setup();
 
         cardDrawerCanvas = findViewById(R.id.card_canvas);
@@ -79,13 +77,14 @@ public class PlayActivity extends AppCompatActivity  {
         if (action == MotionEvent.ACTION_UP) {
             if (gameManager.getDiscardPile().size() == 2) {
                 game_start_time = System.currentTimeMillis();
+                chronometer = findViewById(R.id.stopwatch);
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
             }
         }
         if (gameManager.getDrawPile().size() == 0 && !dialog_open){
-            //PLACE CODE FOR THE GAME OVER POPUP IN HERE
             int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
             chronometer.stop();
-
 
             LocalTime score = LocalTime.ofSecondOfDay(elapsed);
             time = score.toString();
@@ -93,23 +92,15 @@ public class PlayActivity extends AppCompatActivity  {
             double elapsed_time = System.currentTimeMillis() - game_start_time;
 
 
-
-
-            Log.e("Time", String.valueOf((elapsed_time)));
-
-            ms = String.valueOf((int)elapsed_time/1000);
-
+            ms = String.valueOf((int)elapsed_time % 1000 / 10);
+            String seconds = String.valueOf((int)elapsed_time/1000);
 
             //Ex format: 8.5
 
-            format = elapsed + "."+ ms;
+            format = seconds + "."+ ms;
             new_time = Float.parseFloat(format);
 
-            //float f = Float.parseFloat(new_time);
-            Log.e("Time", String.format("%.1f",new_time));
-
-
-            popup(dateTime,String.format("%.1f",new_time));
+            popup(dateTime, String.valueOf(new_time));
             dialog_open = true;
         }
         return super.onTouchEvent(event);
