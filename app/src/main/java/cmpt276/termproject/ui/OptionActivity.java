@@ -21,6 +21,7 @@ import cmpt276.termproject.model.MusicManager;
 public class OptionActivity extends AppCompatActivity {
 
     ConstraintLayout os_Layout;
+    ConstraintLayout.LayoutParams btn_size;
     RadioGroup theme_grp;
     SharedPreferences mPreferences;
     SharedPreferences.Editor mEdit;
@@ -51,6 +52,12 @@ public class OptionActivity extends AppCompatActivity {
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.options_back_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        back_btn.setLayoutParams(btn_size);
+
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

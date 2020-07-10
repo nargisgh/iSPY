@@ -18,6 +18,7 @@ import cmpt276.termproject.model.MusicManager;
 public class HelpActivity extends AppCompatActivity {
 
     ConstraintLayout hs_Layout;
+    ConstraintLayout.LayoutParams btn_size;
     public MusicManager musicManager;
     TextView sources;
 
@@ -41,6 +42,12 @@ public class HelpActivity extends AppCompatActivity {
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.help_back_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        back_btn.setLayoutParams(btn_size);
+
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

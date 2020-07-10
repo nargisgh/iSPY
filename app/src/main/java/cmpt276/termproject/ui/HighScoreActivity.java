@@ -34,6 +34,8 @@ public class HighScoreActivity extends AppCompatActivity {
 
     ConstraintLayout hs_Layout;
 
+    ConstraintLayout.LayoutParams btn_size;
+
     private HighScores highscore;
 
     private Highscore hs=  new Highscore();
@@ -88,8 +90,14 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     private void setupBackbtn() {
-        Button back = findViewById(R.id.highscore_back_btn);
-        back.setOnClickListener(new View.OnClickListener() {
+        Button back_btn = findViewById(R.id.highscore_back_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/4;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        back_btn.setLayoutParams(btn_size);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -294,8 +302,14 @@ public class HighScoreActivity extends AppCompatActivity {
 
     // button to reset back to default scores
     private void setupResetbtn() {
-        Button reset = findViewById(R.id.highscore_reset_btn);
-        reset.setOnClickListener(new View.OnClickListener() {
+        Button reset_btn = findViewById(R.id.highscore_reset_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) reset_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/4;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        reset_btn.setLayoutParams(btn_size);
+
+        reset_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 highscore.set_default_scores(HighScoreActivity.this,default_scores);

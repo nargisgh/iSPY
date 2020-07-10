@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.lang.invoke.ConstantCallSite;
 import java.time.LocalTime;
 
 import cmpt276.termproject.R;
@@ -30,6 +31,7 @@ public class PlayActivity extends AppCompatActivity  {
     private FrameLayout frameLayout;
 
     ConstraintLayout ps_Layout;
+    ConstraintLayout.LayoutParams btn_size;
     private GameManager gameManager;
 
     String name;
@@ -122,6 +124,12 @@ public class PlayActivity extends AppCompatActivity  {
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        back_btn.setLayoutParams(btn_size);
+
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
