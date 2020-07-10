@@ -17,10 +17,6 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.time.LocalTime;
 
 import cmpt276.termproject.R;
@@ -31,13 +27,9 @@ import cmpt276.termproject.model.MusicManager;
 
 public class PlayActivity extends AppCompatActivity  {
 
-
-    SharedPreferences preferences;
     private GameManager gameManager;
     CardDrawer cardDrawerCanvas;
 
-    private GameManager manager;
-    int score;
     String name;
     String dateTime;
     String time;
@@ -122,7 +114,6 @@ public class PlayActivity extends AppCompatActivity  {
         }
         return super.onTouchEvent(event);
     }
-    //If I use the touch feature the pop up occurs twice.
 
 
 
