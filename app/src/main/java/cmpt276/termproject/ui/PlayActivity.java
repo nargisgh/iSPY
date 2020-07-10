@@ -27,6 +27,7 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.HighScores;
+import cmpt276.termproject.model.MusicManager;
 
 public class PlayActivity extends AppCompatActivity  {
 
@@ -48,7 +49,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     private boolean dialog_open = false;
     private double game_start_time;
-
+    public MusicManager musicManager;
     public HighScores highscore;
 
     @Override
@@ -128,15 +129,26 @@ public class PlayActivity extends AppCompatActivity  {
 
 
     private void popup(final String dateTime,final String time){
+        musicManager = MusicManager.getInstance();
+        musicManager.play();
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
 
         Button save = dialog.findViewById(R.id.saveBtn);
+        Button cancel = dialog.findViewById(R.id.cancelBtn);
         final EditText userId = dialog.findViewById(R.id.userId);
         final TextView score_p = dialog.findViewById(R.id.score);
         final TextView dateTime_p = dialog.findViewById(R.id.dateTime);
         score_p.setText(time);
         dateTime_p.setText(dateTime);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicManager.pause();
+                dialog.dismiss();
+                finish();
+            }
+        });
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +165,7 @@ public class PlayActivity extends AppCompatActivity  {
                     SharedPreferences.Editor editor = entry_new.edit();
                     editor.putString("new entry", entry);
                     editor.apply();
+                    musicManager.pause();
                     dialog.dismiss();
                     finish();
                 }
@@ -162,7 +175,7 @@ public class PlayActivity extends AppCompatActivity  {
         Window window = dialog.getWindow();
         assert window != null;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        //Toast
+        //<a href='https://www.freepik.com/free-photos-vectors/background'>Background vector created by starline - www.freepik.com</a>
 
     }
 

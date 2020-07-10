@@ -51,9 +51,10 @@ public class HighScoreActivity extends AppCompatActivity {
          entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
         input = entry_new.getString("new entry",null);
 
-//        if(input != null) {
-//            isInitialized = true;
-//        }
+        if(input != null) {
+            //adding this otherwise wont populate on first game play*
+            isInitialized = true;
+        }
         // initializing default scores once when app starts
         if(!isInitialized) {
 

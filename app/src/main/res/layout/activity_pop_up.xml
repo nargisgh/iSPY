@@ -5,20 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity"
-    android:background="@drawable/comicbackdrop">
+    android:background="@drawable/comicbg">
 
     <TableLayout
         android:layout_width="568dp"
         android:layout_height="93dp"
-        android:layout_marginHorizontal="70dp"
-        android:layout_marginVertical="125dp"
-        android:layout_marginTop="70dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="145dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <TableRow>
+        <TableRow android:background="#95FFFFFF">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -27,7 +27,8 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
                 android:text="@string/username"
-                android:textColor="#000000"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
                 android:textSize="25sp" />
 
             <TextView
@@ -37,22 +38,23 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
                 android:text="@string/score"
-                android:textColor="#000000"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
                 android:textSize="25sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/faster_one"
                 android:text="@string/date_time"
-                android:textColor="#000000"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
                 android:textSize="25sp" />
 
         </TableRow>
 
-        <TableRow>
+        <TableRow android:background="#95FFFFFF">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,7 +67,9 @@
                 android:textSize="20sp" />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:background="#95FFFFFF">
 
             <EditText
                 android:id="@+id/userId"
@@ -73,12 +77,12 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:fontFamily="sans-serif"
-                android:hint="Username"
+                android:hint="@string/username"
                 android:inputType="text"
                 android:textColor="#000000"
-                android:textSize="18sp"
-                android:autofillHints="" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/score"
@@ -87,6 +91,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
+                android:textAlignment="center"
                 android:text="@string/score"
                 android:textColor="#000000"
                 android:textSize="20sp" />
@@ -95,8 +100,8 @@
                 android:id="@+id/dateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
+                android:layout_gravity="center"
                 android:fontFamily="sans-serif"
                 android:text="@string/date_time"
                 android:textColor="#000000"
@@ -110,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/faster_one"
         android:text="@string/great_job"
         android:textColor="#3F51B5"
@@ -120,13 +125,29 @@
 
     <Button
         android:id="@+id/saveBtn"
-        android:layout_width="76dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="348dp"
-        android:layout_marginBottom="44dp"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="424dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/faster_one"
         android:text="@string/save"
+        android:textColor="#3F51B5"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/faster_one"
+        android:text="@android:string/cancel"
+        android:textColor="#3F51B5"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/saveBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
