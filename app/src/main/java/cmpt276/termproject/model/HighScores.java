@@ -2,19 +2,17 @@ package cmpt276.termproject.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.Date;
 import java.util.List;
 
 public class HighScores{
 
     private List<String> DEFAULT_SCORES = new ArrayList<>();
-
-    String[] arr2 = new String[5];
 
 
     ArrayList<String> arr = new ArrayList<>();
@@ -119,62 +117,8 @@ public class HighScores{
         for (int i = 0; i < 5; i ++){
             editor.putString("score" + (i+1), scores.get(i));
         }
-
         editor.apply();
-
-//        String temp1 = sharedPreferences.getString("score1","");
-//        String temp2 = sharedPreferences.getString("score2","");
-//        String temp3 = sharedPreferences.getString("score3","");
-//        String temp4 = sharedPreferences.getString("score4","");
-//
-//
-//
-//
-//        int latest_time = convert_time_to_int(getScore(entry));
-//
-//            if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score1", "")))){
-//            // shifting down the list
-//            applySwap(sharedPreferences,"score2",temp1);
-//            applySwap(sharedPreferences,"score3",temp2);
-//            applySwap(sharedPreferences,"score4",temp3);
-//            applySwap(sharedPreferences,"score5",temp4);
-//            applySwap(sharedPreferences,"score1",entry);
-//
-//            }
-//            else if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score2", "")))){
-//            // shifting down the list
-//            applySwap(sharedPreferences,"score3",temp2);
-//            applySwap(sharedPreferences,"score4",temp3);
-//            applySwap(sharedPreferences,"score5",temp4);
-//            applySwap(sharedPreferences,"score2",entry);
-//
-//
-//            }
-//            else if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score3", "")))){
-//            // shifting down the list
-//            applySwap(sharedPreferences,"score4",temp3);
-//            applySwap(sharedPreferences,"score5",temp4);
-//            applySwap(sharedPreferences,"score3",entry);
-//
-//            }
-//            else if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score4", "")))){
-//            // shifting down the list
-//            applySwap(sharedPreferences,"score5",temp4);
-//            applySwap(sharedPreferences,"score4",entry);
-//
-//            }
-//            else if(latest_time < convert_time_to_int(getScore(sharedPreferences.getString("score5", "")))){
-//                // shifting down the list
-//            applySwap(sharedPreferences,"score5",entry);
-//
-//            }
-//
     }
-//    private void applySwap(SharedPreferences sharedPreferences, String score_key, String score_position){
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString(score_key, score_position);
-//        editor.apply();
-//    }
     // convert string time to secs for easier comparison
     public double convert_time_to_double(String str){
         String[] time = str.split("\\." );
@@ -183,7 +127,6 @@ public class HighScores{
         double ms = Double.parseDouble(time[1]) / 1000f;
         return sec + ms;
     }
-
 
 
 

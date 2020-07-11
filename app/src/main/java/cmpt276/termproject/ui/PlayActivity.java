@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
-import java.time.LocalTime;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
@@ -32,9 +31,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     String name;
     String dateTime;
-    String time;
-    float new_time;
-    String format;
+
 
     private Chronometer chronometer;
     private boolean chrono_started ;
@@ -42,14 +39,14 @@ public class PlayActivity extends AppCompatActivity  {
     private boolean dialog_open = false;
     private double game_start_time;
     public MusicManager musicManager;
-    public HighScores highscore;
+    public HighScores highScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        highscore = HighScores.getInstance();
+        highScore = HighScores.getInstance();
 
         setup();
 
@@ -87,7 +84,7 @@ public class PlayActivity extends AppCompatActivity  {
             int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
             chronometer.stop();
 
-            dateTime = highscore.getCurrentDateTime();
+            dateTime = highScore.getCurrentDateTime();
             double elapsed_time_ms = System.currentTimeMillis() - game_start_time;
 
 
