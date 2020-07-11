@@ -82,7 +82,7 @@ public class HighScoreActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
-        String input = entry_new.getString("new entry"+ counter, null);
+        String input = entry_new.getString("new entry"+ 1, null);
 
         if (input != null) {
             //adding this otherwise wont populate on first game play*
