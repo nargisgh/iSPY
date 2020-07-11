@@ -59,7 +59,6 @@ public class PlayActivity extends AppCompatActivity  {
 
         setup();
 
-        cardDrawerCanvas = findViewById(R.id.card_canvas);
         chronometer = findViewById(R.id.stopwatch);
         chrono_started = false;
     }
