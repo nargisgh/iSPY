@@ -9,12 +9,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
-import cmpt276.termproject.model.Highscore;
 import cmpt276.termproject.model.MusicManager;
 
 import android.view.Gravity;
@@ -23,8 +21,6 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +34,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highscore;
 
-    private Highscore hs=  new Highscore();
+    private HighScores hs=  new HighScores();
 
     private List<TextView> scores = new ArrayList<>();
 

@@ -29,7 +29,7 @@ public class HighScores{
 
     //Signleton Stuff
     private static HighScores instance;
-    private HighScores (){
+    public HighScores(){
         init();
     }
     public static HighScores getInstance(){
