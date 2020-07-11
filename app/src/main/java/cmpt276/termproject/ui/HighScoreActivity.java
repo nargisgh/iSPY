@@ -42,14 +42,9 @@ public class HighScoreActivity extends AppCompatActivity {
     private MusicManager musicManager;
 
     private TableRow row;
-    private TextView username;
-    private TextView Score;
-    private TextView Date;
     private String[] default_scores;
     private TableLayout tableLayout;
-    private SharedPreferences entry_new;
     private Typeface face;
-    private String input;
 
     private static boolean isInitialized = false;
 
@@ -83,11 +78,11 @@ public class HighScoreActivity extends AppCompatActivity {
 //        updated_table();
 
     public void initializeScores() {
-        entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+        SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
-        input = entry_new.getString("new entry", null);
+        String input = entry_new.getString("new entry", null);
 
         if (input != null) {
             //adding this otherwise wont populate on first game play*
@@ -119,13 +114,13 @@ public class HighScoreActivity extends AppCompatActivity {
     private void populate(String[] entry){
 
         row = new TableRow(this);
-        username = new TextView(this);
-        Date = new TextView(this);
-        Score = new TextView(this);
+        TextView username = new TextView(this);
+        TextView date = new TextView(this);
+        TextView score = new TextView(this);
 
-        setEntry(entry, Score, 0);
+        setEntry(entry, score, 0);
         setEntry(entry, username, 1);
-        setEntry(entry, Date, 2);
+        setEntry(entry, date, 2);
 
     }
 

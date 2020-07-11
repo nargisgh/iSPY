@@ -11,9 +11,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -46,6 +44,11 @@ public class PlayActivity extends AppCompatActivity  {
     public MusicManager musicManager;
     public HighScores highScore;
 
+    private CardDrawer cardDrawer;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,10 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
 
+
+
+
+
     private void setup(){
         //Setup Game Manager Class
         gameManager = GameManager.getInstance();
@@ -71,50 +78,47 @@ public class PlayActivity extends AppCompatActivity  {
 
         FrameLayout frameLayout = findViewById(R.id.frame);
 
-        CardDrawer surfaceView = new CardDrawer(getApplicationContext());
+        cardDrawer = new CardDrawer(getApplicationContext());
 
-        frameLayout.addView(surfaceView);
+        setupGameOver();
+
+        frameLayout.addView(cardDrawer);
 
         setupBackButton();
     }
 
 
-    //TODO: GAME OVER POPUP
-    //TODO: TIMER
-    // *@Override
-    public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getAction();
+
+    public void setupGameOver(){
+
+        cardDrawer.setGameListener(new CardDrawer.GameListener() {
+            @Override
+            public void onGameOver() {
+                int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
+                chronometer.stop();
+
+                dateTime = highScore.getCurrentDateTime();
+                double elapsed_time_ms = System.currentTimeMillis() - game_start_time;
+
+                //ms = String.valueOf((int)elapsed_time % 1000 / 10);
+                double time = elapsed_time_ms/1000;
+                //Ex format: 8.5
+
+                popup(dateTime, String.valueOf(time));
+            }
+
+            @Override
+            public void onGameStart(){
+                game_start_time = System.currentTimeMillis();
+                Log.e("Chrono", "started");
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
+
+            }
+        });
 
 
-        if (!chrono_started) {
-            chrono_started = true;
-            game_start_time = System.currentTimeMillis();
-            Log.e("Chrono", "started");
-            chronometer.setBase(SystemClock.elapsedRealtime());
-            chronometer.start();
-        }
-
-        if (gameManager.getDrawPile().size() == 0 && !dialog_open){
-            int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
-            chronometer.stop();
-
-            dateTime = highScore.getCurrentDateTime();
-            double elapsed_time_ms = System.currentTimeMillis() - game_start_time;
-
-
-            //ms = String.valueOf((int)elapsed_time % 1000 / 10);
-            double time = elapsed_time_ms/1000;
-
-            //Ex format: 8.5
-            //Dont need to use the chrono since the elapsed time already includes seconds
-
-            popup(dateTime, String.valueOf(time));
-            dialog_open = true;
-        }
-        return super.onTouchEvent(event);
     }
-
-
 
 
 
