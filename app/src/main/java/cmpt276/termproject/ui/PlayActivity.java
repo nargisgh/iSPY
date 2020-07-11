@@ -10,12 +10,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.util.DisplayMetrics;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import java.time.LocalTime;
 
@@ -27,17 +31,12 @@ import cmpt276.termproject.model.MusicManager;
 
 public class PlayActivity extends AppCompatActivity  {
 
-    private FrameLayout frameLayout;
-
     ConstraintLayout ps_Layout;
     ConstraintLayout.LayoutParams btn_size;
     private GameManager gameManager;
 
     String name;
     String dateTime;
-    String time;
-    float new_time;
-    String format;
 
     private Chronometer chronometer;
     private boolean chrono_started ;
@@ -64,12 +63,11 @@ public class PlayActivity extends AppCompatActivity  {
         musicManager = MusicManager.getInstance();
         setup();
 
-        cardDrawerCanvas = findViewById(R.id.card_canvas);
         chronometer = findViewById(R.id.stopwatch);
         chrono_started = false;
     }
 
-    }
+
 
 
 
@@ -80,7 +78,7 @@ public class PlayActivity extends AppCompatActivity  {
         gameManager = GameManager.getInstance();
         gameManager.createCards();
 
-        frameLayout = findViewById(R.id.frame);
+        FrameLayout frameLayout = findViewById(R.id.frame);
 
         CardDrawer surfaceView = new CardDrawer(getApplicationContext());
 
@@ -91,17 +89,17 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
 
-    //TODO: GAME OVER POPUP
-    //TODO: TIMER
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
+        if (action == MotionEvent.ACTION_DOWN){
+            Log.e("Popup", "Touch");
 
+        }
 
         if (!chrono_started) {
             chrono_started = true;
             game_start_time = System.currentTimeMillis();
-            Log.e("Chrono", "started");
             chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
         }
@@ -113,14 +111,14 @@ public class PlayActivity extends AppCompatActivity  {
             dateTime = highscore.getCurrentDateTime();
             double elapsed_time_ms = System.currentTimeMillis() - game_start_time;
 
-
-            //ms = String.valueOf((int)elapsed_time % 1000 / 10);
             double time = elapsed_time_ms/1000;
 
             //Ex format: 8.5
             //Dont need to use the chrono since the elapsed time already includes seconds
 
             popup(dateTime, String.valueOf(time));
+            Log.e("Popup", "Open");
+
             dialog_open = true;
         }
         return super.onTouchEvent(event);

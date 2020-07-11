@@ -225,11 +225,11 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                         if (image == discard_image) {
                             // Image has been found, Allow for drawing of next card
                             found_match = true;
-                            playClickSound(false);
+                            //playClickSound(false);
                         }
                     }
                     if (!found_match) {
-                       playClickSound(true);
+                       //playClickSound(true);
                     }
                 }
             }
