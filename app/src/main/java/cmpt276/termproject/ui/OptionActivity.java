@@ -54,7 +54,7 @@ public class OptionActivity extends AppCompatActivity {
         Button back_btn = findViewById(R.id.options_back_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
         back_btn.setLayoutParams(btn_size);
 

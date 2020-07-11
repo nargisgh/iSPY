@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn_size = (ConstraintLayout.LayoutParams) play_btn.getLayoutParams();
         btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/6;
         play_btn.setLayoutParams(btn_size);
 
         play_btn.setOnClickListener(new View.OnClickListener() {

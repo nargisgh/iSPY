@@ -13,16 +13,17 @@
         android:id="@+id/stopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:background="#CDA3A2A2"
         android:fontFamily="@font/press_start_2p"
         android:padding="5dp"
-
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="@dimen/_25ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.050000012" />
 
 
     <Button
@@ -33,13 +34,13 @@
         android:gravity="center"
         android:text="@string/back"
         android:textColor="#FF5900"
-        android:textSize="24sp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".1"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".9" />
+        app:layout_constraintVertical_bias="0.95" />
 
     <FrameLayout
         android:id="@+id/frame"

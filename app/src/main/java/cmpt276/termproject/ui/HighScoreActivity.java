@@ -32,6 +32,8 @@ public class HighScoreActivity extends AppCompatActivity {
 
     ConstraintLayout.LayoutParams btn_size;
 
+    ConstraintLayout.LayoutParams table_size;
+
     private HighScores highscore;
 
     private HighScores hs=  new HighScores();
@@ -74,6 +76,7 @@ public class HighScoreActivity extends AppCompatActivity {
         populateScores();
         setupResetbtn();
         setupBackbtn();
+        scaleTable();
 
 //        test_input = "1:10/ testplayer / Jul 4 at 15:30";
 //        hs.update(test_input,HighScoreActivity.this);
@@ -89,7 +92,7 @@ public class HighScoreActivity extends AppCompatActivity {
         Button back_btn = findViewById(R.id.highscore_back_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/4;
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
         back_btn.setLayoutParams(btn_size);
 
@@ -105,7 +108,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private void populateScores() {
 
-        tableLayout = findViewById(R.id.table);
+        tableLayout = findViewById(R.id.highscore_table);
         tableLayout.removeAllViews();
         setHeadings();
 
@@ -135,7 +138,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     private void updated_table(){
-        tableLayout = findViewById(R.id.table);
+        tableLayout = findViewById(R.id.highscore_table);
         tableLayout.removeAllViews();
         setHeadings();
 
@@ -301,7 +304,7 @@ public class HighScoreActivity extends AppCompatActivity {
         Button reset_btn = findViewById(R.id.highscore_reset_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) reset_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/4;
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
         reset_btn.setLayoutParams(btn_size);
 
@@ -316,6 +319,13 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
 
+    private void scaleTable()
+    {
+        TableLayout hs_table = findViewById(R.id.highscore_table);
+        table_size = (ConstraintLayout.LayoutParams) hs_table.getLayoutParams();
+        table_size.height = (getResources().getDisplayMetrics().heightPixels)/2;
+        hs_table.setLayoutParams(table_size);
+    }
 
     public static Intent makeIntent(Context context){
         Intent intent = new Intent(context, HighScoreActivity.class);

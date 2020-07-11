@@ -14,7 +14,7 @@
         android:fontFamily="@font/press_start_2p"
         android:text="@string/options_back_btn"
         android:textColor="#FF5900"
-        android:textSize="24sp"
+        android:textSize="@dimen/_15ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             android:fontFamily="@font/mclaren"
             android:text="@string/options_rgheader_text"
             android:textColor="#00FFD8"
-            android:textSize="30sp"
+            android:textSize="@dimen/_25ssp"
             android:textStyle="bold" />
 
         <RadioButton
@@ -49,7 +49,7 @@
             android:fontFamily="@font/mclaren"
             android:text="@string/options_heroes_rbtn"
             android:textColor="#FFFFFF"
-            android:textSize="24sp">
+            android:textSize="@dimen/_20ssp">
 
         </RadioButton>
 
@@ -60,7 +60,7 @@
             android:fontFamily="@font/mclaren"
             android:text="@string/options_hypno_rbtn"
             android:textColor="#FFFFFF"
-            android:textSize="24sp">
+            android:textSize="@dimen/_20ssp">
 
         </RadioButton>
 
@@ -73,7 +73,7 @@
         android:fontFamily="@font/faster_one"
         android:text="@string/options_title_text"
         android:textColor="#FF0000"
-        android:textSize="70sp"
+        android:textSize="@dimen/_60ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

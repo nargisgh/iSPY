@@ -8,7 +8,7 @@
     tools:context=".ui.HighScoreActivity">
 
     <TextView
-        android:id="@+id/highscore_title"
+        android:id="@+id/highscore_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#EEF1E7E9"
@@ -17,7 +17,7 @@
         android:text="@string/top_5_highscores"
         android:textAllCaps="true"
         android:textColor="#000000"
-        android:textSize="60sp"
+        android:textSize="@dimen/_40ssp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
         android:fontFamily="@font/press_start_2p"
         android:text="@string/reset"
         android:textColor="#FF5900"
-        android:textSize="24sp"
+        android:textSize="@dimen/_15ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
@@ -48,7 +48,7 @@
         android:fontFamily="@font/press_start_2p"
         android:text="@string/back"
         android:textColor="#FF5900"
-        android:textSize="24sp"
+        android:textSize="@dimen/_15ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
@@ -57,7 +57,7 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <TableLayout
-        android:id="@+id/table"
+        android:id="@+id/highscore_table"
         android:layout_width="0dp"
         android:layout_height="210dp"
         android:layout_marginStart="24dp"

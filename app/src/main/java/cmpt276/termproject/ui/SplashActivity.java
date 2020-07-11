@@ -122,7 +122,7 @@ public class SplashActivity extends AppCompatActivity {
         Button skip_btn = findViewById(R.id.splash_quit_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) skip_btn.getLayoutParams();
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/18;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/20;
         skip_btn.setLayoutParams(btn_size);
 
         skip_btn.setOnClickListener(new View.OnClickListener() {
