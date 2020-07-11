@@ -66,6 +66,7 @@
     <string name="pop_uscore_text">Score</string>
     <string name="pop_udate_text">Date/Time</string>
     <string name="pop_title_text">Great Job!</string>
+    <string name="pop_save_text">Save</string>
 
 
 </resources>

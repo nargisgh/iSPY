@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance();
-//        musicManager.play();
+        //musicManager.play();
 
         setupPlayButton();
         setupOptionButton();
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setupQuitButton();
         setupHighscoreButton();
         setTheme();
-
     }
 
     @Override
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Button setup for start , options and play
     private void setupPlayButton(){
-
         Button play_btn = findViewById(R.id.main_play_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) play_btn.getLayoutParams();
@@ -83,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = OptionActivity.makeIntent(MainActivity.this);
+                musicManager.pause();
                 startActivity(intent);
             }
         });

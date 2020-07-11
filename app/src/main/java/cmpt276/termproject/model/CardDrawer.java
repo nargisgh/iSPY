@@ -12,12 +12,10 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
 import android.media.MediaPlayer;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -30,6 +28,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private Paint paint = null;
     private GameManager gameManager;
     private boolean game_over = false;
+    private boolean game_started = false;
 
     private Bitmap card_bitmap;
     private List<Bitmap> bitmaps;
@@ -41,7 +40,17 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private static final int OFFSET = 20;
 
 
-    //TODO : Draw the Draw and Discard Piles
+    private GameListener gameListener;
+
+    public interface GameListener {
+        void onGameOver();
+
+        void onGameStart();
+    }
+
+    public void setGameListener(GameListener listner){
+        this.gameListener = listner;
+    }
 
 
     private boolean found_match = false;
@@ -50,6 +59,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     public CardDrawer(Context context) {
         super(context);
         //setFocusable(true);
+
+        this.gameListener = null;
 
         if (surfaceHolder == null){
             surfaceHolder = getHolder();
@@ -96,8 +107,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         drawCards();
-
-
     }
 
     @Override
@@ -113,14 +122,21 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     public void gameOver(){
         //Update Canvas on Game Over
         if (!game_over){
+            gameListener.onGameOver();
             game_over = true;
             drawCards();
         }
     }
 
-
+    public void gameStarted(){
+        if (!game_started){
+            gameListener.onGameStart();
+            game_started = true;
+        }
+    }
 
     public void drawCards(){
+
         int num_images  = gameManager.getNumberImages();
         int section_size = 360 /num_images;
 
@@ -220,16 +236,19 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                 int image = card.getImages().get(i);
                 //Check if click an Image
                 if (x > pos_x && x < pos_x + width && y > pos_y && y < pos_y + height) {
+                    if (gameManager.getDiscardPile().size() == 1){
+                        gameStarted();
+                    }
                     Card discard_card = gameManager.getTopDiscardCard();
                     for (int discard_image : discard_card.getImages()) {
                         if (image == discard_image) {
                             // Image has been found, Allow for drawing of next card
                             found_match = true;
-                            playClickSound(false);
+                            //playClickSound(false);
                         }
                     }
                     if (!found_match) {
-                       playClickSound(true);
+                       //playClickSound(true);
                     }
                 }
             }
