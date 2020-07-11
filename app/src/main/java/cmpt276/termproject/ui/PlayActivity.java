@@ -39,7 +39,6 @@ public class PlayActivity extends AppCompatActivity  {
     String entry;
     String time;
     private Chronometer chronometer;
-    EditText inputName;
 
     HighScores highscore = HighScores.getInstance();
     public MusicManager musicManager;
@@ -53,8 +52,6 @@ public class PlayActivity extends AppCompatActivity  {
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
 
 
-        inputName = findViewById(R.id.inputName);
-        inputName.setFocusable(false);
         chronometer = findViewById(R.id.stopwatch);
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
@@ -66,30 +63,6 @@ public class PlayActivity extends AppCompatActivity  {
 
 
 
-    //add entry of name etc for Highscores.
-    private void addHighScore() {
-        inputName.setFocusableInTouchMode(true);
-        name = inputName.getText().toString();
-        int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
-        LocalTime score = LocalTime.ofSecondOfDay(elapsed);
-        String time = score.toString();
-        Toast.makeText(getApplicationContext(),time,Toast.LENGTH_SHORT).show();
-        if(name.length()!=0){
-            entry = (""+time+" "+name+" "+highscore.getCurrentDateTime());
-            Toast.makeText(getApplicationContext(),entry,Toast.LENGTH_SHORT).show();
-            highscore.setNewValues(PlayActivity.this, entry);
-        }
-        /*
-         * name = getUser nickname;
-         * current time = time user starts playing, call getCurrentTime();
-         * score = what timer collects how long they play for, after finally finding all images ends
-         *
-         * entry = (score+ " "+name+ " " + highscore.getCurrentDate() +" at "+ currentTime);
-         * highscore.setNewValues(PlayActivity.this, entry);
-         *
-         * */
-
-    }
 
 
     private void setup(){
@@ -134,9 +107,9 @@ public class PlayActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 musicManager.play();
-                inputName.setFocusableInTouchMode(true);
-                name = inputName.getText().toString();
-                if(name.length()!=0){
+                //inputName.setFocusableInTouchMode(true);
+                //name = inputName.getText().toString();
+                /*if(name.length()!=0){
                     int elapsed = ((int)(SystemClock.elapsedRealtime()-chronometer.getBase()))/1000;
                     LocalTime score = LocalTime.ofSecondOfDay(elapsed);
                     time = score.toString();
@@ -151,7 +124,7 @@ public class PlayActivity extends AppCompatActivity  {
                     gameInfo.putExtra("dateTime", dateTime);
                     gameInfo.putExtra("time",time);
                     startActivity(gameInfo);
-                }
+                }*/
 
                 finish();
             }
