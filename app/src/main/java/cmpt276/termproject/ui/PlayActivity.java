@@ -97,9 +97,6 @@ public class PlayActivity extends AppCompatActivity  {
             //Ex format: 8.5
             //Dont need to use the chrono since the elapsed time already includes seconds
 
-            Log.e("Time", String.valueOf(time));
-
-
             popup(dateTime, String.valueOf(time));
             dialog_open = true;
         }
@@ -145,7 +142,11 @@ public class PlayActivity extends AppCompatActivity  {
 
                     SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = entry_new.edit();
-                    editor.putString("new entry", entry);
+                    int counter = entry_new.getInt("counter", 0);
+                    counter ++;
+                    editor.putString("new entry"+counter, entry);
+                    editor.putInt("counter",counter);
+
                     editor.apply();
                     musicManager.pause();
                     dialog.dismiss();

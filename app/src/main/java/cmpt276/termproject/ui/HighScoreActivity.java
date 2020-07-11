@@ -13,6 +13,7 @@ import android.os.Bundle;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -48,32 +49,44 @@ public class HighScoreActivity extends AppCompatActivity {
         highScores = HighScores.getInstance();
         default_scores = getResources().getStringArray(R.array.default_highscores);
 
-         entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
-        input = entry_new.getString("new entry",null);
+        initializeScores();
 
-        if(input != null) {
+        setupResetbtn();
+        setupBackbtn();
+    }
+
+    public void initializeScores() {
+        entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = entry_new.edit();
+        int counter = entry_new.getInt("counter", 0);
+
+        input = entry_new.getString("new entry", null);
+
+        if (input != null) {
             //adding this otherwise wont populate on first game play*
             isInitialized = true;
         }
         // initializing default scores once when app starts
-        if(!isInitialized) {
-
-            highScores.set_default_scores(HighScoreActivity.this,default_scores);
+        if (!isInitialized) {
+            highScores.set_default_scores(HighScoreActivity.this, default_scores);
             arr = highScores.get_default_scores(HighScoreActivity.this);
             populateScores();
             isInitialized = true;
         }
-
-        else if (isInitialized) {
-            arr = highScores.getCurrentScores(HighScoreActivity.this);
-            populateScores();
-            if(input!=null) {
-                highScores.update(input, HighScoreActivity.this);
+        else {
+            for (int i = 0; i <= counter; i ++ ) {
+                input = entry_new.getString("new entry" + i, null);
+                arr = highScores.getCurrentScores(HighScoreActivity.this);
+                populateScores();
+                if (input != null) {
+                    highScores.update(input, HighScoreActivity.this);
+                }
                 updated_table();
+
             }
         }
-        setupResetbtn();
-        setupBackbtn();
+        editor.putInt("counter", 0);
+        editor.apply();
     }
 
     private void populate(String[] entry){

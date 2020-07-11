@@ -66,7 +66,6 @@ public class HighScores{
 
     public ArrayList<String> getCurrentScores(Context context){
         arr = new ArrayList<>();
-
         for (int i = 1; i <= 5; i ++){
             SharedPreferences shared_Preferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
             arr.add(shared_Preferences.getString("score"+i, ""));
@@ -106,7 +105,6 @@ public class HighScores{
         List<String> scores = new ArrayList<>();
         for (int i = 0; i < 5; i ++){
             scores.add(sharedPreferences.getString("score" + (i + 1), ""));
-            Log.e("Scores", scores.get(i));
         }
 
         // Check where to place new highscore
@@ -183,7 +181,6 @@ public class HighScores{
 
         double sec = Integer.parseInt(time[0]);
         double ms = Double.parseDouble(time[1]) / 1000f;
-        Log.e("Score", sec  + ms  + " ");
         return sec + ms;
     }
 
