@@ -1,6 +1,7 @@
 package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
+import cmpt276.termproject.model.MusicManager;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -27,16 +29,26 @@ import java.util.ArrayList;
 public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highScores;
+    ConstraintLayout hs_Layout;
 
-    TableRow row;
-    TextView username;
-    TextView Score;
-    TextView Date;
-    String[] default_scores;
-    TableLayout tableLayout;
-    SharedPreferences entry_new;
-    Typeface face;
-    String input;
+    ConstraintLayout.LayoutParams btn_size;
+
+    ConstraintLayout.LayoutParams table_size;
+
+    private HighScores highscore;
+
+    private List<TextView> scores = new ArrayList<>();
+    private MusicManager musicManager;
+
+    private TableRow row;
+    private TextView username;
+    private TextView Score;
+    private TextView Date;
+    private String[] default_scores;
+    private TableLayout tableLayout;
+    private SharedPreferences entry_new;
+    private Typeface face;
+    private String input;
 
     private static boolean isInitialized = false;
 
@@ -47,13 +59,27 @@ public class HighScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_high_score);
 
         highScores = HighScores.getInstance();
+        hs_Layout = findViewById(R.id.hs_Layout);
+        hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
+
+        musicManager = MusicManager.getInstance();
+
+        highscore = HighScores.getInstance();
+
         default_scores = getResources().getStringArray(R.array.default_highscores);
 
         initializeScores();
 
         setupResetbtn();
         setupBackbtn();
+        scaleTable();
     }
+
+
+//        test_input = "1:10/ testplayer / Jul 4 at 15:30";
+//        hs.update(test_input,HighScoreActivity.this);
+//
+//        updated_table();
 
     public void initializeScores() {
         entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
@@ -104,7 +130,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private void populateScores() {
 
-        tableLayout = findViewById(R.id.table);
+        tableLayout = findViewById(R.id.highscore_table);
         tableLayout.removeAllViews();
         setHeadings();
 
@@ -119,7 +145,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     // adding new highscore to table and updating
     private void updated_table(){
-        tableLayout = findViewById(R.id.table);
+        tableLayout = findViewById(R.id.highscore_table);
         tableLayout.removeAllViews();
         setHeadings();
 
@@ -170,8 +196,14 @@ public class HighScoreActivity extends AppCompatActivity {
 
     // button to reset back to default scores
     private void setupResetbtn() {
-        Button reset = findViewById(R.id.highscore_reset_btn);
-        reset.setOnClickListener(new View.OnClickListener() {
+        Button reset_btn = findViewById(R.id.highscore_reset_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) reset_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        reset_btn.setLayoutParams(btn_size);
+
+        reset_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 arr.clear();
@@ -185,8 +217,23 @@ public class HighScoreActivity extends AppCompatActivity {
         });
     }
 
+
+    private void scaleTable()
+    {
+        TableLayout hs_table = findViewById(R.id.highscore_table);
+        table_size = (ConstraintLayout.LayoutParams) hs_table.getLayoutParams();
+        table_size.height = (getResources().getDisplayMetrics().heightPixels)/2;
+        hs_table.setLayoutParams(table_size);
+    }
+
+
     private void setupBackbtn() {
-        Button back = findViewById(R.id.backBtn);
+        Button back = findViewById(R.id.highscore_back_btn);
+        btn_size = (ConstraintLayout.LayoutParams) back.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        back.setLayoutParams(btn_size);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,5 +246,17 @@ public class HighScoreActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context){
         Intent intent = new Intent(context, HighScoreActivity.class);
         return intent;
+    }
+
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicManager.play();
     }
 }

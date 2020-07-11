@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Term Project</string>
+    <string name="app_name">iSpy</string>
     <string name="top_5_highscores">Top 5 HIghscores</string>
     <string name="score1">score1</string>
     <string name="score2">score2</string>
@@ -28,28 +28,44 @@
     <string name="main_quit_btn">Quit</string>
     <string name="main_help_btn">Help</string>
     <string name="main_option_btn">Options</string>
-    <string name="main_hscore_btn">Highscore</string>
+    <string name="main_hscore_btn">Scores</string>
     <string name="main_title_text">Main Menu</string>
     <string name="options_back_btn">Back</string>
     <string name="options_rgheader_text">Choose a theme:</string>
     <string name="options_hypno_rbtn">HypnomobⓇ</string>
     <string name="options_heroes_rbtn">Superheroes</string>
     <string name="options_title_text">Options</string>
-    <string name="sources"> <a href= "https://www.creativefabrica.com/product/versus-screen/">TEST LINK </a> Sources: \n
-\n https://www.kissclipart.com/gangster-vector-clipart-gangster-clip-art-3ha157/
-\n https://www.hiclipart.com/free-transparent-background-png-clipart-qlhgl
-\n https://ideas.ted.com/we-all-need-to-ask-for-help-to-get-through-life-heres-how-not-to-do-it/
-\n https://hdqwalls.com/justice-league-superhero-wallpaper
-\n https://www.shutterstock.com/video/clip-1021427137-settings-icon-animation-black-background-design-video
-\n https://www.youtube.com/watch?v=cVq4zJ1WbaQ
-\n https://www.youtube.com/watch?v=iSCtFzbC7kA
-\n https://stackoverflow.com/questions/12128331/how-to-change-fontfamily-of-textview-in-android
-\n https://www.freepik.com/search?dates=any&amp;format=search&amp;page=1&amp;query=superhero&amp;sort=popular
-\n https://developer.android.com/guide/topics/media/mediaplayer</string>
-    <string name="great_job">Great Job!</string>
-    <string name="save">Save</string>
-    <string name="date_time">Date/Time</string>
-    <string name="score">Score</string>
+    <string name="sources">Sources: \n
+        <a href="https://www.creativefabrica.com/product/versus-screen/">"https://www.creativefabrica.com/product/versus-screen/</a>\n
+        <a href="https://www.kissclipart.com/gangster-vector-clipart-gangster-clip-art-3ha157/">https://www.kissclipart.com/gangster-vector-clipart-gangster-clip-art-3ha157</a>\n
+        <a href="https://www.hiclipart.com/free-transparent-background-png-clipart-qlhgl">https://www.hiclipart.com/free-transparent-background-png-clipart-qlhgl</a>\n
+        <a href="https://ideas.ted.com/we-all-need-to-ask-for-help-to-get-through-life-heres-how-not-to-do-it/">https://ideas.ted.com/we-all-need-to-ask-for-help-to-get-through-life-heres-how-not-to-do-it/</a>\n
+        <a href="https://hdqwalls.com/justice-league-superhero-wallpaper">https://hdqwalls.com/justice-league-superhero-wallpaper</a>\n
+        <a href="https://www.shutterstock.com/video/clip-1021427137-settings-icon-animation-black-background-design-video">https://www.shutterstock.com/video/clip-1021427137-settings-icon-animation-black-background-design-video</a>\n
+        <a href="https://www.youtube.com/watch?v=cVq4zJ1WbaQ">https://www.youtube.com/watch?v=cVq4zJ1WbaQ</a>\n
+        <a href="https://www.freepik.com/search?dates=any&amp;format=search&amp;page=1&amp;query=superhero&amp;sort=popular">https://www.freepik.com/search?dates=any&amp;format=search&amp;page=1&amp;query=superhero&amp;sort=popular</a>\n
+        <a href="https://www.vectorstock.com/royalty-free-vector/sunset-with-palmtree-silhouette-vector-937838">https://www.vectorstock.com/royalty-free-vector/sunset-with-palmtree-silhouette-vector-937838</a>\n
+        <a href="https://berserkon.com/img/get">https://berserkon.com/img/get</a>\n
+        <a href="https://wall.alphacoders.com/big.php?i=509156">https://wall.alphacoders.com/big.php?i=509156</a>\n
+        <a href="http://clipart-library.com/clipart/flash.htm">http://clipart-library.com/clipart/flash.htm</a>\n
+        <a href="http://clipart-library.com/clip-art/wonder-woman-silhouette-vector-9.htm">http://clipart-library.com/clip-art/wonder-woman-silhouette-vector-9.htm</a>\n
+        <a href="http://clipart-library.com/clip-art/transparent-batman-6.htm">http://clipart-library.com/clip-art/transparent-batman-6.htm</a>\n
+        <a href="http://clipart-library.com/clipart/Iron-Man-PNG-Picture.htm">http://clipart-library.com/clipart/Iron-Man-PNG-Picture.htm</a>\n
+        <a href="http://clipart-library.com/clipart/Captain-America-PNG-Image.htm">http://clipart-library.com/clipart/Captain-America-PNG-Image.htm</a>\n
+        <a href="http://clipart-library.com/clip-art/superhero-transparent-5.htm">http://clipart-library.com/clip-art/superhero-transparent-5.htm</a>\n
+        <a href="http://clipart-library.com/clip-art/superhero-transparent-8.htm">http://clipart-library.com/clip-art/superhero-transparent-8.htm</a>\n
+        <a href="https://opencoursehub.cs.sfu.ca/bfraser/solutions/276/images/ImageGallery/">https://opencoursehub.cs.sfu.ca/bfraser/solutions/276/images/ImageGallery/</a>\n
+        <a href="https://www.youtube.com/watch?v=GqHAQsdTdbA">https://www.youtube.com/watch?v=GqHAQsdTdbA</a>\n
+        <a href="https://www.youtube.com/watch?v=nK71NEluAqA">https://www.youtube.com/watch?v=nK71NEluAqA</a>\n
+        <a href="https://www.seekpng.com/ipng/u2q8w7y3e6t4t4r5_select-template-instagram-story-circle-png/">https://www.seekpng.com/ipng/u2q8w7y3e6t4t4r5_select-template-instagram-story-circle-png/</a>
+    </string>
+    <string name="pop_username_text">Username</string>
+    <string name="pop_score_text">Score</string>
+    <string name="pop_date_text">Date/Time</string>
+    <string name="pop_userid_text">UserID</string>
+    <string name="pop_uscore_text">Score</string>
+    <string name="pop_udate_text">Date/Time</string>
+    <string name="pop_title_text">Great Job!</string>
 
 
 </resources>

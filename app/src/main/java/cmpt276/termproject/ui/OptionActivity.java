@@ -15,11 +15,13 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 
 public class OptionActivity extends AppCompatActivity {
 
     ConstraintLayout os_Layout;
+    ConstraintLayout.LayoutParams btn_size;
     RadioGroup theme_grp;
     SharedPreferences mPreferences;
     SharedPreferences.Editor mEdit;
@@ -27,6 +29,7 @@ public class OptionActivity extends AppCompatActivity {
     RadioButton hypno_rbtn;
     public MusicManager musicManager;
 
+    private GameManager gameManager;
 
 
     @Override
@@ -34,6 +37,7 @@ public class OptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
+        gameManager = GameManager.getInstance();
         musicManager = MusicManager.getInstance();
         musicManager.play();
         os_Layout = findViewById(R.id.os_Layout);
@@ -48,6 +52,12 @@ public class OptionActivity extends AppCompatActivity {
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.options_back_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        back_btn.setLayoutParams(btn_size);
+
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,14 +96,14 @@ public class OptionActivity extends AppCompatActivity {
                     case 1: //Superhero theme chosen
 
                         mEdit.putString("Theme", "Superheroes");
-                        mEdit.commit();
+                        mEdit.apply();
                         Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
                     case 2: //Hypnomob theme chosen
 
                         mEdit.putString("Theme", "Hypnomob");
-                        mEdit.commit();
+                        mEdit.apply();
                         Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
@@ -103,7 +113,16 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context,OptionActivity.class);
-        return intent;
+        return new Intent(context,OptionActivity.class);
+    }
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicManager.play();
     }
 }

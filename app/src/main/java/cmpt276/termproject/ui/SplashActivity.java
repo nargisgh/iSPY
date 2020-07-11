@@ -18,6 +18,7 @@ import cmpt276.termproject.model.MusicManager;
 public class SplashActivity extends AppCompatActivity {
 
     ConstraintLayout ss_Layout;
+    ConstraintLayout.LayoutParams btn_size;
 
     private int SPLASH_TIMER = 6000;
     public MusicManager musicManager;
@@ -99,8 +100,13 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void setupSkipBtn(){
-        Button btn = findViewById(R.id.splash_skip_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button skip_btn = findViewById(R.id.splash_skip_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) skip_btn.getLayoutParams();
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/20;
+        skip_btn.setLayoutParams(btn_size);
+
+        skip_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = MainActivity.makeIntent(SplashActivity.this);
@@ -113,8 +119,13 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void setupQuitBtn(){
-        Button btn = findViewById(R.id.splash_quit_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button skip_btn = findViewById(R.id.splash_quit_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) skip_btn.getLayoutParams();
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/20;
+        skip_btn.setLayoutParams(btn_size);
+
+        skip_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicManager.stop();
@@ -124,7 +135,16 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicManager.play();
+    }
 
 
 }

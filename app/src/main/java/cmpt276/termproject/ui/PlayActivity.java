@@ -1,6 +1,7 @@
 package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,11 +9,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
+
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
@@ -27,8 +27,11 @@ import cmpt276.termproject.model.MusicManager;
 
 public class PlayActivity extends AppCompatActivity  {
 
+    private FrameLayout frameLayout;
+
+    ConstraintLayout ps_Layout;
+    ConstraintLayout.LayoutParams btn_size;
     private GameManager gameManager;
-    CardDrawer cardDrawerCanvas;
 
     String name;
     String dateTime;
@@ -51,6 +54,14 @@ public class PlayActivity extends AppCompatActivity  {
 
         highscore = HighScores.getInstance();
 
+        ps_Layout = findViewById(R.id.root);
+        ps_Layout.setBackgroundResource(R.drawable.bg_play);
+
+
+        chronometer = findViewById(R.id.stopwatch);
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
+        musicManager = MusicManager.getInstance();
         setup();
 
         cardDrawerCanvas = findViewById(R.id.card_canvas);
@@ -58,19 +69,31 @@ public class PlayActivity extends AppCompatActivity  {
         chrono_started = false;
     }
 
+    }
+
+
+
+
 
     private void setup(){
         //Setup Game Manager Class
         gameManager = GameManager.getInstance();
         gameManager.createCards();
 
+        frameLayout = findViewById(R.id.frame);
+
+        CardDrawer surfaceView = new CardDrawer(getApplicationContext());
+
+        frameLayout.addView(surfaceView);
+
         setupBackButton();
+
     }
 
 
     //TODO: GAME OVER POPUP
     //TODO: TIMER
-    // *@Override
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
 
@@ -166,6 +189,12 @@ public class PlayActivity extends AppCompatActivity  {
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);
+
+        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        back_btn.setLayoutParams(btn_size);
+
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,6 +206,5 @@ public class PlayActivity extends AppCompatActivity  {
     public static Intent makeIntent(Context context){
         return new Intent(context, PlayActivity.class);
     }
-
 
 }
