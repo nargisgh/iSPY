@@ -95,6 +95,13 @@ public class HighScores{
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        String[] temp_s = getCurrentScores(context).toArray(new String[0]);
+        for (int i = 0; i < 5; i++) {
+            if (entry.equals(temp_s[i])) {
+                return;
+            }
+        }
+
         //Get All the highscores into an array
         List<String> scores = new ArrayList<>();
         for (int i = 0; i < 5; i ++){
@@ -103,9 +110,9 @@ public class HighScores{
         }
 
         // Check where to place new highscore
-        int time = convert_time_to_int(getScore(entry));
+        double time = convert_time_to_double(getScore(entry));
         for (int i = 0; i < 5; i ++){
-            if(time < convert_time_to_int(getScore(scores.get(i)))){
+            if(time < convert_time_to_double(getScore(scores.get(i)))){
                 scores.add(i,entry);
                 break;
             }
@@ -114,6 +121,7 @@ public class HighScores{
         for (int i = 0; i < 5; i ++){
             editor.putString("score" + (i+1), scores.get(i));
         }
+
         editor.apply();
 
 //        String temp1 = sharedPreferences.getString("score1","");
@@ -121,13 +129,8 @@ public class HighScores{
 //        String temp3 = sharedPreferences.getString("score3","");
 //        String temp4 = sharedPreferences.getString("score4","");
 //
-//        String[] temp_s = getCurrentScores(context).toArray(new String[0]);
 //
-//        for (int i = 0; i < 5; i++) {
-//            if (entry.equals(temp_s[i])) {
-//                return;
-//            }
-//        }
+//
 //
 //        int latest_time = convert_time_to_int(getScore(entry));
 //
@@ -175,12 +178,12 @@ public class HighScores{
 //        editor.apply();
 //    }
     // convert string time to secs for easier comparison
-    public int convert_time_to_int(String str){
+    public double convert_time_to_double(String str){
         String[] time = str.split("\\." );
 
-        int sec = Integer.parseInt(time[0]);
-        int ms = Integer.parseInt(time[1]);
-
+        double sec = Integer.parseInt(time[0]);
+        double ms = Double.parseDouble(time[1]) / 1000f;
+        Log.e("Score", sec  + ms  + " ");
         return sec + ms;
     }
 
