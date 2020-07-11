@@ -12,10 +12,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -32,6 +34,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap card_bitmap;
     private List<Bitmap> bitmaps;
     Canvas canvas;
+
+    private MediaPlayer mp = new MediaPlayer();
 
     private static final float RADIUS = 350f;
     private static final int OFFSET = 20;
@@ -61,7 +65,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         gameManager = GameManager.getInstance();
 
         setCardTheme();
-
 
         card_bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.card);
         card_bitmap = Bitmap.createScaledBitmap(card_bitmap,(int)RADIUS * 2 , (int)RADIUS * 2, true);
@@ -93,6 +96,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         drawCards();
+
+
     }
 
     @Override
@@ -112,6 +117,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             drawCards();
         }
     }
+
 
 
     public void drawCards(){
@@ -172,14 +178,24 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void playClickSound(boolean failed){
-        MediaPlayer mp = MediaPlayer.create(getContext(),R.raw.fail);
+        mp = MediaPlayer.create(getContext(),R.raw.fail);
         mp.seekTo(715);
         if (!failed){
             mp = MediaPlayer.create(getContext(), R.raw.success);
             mp.seekTo(290);
         }
         mp.start();
+
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                mp.release();
+            }
+        });
     }
+
+
 
 
     @Override
@@ -210,11 +226,10 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                             // Image has been found, Allow for drawing of next card
                             found_match = true;
                             playClickSound(false);
-
                         }
                     }
                     if (!found_match) {
-                        playClickSound(true);
+                       playClickSound(true);
                     }
                 }
             }
