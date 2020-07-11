@@ -80,7 +80,7 @@ public class PlayActivity extends AppCompatActivity  {
 
         cardDrawer = new CardDrawer(getApplicationContext());
 
-        setupGameOver();
+        setupGameListener();
 
         frameLayout.addView(cardDrawer);
 
@@ -89,7 +89,7 @@ public class PlayActivity extends AppCompatActivity  {
 
 
 
-    public void setupGameOver(){
+    public void setupGameListener(){
 
         cardDrawer.setGameListener(new CardDrawer.GameListener() {
             @Override

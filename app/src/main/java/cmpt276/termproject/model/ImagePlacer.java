@@ -23,27 +23,28 @@ public class ImagePlacer {
         return pos_y;
     }
 
-     public Bitmap placeBitmap(Card card, float x, float y, int offset, int section_size, int i ,  List<Bitmap> bitmaps, int bitmap_index) {
-        // TODO: Randomize the x and y coord offsets a bit
+     public Bitmap placeBitmap(float RADIUS ,Card card, float x, float y, int offset, int section_size, int i ,  List<Bitmap> bitmaps, int bitmap_index) {
 
         // Scale Randomizing
         float min = 0.6f;
-        float max = 1.3f;
+        float max = 1.2f;
         double scale = min + Math.random() * (max - min);
+
+        int img_rad = (int) (RADIUS / 2f);
 
         //Rotation randomizing
         int degree = (int) (Math.random() * 360);
 
          //Get Coordinates for placing bitmap within Circle
         float rad = (float) Math.toRadians( i * section_size + offset);
-        int width = (int) (Math.cos(rad) * RADIUS * (0.5f));
-        int height = (int) (Math.sin(rad) * RADIUS * (0.5f));
+        int width = (int) (Math.cos(rad) * RADIUS * (0.45f));
+        int height = (int) (Math.sin(rad) * RADIUS * (0.45f));
 
 
         //Create Bitmap scaled from list of bitmaps
         Bitmap placed_bitmap = Bitmap.createScaledBitmap(bitmaps.get(bitmap_index),
-                (int) (IMG_WIDTH * scale),
-                (int) (IMG_HEIGHT * scale),
+                (int) (img_rad * scale),
+                (int) (img_rad * scale),
                 true);
 
         pos_x = (int) (width + x - placed_bitmap.getWidth() / 2f);
@@ -54,10 +55,9 @@ public class ImagePlacer {
 
         placed_bitmap = Bitmap.createBitmap(placed_bitmap,
                 0, 0,
-                (int) (IMG_WIDTH * scale),
-                (int) (IMG_HEIGHT * scale),
+                (int) (img_rad * scale),
+                (int) (img_rad * scale),
                 matrix , true);
-
 
 
         // Set coordinates of the image for the designated image on the card

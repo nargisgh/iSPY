@@ -36,7 +36,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     private MediaPlayer mp = new MediaPlayer();
 
-    private static final float RADIUS = 350f;
+    private static  float RADIUS ;
     private static final int OFFSET = 20;
 
 
@@ -76,6 +76,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         gameManager = GameManager.getInstance();
 
         setCardTheme();
+
+        RADIUS = context.getResources().getDisplayMetrics().heightPixels / 3.5f;
 
         card_bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.card);
         card_bitmap = Bitmap.createScaledBitmap(card_bitmap,(int)RADIUS * 2 , (int)RADIUS * 2, true);
@@ -187,7 +189,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     public void saveCardInfo(Card card, int i, ImagePlacer imagePlacer , int x , int y , int offset,  int section_size){
         int bitmap_index = card.getImages().get(i);
-        Bitmap bitmap = imagePlacer.placeBitmap(card, x, y, offset, section_size,i, bitmaps,bitmap_index);
+        Bitmap bitmap = imagePlacer.placeBitmap( RADIUS, card, x, y, offset, section_size,i, bitmaps,bitmap_index);
         canvas.drawBitmap(bitmap, imagePlacer.getPosX(),imagePlacer.getPosY(),null);
         card.setImageCoordinates(i, new int[]{imagePlacer.getPosX(),imagePlacer.getPosY()});
         card.setImageBitmaps(i, bitmap);
