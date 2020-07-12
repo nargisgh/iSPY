@@ -9,24 +9,23 @@ view or reset the scores before or after playing the game. Help screen explains 
 conventions of the game in detail with sources provided.
 
 ## Key Features
+	•	Custom images curated - Menu and Splash screen
+	•	Aesthetically pleasing
+	•	Consistent theme and fonts throughout the entire app
+	•	Background music implemented throughout the game
+	•	Options allows menu and game play to switch themes
+	•	Menu switches between two backgrounds depending on theme
+	•	Interactive game play for cards drawn (audio)
+	•	Dynamic UI - Scales all objects proportional to screen size and different devices
+	•	Sources provided in the Help Screen
+	•	Animations included in the Splash Screen
+	•	Android notification and button bar made transparent for a better display
+	•	Pop up screen shows at the end of game play with the option of saving the score under a
+	    custom username or to cancel
+	•	Back button implemented for every activity
 
-* Custom images curated - Menu and Splash screen
-* Aesthetically pleasing
-* Consistent theme and fonts throughout the entire app
-* Background music implemented throughout the game
-* Options allows menu and game play to switch themes
-* Menu switches between two backgrounds depending on theme
-* Interactive game play for cards drawn (audio)
-* Dynamic UI - Scales all objects proportional to screen size and different devices
-* Sources provided in the Help Screen
-* Animations included in the Splash Screen
-* Android notification and button bar made transparent for a better display
-* Pop up screen shows at the end of game play with the option of saving the score under a custom
-username or to cancel
-* Back button implemented for every activity
-
-## Authors
-* Shaheen Eshghi
-* Halakseka Jegatheesa
-* Mikhail Alexeev
-* Nargis Ghiasi
+## Authors:
+	•	Shaheen Eshghi
+	•	Halakseka Jegatheesa
+	•	Mikhail Alexeev
+	•	Nargis Ghiasi
