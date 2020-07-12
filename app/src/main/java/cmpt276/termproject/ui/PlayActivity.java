@@ -26,6 +26,10 @@ import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
 
+/* Game Play, displays cards drawn and to match.
+Setting Game start and over with custom listener.
+Pop Up dialog when game is over */
+
 public class PlayActivity extends AppCompatActivity  {
 
     ConstraintLayout ps_Layout;
@@ -50,7 +54,7 @@ public class PlayActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_play);
 
         highScore = HighScores.getInstance();
-
+        musicManager = MusicManager.getInstance();
 
         ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
@@ -106,8 +110,8 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     private void popup(final String dateTime,final String time){
-        musicManager = MusicManager.getInstance();
         musicManager.play();
+
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
         Button save = dialog.findViewById(R.id.saveBtn);
@@ -177,5 +181,18 @@ public class PlayActivity extends AppCompatActivity  {
 
     public static Intent makeIntent(Context context){
         return new Intent(context, PlayActivity.class);
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(musicManager ==null){
+            musicManager.play();
+        }
     }
 }

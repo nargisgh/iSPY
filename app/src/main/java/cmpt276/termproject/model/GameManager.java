@@ -9,6 +9,10 @@ import java.util.List;
 
 public class GameManager {
 
+    /* Getters for the Card pile
+    * Updating the cards from the drawn pile
+    * Setting a consistent
+    */
     private static GameManager instance;
 
     private List<Card> draw_pile;

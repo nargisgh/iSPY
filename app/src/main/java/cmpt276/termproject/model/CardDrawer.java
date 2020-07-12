@@ -22,6 +22,9 @@ import java.util.List;
 
 import cmpt276.termproject.R;
 
+/* Initializing when cards are drawn, checking if pile is empty,
+ * setting theme, saving card info, and custom listener for interactive game play */
+
 public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceHolder surfaceHolder  = null;
@@ -273,9 +276,5 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
       return true;
 
     }
-
-
-
-
 
 }

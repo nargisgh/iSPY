@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 import java.util.List;
 
-import cmpt276.termproject.R;
+/* Setting up Card attributes - Images, Coordinates, Size */
 
 public class Card {
 
@@ -28,10 +28,6 @@ public class Card {
 
     public int getImageY(int index){
         return image_coordinates.get(index)[1];
-    }
-
-    public List<int[]> getImageCoordinates(){
-        return image_coordinates;
     }
 
     public List<Integer> getImages(){

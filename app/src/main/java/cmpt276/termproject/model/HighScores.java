@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//Functions to set default scores, save and update new scores
+/* Functions to set default scores, save and update new scores.
+ * Using Singleton Method and Shared Preferences to pass data
+ */
+
 public class HighScores{
 
     private List<String> DEFAULT_SCORES = new ArrayList<>();
-
 
     ArrayList<String> arr = new ArrayList<>();
 
@@ -29,7 +31,6 @@ public class HighScores{
         }
         return instance;
     }
-
 
     //Initialise DEF_Array
     private void init(){

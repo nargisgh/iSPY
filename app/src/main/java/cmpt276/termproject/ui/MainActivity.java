@@ -18,6 +18,9 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 
+/* Main activity, buttons for different activities and
+* updating bg for consistent theme */
+
 public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout mm_Layout;
@@ -35,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance();
-        //musicManager.play();
 
         setupPlayButton();
         setupOptionButton();
@@ -68,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = PlayActivity.makeIntent(MainActivity.this);
-               // musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -105,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = HelpActivity.makeIntent(MainActivity.this);
-                //musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -149,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
+        return new Intent(context, MainActivity.class);
     }
 
 
@@ -180,6 +179,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         musicManager.pause();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        musicManager.stop();
+        finishAffinity();
     }
 
 }

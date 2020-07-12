@@ -15,7 +15,6 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +25,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-// Has functions to populate and update highscore table
+/*Has functions to populate and update highscore table
+* Using Singleton method and Shared Preferences to pass data,
+* interactively retrieving and passing data to HS java class
+* TableLayout set up*/
+
 public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highScores;
@@ -240,8 +243,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context, HighScoreActivity.class);
-        return intent;
+        return new Intent(context, HighScoreActivity.class);
     }
 
 

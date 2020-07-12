@@ -144,6 +144,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onResume();
         musicManager.play();
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        musicManager.stop();
+        finishAffinity();
+    }
 
 }

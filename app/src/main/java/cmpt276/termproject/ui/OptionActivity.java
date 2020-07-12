@@ -18,6 +18,9 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 
+/* Select theme and allowing the selection to
+be used to update theme throughout the entire app*/
+
 public class OptionActivity extends AppCompatActivity {
 
     ConstraintLayout os_Layout;
@@ -97,14 +100,14 @@ public class OptionActivity extends AppCompatActivity {
 
                         mEdit.putString("Theme", "Superheroes");
                         mEdit.apply();
-                        Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
                     case 2: //Hypnomob theme chosen
 
                         mEdit.putString("Theme", "Hypnomob");
                         mEdit.apply();
-                        Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
                 }

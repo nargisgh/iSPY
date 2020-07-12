@@ -1,17 +1,14 @@
 package cmpt276.termproject.model;
 
-
-
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/* Generating card pile, shuffling of cards
+ and passing info through singleton method */
+
 /// Translated into Java from the python file that was provided at :
 /// https://github.com/WRadigan/pySpot-It
-
 
 public class CardManager {
 
@@ -43,10 +40,10 @@ public class CardManager {
             min_factor = p;
         }
 
-        List<int[]> cards = new ArrayList<int[]>();
+        List<int[]> cards = new ArrayList<>();
         for (int i = 0; i < p; i ++){
             int[] temp = new int [p + 1];
-            int j = 0;
+            int j;
             for (j = 0; j < p ; j ++){
                 temp[j] = i * p + j;
             }
@@ -54,7 +51,7 @@ public class CardManager {
             cards.add(temp);
         }
         for (int i = 0 ; i < min_factor; i ++){
-            int j = 0;
+            int j;
             for (j = 0; j < p ; j ++){
                 int[] temp = new int [p + 1 ];
                 for (int k = 0; k < p; k ++){
@@ -78,9 +75,4 @@ public class CardManager {
         return cards;
     }
 
-
-
-    public List<int[]> getCardList() {
-        return card_list;
-    }
 }
