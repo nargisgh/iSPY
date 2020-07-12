@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+//Functions to set default scores, save and update new scores
 public class HighScores{
 
     private List<String> DEFAULT_SCORES = new ArrayList<>();

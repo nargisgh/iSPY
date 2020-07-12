@@ -26,7 +26,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// Has functions to populate and update highscore table
 public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highScores;
