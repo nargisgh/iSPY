@@ -62,6 +62,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="#BA787878"
         android:fontFamily="@font/mclaren"
         android:scrollbars="vertical"
