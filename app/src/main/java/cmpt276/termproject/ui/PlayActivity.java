@@ -37,7 +37,6 @@ public class PlayActivity extends AppCompatActivity  {
 
 
     private Chronometer chronometer;
-    private boolean chrono_started ;
 
     private boolean dialog_open = false;
     private double game_start_time;
@@ -63,7 +62,6 @@ public class PlayActivity extends AppCompatActivity  {
         setup();
 
         chronometer = findViewById(R.id.stopwatch);
-        chrono_started = false;
     }
 
 

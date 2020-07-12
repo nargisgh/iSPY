@@ -216,10 +216,10 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private void scaleTable()
     {
-        TableLayout hs_table = findViewById(R.id.highscore_table);
-        table_size = (ConstraintLayout.LayoutParams) hs_table.getLayoutParams();
-        table_size.height = (int) ((getResources().getDisplayMetrics().heightPixels)/1.89);
-        hs_table.setLayoutParams(table_size);
+//        TableLayout hs_table = findViewById(R.id.highscore_table);
+//        table_size = (ConstraintLayout.LayoutParams) hs_table.getLayoutParams();
+//        table_size.height = (int) ((getResources().getDisplayMetrics().heightPixels)/1.89);
+//        hs_table.setLayoutParams(table_size);
     }
 
 

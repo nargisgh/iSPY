@@ -14,6 +14,7 @@
         android:fontFamily="@font/press_start_2p"
         android:text="@string/options_back_btn"
         android:textColor="#FF5900"
+        android:background="@drawable/custom_btn"
         android:textSize="@dimen/_15ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

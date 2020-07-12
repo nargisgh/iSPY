@@ -34,6 +34,8 @@
         android:gravity="center"
         android:text="@string/back"
         android:textColor="#FF5900"
+        android:background="@drawable/custom_btn"
+
         android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
