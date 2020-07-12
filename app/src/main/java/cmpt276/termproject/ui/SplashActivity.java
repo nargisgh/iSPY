@@ -37,7 +37,6 @@ public class SplashActivity extends AppCompatActivity {
         setupQuitBtn();
         setupSkipBtn();
         setupAnimation();
-
     }
 
 

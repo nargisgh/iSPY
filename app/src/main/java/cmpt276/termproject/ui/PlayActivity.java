@@ -35,17 +35,13 @@ public class PlayActivity extends AppCompatActivity  {
     String name;
     String dateTime;
 
-
     private Chronometer chronometer;
 
-    private boolean dialog_open = false;
     private double game_start_time;
     public MusicManager musicManager;
     public HighScores highScore;
 
     private CardDrawer cardDrawer;
-
-
 
 
     @Override
@@ -65,10 +61,6 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
 
-
-
-
-
     private void setup(){
         //Setup Game Manager Class
         gameManager = GameManager.getInstance();
@@ -78,16 +70,14 @@ public class PlayActivity extends AppCompatActivity  {
 
         cardDrawer = new CardDrawer(getApplicationContext());
 
-        setupGameListener();
+        setupGameOver();
 
         frameLayout.addView(cardDrawer);
 
         setupBackButton();
     }
 
-
-
-    public void setupGameListener(){
+    public void setupGameOver(){
 
         cardDrawer.setGameListener(new CardDrawer.GameListener() {
             @Override
@@ -111,21 +101,15 @@ public class PlayActivity extends AppCompatActivity  {
                 Log.e("Chrono", "started");
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
-
             }
         });
-
-
     }
-
-
 
     private void popup(final String dateTime,final String time){
         musicManager = MusicManager.getInstance();
         musicManager.play();
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
-
         Button save = dialog.findViewById(R.id.saveBtn);
         Button cancel = dialog.findViewById(R.id.cancelBtn);
         final EditText userId = dialog.findViewById(R.id.userId);
@@ -171,8 +155,6 @@ public class PlayActivity extends AppCompatActivity  {
         Window window = dialog.getWindow();
         assert window != null;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        //<a href='https://www.freepik.com/free-photos-vectors/background'>Background vector created by starline - www.freepik.com</a>
-
     }
 
 
@@ -196,6 +178,4 @@ public class PlayActivity extends AppCompatActivity  {
     public static Intent makeIntent(Context context){
         return new Intent(context, PlayActivity.class);
     }
-
-
 }
