@@ -13,6 +13,7 @@
         android:id="@+id/stopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="#CDA3A2A2"
         android:fontFamily="@font/press_start_2p"
         android:padding="5dp"
