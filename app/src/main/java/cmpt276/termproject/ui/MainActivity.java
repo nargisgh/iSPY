@@ -6,12 +6,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import cmpt276.termproject.R;
@@ -23,11 +21,7 @@ import cmpt276.termproject.model.MusicManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ConstraintLayout mm_Layout;
     public MusicManager musicManager;
-    private SharedPreferences mPreferences;
-    private SharedPreferences.Editor mEdit;
-    private String curr_theme;
     private GameManager gameManager;
 
     ConstraintLayout.LayoutParams btn_size;
@@ -43,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setupOptionButton();
         setupHelpButton();
         setupQuitButton();
-        setupHighscoreButton();
+        setupHighScoreButton();
         setTheme();
 
 
@@ -130,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void setupHighscoreButton() {
+    private void setupHighScoreButton() {
         Button hs_btn = (Button) findViewById(R.id.main_hscore_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) hs_btn.getLayoutParams();
@@ -155,10 +149,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setTheme()
     {
-        mm_Layout = findViewById(R.id.mm_Layout);
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mEdit = mPreferences.edit();
-        curr_theme = mPreferences.getString("Theme", "Superheroes");
+        ConstraintLayout mm_Layout = findViewById(R.id.mm_Layout);
+        SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor mEdit = mPreferences.edit();
+        String curr_theme = mPreferences.getString("Theme", "Superheroes");
 
         if (curr_theme.equals("Hypnomob"))
         {

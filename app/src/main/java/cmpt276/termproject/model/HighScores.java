@@ -20,7 +20,7 @@ public class HighScores{
 
     ArrayList<String> arr = new ArrayList<>();
 
-    //Signleton Stuff
+    //Singleton Stuff
     private static HighScores instance;
     public HighScores(){
         init();
@@ -86,8 +86,8 @@ public class HighScores{
     }
 
     // Here all the times are converted  to secs for easier comparison
-    // As each time is compared, sharedpreferences are updated and every entry is moved down the list
-    // so when we are updating rows on tablelayout we just need to call the sharedpreferences
+    // As each time is compared, shared preferences are updated and every entry is moved down the list
+    // so when we are updating rows on table layout we just need to call the sharedpreferences
     //  https://www.youtube.com/watch?v=_cV7cgQFDo0
 
     public void update(String entry, Context context) {
@@ -101,13 +101,13 @@ public class HighScores{
             }
         }
 
-        //Get All the highscores into an array
+        //Get All the high scores into an array
         List<String> scores = new ArrayList<>();
         for (int i = 0; i < 5; i ++){
             scores.add(sharedPreferences.getString("score" + (i + 1), ""));
         }
 
-        // Check where to place new highscore
+        // Check where to place new high score
         double time = convert_time_to_double(getScore(entry));
         for (int i = 0; i < 5; i ++){
             if(time < convert_time_to_double(getScore(scores.get(i)))){

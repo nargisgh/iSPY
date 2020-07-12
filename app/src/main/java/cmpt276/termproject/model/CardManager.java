@@ -12,7 +12,6 @@ import java.util.List;
 
 public class CardManager {
 
-    private List<int[]> card_list;
     private static CardManager instance;
 
 
@@ -70,7 +69,6 @@ public class CardManager {
 
         // Shuffle the cards before returning them
         Collections.shuffle(cards);
-        card_list = cards;
 
         return cards;
     }

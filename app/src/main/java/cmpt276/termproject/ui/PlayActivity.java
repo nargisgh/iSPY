@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 
@@ -34,7 +35,6 @@ public class PlayActivity extends AppCompatActivity  {
 
     ConstraintLayout ps_Layout;
     ConstraintLayout.LayoutParams btn_size;
-    private GameManager gameManager;
 
     String name;
     String dateTime;
@@ -46,6 +46,7 @@ public class PlayActivity extends AppCompatActivity  {
     public HighScores highScore;
 
     private CardDrawer cardDrawer;
+    boolean isPlaying = false;
 
 
     @Override
@@ -67,7 +68,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     private void setup(){
         //Setup Game Manager Class
-        gameManager = GameManager.getInstance();
+        GameManager gameManager = GameManager.getInstance();
         gameManager.createCards();
 
         FrameLayout frameLayout = findViewById(R.id.frame);
@@ -111,7 +112,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     private void popup(final String dateTime,final String time){
         musicManager.play();
-
+        isPlaying = true;
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
         Button save = dialog.findViewById(R.id.saveBtn);
@@ -153,6 +154,9 @@ public class PlayActivity extends AppCompatActivity  {
                     dialog.dismiss();
                     finish();
                 }
+                else{
+                    userId.setError("Invalid Username");
+                }
             }
         });
         dialog.show();
@@ -191,7 +195,7 @@ public class PlayActivity extends AppCompatActivity  {
     @Override
     public void onResume() {
         super.onResume();
-        if(musicManager ==null){
+        if(isPlaying){
             musicManager.play();
         }
     }

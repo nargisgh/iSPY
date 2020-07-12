@@ -23,9 +23,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/*Has functions to populate and update highscore table
+/*Has functions to populate and update high score table
 * Using Singleton method and Shared Preferences to pass data,
 * interactively retrieving and passing data to HS java class
 * TableLayout set up*/
@@ -37,11 +36,6 @@ public class HighScoreActivity extends AppCompatActivity {
 
     ConstraintLayout.LayoutParams btn_size;
 
-    ConstraintLayout.LayoutParams table_size;
-
-    private HighScores highscore;
-
-    private List<TextView> scores = new ArrayList<>();
     private MusicManager musicManager;
 
     private TableRow row;
@@ -63,15 +57,12 @@ public class HighScoreActivity extends AppCompatActivity {
 
         musicManager = MusicManager.getInstance();
 
-        highscore = HighScores.getInstance();
-
         default_scores = getResources().getStringArray(R.array.default_highscores);
 
         initializeScores();
 
-        setupResetbtn();
-        setupBackbtn();
-        scaleTable();
+        setupResetBtn();
+        setupBackBtn();
     }
 
 
@@ -194,7 +185,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
     // button to reset back to default scores
-    private void setupResetbtn() {
+    private void setupResetBtn() {
         Button reset_btn = findViewById(R.id.highscore_reset_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) reset_btn.getLayoutParams();
@@ -216,17 +207,7 @@ public class HighScoreActivity extends AppCompatActivity {
         });
     }
 
-
-    private void scaleTable()
-    {
-//        TableLayout hs_table = findViewById(R.id.highscore_table);
-//        table_size = (ConstraintLayout.LayoutParams) hs_table.getLayoutParams();
-//        table_size.height = (int) ((getResources().getDisplayMetrics().heightPixels)/1.89);
-//        hs_table.setLayoutParams(table_size);
-    }
-
-
-    private void setupBackbtn() {
+    private void setupBackBtn() {
         Button back = findViewById(R.id.highscore_back_btn);
         btn_size = (ConstraintLayout.LayoutParams) back.getLayoutParams();
         btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;

@@ -37,8 +37,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private List<Bitmap> bitmaps;
     Canvas canvas;
 
-    private MediaPlayer mp = new MediaPlayer();
-
     private static  float RADIUS ;
     private static final int OFFSET = 20;
 
@@ -51,8 +49,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         void onGameStart();
     }
 
-    public void setGameListener(GameListener listner){
-        this.gameListener = listner;
+    public void setGameListener(GameListener listener){
+        this.gameListener = listener;
     }
 
 
@@ -92,7 +90,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     // Set the Theme from the available 2 and create bitmap array
     public void setCardTheme(){
-        int theme = gameManager.getTheme();
         bitmaps = new ArrayList<>();
 
         TypedArray typedArray = getResources().obtainTypedArray(R.array.theme_1_images);
@@ -199,7 +196,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void playClickSound(boolean failed){
-        mp = MediaPlayer.create(getContext(),R.raw.fail);
+        MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.fail);
         mp.seekTo(715);
         if (!failed){
             mp = MediaPlayer.create(getContext(), R.raw.success);

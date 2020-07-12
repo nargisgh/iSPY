@@ -12,10 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 
 /* Select theme and allowing the selection to
@@ -32,15 +30,12 @@ public class OptionActivity extends AppCompatActivity {
     RadioButton hypno_rbtn;
     public MusicManager musicManager;
 
-    private GameManager gameManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
-        gameManager = GameManager.getInstance();
         musicManager = MusicManager.getInstance();
         musicManager.play();
         os_Layout = findViewById(R.id.os_Layout);
