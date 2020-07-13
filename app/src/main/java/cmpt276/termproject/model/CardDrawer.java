@@ -37,8 +37,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     public interface GameListener {
         void onGameOver();
-
         void onGameStart();
+        void onSfxPlay(boolean failed);
     }
 
     public void setGameListener(GameListener listner){
@@ -170,22 +170,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         card.setImageBitmaps(i, bitmap);
     }
 
-    public void playClickSound(boolean failed){
-        mp = MediaPlayer.create(getContext(),R.raw.fail);
-        mp.seekTo(715);
-        if (!failed){
-            mp = MediaPlayer.create(getContext(), R.raw.success);
-            mp.seekTo(290);
-        }
-        mp.start();
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.reset();
-                mp.release();
-            }
-        });
-    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -217,11 +201,11 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                         if (image == discard_image) {
                             // Image has been found, Allow for drawing of next card
                             found_match = true;
-                            //playClickSound(false);
+                            gameListener.onSfxPlay(false);
                         }
                     }
                     if (!found_match) {
-                       //playClickSound(true);
+                        gameListener.onSfxPlay(true);
                     }
                 }
             }

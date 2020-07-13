@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -28,12 +29,11 @@ import cmpt276.termproject.model.MusicManager;
 
 public class PlayActivity extends AppCompatActivity  {
 
-    ConstraintLayout ps_Layout;
-    ConstraintLayout.LayoutParams btn_size;
     private GameManager gameManager;
+    private MediaPlayer sfx_player = new MediaPlayer();
 
-    String name;
-    String dateTime;
+    private String name;
+    private String dateTime;
 
     private Chronometer chronometer;
 
@@ -51,7 +51,7 @@ public class PlayActivity extends AppCompatActivity  {
         highScore = HighScores.getInstance();
 
 
-        ps_Layout = findViewById(R.id.root);
+        ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
 
         setup();
@@ -68,14 +68,15 @@ public class PlayActivity extends AppCompatActivity  {
 
         cardDrawer = new CardDrawer(getApplicationContext());
 
-        setupGameOver();
+        setupGameListener();
 
         frameLayout.addView(cardDrawer);
+
 
         setupBackButton();
     }
 
-    public void setupGameOver(){
+    public void setupGameListener(){
 
         cardDrawer.setGameListener(new CardDrawer.GameListener() {
             @Override
@@ -100,7 +101,28 @@ public class PlayActivity extends AppCompatActivity  {
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
             }
+
+            @Override
+            public void onSfxPlay(boolean failed) {
+                sfx_player.release();
+                sfx_player = MediaPlayer.create(getApplicationContext(), R.raw.fail);
+                sfx_player.seekTo(715);
+                if (!failed){
+                    sfx_player = MediaPlayer.create(getApplicationContext(),R.raw.success);
+                    sfx_player.seekTo(310);
+                }
+                sfx_player.start();
+            }
         });
+
+        sfx_player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                sfx_player.reset();
+                sfx_player.release();
+            }
+        });
+        
     }
 
     private void popup(final String dateTime,final String time){
@@ -158,7 +180,7 @@ public class PlayActivity extends AppCompatActivity  {
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);
 
-        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
+        ConstraintLayout.LayoutParams btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
         btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
         back_btn.setLayoutParams(btn_size);
