@@ -1,23 +1,18 @@
+/*
+Keep track of cards and handles generating, shuffling, etc.
+ */
 package cmpt276.termproject.model;
-
-
-
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /// Translated into Java from the python file that was provided at :
 /// https://github.com/WRadigan/pySpot-It
 
-
 public class CardManager {
 
     private List<int[]> card_list;
     private static CardManager instance;
-
 
     //Use singleton to share the data between classes
     private CardManager(){
@@ -28,7 +23,6 @@ public class CardManager {
         }
         return instance;
     }
-
 
     public List<int[]> generateCards(int p){
         int min_factor = 2;
@@ -53,6 +47,7 @@ public class CardManager {
             temp[j] = p*p;
             cards.add(temp);
         }
+
         for (int i = 0 ; i < min_factor; i ++){
             int j = 0;
             for (j = 0; j < p ; j ++){
@@ -77,8 +72,6 @@ public class CardManager {
 
         return cards;
     }
-
-
 
     public List<int[]> getCardList() {
         return card_list;

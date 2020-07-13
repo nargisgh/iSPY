@@ -1,5 +1,7 @@
+/*
+Handles creating cards, setting card theme, drawing pictures on cards, etc.
+ */
 package cmpt276.termproject.model;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -10,16 +12,12 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-
 import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import java.util.ArrayList;
-
 import java.util.List;
-
 import cmpt276.termproject.R;
 
 public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
@@ -29,17 +27,12 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private GameManager gameManager;
     private boolean game_over = false;
     private boolean game_started = false;
-
     private Bitmap card_bitmap;
     private List<Bitmap> bitmaps;
     Canvas canvas;
-
     private MediaPlayer mp = new MediaPlayer();
-
     private static  float RADIUS ;
     private static final int OFFSET = 20;
-
-
     private GameListener gameListener;
 
     public interface GameListener {
@@ -52,14 +45,11 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         this.gameListener = listner;
     }
 
-
     private boolean found_match = false;
-
 
     public CardDrawer(Context context) {
         super(context);
         //setFocusable(true);
-
         this.gameListener = null;
 
         if (surfaceHolder == null){
@@ -74,18 +64,13 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         gameManager = GameManager.getInstance();
-
         setCardTheme();
-
         RADIUS = context.getResources().getDisplayMetrics().heightPixels / 3.5f;
-
         card_bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.card);
         card_bitmap = Bitmap.createScaledBitmap(card_bitmap,(int)RADIUS * 2 , (int)RADIUS * 2, true);
-
         this.setZOrderOnTop(true);
         this.getHolder().setFormat(PixelFormat.TRANSLUCENT);
     }
-
 
     // Set the Theme from the available 2 and create bitmap array
     public void setCardTheme(){
@@ -101,9 +86,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             Bitmap decoded_bitmap = BitmapFactory.decodeResource(getResources(), typedArray.getResourceId(i, -1));
             bitmaps.add(decoded_bitmap);
         }
-
         typedArray.recycle();
-
     }
 
     @Override
@@ -112,14 +95,10 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-    }
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-
-    }
-
+    public void surfaceDestroyed(SurfaceHolder holder) {}
 
     public void gameOver(){
         //Update Canvas on Game Over
@@ -148,7 +127,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         int x  = (int) (getWidth() / 2f);
         int y = (int) (getHeight() / 2f);
 
-
         // RESET THE BOARD
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
@@ -158,7 +136,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
         for(int i = 0; i < gameManager.getDrawPile().size(); i++){
             canvas.drawBitmap(card_bitmap,x - (2 * RADIUS) - OFFSET, y - RADIUS - i * card_pile_offset, paint);
-
         }
 
         //Discard Pile
@@ -174,14 +151,12 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             saveCardInfo(gameManager.getTopDiscardCard(), i, imagePlacer, (int) (x + RADIUS + OFFSET), y, offset , section_size);
         }
 
-
         if (gameManager.getDrawPile().size() !=  0 ) {
             canvas.drawBitmap(card_bitmap, x - (2 * RADIUS) - OFFSET , y - RADIUS, null);
             //Draw Draw Card
             offset = (int) (Math.random() * 90);
             for (int i = 0; i < num_images; i++) {
                 saveCardInfo(gameManager.getTopDrawCard(), i, imagePlacer, (int) (x - RADIUS - OFFSET), y, offset, section_size);
-
             }
         }
         surfaceHolder.unlockCanvasAndPost(canvas);
@@ -203,7 +178,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             mp.seekTo(290);
         }
         mp.start();
-
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -212,9 +186,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             }
         });
     }
-
-
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -271,11 +242,5 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
       return true;
-
     }
-
-
-
-
-
 }

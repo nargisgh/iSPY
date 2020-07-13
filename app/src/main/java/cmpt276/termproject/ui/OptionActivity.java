@@ -1,8 +1,9 @@
+/*
+Options screen allowing user to switch game themes.
+ */
 package cmpt276.termproject.ui;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +14,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
@@ -48,7 +48,6 @@ public class OptionActivity extends AppCompatActivity {
         setupBackButton();
         storeOptions();
     }
-
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.options_back_btn);
@@ -106,7 +105,6 @@ public class OptionActivity extends AppCompatActivity {
                         mEdit.apply();
                         Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
-
                 }
             }
         });

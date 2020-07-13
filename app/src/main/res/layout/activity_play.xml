@@ -5,9 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PlayActivity"
-    >
-
+    tools:context=".ui.PlayActivity">
 
     <Chronometer
         android:id="@+id/stopwatch"
@@ -23,8 +21,7 @@
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.050000012" />
-
+        app:layout_constraintVertical_bias="0.050000012"/>
 
     <Button
         android:id="@+id/play_back_btn"
@@ -42,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.95"/>
 
     <FrameLayout
         android:id="@+id/frame"
@@ -52,7 +49,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

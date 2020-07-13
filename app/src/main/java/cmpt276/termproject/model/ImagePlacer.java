@@ -1,16 +1,14 @@
+/*
+Sub Class for placing images on the cards
+ */
 package cmpt276.termproject.model;
-
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-
 import java.util.List;
 
-// Sub Class for placing Images on the cards, (probably better way to do this, I just used the
-// default Extract Method in Android Studio)
 public class ImagePlacer {
     private int pos_x;
     private int pos_y;
-
     private static final float RADIUS = 350f;
     public static final int IMG_WIDTH = 150;
     public static final int IMG_HEIGHT = 150;
@@ -24,7 +22,6 @@ public class ImagePlacer {
     }
 
      public Bitmap placeBitmap(float RADIUS ,Card card, float x, float y, int offset, int section_size, int i ,  List<Bitmap> bitmaps, int bitmap_index) {
-
         // Scale Randomizing
         float min = 0.6f;
         float max = 1.2f;
@@ -39,7 +36,6 @@ public class ImagePlacer {
         float rad = (float) Math.toRadians( i * section_size + offset);
         int width = (int) (Math.cos(rad) * RADIUS * (0.45f));
         int height = (int) (Math.sin(rad) * RADIUS * (0.45f));
-
 
         //Create Bitmap scaled from list of bitmaps
         Bitmap placed_bitmap = Bitmap.createScaledBitmap(bitmaps.get(bitmap_index),
@@ -59,13 +55,9 @@ public class ImagePlacer {
                 (int) (img_rad * scale),
                 matrix , true);
 
-
         // Set coordinates of the image for the designated image on the card
         card.setImageCoordinates(i ,new int[]{pos_x,pos_y});
 
         return placed_bitmap;
     }
-
-
 }
-

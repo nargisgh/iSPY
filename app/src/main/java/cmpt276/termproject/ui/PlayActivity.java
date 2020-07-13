@@ -1,15 +1,16 @@
+/*
+Play screen where cards are drawn, timer is started and game space is set up for user to play
+the game.
+ */
 package cmpt276.termproject.ui;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +20,6 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -43,7 +43,6 @@ public class PlayActivity extends AppCompatActivity  {
 
     private CardDrawer cardDrawer;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +58,6 @@ public class PlayActivity extends AppCompatActivity  {
 
         chronometer = findViewById(R.id.stopwatch);
     }
-
 
     private void setup(){
         //Setup Game Manager Class
@@ -156,8 +154,6 @@ public class PlayActivity extends AppCompatActivity  {
         assert window != null;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
     }
-
-
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);

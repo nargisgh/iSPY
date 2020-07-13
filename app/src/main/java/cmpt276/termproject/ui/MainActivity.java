@@ -1,19 +1,17 @@
+/*
+Main menu with 2 custom backgrounds that switch depending on theme selected. Player can start
+game, open options, view high scores, view help menu or quit.
+ */
 package cmpt276.termproject.ui;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
@@ -43,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setupQuitButton();
         setupHighscoreButton();
         setTheme();
-
-
     }
 
     @Override
@@ -92,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void setupHelpButton(){
         Button help_btn = findViewById(R.id.main_help_btn);
 
@@ -111,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void setupQuitButton(){
         Button qt_btn = findViewById(R.id.main_quit_btn);
 
@@ -129,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void setupHighscoreButton() {
         Button hs_btn = (Button) findViewById(R.id.main_hscore_btn);
 
@@ -145,14 +138,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
+
     public static Intent makeIntent(Context context){
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
     }
-
 
     private void setTheme()
     {
@@ -175,11 +166,9 @@ public class MainActivity extends AppCompatActivity {
         mEdit.apply();
     }
 
-
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         musicManager.pause();
     }
-
 }

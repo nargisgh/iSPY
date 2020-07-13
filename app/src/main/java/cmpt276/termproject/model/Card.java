@@ -1,11 +1,10 @@
+/*
+Handles card properties and sets the size, orientation and position of images on the cards.
+ */
 package cmpt276.termproject.model;
-
 import android.graphics.Bitmap;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import cmpt276.termproject.R;
 
 public class Card {
 
@@ -20,7 +19,6 @@ public class Card {
     public void setImageCoordinates(int image_idx, int[] coordinates){
         this.image_coordinates.add(image_idx, coordinates);
     }
-
 
     public int getImageX(int index){
         return image_coordinates.get(index)[0];
@@ -45,5 +43,4 @@ public class Card {
     public List<Bitmap> getImageBitmaps(){
         return bitmaps;
     }
-
 }
