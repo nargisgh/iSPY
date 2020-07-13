@@ -14,6 +14,7 @@ import android.widget.TextView;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.MusicManager;
 
+/*Help Text and Sources provided in LinkMovement method*/
 public class HelpActivity extends AppCompatActivity {
 
     ConstraintLayout hs_Layout;
@@ -59,7 +60,7 @@ public class HelpActivity extends AppCompatActivity {
     {
         TextView help_text = findViewById(R.id.help_desc_text);
         text_size = (ConstraintLayout.LayoutParams) help_text.getLayoutParams();
-        text_size.height = (getResources().getDisplayMetrics().heightPixels)/3;
+        text_size.height = (int) ((getResources().getDisplayMetrics().heightPixels)/2.7);
         help_text.setLayoutParams(text_size);
 
         TextView src_text = findViewById(R.id.help_src_text);
@@ -69,8 +70,7 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context, HelpActivity.class);
-        return intent;
+        return new Intent(context, HelpActivity.class);
     }
     @Override
     protected void onUserLeaveHint() {

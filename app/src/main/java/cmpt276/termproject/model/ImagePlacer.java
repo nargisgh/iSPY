@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import java.util.List;
 
+ /* Sub Class for placing Images on the cards, (probably better way to do this, I just used the
+  default Extract Method in Android Studio) */
 public class ImagePlacer {
     private int pos_x;
     private int pos_y;

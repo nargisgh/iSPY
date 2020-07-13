@@ -6,6 +6,9 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import cmpt276.termproject.R;
 
+/* Music Manager for looping, playing,resume, and stop
+ * music theme song throughout entire app
+*/
 public class MusicManager {
     MediaPlayer themeSong;
     private static MusicManager instance;

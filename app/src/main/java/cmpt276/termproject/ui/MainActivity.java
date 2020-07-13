@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -16,13 +17,12 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
 
+/* Main activity, buttons for different activities and
+* updating bg for consistent theme */
+
 public class MainActivity extends AppCompatActivity {
 
-    private ConstraintLayout mm_Layout;
     public MusicManager musicManager;
-    private SharedPreferences mPreferences;
-    private SharedPreferences.Editor mEdit;
-    private String curr_theme;
     private GameManager gameManager;
 
     ConstraintLayout.LayoutParams btn_size;
@@ -33,13 +33,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance();
-        //musicManager.play();
 
         setupPlayButton();
         setupOptionButton();
         setupHelpButton();
         setupQuitButton();
-        setupHighscoreButton();
+        setupHighScoreButton();
         setTheme();
     }
 
@@ -64,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = PlayActivity.makeIntent(MainActivity.this);
-               // musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -100,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = HelpActivity.makeIntent(MainActivity.this);
-                //musicManager.pause();
                 startActivity(intent);
             }
         });
@@ -123,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupHighscoreButton() {
+
+    private void setupHighScoreButton() {
         Button hs_btn = (Button) findViewById(R.id.main_hscore_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) hs_btn.getLayoutParams();
@@ -141,16 +139,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
+        return new Intent(context, MainActivity.class);
     }
 
     private void setTheme()
     {
-        mm_Layout = findViewById(R.id.mm_Layout);
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mEdit = mPreferences.edit();
-        curr_theme = mPreferences.getString("Theme", "Superheroes");
+        ConstraintLayout mm_Layout = findViewById(R.id.mm_Layout);
+        SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor mEdit = mPreferences.edit();
+        String curr_theme = mPreferences.getString("Theme", "Superheroes");
 
         if (curr_theme.equals("Hypnomob"))
         {
@@ -171,4 +168,11 @@ public class MainActivity extends AppCompatActivity {
         super.onUserLeaveHint();
         musicManager.pause();
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        musicManager.stop();
+        finishAffinity();
+    }
+
 }

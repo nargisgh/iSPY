@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -27,10 +28,16 @@ import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
 
+/* Game Play, displays cards drawn and to match.
+Setting Game start and over with custom listener.
+Pop Up dialog when game is over */
+
 public class PlayActivity extends AppCompatActivity  {
 
     private GameManager gameManager;
     private MediaPlayer sfx_player = new MediaPlayer();
+    ConstraintLayout ps_Layout;
+    ConstraintLayout.LayoutParams btn_size;
 
     private String name;
     private String dateTime;
@@ -42,6 +49,7 @@ public class PlayActivity extends AppCompatActivity  {
     public HighScores highScore;
 
     private CardDrawer cardDrawer;
+    boolean isPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,7 @@ public class PlayActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_play);
 
         highScore = HighScores.getInstance();
-
+        musicManager = MusicManager.getInstance();
 
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
@@ -59,9 +67,10 @@ public class PlayActivity extends AppCompatActivity  {
         chronometer = findViewById(R.id.stopwatch);
     }
 
+
     private void setup(){
         //Setup Game Manager Class
-        gameManager = GameManager.getInstance();
+        GameManager gameManager = GameManager.getInstance();
         gameManager.createCards();
 
         FrameLayout frameLayout = findViewById(R.id.frame);
@@ -122,12 +131,12 @@ public class PlayActivity extends AppCompatActivity  {
                 sfx_player.release();
             }
         });
-        
+
     }
 
     private void popup(final String dateTime,final String time){
-        musicManager = MusicManager.getInstance();
         musicManager.play();
+        isPlaying = true;
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
         Button save = dialog.findViewById(R.id.saveBtn);
@@ -169,6 +178,9 @@ public class PlayActivity extends AppCompatActivity  {
                     dialog.dismiss();
                     finish();
                 }
+                else{
+                    userId.setError("Invalid Username");
+                }
             }
         });
         dialog.show();
@@ -195,5 +207,18 @@ public class PlayActivity extends AppCompatActivity  {
 
     public static Intent makeIntent(Context context){
         return new Intent(context, PlayActivity.class);
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        musicManager.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isPlaying){
+            musicManager.play();
+        }
     }
 }

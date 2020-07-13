@@ -14,9 +14,12 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.MusicManager;
+
+/* Select theme and allowing the selection to
+be used to update theme throughout the entire app*/
 
 public class OptionActivity extends AppCompatActivity {
 
@@ -29,15 +32,12 @@ public class OptionActivity extends AppCompatActivity {
     RadioButton hypno_rbtn;
     public MusicManager musicManager;
 
-    private GameManager gameManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
-        gameManager = GameManager.getInstance();
         musicManager = MusicManager.getInstance();
         musicManager.play();
         os_Layout = findViewById(R.id.os_Layout);
@@ -96,14 +96,14 @@ public class OptionActivity extends AppCompatActivity {
 
                         mEdit.putString("Theme", "Superheroes");
                         mEdit.apply();
-                        Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
                     case 2: //Hypnomob theme chosen
 
                         mEdit.putString("Theme", "Hypnomob");
                         mEdit.apply();
-                        Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }

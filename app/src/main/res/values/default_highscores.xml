@@ -2,9 +2,9 @@
 <resources>
     <string-array name="default_highscores">
         <item>10.35/Flash / Jun 3, 2020 2:30:06 PM</item>
-        <item>30.52/BigBrain / Jun 1, 2020 10:00:09 AM</item>
-        <item>33.98/SuperMan / May 25, 2020 12:00:14 PM</item>
-        <item>45.61/BatMan /  May 30, 2020 3:32:25 PM</item>
-        <item>45.82/MrSlow / Jun 2, 2020 1:37:59 PM</item>
+        <item>10.52/BigBrain / Jun 1, 2020 10:00:09 AM</item>
+        <item>12.98/SuperMan / May 25, 2020 12:00:14 PM</item>
+        <item>13.61/BatMan /  May 30, 2020 3:32:25 PM</item>
+        <item>15.82/MrSlow / Jun 2, 2020 1:37:59 PM</item>
     </string-array>
 </resources>

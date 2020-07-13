@@ -14,6 +14,7 @@ import android.os.Bundle;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
+
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Has functions to populate and update high score table
+* Using Singleton method and Shared Preferences to pass data,
+* interactively retrieving and passing data to HS java class
+* TableLayout set up*/
+
 public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highScores;
@@ -31,6 +37,7 @@ public class HighScoreActivity extends AppCompatActivity {
     ConstraintLayout.LayoutParams table_size;
     private HighScores highscore;
     private List<TextView> scores = new ArrayList<>();
+
     private MusicManager musicManager;
     private TableRow row;
     private String[] default_scores;
@@ -48,10 +55,12 @@ public class HighScoreActivity extends AppCompatActivity {
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
         highscore = HighScores.getInstance();
+
         default_scores = getResources().getStringArray(R.array.default_highscores);
         initializeScores();
-        setupResetbtn();
-        setupBackbtn();
+
+        setupResetBtn();
+        setupBackBtn();
     }
 
     public void initializeScores() {
@@ -163,7 +172,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     // button to reset back to default scores
-    private void setupResetbtn() {
+    private void setupResetBtn() {
         Button reset_btn = findViewById(R.id.highscore_reset_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) reset_btn.getLayoutParams();
@@ -184,7 +193,8 @@ public class HighScoreActivity extends AppCompatActivity {
         });
     }
 
-    private void setupBackbtn() {
+
+    private void setupBackBtn() {
         Button back = findViewById(R.id.highscore_back_btn);
         btn_size = (ConstraintLayout.LayoutParams) back.getLayoutParams();
         btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
@@ -201,8 +211,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context, HighScoreActivity.class);
-        return intent;
+        return new Intent(context, HighScoreActivity.class);
     }
 
     @Override

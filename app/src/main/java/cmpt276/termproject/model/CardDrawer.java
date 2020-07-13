@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import cmpt276.termproject.R;
 
+/* Initializing when cards are drawn, checking if pile is empty,
+ * setting theme, saving card info, and custom listener for interactive game play */
+
 public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceHolder surfaceHolder  = null;
@@ -41,8 +44,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         void onSfxPlay(boolean failed);
     }
 
-    public void setGameListener(GameListener listner){
-        this.gameListener = listner;
+    public void setGameListener(GameListener listener){
+        this.gameListener = listener;
     }
 
     private boolean found_match = false;
@@ -74,7 +77,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     // Set the Theme from the available 2 and create bitmap array
     public void setCardTheme(){
-        int theme = gameManager.getTheme();
         bitmaps = new ArrayList<>();
 
         TypedArray typedArray = getResources().obtainTypedArray(R.array.theme_1_images);

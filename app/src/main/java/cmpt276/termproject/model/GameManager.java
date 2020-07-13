@@ -2,12 +2,18 @@
 Handles the general game play: draw pile, discard pile, cards, etc.
  */
 package cmpt276.termproject.model;
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class GameManager {
 
+    /* Getters for the Card pile
+    * Updating the cards from the drawn pile
+    * Setting a consistent
+    */
     private static GameManager instance;
     private List<Card> draw_pile;
     private List<Card> discard_pile;
