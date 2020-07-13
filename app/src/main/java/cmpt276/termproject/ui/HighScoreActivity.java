@@ -22,7 +22,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.List;
 
 /*Has functions to populate and update high score table
 * Using Singleton method and Shared Preferences to pass data,
@@ -34,9 +33,6 @@ public class HighScoreActivity extends AppCompatActivity {
     private HighScores highScores;
     ConstraintLayout hs_Layout;
     ConstraintLayout.LayoutParams btn_size;
-    ConstraintLayout.LayoutParams table_size;
-    private HighScores highscore;
-    private List<TextView> scores = new ArrayList<>();
 
     private MusicManager musicManager;
     private TableRow row;
@@ -54,7 +50,6 @@ public class HighScoreActivity extends AppCompatActivity {
         hs_Layout = findViewById(R.id.hs_Layout);
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
-        highscore = HighScores.getInstance();
 
         default_scores = getResources().getStringArray(R.array.default_highscores);
         initializeScores();
