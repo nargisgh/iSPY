@@ -1,12 +1,11 @@
+/*
+Handles storing and manipulating high score data to be displayed on the high score screen.
+ */
 package cmpt276.termproject.model;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-
-
 import java.text.DateFormat;
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
 
@@ -50,9 +49,7 @@ public class HighScores{
             editor.putString("score"+j, default_scores[i]);
         }
         editor.apply();
-
     }
-
 
     // get default scores
     public ArrayList<String> get_default_scores(Context context){
@@ -73,7 +70,6 @@ public class HighScores{
         return arr;
     }
 
-
     public String getCurrentDateTime(){
         Date date = new Date();
         return DateFormat.getDateTimeInstance().format(date);
@@ -82,7 +78,6 @@ public class HighScores{
     public String getScore(String entry){
         String[] arr = entry.split("/");
         return arr[0];
-
     }
 
     // Here all the times are converted  to secs for easier comparison
@@ -121,10 +116,10 @@ public class HighScores{
         }
         editor.apply();
     }
+
     // convert string time to secs for easier comparison
     public double convert_time_to_double(String str){
         String[] time = str.split("\\." );
-
         double sec = Integer.parseInt(time[0]);
         double ms = Double.parseDouble(time[1]) / 1000f;
         return sec + ms;

@@ -1,3 +1,6 @@
+/*
+Handles the general game play: draw pile, discard pile, cards, etc.
+ */
 package cmpt276.termproject.model;
 
 
@@ -12,27 +15,20 @@ public class GameManager {
     * Setting a consistent
     */
     private static GameManager instance;
-
     private List<Card> draw_pile;
-
     private List<Card> discard_pile;
-
     int order = 2;
     int theme = 1;
-
     private List<int[]> draw;
 
-
     // Singleton for the Manager
-    private GameManager (){
-    }
+    private GameManager () {}
 
     public static GameManager getInstance(){
         if (instance == null)
             instance = new GameManager();
         return  instance;
     }
-
 
     public Card getTopDrawCard(){
         return draw_pile.get(0);
@@ -54,13 +50,11 @@ public class GameManager {
         return discard_pile.get(0).getImages().size();
     }
 
-
     public void updateCards(){
         //Function for updating  the cards from the draw configuration that is given,
         // Since the draw is of order 2 currently, we can have the int[][] be static,
         // May have to change the draw array to be fetched from a JSON so we don't
         // have to worry about generating it.
-
         draw_pile = new ArrayList<>();
         discard_pile = new ArrayList<>();
         for (int[] imgs : draw) {
@@ -71,7 +65,6 @@ public class GameManager {
             draw_pile.add(new Card(img_list));
         }
     }
-
 
     public void createCards(){
         CardManager card_generator = CardManager.getInstance();
@@ -88,7 +81,6 @@ public class GameManager {
         drawCard();
     }
 
-
     public void  drawCard() {
         // Draw a card if the draw pile is has cards left and place it into the discard pile
         // and remove the card from the draw pile
@@ -98,7 +90,6 @@ public class GameManager {
         }
     }
 
-
     public void setTheme(int theme){
         this.theme = theme;
     }
@@ -106,5 +97,4 @@ public class GameManager {
     public int getTheme() {
         return theme;
     }
-
 }

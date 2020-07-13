@@ -1,8 +1,9 @@
+/*
+Music manager that handles game background music and it's functions within the app.
+ */
 package cmpt276.termproject.model;
-
 import android.content.Context;
 import android.media.MediaPlayer;
-
 import cmpt276.termproject.R;
 
 /* Music Manager for looping, playing,resume, and stop

@@ -1,5 +1,4 @@
 package cmpt276.termproject.model;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,8 +11,8 @@ import java.util.List;
 
 public class CardManager {
 
+    private List<int[]> card_list;
     private static CardManager instance;
-
 
     //Use singleton to share the data between classes
     private CardManager(){
@@ -24,7 +23,6 @@ public class CardManager {
         }
         return instance;
     }
-
 
     public List<int[]> generateCards(int p){
         int min_factor = 2;
@@ -49,8 +47,9 @@ public class CardManager {
             temp[j] = p*p;
             cards.add(temp);
         }
+
         for (int i = 0 ; i < min_factor; i ++){
-            int j;
+            int j = 0;
             for (j = 0; j < p ; j ++){
                 int[] temp = new int [p + 1 ];
                 for (int k = 0; k < p; k ++){
@@ -69,8 +68,12 @@ public class CardManager {
 
         // Shuffle the cards before returning them
         Collections.shuffle(cards);
+        card_list = cards;
 
         return cards;
     }
 
+    public List<int[]> getCardList() {
+        return card_list;
+    }
 }

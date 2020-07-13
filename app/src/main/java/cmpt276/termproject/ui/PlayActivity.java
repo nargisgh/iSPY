@@ -1,16 +1,18 @@
+/*
+Play screen where cards are drawn, timer is started and game space is set up for user to play
+the game.
+ */
 package cmpt276.termproject.ui;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -20,7 +22,6 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -33,11 +34,13 @@ Pop Up dialog when game is over */
 
 public class PlayActivity extends AppCompatActivity  {
 
+    private GameManager gameManager;
+    private MediaPlayer sfx_player = new MediaPlayer();
     ConstraintLayout ps_Layout;
     ConstraintLayout.LayoutParams btn_size;
 
-    String name;
-    String dateTime;
+    private String name;
+    private String dateTime;
 
     private Chronometer chronometer;
 
@@ -48,7 +51,6 @@ public class PlayActivity extends AppCompatActivity  {
     private CardDrawer cardDrawer;
     boolean isPlaying = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class PlayActivity extends AppCompatActivity  {
         highScore = HighScores.getInstance();
         musicManager = MusicManager.getInstance();
 
-        ps_Layout = findViewById(R.id.root);
+        ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
 
         setup();
@@ -75,14 +77,15 @@ public class PlayActivity extends AppCompatActivity  {
 
         cardDrawer = new CardDrawer(getApplicationContext());
 
-        setupGameOver();
+        setupGameListener();
 
         frameLayout.addView(cardDrawer);
+
 
         setupBackButton();
     }
 
-    public void setupGameOver(){
+    public void setupGameListener(){
 
         cardDrawer.setGameListener(new CardDrawer.GameListener() {
             @Override
@@ -107,7 +110,28 @@ public class PlayActivity extends AppCompatActivity  {
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
             }
+
+            @Override
+            public void onSfxPlay(boolean failed) {
+                sfx_player.release();
+                sfx_player = MediaPlayer.create(getApplicationContext(), R.raw.fail);
+                sfx_player.seekTo(715);
+                if (!failed){
+                    sfx_player = MediaPlayer.create(getApplicationContext(),R.raw.success);
+                    sfx_player.seekTo(310);
+                }
+                sfx_player.start();
+            }
         });
+
+        sfx_player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                sfx_player.reset();
+                sfx_player.release();
+            }
+        });
+
     }
 
     private void popup(final String dateTime,final String time){
@@ -165,12 +189,10 @@ public class PlayActivity extends AppCompatActivity  {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
     }
 
-
-
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);
 
-        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
+        ConstraintLayout.LayoutParams btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
         btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
         back_btn.setLayoutParams(btn_size);

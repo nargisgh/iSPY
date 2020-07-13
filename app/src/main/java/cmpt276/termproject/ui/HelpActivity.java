@@ -1,8 +1,9 @@
+/*
+Help screen displaying brief game info/instructions and sources used for project.
+ */
 package cmpt276.termproject.ui;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.MusicManager;
 
@@ -22,7 +22,6 @@ public class HelpActivity extends AppCompatActivity {
     ConstraintLayout.LayoutParams text_size;
     public MusicManager musicManager;
     TextView sources;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class HelpActivity extends AppCompatActivity {
         sources = findViewById(R.id.help_src_text);
         sources.setMovementMethod(new LinkMovementMethod());
     }
-
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.help_back_btn);
@@ -71,7 +69,6 @@ public class HelpActivity extends AppCompatActivity {
         src_text.setLayoutParams(text_size);
     }
 
-
     public static Intent makeIntent(Context context){
         return new Intent(context, HelpActivity.class);
     }
@@ -85,5 +82,4 @@ public class HelpActivity extends AppCompatActivity {
         super.onResume();
         musicManager.play();
     }
-
 }
