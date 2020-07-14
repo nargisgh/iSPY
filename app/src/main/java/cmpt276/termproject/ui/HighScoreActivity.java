@@ -31,8 +31,7 @@ import java.util.ArrayList;
 public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highScores;
-    ConstraintLayout hs_Layout;
-    ConstraintLayout.LayoutParams btn_size;
+
 
     private MusicManager musicManager;
     private TableRow row;
@@ -47,6 +46,7 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
         highScores = HighScores.getInstance();
+        ConstraintLayout hs_Layout;
         hs_Layout = findViewById(R.id.hs_Layout);
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
@@ -170,11 +170,7 @@ public class HighScoreActivity extends AppCompatActivity {
     // button to reset back to default scores
     private void setupResetBtn() {
         Button reset_btn = findViewById(R.id.highscore_reset_btn);
-
-        btn_size = (ConstraintLayout.LayoutParams) reset_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        reset_btn.setLayoutParams(btn_size);
+        dynamicScaling(reset_btn, 6, 8);
 
         reset_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,13 +187,10 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
     private void setupBackBtn() {
-        Button back = findViewById(R.id.highscore_back_btn);
-        btn_size = (ConstraintLayout.LayoutParams) back.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        back.setLayoutParams(btn_size);
+        Button back_btn = findViewById(R.id.highscore_back_btn);
+        dynamicScaling(back_btn, 6, 8);
 
-        back.setOnClickListener(new View.OnClickListener() {
+        back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -208,6 +201,15 @@ public class HighScoreActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context){
         return new Intent(context, HighScoreActivity.class);
+    }
+
+    private void dynamicScaling (Button button, int width, int height)
+    {
+        ConstraintLayout.LayoutParams btn_size;
+        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btn_size);
     }
 
     @Override

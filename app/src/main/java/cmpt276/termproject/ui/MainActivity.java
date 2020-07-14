@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     public MusicManager musicManager;
     private GameManager gameManager;
 
-    ConstraintLayout.LayoutParams btn_size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +52,7 @@ public class MainActivity extends AppCompatActivity {
     //Button setup for start , options and play
     private void setupPlayButton(){
         Button play_btn = findViewById(R.id.main_play_btn);
-
-        btn_size = (ConstraintLayout.LayoutParams) play_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/6;
-        play_btn.setLayoutParams(btn_size);
+        dynamicScaling(play_btn, 5, 6);
 
         play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupOptionButton(){
         Button option_btn = findViewById(R.id.main_option_btn);
-
-        btn_size = (ConstraintLayout.LayoutParams) option_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        option_btn.setLayoutParams(btn_size);
+        dynamicScaling(option_btn, 5, 8);
 
         option_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupHelpButton(){
         Button help_btn = findViewById(R.id.main_help_btn);
-
-        btn_size = (ConstraintLayout.LayoutParams) help_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        help_btn.setLayoutParams(btn_size);
+        dynamicScaling(help_btn, 5, 8);
 
         help_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,11 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupQuitButton(){
         Button qt_btn = findViewById(R.id.main_quit_btn);
-
-        btn_size = (ConstraintLayout.LayoutParams) qt_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        qt_btn.setLayoutParams(btn_size);
+        dynamicScaling(qt_btn, 5, 8);
 
         qt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,11 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupHighScoreButton() {
         Button hs_btn = (Button) findViewById(R.id.main_hscore_btn);
-
-        btn_size = (ConstraintLayout.LayoutParams) hs_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        hs_btn.setLayoutParams(btn_size);
+        dynamicScaling(hs_btn, 5, 8);
 
         hs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +140,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mEdit.apply();
+    }
+
+    private void dynamicScaling (Button button, int width, int height)
+    {
+        ConstraintLayout.LayoutParams btn_size;
+        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btn_size);
     }
 
     @Override

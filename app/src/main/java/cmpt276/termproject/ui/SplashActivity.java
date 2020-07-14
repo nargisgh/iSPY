@@ -16,9 +16,6 @@ import cmpt276.termproject.model.MusicManager;
 
 public class SplashActivity extends AppCompatActivity {
 
-    ConstraintLayout ss_Layout;
-    ConstraintLayout.LayoutParams btn_size;
-
     private int SPLASH_TIMER = 6000;
     public MusicManager musicManager;
 
@@ -29,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         musicManager = MusicManager.getInstance();
         musicManager.setThemeSong(SplashActivity.this);
         musicManager.play();
+        ConstraintLayout ss_Layout;
         ss_Layout = findViewById(R.id.ss_Layout);
         ss_Layout.setBackgroundResource(R.drawable.bg_welcome);
 
@@ -89,10 +87,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void setupSkipBtn(){
         Button skip_btn = findViewById(R.id.splash_skip_btn);
-
-        btn_size = (ConstraintLayout.LayoutParams) skip_btn.getLayoutParams();
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/20;
-        skip_btn.setLayoutParams(btn_size);
+        dynamicScaling(skip_btn, 1, 20);
 
         skip_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,11 +102,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void setupQuitBtn(){
         Button quit_btn = findViewById(R.id.splash_quit_btn);
-
-        btn_size = (ConstraintLayout.LayoutParams) quit_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/15;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/20;
-        quit_btn.setLayoutParams(btn_size);
+        dynamicScaling(quit_btn, 15, 20);
 
         quit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +111,15 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void dynamicScaling (Button button, int width, int height)
+    {
+        ConstraintLayout.LayoutParams btn_size;
+        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btn_size);
     }
 
     @Override

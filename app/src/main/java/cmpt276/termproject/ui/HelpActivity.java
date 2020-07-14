@@ -18,10 +18,8 @@ import cmpt276.termproject.model.MusicManager;
 public class HelpActivity extends AppCompatActivity {
 
     ConstraintLayout hs_Layout;
-    ConstraintLayout.LayoutParams btn_size;
-    ConstraintLayout.LayoutParams text_size;
     public MusicManager musicManager;
-    TextView sources;
+    TextView src_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +30,19 @@ public class HelpActivity extends AppCompatActivity {
         musicManager.play();
 
         setupBackButton();
-        scaleText();
 
         hs_Layout = findViewById(R.id.hs_Layout);
         hs_Layout.setBackgroundResource(R.drawable.bg_help);
-        sources = findViewById(R.id.help_src_text);
-        sources.setMovementMethod(new LinkMovementMethod());
+        src_text = findViewById(R.id.help_src_text);
+        src_text.setMovementMethod(new LinkMovementMethod());
+        ConstraintLayout.LayoutParams text_size;
+        text_size = (ConstraintLayout.LayoutParams) src_text.getLayoutParams();
+        text_size.height = (getResources().getDisplayMetrics().heightPixels)/6;
+        src_text.setLayoutParams(text_size);
     }
 
     private void setupBackButton(){
+        ConstraintLayout.LayoutParams btn_size;
         Button back_btn = findViewById(R.id.help_back_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
@@ -54,19 +56,6 @@ public class HelpActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    private void scaleText()
-    {
-        TextView help_text = findViewById(R.id.help_desc_text);
-        text_size = (ConstraintLayout.LayoutParams) help_text.getLayoutParams();
-        text_size.height = (int) ((getResources().getDisplayMetrics().heightPixels)/2.7);
-        help_text.setLayoutParams(text_size);
-
-        TextView src_text = findViewById(R.id.help_src_text);
-        text_size = (ConstraintLayout.LayoutParams) src_text.getLayoutParams();
-        text_size.height = (getResources().getDisplayMetrics().heightPixels)/7;
-        src_text.setLayoutParams(text_size);
     }
 
     public static Intent makeIntent(Context context){

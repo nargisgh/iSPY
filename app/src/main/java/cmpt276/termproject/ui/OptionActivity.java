@@ -22,34 +22,27 @@ import cmpt276.termproject.model.MusicManager;
 be used to update theme throughout the entire app*/
 
 public class OptionActivity extends AppCompatActivity {
-
-    ConstraintLayout os_Layout;
-    ConstraintLayout.LayoutParams btn_size;
+    public MusicManager musicManager;
     RadioGroup theme_grp;
     SharedPreferences mPreferences;
     SharedPreferences.Editor mEdit;
-    RadioButton hero_rbtn;
-    RadioButton hypno_rbtn;
-    public MusicManager musicManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
+        ConstraintLayout os_Layout;
         musicManager = MusicManager.getInstance();
         musicManager.play();
         os_Layout = findViewById(R.id.os_Layout);
         os_Layout.setBackgroundResource(R.drawable.bg_options);
-        hero_rbtn = findViewById(R.id.options_heroes_rbtn);
-        hypno_rbtn = findViewById(R.id.options_hypno_rbtn);
-
         setupBackButton();
         storeOptions();
     }
 
     private void setupBackButton(){
+        ConstraintLayout.LayoutParams btn_size;
         Button back_btn = findViewById(R.id.options_back_btn);
 
         btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
@@ -67,6 +60,10 @@ public class OptionActivity extends AppCompatActivity {
 
     private void storeOptions()
     {
+        RadioButton hero_rbtn;
+        RadioButton hypno_rbtn;
+        hero_rbtn = findViewById(R.id.options_heroes_rbtn);
+        hypno_rbtn = findViewById(R.id.options_hypno_rbtn);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mEdit = mPreferences.edit();
         String curr_theme = mPreferences.getString("Theme", "Superheroes");

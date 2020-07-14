@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
@@ -35,7 +34,6 @@ Pop Up dialog when game is over */
 public class PlayActivity extends AppCompatActivity  {
 
     private MediaPlayer sfx_player = new MediaPlayer();
-    ConstraintLayout.LayoutParams btn_size;
 
     private String name;
     private String dateTime;
@@ -138,22 +136,11 @@ public class PlayActivity extends AppCompatActivity  {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
 
-        TableLayout score_table = dialog.findViewById(R.id.pop_score_table);
-        btn_size = (ConstraintLayout.LayoutParams) score_table.getLayoutParams();
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/3;
-        score_table.setLayoutParams(btn_size);
-
         Button save_btn = dialog.findViewById(R.id.pop_save_btn);
-        btn_size = (ConstraintLayout.LayoutParams) save_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        save_btn.setLayoutParams(btn_size);
+        dynamicScaling(save_btn, 6, 8);
 
         Button cancel_btn = dialog.findViewById(R.id.pop_cancel_btn);
-        btn_size = (ConstraintLayout.LayoutParams) cancel_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        cancel_btn.setLayoutParams(btn_size);
+        dynamicScaling(cancel_btn, 6, 8);
 
         final EditText userId = dialog.findViewById(R.id.userId);
         final TextView score_p = dialog.findViewById(R.id.score);
@@ -205,11 +192,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);
-
-        ConstraintLayout.LayoutParams btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/5;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        back_btn.setLayoutParams(btn_size);
+        dynamicScaling(back_btn, 5, 8);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,6 +204,15 @@ public class PlayActivity extends AppCompatActivity  {
 
     public static Intent makeIntent(Context context){
         return new Intent(context, PlayActivity.class);
+    }
+
+    private void dynamicScaling (Button button, int width, int height)
+    {
+        ConstraintLayout.LayoutParams btn_size;
+        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btn_size);
     }
 
     @Override
