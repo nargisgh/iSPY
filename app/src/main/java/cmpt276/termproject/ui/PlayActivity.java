@@ -164,7 +164,10 @@ public class PlayActivity extends AppCompatActivity  {
                 name = userId.getText().toString();
                 userId.setText(name);
 
-                if(userId.getText().toString().length()!=0) {
+                if(userId.getText().toString().length()>10){
+                    userId.setError("Max characters is 10");
+                }
+                else if(userId.getText().toString().length()!=0) {
                     userId.setClickable(false);
                     userId.setFocusableInTouchMode(false);
                     userId.setEnabled(false);
@@ -182,6 +185,7 @@ public class PlayActivity extends AppCompatActivity  {
                     dialog.dismiss();
                     finish();
                 }
+
                 else{
                     userId.setError("Invalid Username");
                 }
