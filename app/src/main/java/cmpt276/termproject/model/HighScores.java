@@ -4,6 +4,8 @@ Handles storing and manipulating high score data to be displayed on the high sco
 package cmpt276.termproject.model;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;

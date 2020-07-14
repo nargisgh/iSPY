@@ -40,6 +40,8 @@ public class PlayActivity extends AppCompatActivity  {
 
     private Chronometer chronometer;
 
+
+
     private double game_start_time;
     public MusicManager musicManager;
     public HighScores highScore;
@@ -54,6 +56,7 @@ public class PlayActivity extends AppCompatActivity  {
 
         highScore = HighScores.getInstance();
         musicManager = MusicManager.getInstance();
+
 
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
