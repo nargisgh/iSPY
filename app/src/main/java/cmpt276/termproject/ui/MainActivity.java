@@ -15,10 +15,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.GameManager;
