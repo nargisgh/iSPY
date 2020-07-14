@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
@@ -34,7 +35,7 @@ Pop Up dialog when game is over */
 public class PlayActivity extends AppCompatActivity  {
 
     private MediaPlayer sfx_player = new MediaPlayer();
-    ConstraintLayout ps_Layout;
+    ConstraintLayout.LayoutParams btn_size;
 
     private String name;
     private String dateTime;
@@ -136,14 +137,30 @@ public class PlayActivity extends AppCompatActivity  {
         isPlaying = true;
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
-        Button save = dialog.findViewById(R.id.saveBtn);
-        Button cancel = dialog.findViewById(R.id.cancelBtn);
+
+        TableLayout score_table = dialog.findViewById(R.id.pop_score_table);
+        btn_size = (ConstraintLayout.LayoutParams) score_table.getLayoutParams();
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/3;
+        score_table.setLayoutParams(btn_size);
+
+        Button save_btn = dialog.findViewById(R.id.pop_save_btn);
+        btn_size = (ConstraintLayout.LayoutParams) save_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        save_btn.setLayoutParams(btn_size);
+
+        Button cancel_btn = dialog.findViewById(R.id.pop_cancel_btn);
+        btn_size = (ConstraintLayout.LayoutParams) cancel_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        cancel_btn.setLayoutParams(btn_size);
+
         final EditText userId = dialog.findViewById(R.id.userId);
         final TextView score_p = dialog.findViewById(R.id.score);
         final TextView dateTime_p = dialog.findViewById(R.id.dateTime);
         score_p.setText(time);
         dateTime_p.setText(dateTime);
-        cancel.setOnClickListener(new View.OnClickListener() {
+        cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicManager.pause();
@@ -151,7 +168,7 @@ public class PlayActivity extends AppCompatActivity  {
                 finish();
             }
         });
-        save.setOnClickListener(new View.OnClickListener() {
+        save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = userId.getText().toString();

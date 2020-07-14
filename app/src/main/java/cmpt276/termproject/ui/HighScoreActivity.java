@@ -132,6 +132,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     private void setEntry(String[] entry, TextView score, int index) {
+        if (index >= entry.length) {return;}
         score.setText(entry[index]);
         score.setGravity(Gravity.CENTER);
         score.setTextSize(25);

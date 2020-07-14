@@ -24,18 +24,21 @@
 
     <Button
         android:id="@+id/splash_quit_btn"
-        android:layout_width="match_parent"
+        android:layout_width="40dp"
         android:layout_height="20dp"
-        android:background="#00FFFFFF"
+        android:background="@color/buttonColor"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/splash_quit_btn"
         android:textAlignment="gravity"
+        android:textColor="#FF5900"
         android:textSize="@dimen/_8ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="48dp"/>
+        app:layout_constraintEnd_toEndOf="@+id/splash_author_text"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="@+id/splash_author_text"
+        app:layout_constraintTop_toBottomOf="@+id/splash_author_text"
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <TextView
         android:id="@+id/splash_title1_text"

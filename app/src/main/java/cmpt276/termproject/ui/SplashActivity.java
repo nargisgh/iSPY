@@ -106,13 +106,14 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void setupQuitBtn(){
-        Button skip_btn = findViewById(R.id.splash_quit_btn);
+        Button quit_btn = findViewById(R.id.splash_quit_btn);
 
-        btn_size = (ConstraintLayout.LayoutParams) skip_btn.getLayoutParams();
+        btn_size = (ConstraintLayout.LayoutParams) quit_btn.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/15;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/20;
-        skip_btn.setLayoutParams(btn_size);
+        quit_btn.setLayoutParams(btn_size);
 
-        skip_btn.setOnClickListener(new View.OnClickListener() {
+        quit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicManager.stop();
