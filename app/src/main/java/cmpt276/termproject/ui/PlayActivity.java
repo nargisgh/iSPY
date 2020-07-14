@@ -165,7 +165,7 @@ public class PlayActivity extends AppCompatActivity  {
                 userId.setText(name);
 
                 if(userId.getText().toString().length()>10){
-                    userId.setError("Max characters is 10");
+                    userId.setError(""+userId.getText().toString().length() +"/10 characters");
                 }
                 else if(userId.getText().toString().length()!=0) {
                     userId.setClickable(false);
