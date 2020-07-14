@@ -10,7 +10,7 @@
     <TableLayout
         android:id="@+id/pop_score_table"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginVertical="145dp"
         android:layout_marginBottom="4dp"
