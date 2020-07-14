@@ -49,7 +49,7 @@ public class CardManager {
         }
 
         for (int i = 0 ; i < min_factor; i ++){
-            int j = 0;
+            int j;
             for (j = 0; j < p ; j ++){
                 int[] temp = new int [p + 1 ];
                 for (int k = 0; k < p; k ++){
@@ -73,7 +73,4 @@ public class CardManager {
         return cards;
     }
 
-    public List<int[]> getCardList() {
-        return card_list;
-    }
 }

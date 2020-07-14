@@ -33,7 +33,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap card_bitmap;
     private List<Bitmap> bitmaps;
     Canvas canvas;
-    private MediaPlayer mp = new MediaPlayer();
     private static  float RADIUS ;
     private static final int OFFSET = 20;
     private GameListener gameListener;
