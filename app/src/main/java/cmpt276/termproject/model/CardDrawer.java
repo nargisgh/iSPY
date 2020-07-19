@@ -13,6 +13,7 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -198,6 +199,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                         gameStarted();
                     }
                     Card discard_card = gameManager.getTopDiscardCard();
+
                     for (int discard_image : discard_card.getImages()) {
                         if (image == discard_image) {
                             // Image has been found, Allow for drawing of next card

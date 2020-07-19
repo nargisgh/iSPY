@@ -3,6 +3,8 @@ package cmpt276.termproject.model;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 
+import java.util.Random;
+
 public class CardItem {
 
     private int item;
@@ -12,6 +14,14 @@ public class CardItem {
 
     public CardItem(int item){
         this.item = item;
+    }
+
+    public void setMode(boolean isText){
+        this.isText = isText;
+    }
+
+    public boolean getMode(){
+        return this.isText;
     }
 
     public void setItemCoords(int [] coords) {

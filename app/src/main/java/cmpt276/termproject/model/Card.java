@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Card {
 
-
     private List<CardItem> cardItems = new ArrayList<>();
 
     public Card(List<Integer> images){
@@ -18,6 +17,7 @@ public class Card {
             cardItems.add(new CardItem(img));
         }
     }
+
 
     public void setImageCoordinates(int image_idx, int[] coordinates){
         cardItems.get(image_idx).setItemCoords(coordinates);
@@ -50,4 +50,13 @@ public class Card {
         }
         return bitmaps;
     }
+
+    public void setIsText(int idx, boolean isText){
+        cardItems.get(idx).setMode(isText);
+    }
+
+    public boolean getIsText(int idx){
+        return cardItems.get(idx).getMode();
+    }
+
 }

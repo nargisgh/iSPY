@@ -40,8 +40,6 @@ public class PlayActivity extends AppCompatActivity  {
 
     private Chronometer chronometer;
 
-
-
     private double game_start_time;
     public MusicManager musicManager;
     public HighScores highScore;

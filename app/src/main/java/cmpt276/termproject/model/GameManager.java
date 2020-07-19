@@ -4,9 +4,12 @@ Handles the general game play: draw pile, discard pile, cards, etc.
 package cmpt276.termproject.model;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class GameManager {
 
@@ -17,12 +20,18 @@ public class GameManager {
     private static GameManager instance;
     private List<Card> draw_pile;
     private List<Card> discard_pile;
-    int order = 2;
-    int theme = 1;
+
+    private int draw_pile_size = 3;
+    private boolean imgs_text_mode;
+    private int order = 2;
+    private int theme = 1;
     private List<int[]> draw;
 
     // Singleton for the Manager
-    private GameManager () {}
+    private GameManager () {
+        //TODO: Get text/img mode here
+        imgs_text_mode = true;
+    }
 
     public static GameManager getInstance(){
         if (instance == null)
@@ -70,9 +79,27 @@ public class GameManager {
         CardManager card_generator = CardManager.getInstance();
         draw = card_generator.generateCards(order);
 
+        //Keeps only draw_pile_size elements in the list
+        Collections.shuffle(draw);
+        if (draw_pile_size != 0) {
+            int new_size = draw.size() - draw_pile_size;
+            for (int i = 0; i < new_size ; i ++ ){
+                draw.remove(draw.size()- 1);
+            }
+        }
+
         updateCards();
-        // Shuffle the draw pile
-        Collections.shuffle(draw_pile);
+
+        //Set the Card Mode to Text Randomly
+        if (imgs_text_mode) {
+            for (Card card : draw_pile) {
+                for (int i = 0; i < card.getImages().size(); i++) {
+                    Random bool = new Random();
+                    card.setIsText(i, bool.nextBoolean());
+                }
+            }
+        }
+
         //Shuffle Images on the cards
         for (Card card: draw_pile){
             Collections.shuffle(card.getImages());
