@@ -70,6 +70,16 @@
     <string name="pop_save_text">Save</string>
     <string name="draw_pile_text">Draw Pile</string>
     <string name="discard_pile_text">Discard Pile</string>
+    <string name="options_rgheader2_text">Deck Size</string>
+    <string name="options_five_rbtn">5</string>
+    <string name="options_ten_rbtn">10</string>
+    <string name="options_fifteen_rbtn">15</string>
+    <string name="options_twenty_rbtn">20</string>
+    <string name="options_all_rbtn">ALL</string>
+    <string name="options_rgheader3_text">Word mode</string>
+    <string name="options_enabled_rbtn">Enabled</string>
+    <string name="options_disabled_rbtn">Disabled</string>
+    <string name="options_flickr_rbtn">Custom (Flickr)</string>
 
 
 </resources>
