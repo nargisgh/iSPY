@@ -40,7 +40,10 @@ public class HighScoreActivity extends AppCompatActivity {
     private Typeface face;
     private static boolean isInitialized = false;
     ArrayList<String> arr = new ArrayList<>();
-
+    private String order;
+    private String draw;
+    private String array_name;
+    private int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,14 @@ public class HighScoreActivity extends AppCompatActivity {
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
 
-        default_scores = getResources().getStringArray(R.array.default_highscores);
+
+// get order and drawsize from GM and store in variables to get correct default array
+        order = "2";
+        draw = "all";
+        array_name = "default_highscores_"+order+"_"+draw;
+        id = getResources().getIdentifier(array_name, "array",this.getPackageName());
+
+        default_scores = getResources().getStringArray(id);
         initializeScores();
 
         setupResetBtn();

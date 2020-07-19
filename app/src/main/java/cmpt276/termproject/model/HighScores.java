@@ -5,10 +5,16 @@ package cmpt276.termproject.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.sql.Time;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import cmpt276.termproject.R;
+import cmpt276.termproject.ui.HighScoreActivity;
 
 /* Functions to set default scores, save and update new scores.
  * Using Singleton Method and Shared Preferences to pass data
@@ -19,6 +25,7 @@ public class HighScores{
     private List<String> DEFAULT_SCORES = new ArrayList<>();
 
     ArrayList<String> arr = new ArrayList<>();
+
 
     //Singleton Stuff
     private static HighScores instance;
@@ -74,6 +81,7 @@ public class HighScores{
     public String getCurrentDateTime(){
         Date date = new Date();
         return DateFormat.getDateTimeInstance().format(date);
+
     }
 
     public String getScore(String entry){
@@ -89,6 +97,7 @@ public class HighScores{
     public void update(String entry, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
         String[] temp_s = getCurrentScores(context).toArray(new String[0]);
         for (int i = 0; i < 5; i++) {

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initializeScores() {
         highScores = HighScores.getInstance();
-        default_scores = getResources().getStringArray(R.array.default_highscores);
+        default_scores = getResources().getStringArray(R.array.default_highscores_2_all);
 
 
         SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
