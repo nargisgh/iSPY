@@ -39,6 +39,14 @@ public class OptionActivity extends AppCompatActivity {
         os_Layout.setBackgroundResource(R.drawable.bg_options);
         setupBackButton();
         storeOptions();
+        Button flickr = findViewById(R.id.flickr);
+        flickr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = PhotoGallery.makeIntent(OptionActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupBackButton(){
