@@ -3,6 +3,7 @@ Handles creating cards, setting card theme, drawing pictures on cards, etc.
  */
 package cmpt276.termproject.model;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,15 +29,21 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceHolder surfaceHolder  = null;
     private Paint paint = null;
-    private GameManager gameManager;
     private boolean game_over = false;
     private boolean game_started = false;
+
     private Bitmap card_bitmap;
     private List<Bitmap> bitmaps;
-    Canvas canvas;
+    private List<String> item_names;
+
+
+    private Canvas canvas;
+
     private static  float RADIUS ;
     private static final int OFFSET = 20;
+
     private GameListener gameListener;
+    private GameManager gameManager;
 
     public interface GameListener {
         void onGameOver();
@@ -78,17 +85,21 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     // Set the Theme from the available 2 and create bitmap array
     public void setCardTheme(){
         bitmaps = new ArrayList<>();
-
-        TypedArray typedArray = getResources().obtainTypedArray(R.array.theme_1_images);
+        item_names = new ArrayList<>();
+        int theme = R.array.theme_1_images;
         if (gameManager.getTheme() == 2){
-            typedArray = getResources().obtainTypedArray(R.array.theme_2_images);
+            theme = R.array.theme_2_images;
         }
-        for (int i = 0;  i < typedArray.length(); i ++) {
-
-            Bitmap decoded_bitmap = BitmapFactory.decodeResource(getResources(), typedArray.getResourceId(i, -1));
+        Resources res = getResources();
+        //Set bitmaps and text
+        for (int i = 0;  i < res.getStringArray(theme).length; i ++) {
+            String name = res.getStringArray(theme)[i];
+            int bitmap_id = getResources().getIdentifier( name, "drawable", getContext().getPackageName());
+            Log.e("Tag", String.valueOf(bitmap_id));
+            Bitmap decoded_bitmap = BitmapFactory.decodeResource(res, bitmap_id);
             bitmaps.add(decoded_bitmap);
+            item_names.add(name);
         }
-        typedArray.recycle();
     }
 
     @Override

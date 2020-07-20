@@ -1,15 +1,13 @@
 package cmpt276.termproject.model;
 
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
-
-import java.util.Random;
 
 public class CardItem {
 
     private int item;
     private int[] item_coords = new int[2];
     private Bitmap bitmap;
+    private String name;
     private boolean isText;
 
     public CardItem(int item){
@@ -46,5 +44,13 @@ public class CardItem {
 
     public Bitmap getItemBitmaps(){
         return this.bitmap;
+    }
+
+
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return name;
     }
 }

@@ -60,10 +60,6 @@ public class GameManager {
     }
 
     public void updateCards(){
-        //Function for updating  the cards from the draw configuration that is given,
-        // Since the draw is of order 2 currently, we can have the int[][] be static,
-        // May have to change the draw array to be fetched from a JSON so we don't
-        // have to worry about generating it.
         draw_pile = new ArrayList<>();
         discard_pile = new ArrayList<>();
         for (int[] imgs : draw) {
