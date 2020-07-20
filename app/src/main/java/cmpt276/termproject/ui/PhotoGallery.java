@@ -3,30 +3,39 @@ package cmpt276.termproject.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.FlickrFetchr;
+import cmpt276.termproject.model.DownloadGalleryItems;
 import cmpt276.termproject.model.GalleryItem;
+import cmpt276.termproject.model.ThumbnailDownloader;
 
 public class PhotoGallery extends AppCompatActivity {
     private static final String TAG = "PhotoGallery";
     private RecyclerView mPhotoRecyclerView;
     private List<GalleryItem> mItems = new ArrayList<>();
+    private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
+
 
 
     public static PhotoGallery newInstance()
@@ -41,9 +50,40 @@ public class PhotoGallery extends AppCompatActivity {
         mPhotoRecyclerView = findViewById(R.id.photo_recycler_view);
         mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(PhotoGallery.this,5));
 
+        //setHasOptionsMenu(true);
         new FetchItemsTask().execute();
+
+        Handler responseHandler = new Handler();
+        mThumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
+
+        mThumbnailDownloader.setThumbnailDownloadListener(new ThumbnailDownloader.ThumbnailDownloadListener<PhotoHolder>(){
+           @Override
+           public void onThumbnailDownloaded(PhotoHolder photoHolder, Bitmap bitmap) {
+               Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+               photoHolder.bindDrawable(drawable);
+           }
+        });
+
+        mThumbnailDownloader.start(); mThumbnailDownloader.getLooper();
+        Log.i(TAG, "Background thread started");
+
         setupAdapter();
    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mThumbnailDownloader.clearQueue();
+        mThumbnailDownloader.quit();
+        Log.i(TAG, "Background thread destroyed");
+
+    }
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.photo_gal, menu);
+        return true;
+    }*/
 
     public void setupAdapter() {
         if (isAdded()) {
@@ -58,13 +98,13 @@ public class PhotoGallery extends AppCompatActivity {
 
     private class PhotoHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTitleTextView;
+        private ImageView mItemImageView;
         public PhotoHolder(View itemView) {
             super(itemView);
-            mTitleTextView = (TextView) itemView;
+            mItemImageView = (ImageView) itemView.findViewById(R.id.item_image_view);
         }
-        public void bindGalleryItem(GalleryItem item){
-            mTitleTextView.setText(item.toString());
+        public void bindDrawable(Drawable drawable){
+            mItemImageView.setImageDrawable(drawable);
         }
     }
 
@@ -76,13 +116,18 @@ public class PhotoGallery extends AppCompatActivity {
         @Override
         public PhotoHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
         {
-            TextView textView = new TextView(PhotoGallery.this);
-            return new PhotoHolder(textView);
+            LayoutInflater inflater = LayoutInflater.from(PhotoGallery.this);
+            View view = inflater.inflate(R.layout.list_item_gallery, viewGroup, false);
+            return new PhotoHolder(view);
         }
         @Override
         public void onBindViewHolder(PhotoHolder photoHolder, int position) {
             GalleryItem galleryItem = mGalleryItems.get(position);
-            photoHolder.bindGalleryItem(galleryItem); }
+            Drawable placeholder = ContextCompat.getDrawable(PhotoGallery.this,R.drawable.batman);
+            photoHolder.bindDrawable(placeholder);
+            mThumbnailDownloader.queueThumbnail(photoHolder, galleryItem.getUrl());
+
+        }
         @Override
         public int getItemCount() {
             return mGalleryItems.size();
@@ -95,7 +140,13 @@ public class PhotoGallery extends AppCompatActivity {
 
         @Override
         protected List<GalleryItem> doInBackground(Void... voids) {
-            return new FlickrFetchr().fetchItems();
+            String query = "robot"; //just for testing
+            if (query == null) {
+                return new DownloadGalleryItems().fetchRecentPhotos();
+            }
+            else {
+                return new DownloadGalleryItems().searchPhotos(query);
+            }
         }
         @Override
         protected void onPostExecute(List<GalleryItem> items) {
