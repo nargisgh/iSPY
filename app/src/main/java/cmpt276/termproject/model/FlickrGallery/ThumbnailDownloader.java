@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import cmpt276.termproject.model.FlickrGallery.DownloadGalleryItems;
 
 public class ThumbnailDownloader<T> extends HandlerThread {
     private static final String TAG = "ThumbnailDownloader";
@@ -84,7 +83,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
 
             mResponseHandler.post(new Runnable() {
                 public void run() {
-                    if (mRequestMap.get(target) !=url || mHasQuit) {
+                    if (!mRequestMap.get(target).equals(url) || mHasQuit) {
                         return;
                     }
                     mRequestMap.remove(target);

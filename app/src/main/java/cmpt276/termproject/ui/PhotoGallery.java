@@ -15,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,7 @@ import java.util.List;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.DownloadGalleryItems;
 import cmpt276.termproject.model.FlickrGallery.GalleryItem;
+import cmpt276.termproject.model.FlickrGallery.QueryPrefs;
 import cmpt276.termproject.model.FlickrGallery.ThumbnailDownloader;
 
 public class PhotoGallery extends AppCompatActivity {
@@ -36,24 +39,18 @@ public class PhotoGallery extends AppCompatActivity {
     private RecyclerView mPhotoRecyclerView;
     private List<GalleryItem> mItems = new ArrayList<>();
     private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
+    public QueryPrefs QueryPref;
 
 
-
-    public static PhotoGallery newInstance()
-    {
-        return new PhotoGallery();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_gallery);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.search_menu);
 
         mPhotoRecyclerView = findViewById(R.id.photo_recycler_view);
         mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(PhotoGallery.this,5));
-
+        setUpSearchAndClear();
 
         updateItems();
 
@@ -67,33 +64,20 @@ public class PhotoGallery extends AppCompatActivity {
                photoHolder.bindDrawable(drawable);
            }
         });
-
         mThumbnailDownloader.start(); mThumbnailDownloader.getLooper();
         Log.i(TAG, "Background thread started");
 
         setupAdapter();
    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mThumbnailDownloader.clearQueue();
-        mThumbnailDownloader.quit();
-        Log.i(TAG, "Background thread destroyed");
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_menu, menu);
-
-        /*MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    private void setUpSearchAndClear() {
+        final SearchView searchItem = findViewById(R.id.search_pics);
+        Button clear = findViewById(R.id.clear);
+        searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d(TAG, "QueryTextSubmit: " + query);
+                QueryPrefs.setStoredQuery(PhotoGallery.this, query);
                 updateItems();
                 return true;
             }
@@ -103,13 +87,37 @@ public class PhotoGallery extends AppCompatActivity {
                 Log.d(TAG, "QueryTextChange: " + newText);
                 return false;
             }
-        });*/
+        });
+        searchItem.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String query = QueryPrefs.getStoredQuery(PhotoGallery.this);
+                searchItem.setQuery(query, false); }
+        });
 
-        return true;
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QueryPrefs.setStoredQuery(PhotoGallery.this, null);
+                updateItems();
+            }
+        });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mThumbnailDownloader.clearQueue();
+        mThumbnailDownloader.quit();
+        Log.i(TAG, "Background thread destroyed");
+
+    }
+
+
     private void updateItems() {
-        new FetchItemsTask().execute();
+
+        String query = QueryPrefs.getStoredQuery(PhotoGallery.this);
+        new FetchItemsTask(query).execute();
     }
 
     public void setupAdapter() {
@@ -164,15 +172,20 @@ public class PhotoGallery extends AppCompatActivity {
     //Thread Handling
     @SuppressLint("StaticFieldLeak")
     private class FetchItemsTask extends AsyncTask<Void,Void,List<GalleryItem>> {
+        private String mQuery;
+        public FetchItemsTask(String query) {
+            mQuery = query;
+        }
+
 
         @Override
         protected List<GalleryItem> doInBackground(Void... voids) {
-            String query = "clouds"; //just for testing
-            if (query == null) {
-                return new DownloadGalleryItems().fetchRecentPhotos();
+            if (mQuery == null) {
+                return new DownloadGalleryItems().searchPhotos("cloud");
+                //return new DownloadGalleryItems().fetchRecentPhotos();
             }
             else {
-                return new DownloadGalleryItems().searchPhotos(query);
+                return new DownloadGalleryItems().searchPhotos(mQuery);
             }
         }
         @Override
