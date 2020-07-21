@@ -1,4 +1,4 @@
-package cmpt276.termproject.model;
+package cmpt276.termproject.model.FlickrGallery;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -11,6 +11,8 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import cmpt276.termproject.model.FlickrGallery.DownloadGalleryItems;
 
 public class ThumbnailDownloader<T> extends HandlerThread {
     private static final String TAG = "ThumbnailDownloader";

@@ -1,8 +1,7 @@
-package cmpt276.termproject.model;
+package cmpt276.termproject.model.FlickrGallery;
 
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Gallery;
 
 import org.json.JSONArray;
 import org.json.JSONException;

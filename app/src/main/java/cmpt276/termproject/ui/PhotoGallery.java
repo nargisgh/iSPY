@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -26,9 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.DownloadGalleryItems;
-import cmpt276.termproject.model.GalleryItem;
-import cmpt276.termproject.model.ThumbnailDownloader;
+import cmpt276.termproject.model.FlickrGallery.DownloadGalleryItems;
+import cmpt276.termproject.model.FlickrGallery.GalleryItem;
+import cmpt276.termproject.model.FlickrGallery.ThumbnailDownloader;
 
 public class PhotoGallery extends AppCompatActivity {
     private static final String TAG = "PhotoGallery";
@@ -47,11 +48,14 @@ public class PhotoGallery extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_gallery);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.search_menu);
+
         mPhotoRecyclerView = findViewById(R.id.photo_recycler_view);
         mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(PhotoGallery.this,5));
 
-        //setHasOptionsMenu(true);
-        new FetchItemsTask().execute();
+
+        updateItems();
 
         Handler responseHandler = new Handler();
         mThumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
@@ -78,12 +82,35 @@ public class PhotoGallery extends AppCompatActivity {
 
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.photo_gal, menu);
+        inflater.inflate(R.menu.search_menu, menu);
+
+        /*MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d(TAG, "QueryTextSubmit: " + query);
+                updateItems();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d(TAG, "QueryTextChange: " + newText);
+                return false;
+            }
+        });*/
+
         return true;
-    }*/
+    }
+
+    private void updateItems() {
+        new FetchItemsTask().execute();
+    }
 
     public void setupAdapter() {
         if (isAdded()) {
@@ -101,7 +128,7 @@ public class PhotoGallery extends AppCompatActivity {
         private ImageView mItemImageView;
         public PhotoHolder(View itemView) {
             super(itemView);
-            mItemImageView = (ImageView) itemView.findViewById(R.id.item_image_view);
+            mItemImageView = itemView.findViewById(R.id.item_image_view);
         }
         public void bindDrawable(Drawable drawable){
             mItemImageView.setImageDrawable(drawable);
@@ -123,7 +150,7 @@ public class PhotoGallery extends AppCompatActivity {
         @Override
         public void onBindViewHolder(PhotoHolder photoHolder, int position) {
             GalleryItem galleryItem = mGalleryItems.get(position);
-            Drawable placeholder = ContextCompat.getDrawable(PhotoGallery.this,R.drawable.batman);
+            Drawable placeholder = ContextCompat.getDrawable(PhotoGallery.this,R.drawable.loading_spinner);
             photoHolder.bindDrawable(placeholder);
             mThumbnailDownloader.queueThumbnail(photoHolder, galleryItem.getUrl());
 
@@ -134,13 +161,13 @@ public class PhotoGallery extends AppCompatActivity {
         }
     }
 
-
+    //Thread Handling
     @SuppressLint("StaticFieldLeak")
     private class FetchItemsTask extends AsyncTask<Void,Void,List<GalleryItem>> {
 
         @Override
         protected List<GalleryItem> doInBackground(Void... voids) {
-            String query = "robot"; //just for testing
+            String query = "clouds"; //just for testing
             if (query == null) {
                 return new DownloadGalleryItems().fetchRecentPhotos();
             }

@@ -1,4 +1,4 @@
-package cmpt276.termproject.model;
+package cmpt276.termproject.model.FlickrGallery;
 
 public class GalleryItem {
 
