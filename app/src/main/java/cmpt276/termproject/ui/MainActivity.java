@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TableLayout tableLayout;
     private Typeface face;
     private static boolean isInitialized = false;
+    private static boolean init = false;
     ArrayList<String> arr = new ArrayList<>();
 
 
@@ -46,7 +47,13 @@ public class MainActivity extends AppCompatActivity {
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance();
 
-        initializeScores();
+        //initializeScores();
+        highScores = HighScores.getInstance();
+
+        if(!init){
+            highScores.setInitializeBooleanFalse(MainActivity.this);
+            init = true;
+        }
 
         setupPlayButton();
         setupOptionButton();
@@ -65,39 +72,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void initializeScores() {
-        highScores = HighScores.getInstance();
-        default_scores = getResources().getStringArray(R.array.default_highscores_2_all);
-
-
-        SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = entry_new.edit();
-        int counter = entry_new.getInt("counter", 0);
-
-        String input = entry_new.getString("new entry"+ 1, null);
-
-        if (input != null) {
-            //adding this otherwise wont populate on first game play*
-            isInitialized = true;
-        }
-        // initializing default scores once when app starts
-        if (!isInitialized) {
-            highScores.set_default_scores(MainActivity.this, default_scores);
-            arr = highScores.get_default_scores(MainActivity.this);
-            isInitialized = true;
-        }
-        else {
-            for (int i = 0; i <= counter; i ++ ) {
-                input = entry_new.getString("new entry" + i, null);
-                arr = highScores.getCurrentScores(MainActivity.this);
-                if (input != null) {
-                    highScores.update(input, MainActivity.this);
-                }
-            }
-        }
-        editor.putInt("counter", 0);
-        editor.apply();
-    }
+    //public void initializeScores() {
+        //highScores = HighScores.getInstance();
+//        default_scores = getResources().getStringArray(R.array.default_highscores_2_all);
+//
+//
+//        SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = entry_new.edit();
+//        int counter = entry_new.getInt("counter", 0);
+//
+//        String input = entry_new.getString("new entry"+ 1, null);
+//
+//        if (input != null) {
+//            //adding this otherwise wont populate on first game play*
+//            isInitialized = true;
+//        }
+//        // initializing default scores once when app starts
+//        if (!isInitialized) {
+//            highScores.set_default_scores(MainActivity.this, default_scores);
+//            arr = highScores.get_default_scores(MainActivity.this);
+//            isInitialized = true;
+//        }
+//        else {
+//            for (int i = 0; i <= counter; i ++ ) {
+//                input = entry_new.getString("new entry" + i, null);
+//                arr = highScores.getCurrentScores(MainActivity.this);
+//                if (input != null) {
+//                    highScores.update(input, MainActivity.this);
+//                }
+//            }
+//        }
+//        editor.putInt("counter", 0);
+//        editor.apply();
+   // }
 
 
 

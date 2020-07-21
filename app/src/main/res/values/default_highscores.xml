@@ -2,11 +2,11 @@
 <!-- string-array names will be default_highscores_order_drawsize-->
 <resources>
     <string-array name="default_highscores_2_5">
-        <item>10.35/Flash / Jun 3, 2020 2:30:06 PM</item>
-        <item>10.52/BigBrain / Jun 1, 2020 10:00:09 AM</item>
-        <item>12.98/SuperMan / May 25, 2020 12:00:14 PM</item>
-        <item>13.61/BatMan /  May 30, 2020 3:32:25 PM</item>
-        <item>15.82/MrSlow / Jun 2, 2020 1:37:59 PM</item>
+        <item>7.35/Flash / Jun 3, 2020 2:30:06 PM</item>
+        <item>7.45/BigBrain / Jun 1, 2020 10:00:09 AM</item>
+        <item>8.98/SuperMan / May 25, 2020 12:00:14 PM</item>
+        <item>9.61/BatMan /  May 30, 2020 3:32:25 PM</item>
+        <item>10.82/MrSlow / Jun 2, 2020 1:37:59 PM</item>
     </string-array>
     <string-array name="default_highscores_2_all">
         <item>10.35/Flash / Jun 3, 2020 2:30:06 PM</item>
@@ -72,4 +72,20 @@
         <item>13.61/BatMan /  May 30, 2020 3:32:25 PM</item>
         <item>15.82/MrSlow / Jun 2, 2020 1:37:59 PM</item>
     </string-array>
+
+    <string-array name="initialized">
+        <item>order_2_draw_5</item>
+        <item>order_2_draw_all</item>
+        <item>order_3_draw_5</item>
+        <item>order_3_draw_10</item>
+        <item>order_3_draw_all</item>
+        <item>order_5_draw_5</item>
+        <item>order_5_draw_10</item>
+        <item>order_5_draw_15</item>
+        <item>order_5_draw_20</item>
+        <item>order_5_draw_all</item>
+    </string-array>
+
+
+
 </resources>
