@@ -21,10 +21,10 @@ be used to update theme throughout the entire app*/
 
 public class OptionActivity extends AppCompatActivity {
     public MusicManager musicManager;
-    RadioGroup theme_grp = findViewById(R.id.options_themes_rgroup);
-    RadioGroup mode_grp = findViewById(R.id.options_mode_rgroup);
-    RadioGroup size_grp = findViewById(R.id.options_size_rgroup);
-    RadioGroup order_grp = findViewById(R.id.options_order_rgroup);
+    RadioGroup theme_grp;
+    RadioGroup mode_grp;
+    RadioGroup size_grp;
+    RadioGroup order_grp;
     SharedPreferences mPreferences;
     SharedPreferences.Editor mEdit;
 
@@ -93,7 +93,11 @@ public class OptionActivity extends AppCompatActivity {
         }
 
         for (int i = 0; i < 5; i++) {
-            if (size_rbtns[i].getText().toString().equals(curr_size)) {
+            if (curr_size.equals("All"))
+            {
+                size_rbtns[4].setChecked(true);
+            }
+            else if (size_rbtns[i].getText().toString().equals(curr_size)) {
                 size_rbtns[i].setChecked(true);
             }
         }
@@ -104,6 +108,7 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
 
+        theme_grp = findViewById(R.id.options_themes_rgroup);
         theme_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -130,6 +135,7 @@ public class OptionActivity extends AppCompatActivity {
             }
         });
 
+        mode_grp = findViewById(R.id.options_mode_rgroup);
         mode_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -151,8 +157,74 @@ public class OptionActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
+        size_grp = findViewById(R.id.options_size_rgroup);
+        size_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                View size_btn = size_grp.findViewById(checkedId);
+                int index = size_grp.indexOfChild(size_btn);
+
+                switch (index)
+                {
+                    case 1: //Set deck size to 5
+                        mEdit.putString("Size", "5");
+                        mEdit.apply();
+                        break;
+
+                    case 2: //Set deck size to 10
+                        mEdit.putString("Size", "10");
+                        mEdit.apply();
+                        break;
+
+                    case 3: //Set deck size to 15
+                        mEdit.putString("Size", "15");
+                        mEdit.apply();
+                        break;
+
+                    case 4: //Set deck size to 20
+                        mEdit.putString("Size", "20");
+                        mEdit.apply();
+                        break;
+
+                    case 5: //Set deck size to ALL
+                        mEdit.putString("Size", "All");
+                        mEdit.apply();
+                        break;
+                }
+            }
+        });
+
+        order_grp = findViewById(R.id.options_order_rgroup);
+        order_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                View order_btn = order_grp.findViewById(checkedId);
+                int index = order_grp.indexOfChild(order_btn);
+
+                switch (index)
+                {
+                    case 1: //Set order complexity to 2
+                        mEdit.putString("Order", "2");
+                        mEdit.apply();
+                        break;
+
+                    case 2: //Set order complexity to 3
+                        mEdit.putString("Order", "3");
+                        mEdit.apply();
+                        break;
+
+                    case 3: //Set order complexity to 5
+                        mEdit.putString("Order", "5");
+                        mEdit.apply();
+                        break;
+                }
+            }
+        });
+
+    }
 
     public static Intent makeIntent(Context context){
         return new Intent(context,OptionActivity.class);
