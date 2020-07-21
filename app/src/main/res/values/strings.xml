@@ -31,9 +31,19 @@
     <string name="main_hscore_btn">Scores</string>
     <string name="main_title_text">Main Menu</string>
     <string name="options_back_btn">Back</string>
-    <string name="options_rgheader_text">Choose a theme:</string>
-    <string name="options_hypno_rbtn">HypnomobⓇ</string>
-    <string name="options_heroes_rbtn">Superheroes</string>
+    <string name="themes_rgheader_text">Choose a theme:</string>
+    <string name="themes_hypno_rbtn">HypnomobⓇ</string>
+    <string name="themes_heroes_rbtn">Superheroes</string>
+    <string name="themes_flickr_rbtn">Custom (Flickr)</string>
+    <string name="size_rgheader2_text">Deck Size</string>
+    <string name="size_five_rbtn">5</string>
+    <string name="size_ten_rbtn">10</string>
+    <string name="size_fifteen_rbtn">15</string>
+    <string name="size_twenty_rbtn">20</string>
+    <string name="size_all_rbtn">ALL</string>
+    <string name="mode_rgheader3_text">Word mode</string>
+    <string name="mode_enabled_rbtn">Enabled</string>
+    <string name="mode_disabled_rbtn">Disabled</string>
     <string name="options_title_text">Options</string>
     <string name="sources">Sources: \n
         <a href="https://www.creativefabrica.com/product/versus-screen/">"https://www.creativefabrica.com/product/versus-screen/</a>\n
@@ -70,16 +80,9 @@
     <string name="pop_save_text">Save</string>
     <string name="draw_pile_text">Draw Pile</string>
     <string name="discard_pile_text">Discard Pile</string>
-    <string name="options_rgheader2_text">Deck Size</string>
-    <string name="options_five_rbtn">5</string>
-    <string name="options_ten_rbtn">10</string>
-    <string name="options_fifteen_rbtn">15</string>
-    <string name="options_twenty_rbtn">20</string>
-    <string name="options_all_rbtn">ALL</string>
-    <string name="options_rgheader3_text">Word mode</string>
-    <string name="options_enabled_rbtn">Enabled</string>
-    <string name="options_disabled_rbtn">Disabled</string>
-    <string name="options_flickr_rbtn">Custom (Flickr)</string>
-
+    <string name="order_rgheader4_text">Order</string>
+    <string name="order_two_rbtn">2</string>
+    <string name="order_three_rbtn">3</string>
+    <string name="order_five_rbtn">5</string>
 
 </resources>

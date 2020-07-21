@@ -34,41 +34,41 @@
         app:layout_constraintVertical_bias="0.35000002">
 
         <TextView
-            android:id="@+id/options_rgheader1_text"
+            android:id="@+id/themes_rgheader1_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_rgheader_text"
+            android:text="@string/themes_rgheader_text"
             android:textColor="#00FFD8"
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold" />
 
         <RadioButton
-            android:id="@+id/options_heroes_rbtn"
+            android:id="@+id/themes_heroes_rbtn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_heroes_rbtn"
+            android:text="@string/themes_heroes_rbtn"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_10ssp"></RadioButton>
 
         <RadioButton
-            android:id="@+id/options_hypno_rbtn"
+            android:id="@+id/themes_hypno_rbtn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_hypno_rbtn"
+            android:text="@string/themes_hypno_rbtn"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_10ssp"></RadioButton>
 
         <RadioButton
-            android:id="@+id/options_flickr_rbtn"
+            android:id="@+id/themes_flickr_rbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_flickr_rbtn"
+            android:text="@string/themes_flickr_rbtn"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/_10ssp"/>
+            android:textSize="@dimen/_10ssp" />
     </RadioGroup>
 
     <TextView
@@ -97,57 +97,57 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/options_rgheader2_text"
+            android:id="@+id/size_rgheader2_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_rgheader2_text"
+            android:text="@string/size_rgheader2_text"
             android:textColor="#00FFD8"
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold" />
 
         <RadioButton
-            android:id="@+id/options_five_rbtn"
+            android:id="@+id/size_five_rbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_five_rbtn"
+            android:text="@string/size_five_rbtn"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_10ssp" />
 
         <RadioButton
-            android:id="@+id/options_ten_rbtn"
+            android:id="@+id/size_ten_rbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_ten_rbtn"
+            android:text="@string/size_ten_rbtn"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_10ssp" />
 
         <RadioButton
-            android:id="@+id/options_fifteen_rbtn"
+            android:id="@+id/size_fifteen_rbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_fifteen_rbtn"
+            android:text="@string/size_fifteen_rbtn"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_10ssp" />
 
         <RadioButton
-            android:id="@+id/options_twenty_rbtn"
+            android:id="@+id/size_twenty_rbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_twenty_rbtn"
+            android:text="@string/size_twenty_rbtn"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_10ssp" />
 
         <RadioButton
-            android:id="@+id/options_all_rbtn"
+            android:id="@+id/size_all_rbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_all_rbtn"
+            android:text="@string/size_all_rbtn"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_10ssp" />
     </RadioGroup>
@@ -161,34 +161,85 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/options_themes_rgroup"
         app:layout_constraintTop_toBottomOf="@+id/options_themes_rgroup"
-        app:layout_constraintVertical_bias="0.100000024">
+        app:layout_constraintVertical_bias="0.22000003">
 
         <TextView
-            android:id="@+id/options_rgheader3_text"
+            android:id="@+id/mode_rgheader3_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_rgheader3_text"
+            android:text="@string/mode_rgheader3_text"
             android:textColor="#00FFD8"
-            android:textStyle="bold"
-            android:textSize="@dimen/_15ssp"/>
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
 
         <RadioButton
-            android:id="@+id/options_enabled_rbtn"
+            android:id="@+id/mode_enabled_rbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_enabled_rbtn"
+            android:text="@string/mode_enabled_rbtn"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/_10ssp"/>
+            android:textSize="@dimen/_10ssp" />
 
         <RadioButton
-            android:id="@+id/options_disabled_rbtn"
+            android:id="@+id/mode_disabled_rbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/options_disabled_rbtn"
+            android:text="@string/mode_disabled_rbtn"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/_10ssp"/>
+            android:textSize="@dimen/_10ssp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/options_order_rgroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/options_size_rgroup"
+        app:layout_constraintVertical_bias="0.22000003">
+
+        <TextView
+            android:id="@+id/order_rgheader4_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mclaren"
+            android:text="@string/order_rgheader4_text"
+            android:textColor="#00FFD8"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/order_two_rbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mclaren"
+            android:text="@string/order_two_rbtn"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_10ssp" />
+
+        <RadioButton
+            android:id="@+id/order_three_rbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mclaren"
+            android:text="@string/order_three_rbtn"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_10ssp" />
+
+        <RadioButton
+            android:id="@+id/order_five_rbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mclaren"
+            android:text="@string/order_five_rbtn"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_10ssp" />
+
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
