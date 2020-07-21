@@ -3,6 +3,8 @@ Handles card properties and sets the size, orientation and position of images on
  */
 package cmpt276.termproject.model;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +21,15 @@ public class Card {
     }
 
 
-    public void setImageCoordinates(int image_idx, int[] coordinates){
+    public void setItemCoordinates(int image_idx, int[] coordinates){
         cardItems.get(image_idx).setItemCoords(coordinates);
     }
 
-    public int getImageX(int index){
+    public int getItemX(int index){
         return cardItems.get(index).getItemX();
     }
 
-    public int getImageY(int index){
+    public int getItemY(int index){
         return cardItems.get(index).getItexY();
     }
 
@@ -37,6 +39,15 @@ public class Card {
             items.add(cardItem.getItem());
         }
         return items;
+    }
+
+
+    public void setItemRect(int index, Rect rect){
+        cardItems.get(index).setRect(rect);
+    }
+
+    public Rect getItemRect(int index){
+       return cardItems.get(index).getRect();
     }
 
     public void setImageBitmaps(int index, Bitmap bitmap){
@@ -59,4 +70,11 @@ public class Card {
         return cardItems.get(idx).getMode();
     }
 
+    public void setName(int idx, String name) {
+        cardItems.get(idx).setName(name);
+    }
+
+    public String getName (int idx){
+        return cardItems.get(idx).getName();
+    }
 }

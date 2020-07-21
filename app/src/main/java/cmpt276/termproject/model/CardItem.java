@@ -1,6 +1,7 @@
 package cmpt276.termproject.model;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 public class CardItem {
 
@@ -9,6 +10,7 @@ public class CardItem {
     private Bitmap bitmap;
     private String name;
     private boolean isText;
+    private Rect rect;
 
     public CardItem(int item){
         this.item = item;
@@ -46,6 +48,13 @@ public class CardItem {
         return this.bitmap;
     }
 
+    public void setRect(Rect rect){
+        this.rect = rect;
+    }
+
+    public Rect getRect(){
+        return rect;
+    }
 
     public void setName(String name){
         this.name = name;

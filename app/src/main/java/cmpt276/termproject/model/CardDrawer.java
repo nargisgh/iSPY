@@ -4,7 +4,6 @@ Handles creating cards, setting card theme, drawing pictures on cards, etc.
 package cmpt276.termproject.model;
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,7 +12,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.media.MediaPlayer;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -95,7 +94,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         for (int i = 0;  i < res.getStringArray(theme).length; i ++) {
             String name = res.getStringArray(theme)[i];
             int bitmap_id = getResources().getIdentifier( name, "drawable", getContext().getPackageName());
-            Log.e("Tag", String.valueOf(bitmap_id));
             Bitmap decoded_bitmap = BitmapFactory.decodeResource(res, bitmap_id);
             bitmaps.add(decoded_bitmap);
             item_names.add(name);
@@ -143,11 +141,30 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         // RESET THE BOARD
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
+
+
+        RectPlacer rectPlacer = new RectPlacer();
+        canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
+        //Draw discard Cards
+        int offset = (int) (Math.random() * 90);
+        for (int i = 0; i <num_images; i ++){
+            saveCardInfo(gameManager.getTopDiscardCard(), i, rectPlacer, (int) (x + RADIUS + OFFSET), y, offset , section_size);
+        }
+
+        if (gameManager.getDrawPile().size() !=  0 ) {
+            canvas.drawBitmap(card_bitmap, x - (2 * RADIUS) - OFFSET , y - RADIUS, null);
+            //Draw Draw Card
+            offset = (int) (Math.random() * 90);
+            for (int i = 0; i < num_images; i++) {
+                saveCardInfo(gameManager.getTopDrawCard(), i, rectPlacer, (int) (x - RADIUS - OFFSET), y, offset, section_size);
+            }
+        }
+
         //Draw Card Stacks
         //Draw Pile
         int card_pile_offset  = 30;
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
-        for(int i = 0; i < gameManager.getDrawPile().size(); i++){
+        for (int i = 0; i < gameManager.getDrawPile().size(); i++){
             canvas.drawBitmap(card_bitmap,x - (2 * RADIUS) - OFFSET, y - RADIUS - i * card_pile_offset, paint);
         }
 
@@ -156,31 +173,36 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawBitmap(card_bitmap,x + OFFSET, y - RADIUS - i * card_pile_offset, paint);
         }
 
-        ImagePlacer imagePlacer= new ImagePlacer();
-        canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
-        //Draw discard Cards
-        int offset = (int) (Math.random() * 90);
-        for (int i = 0; i <num_images; i ++){
-            saveCardInfo(gameManager.getTopDiscardCard(), i, imagePlacer, (int) (x + RADIUS + OFFSET), y, offset , section_size);
-        }
 
-        if (gameManager.getDrawPile().size() !=  0 ) {
-            canvas.drawBitmap(card_bitmap, x - (2 * RADIUS) - OFFSET , y - RADIUS, null);
-            //Draw Draw Card
-            offset = (int) (Math.random() * 90);
-            for (int i = 0; i < num_images; i++) {
-                saveCardInfo(gameManager.getTopDrawCard(), i, imagePlacer, (int) (x - RADIUS - OFFSET), y, offset, section_size);
-            }
-        }
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
-    public void saveCardInfo(Card card, int i, ImagePlacer imagePlacer , int x , int y , int offset,  int section_size){
-        int bitmap_index = card.getImages().get(i);
-        Bitmap bitmap = imagePlacer.placeBitmap( RADIUS, card, x, y, offset, section_size,i, bitmaps,bitmap_index);
-        canvas.drawBitmap(bitmap, imagePlacer.getPosX(),imagePlacer.getPosY(),null);
-        card.setImageCoordinates(i, new int[]{imagePlacer.getPosX(),imagePlacer.getPosY()});
+    public void saveCardInfo(Card card, int i, RectPlacer rectPlacer, int x , int y , int offset, int section_size){
+        int data_index = card.getImages().get(i);
+        Rect rect = rectPlacer.placeRect( RADIUS, x, y, offset, section_size,i);
+
+        card.setName(i, item_names.get(data_index));
+
+        Paint rect_paint = new Paint();
+        rect_paint.setTextSize(48f);
+        rect_paint.setTextAlign(Paint.Align.CENTER);
+        //rect_paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
+        Bitmap bitmap = Bitmap.createBitmap(bitmaps.get(data_index));
+
+        if (card.getIsText(i)){
+            canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
+            //canvas.drawBitmap(bitmap, null, rect,null);
+
+        }
+        else {
+            canvas.drawBitmap(bitmap, null, rect,null);
+
+        }
+        card.setItemRect(i, rect);
         card.setImageBitmaps(i, bitmap);
+        card.setItemCoordinates(i, new int[]{rectPlacer.getPosX(), rectPlacer.getPosY()});
+
     }
 
 
@@ -197,19 +219,27 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             }
             Card card = gameManager.getTopDrawCard();
             for (int i = 0; i < gameManager.getNumberImages(); i ++){
-                Bitmap bitmap = card.getImageBitmaps().get(i);
-                int pos_x = card.getImageX(i);
-                int pos_y = card.getImageY(i);
-                int width = bitmap.getWidth();
-                int height = bitmap.getHeight();
+                Rect rect = card.getItemRect(i);
+
+                int width = rect.width();
+                int height = rect.height();
+                //GetItem gives center of rect , subtract half of width to compensate
+                int pos_x = card.getItemX(i) - width / 2;
+                int pos_y = card.getItemY(i) - height / 2;
+
+
+
 
                 int image = card.getImages().get(i);
                 //Check if click an Image
                 if (x > pos_x && x < pos_x + width && y > pos_y && y < pos_y + height) {
+                    //Log.e("Coords", pos_x+ " " + (pos_x+width) + " " + pos_y + " "  +  (pos_y+height) );
+
                     if (gameManager.getDiscardPile().size() == 1){
                         gameStarted();
                     }
                     Card discard_card = gameManager.getTopDiscardCard();
+                    Log.e("Item", card.getName(i) + " " + card.getIsText(i));
 
                     for (int discard_image : discard_card.getImages()) {
                         if (image == discard_image) {

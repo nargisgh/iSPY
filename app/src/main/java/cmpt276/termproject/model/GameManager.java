@@ -4,7 +4,6 @@ Handles the general game play: draw pile, discard pile, cards, etc.
 package cmpt276.termproject.model;
 
 
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +20,7 @@ public class GameManager {
     private List<Card> draw_pile;
     private List<Card> discard_pile;
 
-    private int draw_pile_size = 3;
+    private int draw_pile_size = 0;
     private boolean imgs_text_mode;
     private int order = 2;
     private int theme = 1;
@@ -29,7 +28,6 @@ public class GameManager {
 
     // Singleton for the Manager
     private GameManager () {
-        //TODO: Get text/img mode here
         imgs_text_mode = true;
     }
 
