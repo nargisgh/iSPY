@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 /*Has functions to populate and update high score table
@@ -44,6 +46,10 @@ public class HighScoreActivity extends AppCompatActivity {
     private String draw;
     private String array_name;
     private int id;
+    //private   SharedPreferences sharedPreferences;
+    private String order_tmp;
+    private String draw_tmp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,17 +61,39 @@ public class HighScoreActivity extends AppCompatActivity {
         musicManager = MusicManager.getInstance();
 
 
-// get order and drawsize from GM and store in variables to get correct default array
+// get order and drawsize from GM using getters to get correct default array
         order = "2";
-        draw = "all";
-        array_name = "default_highscores_"+order+"_"+draw;
-        id = getResources().getIdentifier(array_name, "array",this.getPackageName());
+        draw = "5";
 
-        default_scores = getResources().getStringArray(id);
+        default_scores = getDEF_array(order,draw);// can use getters from GM as input for function
+        isInitialized = highScores.getInitializeBoolean(HighScoreActivity.this,"2","5");
+
+        //function to check if options changed
+       /*  if(order_tmp == null || draw_tmp == null){
+             order_tmp = order;
+             draw_tmp = draw;
+         }
+         else if(order != order_tmp || draw != draw_tmp){
+               order_tmp = order;
+               draw_tmp = draw;
+             return true;
+         }
+         return false;
+
+         */
+
+       // need a function to find if def scores were initialized for certain option
+
+
         initializeScores();
 
         setupResetBtn();
         setupBackBtn();
+
+//    sharedPreferences = this.getSharedPreferences("updated scores",MODE_PRIVATE);
+//        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+
+
     }
 
     public void initializeScores() {
@@ -85,6 +113,7 @@ public class HighScoreActivity extends AppCompatActivity {
             arr = highScores.get_default_scores(HighScoreActivity.this);
             populateScores();
             isInitialized = true;
+            highScores.setInitializeBooleanTrue(HighScoreActivity.this,"2","5");
         }
         else {
             for (int i = 0; i <= counter; i ++ ) {
@@ -231,5 +260,26 @@ public class HighScoreActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         musicManager.play();
+
     }
+
+
+    public String[] getDEF_array(String order, String draw_pile_size){
+
+        String array_name = "default_highscores_"+order+"_"+draw_pile_size;
+        int id = getResources().getIdentifier(array_name, "array",this.getPackageName());
+        String[] array = getResources().getStringArray(id);
+
+        return array;
+    }
+
+//    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+//        @Override
+//        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+//            if (key.equals("score1")){
+//                // Write your code here
+//                Toast.makeText(getApplicationContext(), "score changed!", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    };
 }

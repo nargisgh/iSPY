@@ -21,6 +21,8 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -46,6 +48,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     private CardDrawer cardDrawer;
     boolean isPlaying = false;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,9 @@ public class PlayActivity extends AppCompatActivity  {
 
         setup();
 
+
         chronometer = findViewById(R.id.stopwatch);
+
     }
 
 
@@ -232,4 +237,5 @@ public class PlayActivity extends AppCompatActivity  {
             musicManager.play();
         }
     }
+
 }

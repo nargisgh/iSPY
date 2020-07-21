@@ -48,7 +48,8 @@ public class HighScores{
 
     //populate default_scores
     public void set_default_scores(Context context, String[] default_scores){
-
+// create a separate SP file name for each order/drawpile_size
+        // String file_name = order_[get from GM]_draw_size[get from GM]
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -62,12 +63,13 @@ public class HighScores{
     // get default scores
     public ArrayList<String> get_default_scores(Context context){
         arr = new ArrayList<>();
-        for (int i = 0; i < DEFAULT_SCORES.size(); i ++){
-            SharedPreferences shared_Preferences = context.getSharedPreferences("scores"+i, Context.MODE_PRIVATE);
+        for (int i = 1; i <= 5; i ++){
+            SharedPreferences shared_Preferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
             arr.add(shared_Preferences.getString("score"+i, ""));
         }
         return arr;
     }
+
 
     public ArrayList<String> getCurrentScores(Context context){
         arr = new ArrayList<>();
@@ -135,6 +137,38 @@ public class HighScores{
         return sec + ms;
     }
 
+
+    public void setInitializeBooleanFalse(Context context){
+        String[] arr = context.getResources().getStringArray(R.array.initialized);
+
+        SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sp.edit();
+        for (int i = 0; i < arr.length; i++)
+            editor.putBoolean(arr[i],false);
+
+        editor.apply();
+    }
+
+    public boolean getInitializeBoolean(Context context, String order, String draw){
+        String name = "order_"+order+"_draw_"+draw;
+        SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
+        boolean init = sp.getBoolean(name,false);
+
+        return init;
+
+    }
+
+    public void setInitializeBooleanTrue(Context context, String order, String draw){
+        String name = "order_"+order+"_draw_"+draw;
+        SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(name,true);
+
+        editor.apply();
+
+    }
 
 
 }
