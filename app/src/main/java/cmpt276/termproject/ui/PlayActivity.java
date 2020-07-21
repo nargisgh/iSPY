@@ -48,7 +48,9 @@ public class PlayActivity extends AppCompatActivity  {
 
     private CardDrawer cardDrawer;
     boolean isPlaying = false;
-    private SharedPreferences sharedPreferences;
+    private static  boolean changed;
+    private String filename;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,8 @@ public class PlayActivity extends AppCompatActivity  {
         highScore = HighScores.getInstance();
         musicManager = MusicManager.getInstance();
 
-
+        //changed = highScore.isOptionsChanged("2","5");
+        filename = highScore.getFileName("2","5");
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
 
@@ -66,6 +69,7 @@ public class PlayActivity extends AppCompatActivity  {
 
 
         chronometer = findViewById(R.id.stopwatch);
+
 
     }
 
@@ -176,6 +180,7 @@ public class PlayActivity extends AppCompatActivity  {
                     userId.setEnabled(false);
                     String entry = (time + "/ " + name + "/" + dateTime);
 
+                    // put string stored in filename var into sharpref file name
                     SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = entry_new.edit();
                     int counter = entry_new.getInt("counter", 0);
@@ -237,5 +242,10 @@ public class PlayActivity extends AppCompatActivity  {
             musicManager.play();
         }
     }
+
+//    public String getFileName(String order, String draw){
+//        String name = "order_"+order+"_draw"+draw;
+//        return name;
+//    }
 
 }
