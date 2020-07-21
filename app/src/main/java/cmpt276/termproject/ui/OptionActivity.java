@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.MusicManager;
 
@@ -59,16 +61,18 @@ public class OptionActivity extends AppCompatActivity {
         });
     }
 
-    private void storeOptions() {
+    private void storeOptions()
+    {
         RadioButton hero_rbtn = findViewById(R.id.themes_heroes_rbtn);
         RadioButton hypno_rbtn = findViewById(R.id.themes_hypno_rbtn);
+        final RadioButton flickr_rbtn = findViewById(R.id.themes_flickr_rbtn);
         RadioButton enabled_rbtn = findViewById(R.id.mode_enabled_rbtn);
         RadioButton disabled_rbtn = findViewById(R.id.mode_disabled_rbtn);
-        RadioButton size5_rbtn = findViewById(R.id.size_five_rbtn);
-        RadioButton size10_rbtn = findViewById(R.id.size_ten_rbtn);
-        RadioButton size15_rbtn = findViewById(R.id.size_fifteen_rbtn);
-        RadioButton size20_rbtn = findViewById(R.id.size_twenty_rbtn);
-        RadioButton sizeAll_rbtn = findViewById(R.id.size_all_rbtn);
+        final RadioButton size5_rbtn = findViewById(R.id.size_five_rbtn);
+        final RadioButton size10_rbtn = findViewById(R.id.size_ten_rbtn);
+        final RadioButton size15_rbtn = findViewById(R.id.size_fifteen_rbtn);
+        final RadioButton size20_rbtn = findViewById(R.id.size_twenty_rbtn);
+        final RadioButton sizeAll_rbtn = findViewById(R.id.size_all_rbtn);
         RadioButton order2_rbtn = findViewById(R.id.order_two_rbtn);
         RadioButton order3_rbtn = findViewById(R.id.order_three_rbtn);
         RadioButton order5_rbtn = findViewById(R.id.order_five_rbtn);
@@ -81,37 +85,50 @@ public class OptionActivity extends AppCompatActivity {
         String curr_size = mPreferences.getString("Size", "5");
         String curr_order = mPreferences.getString("Order", "2");
 
-        if (curr_theme.equals("Hypnomob")) {
+        if (curr_theme.equals("Hypnomob"))
+        {
             hypno_rbtn.setChecked(true);
-        } else {
+        }
+        else
+        {
             hero_rbtn.setChecked(true);
         }
-        if (curr_mode.equals("Enabled")) {
+
+        if (curr_mode.equals("Enabled"))
+        {
             enabled_rbtn.setChecked(true);
-        } else {
+        }
+        else
+        {
             disabled_rbtn.setChecked(true);
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
+        {
             if (curr_size.equals("All"))
             {
                 size_rbtns[4].setChecked(true);
             }
-            else if (size_rbtns[i].getText().toString().equals(curr_size)) {
+            else if (size_rbtns[i].getText().toString().equals(curr_size))
+            {
                 size_rbtns[i].setChecked(true);
             }
         }
 
-        for (int i = 0; i < 3; i++) {
-            if (order_rbtns[i].getText().toString().equals(curr_order)) {
+        for (int i = 0; i < 3; i++)
+        {
+            if (order_rbtns[i].getText().toString().equals(curr_order))
+            {
                 order_rbtns[i].setChecked(true);
             }
         }
 
         theme_grp = findViewById(R.id.options_themes_rgroup);
-        theme_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        theme_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
 
                 View theme_btn = theme_grp.findViewById(checkedId);
                 int index = theme_grp.indexOfChild(theme_btn);
@@ -122,23 +139,23 @@ public class OptionActivity extends AppCompatActivity {
 
                         mEdit.putString("Theme", "Superheroes");
                         mEdit.apply();
-                        //Toast.makeText(getApplicationContext(), "Superhero theme applied!", Toast.LENGTH_SHORT).show();
                         break;
 
                     case 2: //Hypnomob theme chosen
 
                         mEdit.putString("Theme", "Hypnomob");
                         mEdit.apply();
-                        //Toast.makeText(getApplicationContext(), "Hypnomob theme applied!", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
         });
 
         mode_grp = findViewById(R.id.options_mode_rgroup);
-        mode_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mode_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
 
                 View mode_btn = mode_grp.findViewById(checkedId);
                 int index = mode_grp.indexOfChild(mode_btn);
@@ -148,21 +165,28 @@ public class OptionActivity extends AppCompatActivity {
                     case 1: //Enabled word and image mode
                         mEdit.putString("Mode", "Enabled");
                         mEdit.apply();
+                        if (flickr_rbtn.isChecked())
+                        {
+                            Toast.makeText(getApplicationContext(), "Choose a different theme!", Toast.LENGTH_SHORT).show();
+                        }
+                        flickr_rbtn.setEnabled(false);
                         break;
 
                     case 2: //Disabled word and image mode
                         mEdit.putString("Mode", "Disabled");
                         mEdit.apply();
+                        flickr_rbtn.setEnabled(true);
                         break;
                 }
             }
         });
 
         size_grp = findViewById(R.id.options_size_rgroup);
-        size_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        size_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
                 View size_btn = size_grp.findViewById(checkedId);
                 int index = size_grp.indexOfChild(size_btn);
 
@@ -197,10 +221,11 @@ public class OptionActivity extends AppCompatActivity {
         });
 
         order_grp = findViewById(R.id.options_order_rgroup);
-        order_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        order_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
                 View order_btn = order_grp.findViewById(checkedId);
                 int index = order_grp.indexOfChild(order_btn);
 
@@ -209,21 +234,37 @@ public class OptionActivity extends AppCompatActivity {
                     case 1: //Set order complexity to 2
                         mEdit.putString("Order", "2");
                         mEdit.apply();
+                        if (size10_rbtn.isChecked() || size15_rbtn.isChecked() || size20_rbtn.isChecked())
+                        {
+                            Toast.makeText(getApplicationContext(), "Choose a different deck size!", Toast.LENGTH_SHORT).show();
+                        }
+                        size10_rbtn.setEnabled(false);
+                        size15_rbtn.setEnabled(false);
+                        size20_rbtn.setEnabled(false);
                         break;
 
                     case 2: //Set order complexity to 3
                         mEdit.putString("Order", "3");
                         mEdit.apply();
+                        if (size15_rbtn.isChecked() || size20_rbtn.isChecked())
+                        {
+                            Toast.makeText(getApplicationContext(), "Choose a different deck size!", Toast.LENGTH_SHORT).show();
+                        }
+                        size10_rbtn.setEnabled(true);
+                        size15_rbtn.setEnabled(false);
+                        size20_rbtn.setEnabled(false);
                         break;
 
                     case 3: //Set order complexity to 5
                         mEdit.putString("Order", "5");
                         mEdit.apply();
+                        size10_rbtn.setEnabled(true);
+                        size15_rbtn.setEnabled(true);
+                        size20_rbtn.setEnabled(true);
                         break;
                 }
             }
         });
-
     }
 
     public static Intent makeIntent(Context context){
