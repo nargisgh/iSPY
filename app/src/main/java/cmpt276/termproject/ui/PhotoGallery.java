@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -167,6 +168,7 @@ public class PhotoGallery extends AppCompatActivity  {
     }
 
 
+    //when you click each photo
     private class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private GalleryItem mGalleryItem;
         private ImageView mItemImageView;
@@ -184,8 +186,9 @@ public class PhotoGallery extends AppCompatActivity  {
 
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(Intent.ACTION_VIEW, mGalleryItem.getPhotoPageUri());
-            startActivity(i);
+            Toast.makeText(PhotoGallery.this,"You clicked "+mGalleryItem.getCaption(),Toast.LENGTH_LONG).show();
+            //Intent i = new Intent(Intent.ACTION_VIEW, mGalleryItem.getPhotoPageUri());
+            //startActivity(i);
         }
     }
 
