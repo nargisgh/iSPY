@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.MusicManager;
 
@@ -66,15 +65,15 @@ public class OptionActivity extends AppCompatActivity {
         RadioButton hero_rbtn = findViewById(R.id.themes_heroes_rbtn);
         RadioButton hypno_rbtn = findViewById(R.id.themes_hypno_rbtn);
         final RadioButton flickr_rbtn = findViewById(R.id.themes_flickr_rbtn);
-        RadioButton enabled_rbtn = findViewById(R.id.mode_enabled_rbtn);
+        final RadioButton enabled_rbtn = findViewById(R.id.mode_enabled_rbtn);
         RadioButton disabled_rbtn = findViewById(R.id.mode_disabled_rbtn);
         final RadioButton size5_rbtn = findViewById(R.id.size_five_rbtn);
         final RadioButton size10_rbtn = findViewById(R.id.size_ten_rbtn);
         final RadioButton size15_rbtn = findViewById(R.id.size_fifteen_rbtn);
         final RadioButton size20_rbtn = findViewById(R.id.size_twenty_rbtn);
         final RadioButton sizeAll_rbtn = findViewById(R.id.size_all_rbtn);
-        RadioButton order2_rbtn = findViewById(R.id.order_two_rbtn);
-        RadioButton order3_rbtn = findViewById(R.id.order_three_rbtn);
+        final RadioButton order2_rbtn = findViewById(R.id.order_two_rbtn);
+        final RadioButton order3_rbtn = findViewById(R.id.order_three_rbtn);
         RadioButton order5_rbtn = findViewById(R.id.order_five_rbtn);
         RadioButton[] size_rbtns = {size5_rbtn, size10_rbtn, size15_rbtn, size20_rbtn, sizeAll_rbtn};
         RadioButton[] order_rbtns = {order2_rbtn, order3_rbtn, order5_rbtn};
@@ -88,6 +87,10 @@ public class OptionActivity extends AppCompatActivity {
         if (curr_theme.equals("Hypnomob"))
         {
             hypno_rbtn.setChecked(true);
+        }
+        else if (curr_theme.equals("Flickr"))
+        {
+            flickr_rbtn.setChecked(true);
         }
         else
         {
@@ -105,7 +108,7 @@ public class OptionActivity extends AppCompatActivity {
 
         for (int i = 0; i < 5; i++)
         {
-            if (curr_size.equals("All"))
+            if (curr_size.equals("0"))
             {
                 size_rbtns[4].setChecked(true);
             }
@@ -136,15 +139,28 @@ public class OptionActivity extends AppCompatActivity {
                 switch (index)
                 {
                     case 1: //Superhero theme chosen
-
                         mEdit.putString("Theme", "Superheroes");
                         mEdit.apply();
+                        enabled_rbtn.setEnabled(true);
                         break;
 
                     case 2: //Hypnomob theme chosen
-
                         mEdit.putString("Theme", "Hypnomob");
                         mEdit.apply();
+                        enabled_rbtn.setEnabled(true);
+                        break;
+
+                    case 3: //Custom Flickr theme chosen
+                        if (enabled_rbtn.isChecked())
+                        {
+                            Toast.makeText(getApplicationContext(), "Choose a different mode!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            mEdit.putString("Theme","Flickr");
+                            mEdit.apply();
+                        }
+                        enabled_rbtn.setEnabled(false);
                         break;
                 }
             }
@@ -163,11 +179,14 @@ public class OptionActivity extends AppCompatActivity {
                 switch (index)
                 {
                     case 1: //Enabled word and image mode
-                        mEdit.putString("Mode", "Enabled");
-                        mEdit.apply();
                         if (flickr_rbtn.isChecked())
                         {
                             Toast.makeText(getApplicationContext(), "Choose a different theme!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            mEdit.putString("Mode", "Enabled");
+                            mEdit.apply();
                         }
                         flickr_rbtn.setEnabled(false);
                         break;
@@ -195,26 +214,57 @@ public class OptionActivity extends AppCompatActivity {
                     case 1: //Set deck size to 5
                         mEdit.putString("Size", "5");
                         mEdit.apply();
+                        order2_rbtn.setEnabled(true);
+                        order3_rbtn.setEnabled(true);
                         break;
 
                     case 2: //Set deck size to 10
-                        mEdit.putString("Size", "10");
-                        mEdit.apply();
+                        if (order2_rbtn.isChecked())
+                        {
+                            Toast.makeText(getApplicationContext(), "Choose a different order!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            mEdit.putString("Size", "10");
+                            mEdit.apply();
+                        }
+                        order2_rbtn.setEnabled(false);
+                        order3_rbtn.setEnabled(true);
                         break;
 
                     case 3: //Set deck size to 15
-                        mEdit.putString("Size", "15");
-                        mEdit.apply();
+                        if (order2_rbtn.isChecked() || order3_rbtn.isChecked())
+                        {
+                            Toast.makeText(getApplicationContext(), "Choose a different order!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            mEdit.putString("Size", "15");
+                            mEdit.apply();
+                        }
+                        order2_rbtn.setEnabled(false);
+                        order3_rbtn.setEnabled(false);
                         break;
 
                     case 4: //Set deck size to 20
-                        mEdit.putString("Size", "20");
-                        mEdit.apply();
+                        if (order2_rbtn.isChecked() || order3_rbtn.isChecked())
+                        {
+                            Toast.makeText(getApplicationContext(), "Choose a different order!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            mEdit.putString("Size", "20");
+                            mEdit.apply();
+                        }
+                        order2_rbtn.setEnabled(false);
+                        order3_rbtn.setEnabled(false);
                         break;
 
                     case 5: //Set deck size to ALL
-                        mEdit.putString("Size", "All");
+                        mEdit.putString("Size", "0");
                         mEdit.apply();
+                        order2_rbtn.setEnabled(true);
+                        order3_rbtn.setEnabled(true);
                         break;
                 }
             }
@@ -232,11 +282,14 @@ public class OptionActivity extends AppCompatActivity {
                 switch (index)
                 {
                     case 1: //Set order complexity to 2
-                        mEdit.putString("Order", "2");
-                        mEdit.apply();
                         if (size10_rbtn.isChecked() || size15_rbtn.isChecked() || size20_rbtn.isChecked())
                         {
                             Toast.makeText(getApplicationContext(), "Choose a different deck size!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            mEdit.putString("Order", "2");
+                            mEdit.apply();
                         }
                         size10_rbtn.setEnabled(false);
                         size15_rbtn.setEnabled(false);
@@ -244,11 +297,14 @@ public class OptionActivity extends AppCompatActivity {
                         break;
 
                     case 2: //Set order complexity to 3
-                        mEdit.putString("Order", "3");
-                        mEdit.apply();
                         if (size15_rbtn.isChecked() || size20_rbtn.isChecked())
                         {
                             Toast.makeText(getApplicationContext(), "Choose a different deck size!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            mEdit.putString("Order", "3");
+                            mEdit.apply();
                         }
                         size10_rbtn.setEnabled(true);
                         size15_rbtn.setEnabled(false);
@@ -279,5 +335,6 @@ public class OptionActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         musicManager.play();
+        storeOptions();
     }
 }
