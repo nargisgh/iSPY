@@ -11,14 +11,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -31,15 +28,16 @@ import java.util.List;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.DownloadGalleryItems;
 import cmpt276.termproject.model.FlickrGallery.GalleryItem;
+import cmpt276.termproject.model.FlickrGallery.PollService;
 import cmpt276.termproject.model.FlickrGallery.QueryPrefs;
 import cmpt276.termproject.model.FlickrGallery.ThumbnailDownloader;
 
-public class PhotoGallery extends AppCompatActivity {
+public class PhotoGallery extends AppCompatActivity  {
     private static final String TAG = "PhotoGallery";
     private RecyclerView mPhotoRecyclerView;
     private List<GalleryItem> mItems = new ArrayList<>();
     private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
-    public QueryPrefs QueryPref;
+    public String query;
 
 
 
@@ -50,25 +48,49 @@ public class PhotoGallery extends AppCompatActivity {
 
         mPhotoRecyclerView = findViewById(R.id.photo_recycler_view);
         mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(PhotoGallery.this,5));
-        setUpSearchAndClear();
 
+        setUpThread();
+        setUpSearchAndClear();
+        setUpBack();
+        setUpCameraRoll();
         updateItems();
 
+        Intent i = PollService.newIntent(PhotoGallery.this);
+        PhotoGallery.this.startService(i);
+        //PollService.setServiceAlarm(PhotoGallery.this,true);
+        setupAdapter();
+   }
+
+    private void setUpThread() {
         Handler responseHandler = new Handler();
         mThumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
 
         mThumbnailDownloader.setThumbnailDownloadListener(new ThumbnailDownloader.ThumbnailDownloadListener<PhotoHolder>(){
-           @Override
-           public void onThumbnailDownloaded(PhotoHolder photoHolder, Bitmap bitmap) {
-               Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-               photoHolder.bindDrawable(drawable);
-           }
+            //Photoholder makes for a convenient
+            // identifier as it is also the target where the downloaded images will eventually go
+            @Override
+            public void onThumbnailDownloaded(PhotoHolder photoHolder, Bitmap bitmap) {
+                Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                photoHolder.bindDrawable(drawable);
+            }
         });
-        mThumbnailDownloader.start(); mThumbnailDownloader.getLooper();
+        mThumbnailDownloader.start();
+        mThumbnailDownloader.getLooper();
         Log.i(TAG, "Background thread started");
+    }
 
-        setupAdapter();
-   }
+    private void setUpCameraRoll() {
+        Button CamRoll = findViewById(R.id.CameraRoll);
+        CamRoll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new CameraRoll().makeIntent(PhotoGallery.this);
+                startActivity(i);
+            }
+        });
+    }
+
+
 
     private void setUpSearchAndClear() {
         final SearchView searchItem = findViewById(R.id.search_pics);
@@ -79,6 +101,7 @@ public class PhotoGallery extends AppCompatActivity {
                 Log.d(TAG, "QueryTextSubmit: " + query);
                 QueryPrefs.setStoredQuery(PhotoGallery.this, query);
                 updateItems();
+
                 return true;
             }
 
@@ -91,13 +114,14 @@ public class PhotoGallery extends AppCompatActivity {
         searchItem.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String query = QueryPrefs.getStoredQuery(PhotoGallery.this);
+                query = QueryPrefs.getStoredQuery(PhotoGallery.this);
                 searchItem.setQuery(query, false); }
         });
 
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 QueryPrefs.setStoredQuery(PhotoGallery.this, null);
                 updateItems();
             }
@@ -107,6 +131,7 @@ public class PhotoGallery extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mThumbnailDownloader.interrupt();
         mThumbnailDownloader.clearQueue();
         mThumbnailDownloader.quit();
         Log.i(TAG, "Background thread destroyed");
@@ -116,8 +141,19 @@ public class PhotoGallery extends AppCompatActivity {
 
     private void updateItems() {
 
-        String query = QueryPrefs.getStoredQuery(PhotoGallery.this);
+        query = QueryPrefs.getStoredQuery(PhotoGallery.this);
         new FetchItemsTask(query).execute();
+    }
+
+    private void setUpBack() {
+        Button back = findViewById(R.id.flickr_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mThumbnailDownloader.quitSafely();
+                finish();
+            }
+        });
     }
 
     public void setupAdapter() {
@@ -131,15 +167,25 @@ public class PhotoGallery extends AppCompatActivity {
     }
 
 
-    private class PhotoHolder extends RecyclerView.ViewHolder {
-
+    private class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private GalleryItem mGalleryItem;
         private ImageView mItemImageView;
         public PhotoHolder(View itemView) {
             super(itemView);
             mItemImageView = itemView.findViewById(R.id.item_image_view);
+            itemView.setOnClickListener(this);
         }
         public void bindDrawable(Drawable drawable){
             mItemImageView.setImageDrawable(drawable);
+        }
+        public void bindGalleryItem(GalleryItem galleryItem) {
+            mGalleryItem = galleryItem;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(Intent.ACTION_VIEW, mGalleryItem.getPhotoPageUri());
+            startActivity(i);
         }
     }
 
@@ -157,7 +203,11 @@ public class PhotoGallery extends AppCompatActivity {
         }
         @Override
         public void onBindViewHolder(PhotoHolder photoHolder, int position) {
+            //call the thread's queue thumbnail method and pass the target
+            // photoholder where img will be placed in galleryitem's url to download from
+
             GalleryItem galleryItem = mGalleryItems.get(position);
+            photoHolder.bindGalleryItem(galleryItem);
             Drawable placeholder = ContextCompat.getDrawable(PhotoGallery.this,R.drawable.loading_spinner);
             photoHolder.bindDrawable(placeholder);
             mThumbnailDownloader.queueThumbnail(photoHolder, galleryItem.getUrl());
@@ -197,6 +247,11 @@ public class PhotoGallery extends AppCompatActivity {
 
     public static Intent makeIntent(Context context){
         return new Intent(context,PhotoGallery.class);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
 

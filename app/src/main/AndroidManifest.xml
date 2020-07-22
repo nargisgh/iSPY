@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cmpt276.termproject">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,8 @@
         android:roundIcon="@mipmap/bg_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.CameraRoll"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".ui.PhotoGallery"
             android:screenOrientation="landscape" />
@@ -42,6 +46,8 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service android:name=".model.FlickrGallery.PollService" />
     </application>
 
 </manifest>

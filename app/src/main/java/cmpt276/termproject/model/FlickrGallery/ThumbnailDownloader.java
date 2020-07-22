@@ -9,9 +9,11 @@ import android.os.Message;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
+/* Assembling a bg thread
+* */
 
 public class ThumbnailDownloader<T> extends HandlerThread {
     private static final String TAG = "ThumbnailDownloader";
@@ -23,7 +25,16 @@ public class ThumbnailDownloader<T> extends HandlerThread {
 
     private Handler mResponseHandler;
     private ThumbnailDownloadListener<T> mThumbnailDownloadListener;
+    //<T> type is a generic argument rather than locking the user
+    // into a specific type of object as the identifier, more flexible
+
     public interface ThumbnailDownloadListener<T> {
+        //be called when img has been fully downloaded and is ready to be added to UI
+        // listener delegates the responsibility of what to do with the img
+
+        // doing so separates downloading task from UI
+        // updating so thumbnailDownloader can be used for other View objects needed
+
         void onThumbnailDownloaded(T target, Bitmap thumbnail);
     }
 
@@ -56,6 +67,8 @@ public class ThumbnailDownloader<T> extends HandlerThread {
     }
     public void queueThumbnail(T target, String url)
     {
+        //expects an object of type T to use as identifier
+        // for the download and a string URL for the download (Photo adapter will call this)
         Log.i(TAG, "Got a URL: " + url);
         if (url == null) {
             mRequestMap.remove(target);
@@ -81,12 +94,15 @@ public class ThumbnailDownloader<T> extends HandlerThread {
             final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
             Log.i(TAG, "Bitmap created");
 
+            //Downloading and displaying images
             mResponseHandler.post(new Runnable() {
                 public void run() {
-                    if (!mRequestMap.get(target).equals(url) || mHasQuit) {
+                    //all code inside run will be executed on main thread
+                    if (!Objects.equals(mRequestMap.get(target), url) || mHasQuit) {
                         return;
                     }
                     mRequestMap.remove(target);
+                    //setting bitmap on target PhotoHolder
                     mThumbnailDownloadListener.onThumbnailDownloaded(target, bitmap);
                 } });
         }
