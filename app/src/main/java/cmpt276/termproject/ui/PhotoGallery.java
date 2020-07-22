@@ -10,10 +10,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ public class PhotoGallery extends AppCompatActivity  {
     private List<GalleryItem> mItems = new ArrayList<>();
     private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
     public String query;
+    public CheckBox checkBox;
 
 
 
@@ -160,6 +163,7 @@ public class PhotoGallery extends AppCompatActivity  {
     public void setupAdapter() {
         if (isAdded()) {
             mPhotoRecyclerView.setAdapter(new PhotoAdapter(mItems));
+
         }
     }
 
@@ -179,6 +183,7 @@ public class PhotoGallery extends AppCompatActivity  {
         }
         public void bindDrawable(Drawable drawable){
             mItemImageView.setImageDrawable(drawable);
+
         }
         public void bindGalleryItem(GalleryItem galleryItem) {
             mGalleryItem = galleryItem;
@@ -191,6 +196,7 @@ public class PhotoGallery extends AppCompatActivity  {
             //startActivity(i);
         }
     }
+
 
     private class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder> {
         private List<GalleryItem> mGalleryItems;
