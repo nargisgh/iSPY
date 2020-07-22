@@ -243,9 +243,6 @@ public class PlayActivity extends AppCompatActivity  {
         }
     }
 
-//    public String getFileName(String order, String draw){
-//        String name = "order_"+order+"_draw"+draw;
-//        return name;
-//    }
+
 
 }

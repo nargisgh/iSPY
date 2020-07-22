@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -66,14 +65,8 @@ public class HighScoreActivity extends AppCompatActivity {
         order = "2";
         draw = "all";
 
-        //changed = highScores.isOptionsChanged("2","5");
-        // if changed check if default was already initialized
-
-        default_scores = getDEF_array(order,draw);// can use getters from GM as input for function
-        isInitialized = highScores.getInitializeBoolean(HighScoreActivity.this,order,draw);
-        if(!isInitialized) {
-            showDEF_scores();
-        }
+        default_scores = getDEF_array(order,draw);
+        isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
 
         initializeScores();
 
@@ -87,16 +80,6 @@ public class HighScoreActivity extends AppCompatActivity {
 
     }
 
-    public void showDEF_scores(){
-
-            highScores.set_default_scores(HighScoreActivity.this, default_scores);
-            arr = highScores.get_default_scores(HighScoreActivity.this);
-            populateScores();
-            isInitialized = true;
-            highScores.setInitializeBooleanTrue(HighScoreActivity.this,"2","5");
-
-
-    }
 
     public void initializeScores() {
         SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
@@ -105,21 +88,21 @@ public class HighScoreActivity extends AppCompatActivity {
 
         String input = entry_new.getString("new entry"+ 1, null);
 
-//        if (input != null) {
-//            //adding this otherwise wont populate on first game play*
-//            isInitialized = true;
-//        }
-        // initializing default scores once when app starts
-//        if (!isInitialized) {
-//            highScores.set_default_scores(HighScoreActivity.this, default_scores);
-//            arr = highScores.get_default_scores(HighScoreActivity.this);
-//            populateScores();
-//            isInitialized = true;
-//            highScores.setInitializeBooleanTrue(HighScoreActivity.this,"2","5");
-//        }
-       // else {
+        if (input != null) {
+            //adding this otherwise wont populate on first game play*
+            isInitialized = true;
+        }
+         //initializing default scores once when app starts
+        if (!isInitialized) {
+            highScores.set_default_scores(HighScoreActivity.this, default_scores);
+            arr = highScores.get_default_scores(HighScoreActivity.this);
+            populateScores();
+            isInitialized = true;
+            highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
+        }
+        else {
             for (int i = 0; i <= counter; i ++ ) {
-                input = entry_new.getString("new entry" + i, null);
+               input = entry_new.getString("new entry" + i, null);
                 arr = highScores.getCurrentScores(HighScoreActivity.this);
                 populateScores();
                 if (input != null) {
@@ -127,7 +110,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 }
                 updated_table();
             }
-        //}
+        }
         editor.putInt("counter", 0);
         editor.apply();
     }
@@ -222,6 +205,8 @@ public class HighScoreActivity extends AppCompatActivity {
                 populateScores();
                 SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                 entry_new.edit().clear().apply();
+
+                highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,false);
             }
         });
     }

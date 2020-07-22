@@ -36,7 +36,10 @@ public class MainActivity extends AppCompatActivity {
     private TableLayout tableLayout;
     private Typeface face;
     private static boolean isInitialized = false;
-    private static boolean init = false;
+    private static boolean init;
+    private  SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
     ArrayList<String> arr = new ArrayList<>();
 
 
@@ -47,12 +50,18 @@ public class MainActivity extends AppCompatActivity {
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance();
 
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        init = sp.getBoolean("bool",false);
+
         //initializeScores();
         highScores = HighScores.getInstance();
 
+        // initializing this once when app is installed
         if(!init){
-            highScores.setInitializeBooleanFalse(MainActivity.this);
-            init = true;
+            highScores.set_initDEF_False(MainActivity.this);
+            editor = sp.edit();
+            editor.putBoolean("bool",true);
+            editor.commit();
         }
 
         setupPlayButton();

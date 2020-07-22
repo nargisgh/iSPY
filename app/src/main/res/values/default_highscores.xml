@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- string-array names will be default_highscores_order_drawsize-->
+
 <resources>
     <string-array name="default_highscores_2_5">
         <item>7.35/Flash / Jun 3, 2020 2:30:06 PM</item>

@@ -141,7 +141,7 @@ public class HighScores{
     }
 
 
-    public void setInitializeBooleanFalse(Context context){
+    public void set_initDEF_False(Context context){
         String[] arr = context.getResources().getStringArray(R.array.initialized);
 
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
@@ -153,7 +153,7 @@ public class HighScores{
         editor.apply();
     }
 
-    public boolean getInitializeBoolean(Context context, String order, String draw){
+    public boolean get_initDEF_Bool(Context context, String order, String draw){
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
         boolean init = sp.getBoolean(name,false);
@@ -164,12 +164,12 @@ public class HighScores{
 
     }
 
-    public void setInitializeBooleanTrue(Context context, String order, String draw){
+    public void set_initDEF_Bool(Context context, String order, String draw, Boolean bool){
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean(name,true);
+        editor.putBoolean(name,bool);
 
         editor.apply();
 
