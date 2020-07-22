@@ -19,6 +19,7 @@ import android.widget.TableLayout;
 import java.util.ArrayList;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         gameManager = GameManager.getInstance();
 
         initializeScores();
+
 
         setupPlayButton();
         setupOptionButton();

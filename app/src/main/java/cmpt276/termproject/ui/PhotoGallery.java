@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -23,11 +24,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.DownloadGalleryItems;
+import cmpt276.termproject.model.FlickrGallery.FlickrImage;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 import cmpt276.termproject.model.FlickrGallery.GalleryItem;
 import cmpt276.termproject.model.FlickrGallery.PollService;
 import cmpt276.termproject.model.FlickrGallery.QueryPrefs;
@@ -39,6 +43,8 @@ public class PhotoGallery extends AppCompatActivity  {
     private List<GalleryItem> mItems = new ArrayList<>();
     private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
     public String query;
+    private Context context;
+    private FlickrManager flickrManager;
 
 
 
@@ -49,6 +55,10 @@ public class PhotoGallery extends AppCompatActivity  {
 
         mPhotoRecyclerView = findViewById(R.id.photo_recycler_view);
         mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(PhotoGallery.this,5));
+
+        flickrManager = FlickrManager.getInstance();
+        context = getApplicationContext();
+
 
         setUpThread();
         setUpSearchAndClear();
@@ -184,13 +194,36 @@ public class PhotoGallery extends AppCompatActivity  {
             mGalleryItem = galleryItem;
         }
 
+
+        //Click Image Override
         @Override
         public void onClick(View v) {
             Toast.makeText(PhotoGallery.this,"You clicked "+mGalleryItem.getCaption(),Toast.LENGTH_LONG).show();
+
+            Thread saveImg = new Thread(){
+                public void run() {
+                    try {
+                        byte[] bitmapBytes = new DownloadGalleryItems().getUrlBytes(mGalleryItem.getUrl());
+                        final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
+
+                        flickrManager.saveImage(new FlickrImage(mGalleryItem.getId(), bitmap) , context);
+                        flickrManager.createImageList(context);
+
+                    }
+                    catch (Exception ignored) {
+                    }
+
+                }
+            };
+            saveImg.start();
+
             //Intent i = new Intent(Intent.ACTION_VIEW, mGalleryItem.getPhotoPageUri());
             //startActivity(i);
         }
     }
+
+
+
 
     private class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder> {
         private List<GalleryItem> mGalleryItems;
