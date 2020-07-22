@@ -49,14 +49,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance();
+        highScores = HighScores.getInstance();
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         init = sp.getBoolean("bool",false);
 
-        //initializeScores();
-        highScores = HighScores.getInstance();
-
-        // initializing this once when app is installed
+        // initializing all options of DEF_array as false once, when app is installed
         if(!init){
             highScores.set_initDEF_False(MainActivity.this);
             editor = sp.edit();
@@ -79,45 +77,6 @@ public class MainActivity extends AppCompatActivity {
         musicManager.play();
         setTheme();
     }
-
-
-    //public void initializeScores() {
-        //highScores = HighScores.getInstance();
-//        default_scores = getResources().getStringArray(R.array.default_highscores_2_all);
-//
-//
-//        SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = entry_new.edit();
-//        int counter = entry_new.getInt("counter", 0);
-//
-//        String input = entry_new.getString("new entry"+ 1, null);
-//
-//        if (input != null) {
-//            //adding this otherwise wont populate on first game play*
-//            isInitialized = true;
-//        }
-//        // initializing default scores once when app starts
-//        if (!isInitialized) {
-//            highScores.set_default_scores(MainActivity.this, default_scores);
-//            arr = highScores.get_default_scores(MainActivity.this);
-//            isInitialized = true;
-//        }
-//        else {
-//            for (int i = 0; i <= counter; i ++ ) {
-//                input = entry_new.getString("new entry" + i, null);
-//                arr = highScores.getCurrentScores(MainActivity.this);
-//                if (input != null) {
-//                    highScores.update(input, MainActivity.this);
-//                }
-//            }
-//        }
-//        editor.putInt("counter", 0);
-//        editor.apply();
-   // }
-
-
-
-
 
     //Button setup for start , options and play
     private void setupPlayButton(){
