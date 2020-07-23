@@ -33,11 +33,13 @@ public class FlickrManager {
         imageList = new ArrayList<>();
         String[] files = context.fileList();
         for (String file: files){
-            Log.d("File", file);
             try {
                 FileInputStream fileInputStream = context.openFileInput(file);
                 Bitmap bitmap =  BitmapFactory.decodeStream(fileInputStream);
-                imageList.add(new FlickrImage(file, bitmap));
+
+                String[] tokens = file.split("\\.(?=[^.]+$)");
+                FlickrImage img = new FlickrImage(file, bitmap);
+                imageList.add(img);
             }
             catch (Exception e){
                 e.printStackTrace();
