@@ -39,28 +39,17 @@ public class HighScores{
 
     //Singleton Stuff
     private static HighScores instance;
-    public HighScores(Context context){
+    public HighScores(){
         init();
-        this.context = context;
-        setFilename();
     }
-    public static HighScores getInstance(Context context){
+    public static HighScores getInstance(){
         if (instance == null){
-            instance = new HighScores(context);
+            instance = new HighScores();
         }
         return instance;
     }
 
-    private void setFilename(){
-        sp = PreferenceManager.getDefaultSharedPreferences(context);
-        order =sp.getString("Order", "2");
-        draw =sp.getString("Size", "5");
-        key = "updated scores"+getFileName(order,draw);
-        Log.e("TAG",key);
 
-
-
-    }
 
     //Initialise DEF_Array
     private void init(){
@@ -71,7 +60,7 @@ public class HighScores{
 
     //populate default_scores
     public void set_default_scores(Context context, String[] default_scores,String filename){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -86,7 +75,7 @@ public class HighScores{
     public ArrayList<String> get_default_scores(Context context,String filename){
         arr = new ArrayList<>();
         for (int i = 1; i <= 5; i ++){
-            SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
 
             arr.add(sharedPreferences.getString("score"+i, ""));
         }
@@ -94,10 +83,10 @@ public class HighScores{
     }
 
 
-    public ArrayList<String> getCurrentScores(Context context){
+    public ArrayList<String> getCurrentScores(Context context, String filename){
         arr = new ArrayList<>();
         for (int i = 1; i <= 5; i ++){
-            SharedPreferences  sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+            SharedPreferences  sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
 
             arr.add(sharedPreferences.getString("score"+i, ""));
         }
@@ -120,13 +109,13 @@ public class HighScores{
     // so when we are updating rows on table layout we just need to call the sharedpreferences
     //  https://www.youtube.com/watch?v=_cV7cgQFDo0
 
-    public void update(String entry, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+    public void update(String entry, Context context,String filename) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
-        String[] temp_s = getCurrentScores(context).toArray(new String[0]);
+        String[] temp_s = getCurrentScores(context,filename).toArray(new String[0]);
         for (int i = 0; i < 5; i++) {
             if (entry.equals(temp_s[i])) {
                 return;
@@ -179,7 +168,7 @@ public class HighScores{
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
         boolean init = sp.getBoolean(name,false);
-        Log.e("Time", String.valueOf(init));
+
 
 
         return init;

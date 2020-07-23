@@ -52,7 +52,7 @@ public class HighScoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
-        highScores = HighScores.getInstance(getApplicationContext());
+        highScores = HighScores.getInstance();
         ConstraintLayout hs_Layout;
         hs_Layout = findViewById(R.id.hs_Layout);
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
@@ -98,31 +98,31 @@ public class HighScoreActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
-        //String input = entry_new.getString("new entry"+ 1, null);
-
+//        String input = entry_new.getString("new entry"+ 1, null);
+//
 //        if (input != null) {
 //            //adding this otherwise wont populate on first game play*
 //            isInitialized = true;
 //        }
 //         //initializing default scores once when app starts
 //        if (!isInitialized) {
-//            highScores.set_default_scores(HighScoreActivity.this, default_scores);
-//            arr = highScores.get_default_scores(HighScoreActivity.this);
+//            highScores.set_default_scores(HighScoreActivity.this, default_scores,name);
+//            arr = highScores.get_default_scores(HighScoreActivity.this,name);
 //            populateScores();
 //            isInitialized = true;
 //            highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
 //        }
 //        else {
             for (int i = 0; i <= counter; i ++ ) {
-               String input = entry_new.getString("new entry" + i, null);
-                arr = highScores.getCurrentScores(HighScoreActivity.this);
+             String input = entry_new.getString("new entry" + i, null);
+                arr = highScores.getCurrentScores(HighScoreActivity.this,name);
                 populateScores();
                 if (input != null) {
-                    highScores.update(input, HighScoreActivity.this);
+                    highScores.update(input, HighScoreActivity.this,name);
                 }
                 updated_table();
             }
-       // }
+       //}
         editor.putInt("counter", 0);
         editor.apply();
     }
@@ -160,7 +160,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setHeadings();
 
         for(int i = 1; i<=arr.size();i++){
-            SharedPreferences sharedPreferences = getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("updated scores"+name, Context.MODE_PRIVATE);
             String[] entry = sharedPreferences.getString("score"+i,"").split("/");
             populate(entry);
             tableLayout.addView(row);

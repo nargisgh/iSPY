@@ -54,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance(getApplicationContext());
-        highScores = HighScores.getInstance(getApplicationContext());
-        order = highScores.getOrder(MainActivity.this);
-        draw = highScores.getDrawPile_size(MainActivity.this);
-        default_scores = highScores.getDEF_array(order,draw,MainActivity.this);
+        highScores = HighScores.getInstance();
+//        order = highScores.getOrder(MainActivity.this);
+//        draw = highScores.getDrawPile_size(MainActivity.this);
+//        default_scores = highScores.getDEF_array(order,draw,MainActivity.this);
         //showDEF_scores();
+        //initializeScores();
 
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -213,4 +214,37 @@ public class MainActivity extends AppCompatActivity {
         finishAffinity();
     }
 
+//    public void initializeScores() {
+//        SharedPreferences entry_new = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = entry_new.edit();
+//        int counter = entry_new.getInt("counter", 0);
+//
+//        String input = entry_new.getString("new entry"+ 1, null);
+//
+//        if (input != null) {
+//            //adding this otherwise wont populate on first game play*
+//            isInitialized = true;
+//        }
+//        //initializing default scores once when app starts
+//        if (!isInitialized) {
+//            highScores.set_default_scores(MainActivity.this, default_scores,name);
+//            arr = highScores.get_default_scores(MainActivity.this,name);
+//
+//            isInitialized = true;
+//            highScores.set_initDEF_Bool(MainActivity.this,order,draw,true);
+//        }
+//        else {
+//            for (int i = 0; i <= counter; i ++ ) {
+//                input = entry_new.getString("new entry" + i, null);
+//                arr = highScores.getCurrentScores(MainActivity.this);
+//
+//                if (input != null) {
+//                    highScores.update(input, MainActivity.this);
+//                }
+//
+//            }
+//        }
+//        editor.putInt("counter", 0);
+//        editor.apply();
+//    }
 }
