@@ -38,7 +38,7 @@ public class FlickrManager {
                 Bitmap bitmap =  BitmapFactory.decodeStream(fileInputStream);
 
                 String[] tokens = file.split("\\.(?=[^.]+$)");
-                FlickrImage img = new FlickrImage(file, bitmap);
+                FlickrImage img = new FlickrImage(tokens[0], bitmap);
                 imageList.add(img);
             }
             catch (Exception e){
@@ -48,7 +48,6 @@ public class FlickrManager {
 
     }
 
-
     public List<FlickrImage> getImageList(Context context){
         if (imageList == null){
             createImageList(context);
@@ -56,10 +55,17 @@ public class FlickrManager {
         return imageList;
     }
 
-    public void removeImage(FlickrImage img){
+    public void removeImage(FlickrImage img, Context context){
         //Remove from internal Storage
+        String filename = img.getImgID() + ".png";
+        String[] files = context.fileList();
 
-
+        for (String file: files){
+            if (filename.equals(file)){
+                context.deleteFile(file);
+            }
+        }
+        //Remove bitmap from list of bmps
         imageList.remove(img);
     }
 
@@ -74,33 +80,6 @@ public class FlickrManager {
         catch (Exception e){
             e.printStackTrace();
         }
-
-
-//        ///Save to internal Storage
-//        String root = Environment.getExternalStorageDirectory() + "/Flickr";
-//        if (!Environment.MEDIA_MOUNTED.equals( Environment.getExternalStorageState() )){
-//            Log.e("File", "Storage is not mounted");
-//            return;
-//        }
-//
-//        String fileName = img.getImgID() + ".png";
-//        File file = new File(root , fileName);
-//        if (file.exists()){
-//            Log.d("File", "File already Exits...deleting");
-//            file.delete();
-//        }
-//
-//        try {
-//            FileOutputStream outputStream = new FileOutputStream(file,true);
-//            img.getImgBitmap().compress(Bitmap.CompressFormat.PNG, 100,outputStream);
-//            outputStream.flush();
-//            outputStream.close();
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//        Log.d("File", "Image Saved ");
 
 
     }
