@@ -72,7 +72,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             paint.setStyle(Paint.Style.FILL);
         }
 
-        gameManager = GameManager.getInstance();
+        gameManager = GameManager.getInstance(context);
         setCardTheme();
         RADIUS = context.getResources().getDisplayMetrics().heightPixels / 3.5f;
         card_bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.card);
@@ -193,11 +193,9 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         if (card.getIsText(i)){
             canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
             //canvas.drawBitmap(bitmap, null, rect,null);
-
         }
         else {
             canvas.drawBitmap(bitmap, null, rect,null);
-
         }
         card.setItemRect(i, rect);
         card.setImageBitmaps(i, bitmap);

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
-        gameManager = GameManager.getInstance();
+        gameManager = GameManager.getInstance(getApplicationContext());
         highScores = HighScores.getInstance();
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);

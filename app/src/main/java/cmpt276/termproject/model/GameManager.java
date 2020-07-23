@@ -5,6 +5,11 @@ package cmpt276.termproject.model;
 
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,26 +21,43 @@ public class GameManager {
     * Updating the cards from the drawn pile
     * Setting a consistent
     */
+
+    private Context context;
+    private SharedPreferences sharedPreferences;
+
     private static GameManager instance;
     private List<Card> draw_pile;
     private List<Card> discard_pile;
 
-    private int draw_pile_size = 0;
+    private int draw_pile_size;
     private boolean imgs_text_mode;
     private int order = 2;
     private int theme = 1;
     private List<int[]> draw;
 
     // Singleton for the Manager
-    private GameManager () {
+    private GameManager (Context context) {
         imgs_text_mode = true;
+        this.context = context;
+        setupGameSettings();
     }
 
-    public static GameManager getInstance(){
+    public static GameManager getInstance(Context context){
         if (instance == null)
-            instance = new GameManager();
+            instance = new GameManager(context);
         return  instance;
     }
+
+    public void setupGameSettings(){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        order = Integer.parseInt(sharedPreferences.getString("Order", "2"));
+        draw_pile_size = Integer.parseInt(sharedPreferences.getString("Size", "0"));
+        imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));
+        Log.e("Order", order + " " + draw_pile_size + " " + imgs_text_mode);
+
+    }
+
 
     public Card getTopDrawCard(){
         return draw_pile.get(0);
