@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         gameManager = GameManager.getInstance(getApplicationContext());
         highScores = HighScores.getInstance();
 
+
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         init = sp.getBoolean("bool",false);
 

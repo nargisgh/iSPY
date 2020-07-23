@@ -62,8 +62,9 @@ public class HighScoreActivity extends AppCompatActivity {
 // get order and drawsize to get correct default array
         order = highScores.getOrder(HighScoreActivity.this);
         draw = highScores.getDrawPile_size(HighScoreActivity.this);
-        name = highScores.getFileName(order,draw);
 
+        name = highScores.getFileName(order,draw);
+        setOptionsTitle(order,draw);
 
         default_scores = highScores.getDEF_array(order,draw,HighScoreActivity.this);
         isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
@@ -78,7 +79,24 @@ public class HighScoreActivity extends AppCompatActivity {
         setupBackBtn();
 
     }
+
+    private void setOptionsTitle(String order, String draw){
+
+        if( order.equals("2") && draw.equals("0")){
+            draw = "7";
+        }
+        else if(order.equals("3") && draw.equals("0")){
+            draw = "13";
+        }
+        else if(order.equals("5") && draw.equals("0")){
+            draw = "31";
+        }
+        TextView textView = (TextView)findViewById(R.id.option_info);
+        textView.setText("Order: "+ order+ "    Draw Pile Size: "+draw);
+    }
+
     public void showDEF_scores(){
+
 
         highScores.set_default_scores(HighScoreActivity.this, default_scores,name);
         arr = highScores.get_default_scores(HighScoreActivity.this,name);
@@ -90,6 +108,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
     public void initializeScores() {
+
         SharedPreferences entry_new = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
@@ -234,11 +253,13 @@ public class HighScoreActivity extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         musicManager.pause();
+
     }
     @Override
     public void onResume() {
         super.onResume();
         musicManager.play();
+
 
     }
 
