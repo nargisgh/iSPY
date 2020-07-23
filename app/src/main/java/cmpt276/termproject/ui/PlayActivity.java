@@ -59,7 +59,7 @@ public class PlayActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        highScore = HighScores.getInstance();
+        highScore = HighScores.getInstance(getApplicationContext());
         musicManager = MusicManager.getInstance();
 
         order = highScore.getOrder(PlayActivity.this);

@@ -23,24 +23,43 @@ import cmpt276.termproject.ui.HighScoreActivity;
  */
 
 public class HighScores{
-    private String order_tmp;
-    private String draw_tmp;
+
 
     private List<String> DEFAULT_SCORES = new ArrayList<>();
 
     ArrayList<String> arr = new ArrayList<>();
 
+    private Context context;
+    private SharedPreferences sp;
+    private SharedPreferences sharedPreferences;
+    private static String order;
+    private static String draw;
+    private static String key;
+
 
     //Singleton Stuff
     private static HighScores instance;
-    public HighScores(){
+    public HighScores(Context context){
         init();
+        this.context = context;
+        setFilename();
     }
-    public static HighScores getInstance(){
+    public static HighScores getInstance(Context context){
         if (instance == null){
-            instance = new HighScores();
+            instance = new HighScores(context);
         }
         return instance;
+    }
+
+    private void setFilename(){
+        sp = PreferenceManager.getDefaultSharedPreferences(context);
+        order =sp.getString("Order", "2");
+        draw =sp.getString("Size", "5");
+        key = "updated scores"+getFileName(order,draw);
+        Log.e("TAG",key);
+
+
+
     }
 
     //Initialise DEF_Array
@@ -52,9 +71,8 @@ public class HighScores{
 
     //populate default_scores
     public void set_default_scores(Context context, String[] default_scores,String filename){
-// create a separate SP file name for each order/drawpile_size by receiving the order and draw pile size from GM
-        // String file_name = order_[get from GM]_draw_size[get from GM]
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         for(int i=0;i<default_scores.length;i++){
@@ -68,8 +86,9 @@ public class HighScores{
     public ArrayList<String> get_default_scores(Context context,String filename){
         arr = new ArrayList<>();
         for (int i = 1; i <= 5; i ++){
-            SharedPreferences shared_Preferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
-            arr.add(shared_Preferences.getString("score"+i, ""));
+            SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+
+            arr.add(sharedPreferences.getString("score"+i, ""));
         }
         return arr;
     }
@@ -78,8 +97,9 @@ public class HighScores{
     public ArrayList<String> getCurrentScores(Context context){
         arr = new ArrayList<>();
         for (int i = 1; i <= 5; i ++){
-            SharedPreferences shared_Preferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
-            arr.add(shared_Preferences.getString("score"+i, ""));
+            SharedPreferences  sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+
+            arr.add(sharedPreferences.getString("score"+i, ""));
         }
         return arr;
     }
@@ -102,6 +122,7 @@ public class HighScores{
 
     public void update(String entry, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
@@ -193,6 +214,15 @@ public class HighScores{
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getString("Size","5");
 
+    }
+
+    public String[] getDEF_array(String order, String draw_pile_size,Context context){
+
+        String array_name = "default_highscores_"+order+"_"+draw_pile_size;
+        int id = context.getResources().getIdentifier(array_name, "array",context.getPackageName());
+        String[] array = context.getResources().getStringArray(id);
+
+        return array;
     }
 
 }

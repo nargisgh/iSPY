@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> arr = new ArrayList<>();
 
+    private static String order;
+    private static String draw;
+    private String name;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance(getApplicationContext());
-        highScores = HighScores.getInstance();
+        highScores = HighScores.getInstance(getApplicationContext());
+        order = highScores.getOrder(MainActivity.this);
+        draw = highScores.getDrawPile_size(MainActivity.this);
+        default_scores = highScores.getDEF_array(order,draw,MainActivity.this);
+        //showDEF_scores();
+
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         init = sp.getBoolean("bool",false);
@@ -69,6 +79,17 @@ public class MainActivity extends AppCompatActivity {
         setupHighScoreButton();
         setTheme();
     }
+
+    public void showDEF_scores(){
+
+        highScores.set_default_scores(MainActivity.this, default_scores,name);
+        arr = highScores.get_default_scores(MainActivity.this,name);
+
+        isInitialized = true;
+        highScores.set_initDEF_Bool(MainActivity.this,order,draw,true);
+
+    }
+
 
     @Override
     protected void onResume()
