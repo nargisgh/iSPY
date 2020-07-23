@@ -21,6 +21,8 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -40,14 +42,15 @@ public class PlayActivity extends AppCompatActivity  {
 
     private Chronometer chronometer;
 
-
-
     private double game_start_time;
     public MusicManager musicManager;
     public HighScores highScore;
 
     private CardDrawer cardDrawer;
     boolean isPlaying = false;
+    private static  boolean changed;
+    private String filename;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +60,17 @@ public class PlayActivity extends AppCompatActivity  {
         highScore = HighScores.getInstance();
         musicManager = MusicManager.getInstance();
 
-
+        //changed = highScore.isOptionsChanged("2","5");
+        filename = highScore.getFileName("2","5");
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
 
         setup();
 
+
         chronometer = findViewById(R.id.stopwatch);
+
+
     }
 
 
@@ -173,6 +180,7 @@ public class PlayActivity extends AppCompatActivity  {
                     userId.setEnabled(false);
                     String entry = (time + "/ " + name + "/" + dateTime);
 
+                    // put string stored in filename var into sharpref file name
                     SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = entry_new.edit();
                     int counter = entry_new.getInt("counter", 0);
@@ -234,4 +242,7 @@ public class PlayActivity extends AppCompatActivity  {
             musicManager.play();
         }
     }
+
+
+
 }

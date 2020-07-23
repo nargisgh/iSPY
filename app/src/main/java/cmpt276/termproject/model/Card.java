@@ -3,6 +3,8 @@ Handles card properties and sets the size, orientation and position of images on
  */
 package cmpt276.termproject.model;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,35 +12,69 @@ import java.util.List;
 
 public class Card {
 
-    private List<Integer> images;
-    private List<int[]> image_coordinates = new ArrayList<>();
-    private List<Bitmap> bitmaps = new ArrayList<>();
+    private List<CardItem> cardItems = new ArrayList<>();
 
     public Card(List<Integer> images){
-        this.images = images;
+        for (int img: images){
+            cardItems.add(new CardItem(img));
+        }
     }
 
-    public void setImageCoordinates(int image_idx, int[] coordinates){
-        this.image_coordinates.add(image_idx, coordinates);
+
+    public void setItemCoordinates(int image_idx, int[] coordinates){
+        cardItems.get(image_idx).setItemCoords(coordinates);
     }
 
-    public int getImageX(int index){
-        return image_coordinates.get(index)[0];
+    public int getItemX(int index){
+        return cardItems.get(index).getItemX();
     }
 
-    public int getImageY(int index){
-        return image_coordinates.get(index)[1];
+    public int getItemY(int index){
+        return cardItems.get(index).getItexY();
     }
 
     public List<Integer> getImages(){
-        return images;
+        List<Integer> items = new ArrayList<>();
+        for (CardItem cardItem: cardItems){
+            items.add(cardItem.getItem());
+        }
+        return items;
+    }
+
+
+    public void setItemRect(int index, Rect rect){
+        cardItems.get(index).setRect(rect);
+    }
+
+    public Rect getItemRect(int index){
+       return cardItems.get(index).getRect();
     }
 
     public void setImageBitmaps(int index, Bitmap bitmap){
-        bitmaps.add(index, bitmap);
+        cardItems.get(index).setBitmap(bitmap);
     }
 
     public List<Bitmap> getImageBitmaps(){
+        List<Bitmap> bitmaps = new ArrayList<>();
+        for (CardItem cardItem: cardItems){
+            bitmaps.add(cardItem.getItemBitmaps());
+        }
         return bitmaps;
+    }
+
+    public void setIsText(int idx, boolean isText){
+        cardItems.get(idx).setMode(isText);
+    }
+
+    public boolean getIsText(int idx){
+        return cardItems.get(idx).getMode();
+    }
+
+    public void setName(int idx, String name) {
+        cardItems.get(idx).setName(name);
+    }
+
+    public String getName (int idx){
+        return cardItems.get(idx).getName();
     }
 }

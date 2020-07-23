@@ -4,21 +4,31 @@ Handles storing and manipulating high score data to be displayed on the high sco
 package cmpt276.termproject.model;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
+import java.sql.Time;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import cmpt276.termproject.R;
+import cmpt276.termproject.ui.HighScoreActivity;
 
 /* Functions to set default scores, save and update new scores.
  * Using Singleton Method and Shared Preferences to pass data
  */
 
 public class HighScores{
+    private String order_tmp;
+    private String draw_tmp;
 
     private List<String> DEFAULT_SCORES = new ArrayList<>();
 
     ArrayList<String> arr = new ArrayList<>();
+
 
     //Singleton Stuff
     private static HighScores instance;
@@ -41,7 +51,8 @@ public class HighScores{
 
     //populate default_scores
     public void set_default_scores(Context context, String[] default_scores){
-
+// create a separate SP file name for each order/drawpile_size by receiving the order and draw pile size from GM
+        // String file_name = order_[get from GM]_draw_size[get from GM]
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -55,12 +66,13 @@ public class HighScores{
     // get default scores
     public ArrayList<String> get_default_scores(Context context){
         arr = new ArrayList<>();
-        for (int i = 0; i < DEFAULT_SCORES.size(); i ++){
-            SharedPreferences shared_Preferences = context.getSharedPreferences("scores"+i, Context.MODE_PRIVATE);
+        for (int i = 1; i <= 5; i ++){
+            SharedPreferences shared_Preferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
             arr.add(shared_Preferences.getString("score"+i, ""));
         }
         return arr;
     }
+
 
     public ArrayList<String> getCurrentScores(Context context){
         arr = new ArrayList<>();
@@ -74,6 +86,7 @@ public class HighScores{
     public String getCurrentDateTime(){
         Date date = new Date();
         return DateFormat.getDateTimeInstance().format(date);
+
     }
 
     public String getScore(String entry){
@@ -89,6 +102,7 @@ public class HighScores{
     public void update(String entry, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
         String[] temp_s = getCurrentScores(context).toArray(new String[0]);
         for (int i = 0; i < 5; i++) {
@@ -127,5 +141,62 @@ public class HighScores{
     }
 
 
+    public void set_initDEF_False(Context context){
+        String[] arr = context.getResources().getStringArray(R.array.initialized);
+
+        SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sp.edit();
+        for (int i = 0; i < arr.length; i++)
+            editor.putBoolean(arr[i],false);
+
+        editor.apply();
+    }
+
+    public boolean get_initDEF_Bool(Context context, String order, String draw){
+        String name = "order_"+order+"_draw_"+draw;
+        SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
+        boolean init = sp.getBoolean(name,false);
+        Log.e("Time", String.valueOf(init));
+
+
+        return init;
+
+    }
+
+    public void set_initDEF_Bool(Context context, String order, String draw, Boolean bool){
+        String name = "order_"+order+"_draw_"+draw;
+        SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(name,bool);
+
+        editor.apply();
+
+    }
+
+    // need to fix this function
+    public boolean isOptionsChanged(String order, String draw){
+        if(order_tmp == null || draw_tmp == null){
+            order_tmp = order;
+            draw_tmp = draw;
+        }
+        else if(order != order_tmp || draw != draw_tmp){
+            order_tmp = order;
+            draw_tmp = draw;
+            Log.e("Time",order_tmp);
+            Log.e("Time",draw_tmp);
+            return true;
+        }
+        Log.e("Time",order_tmp);
+        Log.e("Time",draw_tmp);
+        return false;
+
+    }
+
+    public String getFileName(String order, String draw){
+        String name = "order_"+order+"_draw"+draw;
+        return name;
+    }
 
 }
