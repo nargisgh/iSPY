@@ -46,30 +46,27 @@ public class HighScoreActivity extends AppCompatActivity {
     private static String draw;
     private String array_name;
     private int id;
-    //private   SharedPreferences sharedPreferences;
-
-    private static boolean changed;
     private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
-        highScores = HighScores.getInstance();
+        highScores = HighScores.getInstance(getApplicationContext());
         ConstraintLayout hs_Layout;
         hs_Layout = findViewById(R.id.hs_Layout);
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
 
 
-// get order and drawsize from GM using getters to get correct default array
+// get order and drawsize to get correct default array
         order = highScores.getOrder(HighScoreActivity.this);
         draw = highScores.getDrawPile_size(HighScoreActivity.this);
         name = highScores.getFileName(order,draw);
         Log.e("TAG",order);
         Log.e("TAG",draw);
 
-        default_scores = getDEF_array(order,draw);
+        default_scores = highScores.getDEF_array(order,draw,HighScoreActivity.this);
         isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
         if(!isInitialized) {
             showDEF_scores();
@@ -81,8 +78,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setupResetBtn();
         setupBackBtn();
 
-//    sharedPreferences = this.getSharedPreferences("updated scores",MODE_PRIVATE);
-//        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+
 
 
     }
@@ -267,22 +263,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
 
-    public String[] getDEF_array(String order, String draw_pile_size){
 
-        String array_name = "default_highscores_"+order+"_"+draw_pile_size;
-        int id = getResources().getIdentifier(array_name, "array",this.getPackageName());
-        String[] array = getResources().getStringArray(id);
 
-        return array;
-    }
 
-//    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-//        @Override
-//        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-//            if (key.equals("score1")){
-//                // Write your code here
-//                Toast.makeText(getApplicationContext(), "score changed!", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    };
 }
