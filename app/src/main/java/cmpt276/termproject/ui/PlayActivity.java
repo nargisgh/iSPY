@@ -79,7 +79,8 @@ public class PlayActivity extends AppCompatActivity  {
 
     private void setup(){
         //Setup Game Manager Class
-        GameManager gameManager = GameManager.getInstance();
+        GameManager gameManager = GameManager.getInstance(getApplicationContext());
+        gameManager.setupGameSettings();
         gameManager.createCards();
 
         FrameLayout frameLayout = findViewById(R.id.frame);
