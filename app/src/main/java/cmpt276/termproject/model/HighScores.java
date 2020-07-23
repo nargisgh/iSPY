@@ -176,24 +176,7 @@ public class HighScores{
 
     }
 
-    // need to fix this function
-    public boolean isOptionsChanged(String order, String draw){
-        if(order_tmp == null || draw_tmp == null){
-            order_tmp = order;
-            draw_tmp = draw;
-        }
-        else if(order != order_tmp || draw != draw_tmp){
-            order_tmp = order;
-            draw_tmp = draw;
-            Log.e("Time",order_tmp);
-            Log.e("Time",draw_tmp);
-            return true;
-        }
-        Log.e("Time",order_tmp);
-        Log.e("Time",draw_tmp);
-        return false;
 
-    }
 
     public String getFileName(String order, String draw){
         String name = "order_"+order+"_draw"+draw;
