@@ -102,7 +102,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
                         return;
                     }
                     mRequestMap.remove(target);
-                    //setting bitmap on target PhotoHolder
+                    //setting bitmap on target PhotoAdapter
                     mThumbnailDownloadListener.onThumbnailDownloaded(target, bitmap);
                 } });
         }

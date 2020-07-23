@@ -98,7 +98,7 @@ public class PhotoGallery extends AppCompatActivity  {
         CamRoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new CameraRoll().makeIntent(PhotoGallery.this);
+                Intent i = CameraRoll.makeIntent(PhotoGallery.this);
                 startActivity(i);
             }
         });
@@ -213,10 +213,17 @@ public class PhotoGallery extends AppCompatActivity  {
                         byte[] bitmapBytes = new DownloadGalleryItems().getUrlBytes(mGalleryItem.getUrl());
                         final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
 
-                        flickrManager.saveImage(new FlickrImage(mGalleryItem.getId(), bitmap) , context);
+                        FlickrImage clicked_img = new FlickrImage(mGalleryItem.getId(), bitmap);
+                        if (checkBox.isChecked()){
+                            flickrManager.removeImage(clicked_img,context);
+                            checkBox.setChecked(false);
+                        }
+                        else{
+                            flickrManager.saveImage(clicked_img , context);
+                            checkBox.setChecked(true);
+                        }
                         flickrManager.createImageList(context);
 
-                        checkBox.setChecked(true);
                     }
                     catch (Exception ignored) {
                     }

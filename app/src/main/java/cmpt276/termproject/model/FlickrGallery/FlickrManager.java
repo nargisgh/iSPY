@@ -18,9 +18,11 @@ public class FlickrManager {
 
     private List<FlickrImage> imageList;
     private static FlickrManager instance;
+    private List<FlickrImage> removeList;
 
     //Singleton stuff
     private FlickrManager(){
+        removeList = new ArrayList<>();
     }
     public static FlickrManager getInstance(){
         if (instance == null){
@@ -46,6 +48,19 @@ public class FlickrManager {
             }
         }
 
+    }
+
+
+    public void addToRemoveList(FlickrImage img){
+        removeList.add(img);
+    }
+
+    public void removeFromRemoveList(FlickrImage img){
+        removeList.remove(img);
+    }
+
+    public List<FlickrImage> getRemoveList(){
+        return removeList;
     }
 
     public List<FlickrImage> getImageList(Context context){
