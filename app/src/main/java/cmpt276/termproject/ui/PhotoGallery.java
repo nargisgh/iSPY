@@ -186,14 +186,15 @@ public class PhotoGallery extends AppCompatActivity  {
     private class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private GalleryItem mGalleryItem;
         private ImageView mItemImageView;
+        private CheckBox checkBox;
         public PhotoHolder(View itemView) {
             super(itemView);
             mItemImageView = itemView.findViewById(R.id.item_image_view);
+            checkBox = itemView.findViewById(R.id.grid_item_checkbox);
             itemView.setOnClickListener(this);
         }
         public void bindDrawable(Drawable drawable){
             mItemImageView.setImageDrawable(drawable);
-
         }
         public void bindGalleryItem(GalleryItem galleryItem) {
             mGalleryItem = galleryItem;
@@ -208,12 +209,14 @@ public class PhotoGallery extends AppCompatActivity  {
             Thread saveImg = new Thread(){
                 public void run() {
                     try {
+
                         byte[] bitmapBytes = new DownloadGalleryItems().getUrlBytes(mGalleryItem.getUrl());
                         final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
 
                         flickrManager.saveImage(new FlickrImage(mGalleryItem.getId(), bitmap) , context);
                         flickrManager.createImageList(context);
 
+                        checkBox.setChecked(true);
                     }
                     catch (Exception ignored) {
                     }
