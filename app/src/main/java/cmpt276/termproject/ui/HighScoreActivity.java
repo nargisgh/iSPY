@@ -63,8 +63,7 @@ public class HighScoreActivity extends AppCompatActivity {
         order = highScores.getOrder(HighScoreActivity.this);
         draw = highScores.getDrawPile_size(HighScoreActivity.this);
         name = highScores.getFileName(order,draw);
-        Log.e("TAG",order);
-        Log.e("TAG",draw);
+
 
         default_scores = highScores.getDEF_array(order,draw,HighScoreActivity.this);
         isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
@@ -77,9 +76,6 @@ public class HighScoreActivity extends AppCompatActivity {
 
         setupResetBtn();
         setupBackBtn();
-
-
-
 
     }
     public void showDEF_scores(){
@@ -98,21 +94,6 @@ public class HighScoreActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
-//        String input = entry_new.getString("new entry"+ 1, null);
-//
-//        if (input != null) {
-//            //adding this otherwise wont populate on first game play*
-//            isInitialized = true;
-//        }
-//         //initializing default scores once when app starts
-//        if (!isInitialized) {
-//            highScores.set_default_scores(HighScoreActivity.this, default_scores,name);
-//            arr = highScores.get_default_scores(HighScoreActivity.this,name);
-//            populateScores();
-//            isInitialized = true;
-//            highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
-//        }
-//        else {
             for (int i = 0; i <= counter; i ++ ) {
              String input = entry_new.getString("new entry" + i, null);
                 arr = highScores.getCurrentScores(HighScoreActivity.this,name);
@@ -122,7 +103,6 @@ public class HighScoreActivity extends AppCompatActivity {
                 }
                 updated_table();
             }
-       //}
         editor.putInt("counter", 0);
         editor.apply();
     }

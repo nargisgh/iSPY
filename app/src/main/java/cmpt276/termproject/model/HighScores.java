@@ -187,24 +187,26 @@ public class HighScores{
     }
 
 
-
+// to identify which option highscores is updating
     public String getFileName(String order, String draw){
         String name = "order_"+order+"_draw"+draw;
         return name;
     }
 
+    // getting order from options activity
     public String getOrder(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getString("Order","2");
 
     }
 
+    // getting draw pile size from options activity
     public String getDrawPile_size(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getString("Size","5");
 
     }
-
+//retrieve def array of specific option
     public String[] getDEF_array(String order, String draw_pile_size,Context context){
 
         String array_name = "default_highscores_"+order+"_"+draw_pile_size;
