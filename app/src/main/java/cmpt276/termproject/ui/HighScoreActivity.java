@@ -15,6 +15,7 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -41,14 +42,14 @@ public class HighScoreActivity extends AppCompatActivity {
     private Typeface face;
     private static boolean isInitialized = false;
     ArrayList<String> arr = new ArrayList<>();
-    private String order;
-    private String draw;
+    private static String order;
+    private static String draw;
     private String array_name;
     private int id;
     //private   SharedPreferences sharedPreferences;
-    private String order_tmp;
-    private String draw_tmp;
+
     private static boolean changed;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,11 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
 // get order and drawsize from GM using getters to get correct default array
-        order = "2";
-        draw = "all";
+        order = highScores.getOrder(HighScoreActivity.this);
+        draw = highScores.getDrawPile_size(HighScoreActivity.this);
+        name = highScores.getFileName(order,draw);
+        Log.e("TAG",order);
+        Log.e("TAG",draw);
 
         default_scores = getDEF_array(order,draw);
         isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
@@ -84,8 +88,8 @@ public class HighScoreActivity extends AppCompatActivity {
     }
     public void showDEF_scores(){
 
-        highScores.set_default_scores(HighScoreActivity.this, default_scores);
-        arr = highScores.get_default_scores(HighScoreActivity.this);
+        highScores.set_default_scores(HighScoreActivity.this, default_scores,name);
+        arr = highScores.get_default_scores(HighScoreActivity.this,name);
         populateScores();
         isInitialized = true;
         highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
@@ -94,7 +98,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
     public void initializeScores() {
-        SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+        SharedPreferences entry_new = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
@@ -212,8 +216,8 @@ public class HighScoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 arr.clear();
-                highScores.set_default_scores(HighScoreActivity.this,default_scores);
-                arr = highScores.get_default_scores(HighScoreActivity.this);
+                highScores.set_default_scores(HighScoreActivity.this,default_scores,name);
+                arr = highScores.get_default_scores(HighScoreActivity.this,name);
                 populateScores();
                 SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                 entry_new.edit().clear().apply();

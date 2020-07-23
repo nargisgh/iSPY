@@ -4,6 +4,7 @@ Handles storing and manipulating high score data to be displayed on the high sco
 package cmpt276.termproject.model;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.sql.Time;
@@ -50,7 +51,7 @@ public class HighScores{
     }
 
     //populate default_scores
-    public void set_default_scores(Context context, String[] default_scores){
+    public void set_default_scores(Context context, String[] default_scores,String filename){
 // create a separate SP file name for each order/drawpile_size by receiving the order and draw pile size from GM
         // String file_name = order_[get from GM]_draw_size[get from GM]
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
@@ -64,7 +65,7 @@ public class HighScores{
     }
 
     // get default scores
-    public ArrayList<String> get_default_scores(Context context){
+    public ArrayList<String> get_default_scores(Context context,String filename){
         arr = new ArrayList<>();
         for (int i = 1; i <= 5; i ++){
             SharedPreferences shared_Preferences = context.getSharedPreferences("updated scores", Context.MODE_PRIVATE);
@@ -197,6 +198,18 @@ public class HighScores{
     public String getFileName(String order, String draw){
         String name = "order_"+order+"_draw"+draw;
         return name;
+    }
+
+    public String getOrder(Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getString("Order","2");
+
+    }
+
+    public String getDrawPile_size(Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getString("Size","5");
+
     }
 
 }
