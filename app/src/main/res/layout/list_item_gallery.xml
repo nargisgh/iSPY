@@ -10,7 +10,8 @@
         android:id="@+id/item_image_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_120sdp"
-        android:scaleType="centerCrop">
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/ignore">
 
     </ImageView>
 
@@ -18,8 +19,9 @@
         android:id="@+id/grid_item_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:shadowColor="@color/colorAccent"
         android:layout_marginTop="30dp"
         android:checked="false"
         android:focusable="false"

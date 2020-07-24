@@ -170,7 +170,7 @@ public class HighScoreActivity extends AppCompatActivity {
         if (index >= entry.length) {return;}
         score.setText(entry[index]);
         score.setGravity(Gravity.CENTER);
-        score.setTextSize(25);
+        score.setTextSize(23);
         score.setTextColor(Color.WHITE);
         row.addView(score);
     }

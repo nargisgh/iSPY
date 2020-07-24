@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class PhotoGallery extends AppCompatActivity  {
     private Context context;
     private FlickrManager flickrManager;
     public CheckBox checkBox;
+    private ProgressBar progressBar;
 
 
 
@@ -66,6 +68,8 @@ public class PhotoGallery extends AppCompatActivity  {
         flickrManager = FlickrManager.getInstance();
         context = getApplicationContext();
 
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         setUpThread();
         setUpSearchAndClear();
@@ -198,6 +202,7 @@ public class PhotoGallery extends AppCompatActivity  {
             super(itemView);
             mItemImageView = itemView.findViewById(R.id.item_image_view);
             checkBox = itemView.findViewById(R.id.grid_item_checkbox);
+            checkBox.setEnabled(false);
             itemView.setOnClickListener(this);
         }
         public void bindDrawable(Drawable drawable){
@@ -211,6 +216,7 @@ public class PhotoGallery extends AppCompatActivity  {
         //Click Image Override
         @Override
         public void onClick(View v) {
+            checkBox.setEnabled(true);
             Toast.makeText(PhotoGallery.this,"You clicked "+mGalleryItem.getCaption(),Toast.LENGTH_LONG).show();
 
             Thread saveImg = new Thread(){
@@ -227,7 +233,10 @@ public class PhotoGallery extends AppCompatActivity  {
                         }
                         else{
                             flickrManager.saveImage(clicked_img , context);
+                            checkBox.setButtonTintList(PhotoGallery.this.getColorStateList(R.color.colorAccent));
                             checkBox.setChecked(true);
+                            checkBox.setEnabled(false);
+
                         }
                         flickrManager.createImageList(context);
 
@@ -301,6 +310,7 @@ public class PhotoGallery extends AppCompatActivity  {
         protected void onPostExecute(List<GalleryItem> items) {
             mItems = items;
             setupAdapter();
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -320,6 +330,12 @@ public class PhotoGallery extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
 
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        updateItems();
     }
 }
 
