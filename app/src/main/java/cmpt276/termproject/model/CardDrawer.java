@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.FlickrGallery.FlickrImage;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 
 /* Initializing when cards are drawn, checking if pile is empty,
  * setting theme, saving card info, and custom listener for interactive game play */
@@ -87,12 +89,25 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     // Set the Theme from the available 2 and create bitmap array
     public void setCardTheme(){
+        FlickrManager flickrManager = FlickrManager.getInstance();
+
         bitmaps = new ArrayList<>();
         item_names = new ArrayList<>();
+        Log.e("Theme", " " + gameManager.getTheme());
         int theme = R.array.theme_1_images;
         if (gameManager.getTheme() == 2){
             theme = R.array.theme_2_images;
         }
+        else {
+            List<FlickrImage> flickrImages = flickrManager.getImageList(getContext());
+            Collections.shuffle(flickrImages);
+            for (FlickrImage flickrImage: flickrImages){
+                bitmaps.add(flickrImage.getImgBitmap());
+                item_names.add(flickrImage.getImgID());
+            }
+            return;
+        }
+
         Resources res = getResources();
         List<String> themes = Arrays.asList(res.getStringArray(theme));
         Collections.shuffle(themes);

@@ -186,10 +186,14 @@ public class MainActivity extends AppCompatActivity {
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_hypno);
             gameManager.setTheme(1);
         }
-        else
+        else if (curr_theme.equals("Superheroes"))
         {
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_heroes);
             gameManager.setTheme(2);
+        }
+        else {
+            //make Generic BG
+            gameManager.setTheme(3);
         }
 
         mEdit.apply();
