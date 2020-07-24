@@ -87,7 +87,7 @@
         android:text="@string/order_draw_size"
         android:textColor="#FF9800"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/highscore_headers"
+        app:layout_constraintBottom_toTopOf="@+id/highscore_table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
