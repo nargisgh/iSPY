@@ -43,18 +43,21 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arr = new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
-        gameManager = GameManager.getInstance();
+        gameManager = GameManager.getInstance(getApplicationContext());
         highScores = HighScores.getInstance();
+
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         init = sp.getBoolean("bool",false);
 
         // initializing all options of DEF_array as false once, when app is installed
+        //this is to identify if def scores were initialized for a specific option
         if(!init){
             highScores.set_initDEF_False(MainActivity.this);
             editor = sp.edit();
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         setupHighScoreButton();
         setTheme();
     }
+
+
 
     @Override
     protected void onResume()
@@ -191,5 +196,6 @@ public class MainActivity extends AppCompatActivity {
         musicManager.stop();
         finishAffinity();
     }
+
 
 }

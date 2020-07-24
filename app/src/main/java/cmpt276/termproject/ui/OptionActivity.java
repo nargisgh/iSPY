@@ -80,7 +80,7 @@ public class OptionActivity extends AppCompatActivity {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mEdit = mPreferences.edit();
         String curr_theme = mPreferences.getString("Theme", "Superheroes");
-        String curr_mode = mPreferences.getString("Mode", "Disabled");
+        String curr_mode = mPreferences.getString("Mode", "False");
         String curr_size = mPreferences.getString("Size", "5");
         String curr_order = mPreferences.getString("Order", "2");
 
@@ -97,7 +97,7 @@ public class OptionActivity extends AppCompatActivity {
             hero_rbtn.setChecked(true);
         }
 
-        if (curr_mode.equals("Enabled"))
+        if (curr_mode.equals("True"))
         {
             enabled_rbtn.setChecked(true);
         }
@@ -185,14 +185,14 @@ public class OptionActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            mEdit.putString("Mode", "Enabled");
+                            mEdit.putString("Mode", "True");
                             mEdit.apply();
                         }
                         flickr_rbtn.setEnabled(false);
                         break;
 
                     case 2: //Disabled word and image mode
-                        mEdit.putString("Mode", "Disabled");
+                        mEdit.putString("Mode", "False");
                         mEdit.apply();
                         flickr_rbtn.setEnabled(true);
                         break;

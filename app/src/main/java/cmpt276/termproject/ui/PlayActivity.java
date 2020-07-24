@@ -50,6 +50,8 @@ public class PlayActivity extends AppCompatActivity  {
     boolean isPlaying = false;
     private static  boolean changed;
     private String filename;
+    private static String order;
+    private static String draw;
 
 
     @Override
@@ -60,8 +62,9 @@ public class PlayActivity extends AppCompatActivity  {
         highScore = HighScores.getInstance();
         musicManager = MusicManager.getInstance();
 
-        //changed = highScore.isOptionsChanged("2","5");
-        filename = highScore.getFileName("2","5");
+        order = highScore.getOrder(PlayActivity.this);
+        draw = highScore.getDrawPile_size(PlayActivity.this);
+        filename = highScore.getFileName(order,draw);
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
 
@@ -76,7 +79,8 @@ public class PlayActivity extends AppCompatActivity  {
 
     private void setup(){
         //Setup Game Manager Class
-        GameManager gameManager = GameManager.getInstance();
+        GameManager gameManager = GameManager.getInstance(getApplicationContext());
+        gameManager.setupGameSettings();
         gameManager.createCards();
 
         FrameLayout frameLayout = findViewById(R.id.frame);
@@ -181,7 +185,7 @@ public class PlayActivity extends AppCompatActivity  {
                     String entry = (time + "/ " + name + "/" + dateTime);
 
                     // put string stored in filename var into sharpref file name
-                    SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+                    SharedPreferences entry_new = getSharedPreferences("entry"+filename, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = entry_new.edit();
                     int counter = entry_new.getInt("counter", 0);
                     counter ++;
