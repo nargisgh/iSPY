@@ -17,7 +17,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import cmpt276.termproject.R;
 
@@ -90,9 +94,12 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             theme = R.array.theme_2_images;
         }
         Resources res = getResources();
+        List<String> themes = Arrays.asList(res.getStringArray(theme));
+        Collections.shuffle(themes);
+
         //Set bitmaps and text
-        for (int i = 0;  i < res.getStringArray(theme).length; i ++) {
-            String name = res.getStringArray(theme)[i];
+        for (int i = 0;  i < themes.size(); i ++) {
+            String name = themes.get(i);
             int bitmap_id = getResources().getIdentifier( name, "drawable", getContext().getPackageName());
             Bitmap decoded_bitmap = BitmapFactory.decodeResource(res, bitmap_id);
             bitmaps.add(decoded_bitmap);
