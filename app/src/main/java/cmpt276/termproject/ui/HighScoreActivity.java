@@ -15,9 +15,9 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -39,6 +39,7 @@ public class HighScoreActivity extends AppCompatActivity {
     private TableRow row;
     private String[] default_scores;
     private TableLayout tableLayout;
+
     private Typeface face;
     private static boolean isInitialized = false;
     ArrayList<String> arr = new ArrayList<>();
@@ -58,21 +59,20 @@ public class HighScoreActivity extends AppCompatActivity {
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
 
-
-// get order and drawsize to get correct default array
         order = highScores.getOrder(HighScoreActivity.this);
         draw = highScores.getDrawPile_size(HighScoreActivity.this);
 
         name = highScores.getFileName(order,draw);
-        setOptionsTitle(order,draw);
+        set_Options_Title(order,draw);
 
         default_scores = highScores.getDEF_array(order,draw,HighScoreActivity.this);
         isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
+
         if(!isInitialized) {
             showDEF_scores();
         }
 
-        initializeScores();
+        updatingScores();
 
 
         setupResetBtn();
@@ -80,7 +80,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     }
 
-    private void setOptionsTitle(String order, String draw){
+    private void set_Options_Title(String order, String draw){
 
         if( order.equals("2") && draw.equals("0")){
             draw = "7";
@@ -96,8 +96,6 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     public void showDEF_scores(){
-
-
         highScores.set_default_scores(HighScoreActivity.this, default_scores,name);
         arr = highScores.get_default_scores(HighScoreActivity.this,name);
         populateScores();
@@ -107,14 +105,19 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
 
-    public void initializeScores() {
+    public void updatingScores() {
 
         SharedPreferences entry_new = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
+        String input = entry_new.getString("new entry"+ 1, null);
+        if (input != null) {
+            isInitialized = true;
+            highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
+        }
             for (int i = 0; i <= counter; i ++ ) {
-             String input = entry_new.getString("new entry" + i, null);
+               input = entry_new.getString("new entry" + i, null);
                 arr = highScores.getCurrentScores(HighScoreActivity.this,name);
                 populateScores();
                 if (input != null) {
@@ -130,7 +133,9 @@ public class HighScoreActivity extends AppCompatActivity {
 
         row = new TableRow(this);
         TextView username = new TextView(this);
+
         TextView date = new TextView(this);
+
         TextView score = new TextView(this);
 
         setEntry(entry, score, 0);
@@ -156,6 +161,7 @@ public class HighScoreActivity extends AppCompatActivity {
     private void updated_table(){
         tableLayout = findViewById(R.id.highscore_table);
         tableLayout.removeAllViews();
+
         setHeadings();
 
         for(int i = 1; i<=arr.size();i++){
@@ -196,7 +202,7 @@ public class HighScoreActivity extends AppCompatActivity {
     private void HeadingName(TextView hd, String id) {
         hd.setText(id);
         hd.setTypeface(face);
-        hd.setTextSize(36);
+        hd.setTextSize(34);
         hd.setTextColor(Color.WHITE);
         hd.setGravity(Gravity.CENTER);
         row.addView(hd);
