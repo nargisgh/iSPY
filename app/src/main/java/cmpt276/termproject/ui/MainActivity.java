@@ -37,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
     private TableLayout tableLayout;
     private Typeface face;
     private static boolean isInitialized = false;
+    private static boolean init;
+    private  SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
     ArrayList<String> arr = new ArrayList<>();
+
 
 
     @Override
@@ -45,9 +50,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
-        gameManager = GameManager.getInstance();
+        gameManager = GameManager.getInstance(getApplicationContext());
+        highScores = HighScores.getInstance();
 
-        initializeScores();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        init = sp.getBoolean("bool",false);
+
+        // initializing all options of DEF_array as false once, when app is installed
+        //this is to identify if def scores were initialized for a specific option
+        if(!init){
+            highScores.set_initDEF_False(MainActivity.this);
+            editor = sp.edit();
+            editor.putBoolean("bool",true);
+            editor.commit();
+        }
 
 
         setupPlayButton();
@@ -59,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         setTheme();
     }
 
+
+
     @Override
     protected void onResume()
     {
@@ -66,45 +85,6 @@ public class MainActivity extends AppCompatActivity {
         musicManager.play();
         setTheme();
     }
-
-
-    public void initializeScores() {
-        highScores = HighScores.getInstance();
-        default_scores = getResources().getStringArray(R.array.default_highscores);
-
-
-        SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = entry_new.edit();
-        int counter = entry_new.getInt("counter", 0);
-
-        String input = entry_new.getString("new entry"+ 1, null);
-
-        if (input != null) {
-            //adding this otherwise wont populate on first game play*
-            isInitialized = true;
-        }
-        // initializing default scores once when app starts
-        if (!isInitialized) {
-            highScores.set_default_scores(MainActivity.this, default_scores);
-            arr = highScores.get_default_scores(MainActivity.this);
-            isInitialized = true;
-        }
-        else {
-            for (int i = 0; i <= counter; i ++ ) {
-                input = entry_new.getString("new entry" + i, null);
-                arr = highScores.getCurrentScores(MainActivity.this);
-                if (input != null) {
-                    highScores.update(input, MainActivity.this);
-                }
-            }
-        }
-        editor.putInt("counter", 0);
-        editor.apply();
-    }
-
-
-
-
 
     //Button setup for start , options and play
     private void setupPlayButton(){
@@ -235,5 +215,6 @@ public class MainActivity extends AppCompatActivity {
         musicManager.stop();
         finishAffinity();
     }
+
 
 }

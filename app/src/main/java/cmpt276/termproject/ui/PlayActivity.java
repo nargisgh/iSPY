@@ -21,6 +21,8 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -40,14 +42,17 @@ public class PlayActivity extends AppCompatActivity  {
 
     private Chronometer chronometer;
 
-
-
     private double game_start_time;
     public MusicManager musicManager;
     public HighScores highScore;
 
     private CardDrawer cardDrawer;
     boolean isPlaying = false;
+    private static  boolean changed;
+    private String filename;
+    private static String order;
+    private static String draw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +62,25 @@ public class PlayActivity extends AppCompatActivity  {
         highScore = HighScores.getInstance();
         musicManager = MusicManager.getInstance();
 
-
+        order = highScore.getOrder(PlayActivity.this);
+        draw = highScore.getDrawPile_size(PlayActivity.this);
+        filename = highScore.getFileName(order,draw);
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
 
         setup();
 
+
         chronometer = findViewById(R.id.stopwatch);
+
+
     }
 
 
     private void setup(){
         //Setup Game Manager Class
-        GameManager gameManager = GameManager.getInstance();
+        GameManager gameManager = GameManager.getInstance(getApplicationContext());
+        gameManager.setupGameSettings();
         gameManager.createCards();
 
         FrameLayout frameLayout = findViewById(R.id.frame);
@@ -173,7 +184,8 @@ public class PlayActivity extends AppCompatActivity  {
                     userId.setEnabled(false);
                     String entry = (time + "/ " + name + "/" + dateTime);
 
-                    SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+                    // put string stored in filename var into sharpref file name
+                    SharedPreferences entry_new = getSharedPreferences("entry"+filename, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = entry_new.edit();
                     int counter = entry_new.getInt("counter", 0);
                     counter ++;
@@ -234,4 +246,7 @@ public class PlayActivity extends AppCompatActivity  {
             musicManager.play();
         }
     }
+
+
+
 }

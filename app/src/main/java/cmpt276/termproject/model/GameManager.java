@@ -4,9 +4,16 @@ Handles the general game play: draw pile, discard pile, cards, etc.
 package cmpt276.termproject.model;
 
 
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class GameManager {
 
@@ -14,21 +21,43 @@ public class GameManager {
     * Updating the cards from the drawn pile
     * Setting a consistent
     */
+
+    private Context context;
+    private SharedPreferences sharedPreferences;
+
     private static GameManager instance;
     private List<Card> draw_pile;
     private List<Card> discard_pile;
-    int order = 2;
-    int theme = 1;
+
+    private int draw_pile_size;
+    private boolean imgs_text_mode;
+    private int order = 2;
+    private int theme = 1;
     private List<int[]> draw;
 
     // Singleton for the Manager
-    private GameManager () {}
+    private GameManager (Context context) {
+        imgs_text_mode = true;
+        this.context = context;
+        setupGameSettings();
+    }
 
-    public static GameManager getInstance(){
+    public static GameManager getInstance(Context context){
         if (instance == null)
-            instance = new GameManager();
+            instance = new GameManager(context);
         return  instance;
     }
+
+    public void setupGameSettings(){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        order = Integer.parseInt(sharedPreferences.getString("Order", "2"));
+        draw_pile_size = Integer.parseInt(sharedPreferences.getString("Size", "0"));
+        imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));
+        Log.e("Order", order + " " + draw_pile_size + " " + imgs_text_mode);
+
+    }
+
 
     public Card getTopDrawCard(){
         return draw_pile.get(0);
@@ -51,10 +80,6 @@ public class GameManager {
     }
 
     public void updateCards(){
-        //Function for updating  the cards from the draw configuration that is given,
-        // Since the draw is of order 2 currently, we can have the int[][] be static,
-        // May have to change the draw array to be fetched from a JSON so we don't
-        // have to worry about generating it.
         draw_pile = new ArrayList<>();
         discard_pile = new ArrayList<>();
         for (int[] imgs : draw) {
@@ -70,9 +95,27 @@ public class GameManager {
         CardManager card_generator = CardManager.getInstance();
         draw = card_generator.generateCards(order);
 
+        //Keeps only draw_pile_size elements in the list
+        Collections.shuffle(draw);
+        if (draw_pile_size != 0) {
+            int new_size = draw.size() - draw_pile_size;
+            for (int i = 0; i < new_size ; i ++ ){
+                draw.remove(draw.size()- 1);
+            }
+        }
+
         updateCards();
-        // Shuffle the draw pile
-        Collections.shuffle(draw_pile);
+
+        //Set the Card Mode to Text Randomly
+        if (imgs_text_mode) {
+            for (Card card : draw_pile) {
+                for (int i = 0; i < card.getImages().size(); i++) {
+                    Random bool = new Random();
+                    card.setIsText(i, bool.nextBoolean());
+                }
+            }
+        }
+
         //Shuffle Images on the cards
         for (Card card: draw_pile){
             Collections.shuffle(card.getImages());

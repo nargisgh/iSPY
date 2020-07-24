@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.HighScoreActivity">
 
+
     <TextView
         android:id="@+id/highscore_title_text"
         android:layout_width="wrap_content"
@@ -21,10 +22,10 @@
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07999998"/>
+        app:layout_constraintVertical_bias="0.059" />
 
     <Button
         android:id="@+id/highscore_reset_btn"
@@ -58,6 +59,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95"/>
 
+
     <TableLayout
         android:id="@+id/highscore_table"
         android:layout_width="0dp"
@@ -72,6 +74,21 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55">
-    </TableLayout>
+        app:layout_constraintVertical_bias="0.55"></TableLayout>
+
+    <TextView
+        android:id="@+id/option_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/order_draw_size"
+        android:textColor="#FF9800"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/highscore_table"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/highscore_title_text"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

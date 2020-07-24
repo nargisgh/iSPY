@@ -31,9 +31,19 @@
     <string name="main_hscore_btn">Scores</string>
     <string name="main_title_text">Main Menu</string>
     <string name="options_back_btn">Back</string>
-    <string name="options_rgheader_text">Choose a theme:</string>
-    <string name="options_hypno_rbtn">HypnomobⓇ</string>
-    <string name="options_heroes_rbtn">Superheroes</string>
+    <string name="themes_rgheader_text">Choose a theme:</string>
+    <string name="themes_hypno_rbtn">HypnomobⓇ</string>
+    <string name="themes_heroes_rbtn">Superheroes</string>
+    <string name="themes_flickr_rbtn">Custom (Flickr)</string>
+    <string name="size_rgheader2_text">Deck Size</string>
+    <string name="size_five_rbtn">5</string>
+    <string name="size_ten_rbtn">10</string>
+    <string name="size_fifteen_rbtn">15</string>
+    <string name="size_twenty_rbtn">20</string>
+    <string name="size_all_rbtn">ALL</string>
+    <string name="mode_rgheader3_text">Word mode</string>
+    <string name="mode_enabled_rbtn">Enabled</string>
+    <string name="mode_disabled_rbtn">Disabled</string>
     <string name="options_title_text">Options</string>
     <string name="sources">Sources: \n
         <a href="https://www.creativefabrica.com/product/versus-screen/">"https://www.creativefabrica.com/product/versus-screen/</a>\n
@@ -58,7 +68,32 @@
         <a href="https://www.youtube.com/watch?v=GqHAQsdTdbA">https://www.youtube.com/watch?v=GqHAQsdTdbA</a>\n
         <a href="https://www.youtube.com/watch?v=nK71NEluAqA">https://www.youtube.com/watch?v=nK71NEluAqA</a>\n
         <a href="https://www.seekpng.com/ipng/u2q8w7y3e6t4t4r5_select-template-instagram-story-circle-png/">https://www.seekpng.com/ipng/u2q8w7y3e6t4t4r5_select-template-instagram-story-circle-png/</a>\n
-        <a href="https://www.freepik.com/free-vector/abstract-yellow-zoom-lines-empty-background_5071621.htm">https://www.freepik.com/free-vector/abstract-yellow-zoom-lines-empty-background_5071621.htm</a>
+        <a href="https://www.freepik.com/free-vector/abstract-yellow-zoom-lines-empty-background_5071621.htm">https://www.freepik.com/free-vector/abstract-yellow-zoom-lines-empty-background_5071621.htm</a>\n
+        <a href="https://www.pngfind.com/download/iihbTm_hal-jordan-png-green-lantern-jason-fabok-transparent/">https://www.pngfind.com/download/iihbTm_hal-jordan-png-green-lantern-jason-fabok-transparent/</a>\n
+        <a href="https://www.pngfind.com/download/ioTmRwR_catwoman-png-transparent-images-catwoman-redesign-png-download/">https://www.pngfind.com/download/ioTmRwR_catwoman-png-transparent-images-catwoman-redesign-png-download/</a>\n
+        <a href="https://www.pngfind.com/download/imRmmih_justice-league-aquaman-namor-png-download-justice-league/">https://www.pngfind.com/download/imRmmih_justice-league-aquaman-namor-png-download-justice-league/</a>\n
+        <a href="https://www.pngfind.com/download/hixiwoi_mr-incredible-pow-costume-hat-hd-png-download/">https://www.pngfind.com/download/hixiwoi_mr-incredible-pow-costume-hat-hd-png-download/</a>\n
+        <a href="https://www.pngfind.com/download/iwxbhRi_mister-freeze-png-mr-freeze-png-transparent-png/">https://www.pngfind.com/download/iwxbhRi_mister-freeze-png-mr-freeze-png-transparent-png/</a>\n
+        <a href="https://www.pngfind.com/download/hixmJhh_disfruta-de-los-20-renders-del-juego-assassins/">https://www.pngfind.com/download/hixmJhh_disfruta-de-los-20-renders-del-juego-assassins/</a>\n
+        <a href="https://www.pngfind.com/download/ihwiTiR_ben-10-alien-force-png-download-ben-10/">https://www.pngfind.com/download/ihwiTiR_ben-10-alien-force-png-download-ben-10/</a>\n
+        <a href="https://www.pngfind.com/download/iimJbbR_bendactyl-ben-ben-10-upgrade-omniverse-hd-png/">https://www.pngfind.com/download/iimJbbR_bendactyl-ben-ben-10-upgrade-omniverse-hd-png/</a>\n
+        <a href="https://www.pngfind.com/download/TRRJmhJ_kevin-11-vs-white-monster-ben-10-alien/">https://www.pngfind.com/download/TRRJmhJ_kevin-11-vs-white-monster-ben-10-alien/</a>\n
+        <a href="https://www.pngfind.com/download/hwwoJob_png-riddler-batman-cartoon-transparent-png/">https://www.pngfind.com/download/hwwoJob_png-riddler-batman-cartoon-transparent-png/</a>\n
+        <a href="https://www.pngfind.com/download/biJJow_bane-premium-format-statue-hd-png-download/">https://www.pngfind.com/download/biJJow_bane-premium-format-statue-hd-png-download/</a>\n
+        <a href="https://www.pngfind.com/download/mxwxo_medium-75534-f548356d1b227672781e099-lego-buildable-figures-darth-vader/">https://www.pngfind.com/download/mxwxo_medium-75534-f548356d1b227672781e099-lego-buildable-figures-darth-vader/</a>\n
+        <a href="https://www.pngfind.com/download/wTTwRT_star-wars-jedi-png-old-republic-jedi-armor/">https://www.pngfind.com/download/wTTwRT_star-wars-jedi-png-old-republic-jedi-armor/</a>\n
+        <a href="https://www.pngfind.com/download/xoRbxm_canned-air-wolverine-comic-hd-png-download/">https://www.pngfind.com/download/xoRbxm_canned-air-wolverine-comic-hd-png-download/</a>\n
+        <a href="https://www.pngfind.com/download/JiwJJw_incredibles-png-disney-infinity-incredibles-frozone-transparent-png/">https://www.pngfind.com/download/JiwJJw_incredibles-png-disney-infinity-incredibles-frozone-transparent-png/</a>\n
+        <a href="https://www.pngfind.com/download/oiwiwR_buzz-light-year-transparent-hd-png-download/">https://www.pngfind.com/download/oiwiwR_buzz-light-year-transparent-hd-png-download/</a>\n
+        <a href="https://www.pngfind.com/download/wmmJi_joker-dc-vs-mortal-kombat-hd-png-download/">https://www.pngfind.com/download/wmmJi_joker-dc-vs-mortal-kombat-hd-png-download/</a>\n
+        <a href="https://www.pngfind.com/download/hmmTioi_green-goblin-green-goblin-png-transparent-png/">https://www.pngfind.com/download/hmmTioi_green-goblin-green-goblin-png-transparent-png/</a>\n
+        <a href="https://www.pngfind.com/download/hmmTThb_12-jun-mysterio-spider-man-transparent-hd-png/">https://www.pngfind.com/download/hmmTThb_12-jun-mysterio-spider-man-transparent-hd-png/</a>\n
+        <a href="https://www.pngfind.com/download/iTmowJm_scorn-whose-a-nanite-infused-offshoot-of-carnage/">https://www.pngfind.com/download/iTmowJm_scorn-whose-a-nanite-infused-offshoot-of-carnage/</a>\n
+        <a href="https://www.pngfind.com/download/hhRxoJ_lets-watch-venom-venom-render-hd-png-download/">https://www.pngfind.com/download/hhRxoJ_lets-watch-venom-venom-render-hd-png-download/</a>\n
+        <a href="https://www.pngfind.com/download/iiRTJRx_incredibles-png-dash-incredibles-transparent-png/">https://www.pngfind.com/download/iiRTJRx_incredibles-png-dash-incredibles-transparent-png/</a>\n
+        <a href="https://www.pngfind.com/download/iohwx_violet-parr-always-ready-disney-incredibles-characters-hd/">https://www.pngfind.com/download/iohwx_violet-parr-always-ready-disney-incredibles-characters-hd/</a>\n
+        <a href="https://www.pngfind.com/download/xowbwo_pin-by-crafty-annabelle-on-hulk-printables-pinterest/">https://www.pngfind.com/download/xowbwo_pin-by-crafty-annabelle-on-hulk-printables-pinterest/</a>\n
+
     </string>
     <string name="pop_username_text">Username</string>
     <string name="pop_score_text">Score</string>
@@ -87,5 +122,10 @@
     <string name="delete">Delete</string>
     <string name="main_flickr_btn">Flickr</string>
 
+    <string name="order_rgheader4_text">Order</string>
+    <string name="order_two_rbtn">2</string>
+    <string name="order_three_rbtn">3</string>
+    <string name="order_five_rbtn">5</string>
+    <string name="order_draw_size">order, draw size</string>
 
 </resources>

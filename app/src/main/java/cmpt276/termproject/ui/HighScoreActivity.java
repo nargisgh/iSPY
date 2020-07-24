@@ -15,12 +15,14 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 /*Has functions to populate and update high score table
@@ -40,6 +42,11 @@ public class HighScoreActivity extends AppCompatActivity {
     private Typeface face;
     private static boolean isInitialized = false;
     ArrayList<String> arr = new ArrayList<>();
+    private static String order;
+    private static String draw;
+    private String array_name;
+    private int id;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,42 +58,70 @@ public class HighScoreActivity extends AppCompatActivity {
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
 
-        default_scores = getResources().getStringArray(R.array.default_highscores);
+
+// get order and drawsize to get correct default array
+        order = highScores.getOrder(HighScoreActivity.this);
+        draw = highScores.getDrawPile_size(HighScoreActivity.this);
+
+        name = highScores.getFileName(order,draw);
+        setOptionsTitle(order,draw);
+
+        default_scores = highScores.getDEF_array(order,draw,HighScoreActivity.this);
+        isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
+        if(!isInitialized) {
+            showDEF_scores();
+        }
+
         initializeScores();
+
 
         setupResetBtn();
         setupBackBtn();
+
     }
 
+    private void setOptionsTitle(String order, String draw){
+
+        if( order.equals("2") && draw.equals("0")){
+            draw = "7";
+        }
+        else if(order.equals("3") && draw.equals("0")){
+            draw = "13";
+        }
+        else if(order.equals("5") && draw.equals("0")){
+            draw = "31";
+        }
+        TextView textView = (TextView)findViewById(R.id.option_info);
+        textView.setText("Order: "+ order+ "    Draw Pile Size: "+draw);
+    }
+
+    public void showDEF_scores(){
+
+
+        highScores.set_default_scores(HighScoreActivity.this, default_scores,name);
+        arr = highScores.get_default_scores(HighScoreActivity.this,name);
+        populateScores();
+        isInitialized = true;
+        highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
+
+    }
+
+
     public void initializeScores() {
-        SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
+
+        SharedPreferences entry_new = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
-        String input = entry_new.getString("new entry"+ 1, null);
-
-        if (input != null) {
-            //adding this otherwise wont populate on first game play*
-            isInitialized = true;
-        }
-        // initializing default scores once when app starts
-        if (!isInitialized) {
-            highScores.set_default_scores(HighScoreActivity.this, default_scores);
-            arr = highScores.get_default_scores(HighScoreActivity.this);
-            populateScores();
-            isInitialized = true;
-        }
-        else {
             for (int i = 0; i <= counter; i ++ ) {
-                input = entry_new.getString("new entry" + i, null);
-                arr = highScores.getCurrentScores(HighScoreActivity.this);
+             String input = entry_new.getString("new entry" + i, null);
+                arr = highScores.getCurrentScores(HighScoreActivity.this,name);
                 populateScores();
                 if (input != null) {
-                    highScores.update(input, HighScoreActivity.this);
+                    highScores.update(input, HighScoreActivity.this,name);
                 }
                 updated_table();
             }
-        }
         editor.putInt("counter", 0);
         editor.apply();
     }
@@ -124,7 +159,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setHeadings();
 
         for(int i = 1; i<=arr.size();i++){
-            SharedPreferences sharedPreferences = getSharedPreferences("updated scores", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("updated scores"+name, Context.MODE_PRIVATE);
             String[] entry = sharedPreferences.getString("score"+i,"").split("/");
             populate(entry);
             tableLayout.addView(row);
@@ -176,11 +211,13 @@ public class HighScoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 arr.clear();
-                highScores.set_default_scores(HighScoreActivity.this,default_scores);
-                arr = highScores.get_default_scores(HighScoreActivity.this);
+                highScores.set_default_scores(HighScoreActivity.this,default_scores,name);
+                arr = highScores.get_default_scores(HighScoreActivity.this,name);
                 populateScores();
                 SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                 entry_new.edit().clear().apply();
+
+                highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,false);
             }
         });
     }
@@ -216,10 +253,18 @@ public class HighScoreActivity extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         musicManager.pause();
+
     }
     @Override
     public void onResume() {
         super.onResume();
         musicManager.play();
+
+
     }
+
+
+
+
+
 }
