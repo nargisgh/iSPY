@@ -19,6 +19,7 @@ import android.widget.TableLayout;
 import java.util.ArrayList;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
@@ -65,11 +66,13 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
 
+
         setupPlayButton();
         setupOptionButton();
         setupHelpButton();
         setupQuitButton();
         setupHighScoreButton();
+        setupFlickrButton();
         setTheme();
     }
 
@@ -139,13 +142,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupHighScoreButton() {
-        Button hs_btn = (Button) findViewById(R.id.main_hscore_btn);
+        Button hs_btn = findViewById(R.id.main_hscore_btn);
         dynamicScaling(hs_btn, 5, 8);
 
         hs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = HighScoreActivity.makeIntent(MainActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setupFlickrButton()
+    {
+        Button flickr_btn = findViewById(R.id.main_flickr_btn);
+        dynamicScaling(flickr_btn, 10, 15);
+
+        flickr_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = PhotoGallery.makeIntent(MainActivity.this);
                 startActivity(intent);
             }
         });
