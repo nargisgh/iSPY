@@ -22,9 +22,13 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -94,8 +98,9 @@ public class PhotoGallery extends AppCompatActivity  {
     }
 
     private void setUpCameraRoll() {
-        Button CamRoll = findViewById(R.id.CameraRoll);
-        CamRoll.setOnClickListener(new View.OnClickListener() {
+        Button camroll_btn = findViewById(R.id.CameraRoll);
+        dynamicScaling(camroll_btn, 4, 10);
+        camroll_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = CameraRoll.makeIntent(PhotoGallery.this);
@@ -108,7 +113,8 @@ public class PhotoGallery extends AppCompatActivity  {
 
     private void setUpSearchAndClear() {
         final SearchView searchItem = findViewById(R.id.search_pics);
-        Button clear = findViewById(R.id.clear);
+        Button clear_btn = findViewById(R.id.clear);
+        dynamicScaling(clear_btn, 4, 10);
         searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -132,7 +138,7 @@ public class PhotoGallery extends AppCompatActivity  {
                 searchItem.setQuery(query, false); }
         });
 
-        clear.setOnClickListener(new View.OnClickListener() {
+        clear_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -160,8 +166,9 @@ public class PhotoGallery extends AppCompatActivity  {
     }
 
     private void setUpBack() {
-        Button back = findViewById(R.id.flickr_back);
-        back.setOnClickListener(new View.OnClickListener() {
+        Button back_btn = findViewById(R.id.flickr_back);
+        dynamicScaling(back_btn, 4, 10);
+        back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mThumbnailDownloader.quitSafely();
@@ -299,6 +306,15 @@ public class PhotoGallery extends AppCompatActivity  {
 
     public static Intent makeIntent(Context context){
         return new Intent(context,PhotoGallery.class);
+    }
+
+    private void dynamicScaling (Button button, int width, int height)
+    {
+        ConstraintLayout.LayoutParams btn_size;
+        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btn_size);
     }
 
     @Override
