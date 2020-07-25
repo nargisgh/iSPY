@@ -105,7 +105,7 @@
         android:layout_width="81dp"
         android:layout_height="56dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/cam"
+        android:background="@drawable/cam_copy"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/main_flickr_btn"
         android:textColor="#FF5900"
