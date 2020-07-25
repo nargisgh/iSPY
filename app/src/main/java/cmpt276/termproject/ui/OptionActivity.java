@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.MusicManager;
 
@@ -64,7 +63,7 @@ public class OptionActivity extends AppCompatActivity {
     private void storeOptions()
     {
         RadioButton hero_rbtn = findViewById(R.id.themes_heroes_rbtn);
-        RadioButton hypno_rbtn = findViewById(R.id.themes_logo_rbtn);
+        RadioButton logo_rbtn = findViewById(R.id.themes_logo_rbtn);
         final RadioButton flickr_rbtn = findViewById(R.id.themes_flickr_rbtn);
         final RadioButton enabled_rbtn = findViewById(R.id.mode_enabled_rbtn);
         RadioButton disabled_rbtn = findViewById(R.id.mode_disabled_rbtn);
@@ -85,9 +84,9 @@ public class OptionActivity extends AppCompatActivity {
         String curr_size = mPreferences.getString("Size", "5");
         String curr_order = mPreferences.getString("Order", "2");
 
-        if (curr_theme.equals("Hypnomob"))
+        if (curr_theme.equals("Logogang"))
         {
-            hypno_rbtn.setChecked(true);
+            logo_rbtn.setChecked(true);
         }
         else if (curr_theme.equals("Flickr"))
         {
@@ -185,7 +184,7 @@ public class OptionActivity extends AppCompatActivity {
                         enabled_rbtn.setTextColor(Color.WHITE);
                         break;
 
-                    case 2: //Hypnomob theme chosen
+                    case 2: //Logogang theme chosen
                         mEdit.putString("Theme", "Logogang");
                         mEdit.apply();
                         enabled_rbtn.setEnabled(true);
