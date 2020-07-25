@@ -63,7 +63,7 @@ public class OptionActivity extends AppCompatActivity {
     private void storeOptions()
     {
         RadioButton hero_rbtn = findViewById(R.id.themes_heroes_rbtn);
-        RadioButton hypno_rbtn = findViewById(R.id.themes_hypno_rbtn);
+        RadioButton hypno_rbtn = findViewById(R.id.themes_logo_rbtn);
         final RadioButton flickr_rbtn = findViewById(R.id.themes_flickr_rbtn);
         final RadioButton enabled_rbtn = findViewById(R.id.mode_enabled_rbtn);
         RadioButton disabled_rbtn = findViewById(R.id.mode_disabled_rbtn);
@@ -145,7 +145,7 @@ public class OptionActivity extends AppCompatActivity {
                         break;
 
                     case 2: //Hypnomob theme chosen
-                        mEdit.putString("Theme", "Hypnomob");
+                        mEdit.putString("Theme", "Logogang");
                         mEdit.apply();
                         enabled_rbtn.setEnabled(true);
                         break;

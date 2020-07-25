@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void setupHighScoreButton() {
         Button hs_btn = findViewById(R.id.main_hscore_btn);
         dynamicScaling(hs_btn, 5, 8);
@@ -181,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor mEdit = mPreferences.edit();
         String curr_theme = mPreferences.getString("Theme", "Superheroes");
 
-        if (curr_theme.equals("Hypnomob"))
+        if (curr_theme.equals("Logogang"))
         {
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_hypno);
             gameManager.setTheme(1);
@@ -191,8 +190,11 @@ public class MainActivity extends AppCompatActivity {
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_heroes);
             gameManager.setTheme(2);
         }
-        else {
+        else
+        {
             //make Generic BG
+            mm_Layout.setBackgroundResource(R.drawable.bg_menu_flickr);
+
             gameManager.setTheme(3);
         }
 

@@ -53,11 +53,11 @@
             android:textSize="@dimen/_10ssp"></RadioButton>
 
         <RadioButton
-            android:id="@+id/themes_hypno_rbtn"
+            android:id="@+id/themes_logo_rbtn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mclaren"
-            android:text="@string/themes_hypno_rbtn"
+            android:text="@string/themes_logo_rbtn"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_10ssp"></RadioButton>
 
