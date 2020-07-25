@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -126,6 +127,45 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
 
+        if (flickr_rbtn.isChecked())
+        {
+            enabled_rbtn.setEnabled(false);
+            enabled_rbtn.setTextColor(Color.RED);
+        }
+        if(enabled_rbtn.isChecked())
+        {
+            flickr_rbtn.setEnabled(false);
+            flickr_rbtn.setTextColor(Color.RED);
+        }
+        if (size10_rbtn.isChecked())
+        {
+            order2_rbtn.setEnabled(false);
+            order2_rbtn.setTextColor(Color.RED);
+        }
+        if (size15_rbtn.isChecked() || size20_rbtn.isChecked())
+        {
+            order2_rbtn.setEnabled(false);
+            order2_rbtn.setTextColor(Color.RED);
+            order3_rbtn.setEnabled(false);
+            order3_rbtn.setTextColor(Color.RED);
+        }
+        if (order2_rbtn.isChecked())
+        {
+            size10_rbtn.setEnabled(false);
+            size10_rbtn.setTextColor(Color.RED);
+            size15_rbtn.setEnabled(false);
+            size15_rbtn.setTextColor(Color.RED);
+            size20_rbtn.setEnabled(false);
+            size20_rbtn.setTextColor(Color.RED);
+        }
+        if (order3_rbtn.isChecked())
+        {
+            size15_rbtn.setEnabled(false);
+            size15_rbtn.setTextColor(Color.RED);
+            size20_rbtn.setEnabled(false);
+            size20_rbtn.setTextColor(Color.RED);
+        }
+
         theme_grp = findViewById(R.id.options_themes_rgroup);
         theme_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -142,25 +182,21 @@ public class OptionActivity extends AppCompatActivity {
                         mEdit.putString("Theme", "Superheroes");
                         mEdit.apply();
                         enabled_rbtn.setEnabled(true);
+                        enabled_rbtn.setTextColor(Color.WHITE);
                         break;
 
                     case 2: //Hypnomob theme chosen
                         mEdit.putString("Theme", "Logogang");
                         mEdit.apply();
                         enabled_rbtn.setEnabled(true);
+                        enabled_rbtn.setTextColor(Color.WHITE);
                         break;
 
                     case 3: //Custom Flickr theme chosen
-                        if (enabled_rbtn.isChecked())
-                        {
-                            Toast.makeText(getApplicationContext(), "Choose a different mode!", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            mEdit.putString("Theme","Flickr");
-                            mEdit.apply();
-                        }
+                        mEdit.putString("Theme","Flickr");
+                        mEdit.apply();
                         enabled_rbtn.setEnabled(false);
+                        enabled_rbtn.setTextColor(Color.RED);
                         break;
                 }
             }
@@ -179,22 +215,17 @@ public class OptionActivity extends AppCompatActivity {
                 switch (index)
                 {
                     case 1: //Enabled word and image mode
-                        if (flickr_rbtn.isChecked())
-                        {
-                            Toast.makeText(getApplicationContext(), "Choose a different theme!", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            mEdit.putString("Mode", "True");
-                            mEdit.apply();
-                        }
+                        mEdit.putString("Mode", "True");
+                        mEdit.apply();
                         flickr_rbtn.setEnabled(false);
+                        flickr_rbtn.setTextColor(Color.RED);
                         break;
 
                     case 2: //Disabled word and image mode
                         mEdit.putString("Mode", "False");
                         mEdit.apply();
                         flickr_rbtn.setEnabled(true);
+                        flickr_rbtn.setTextColor(Color.WHITE);
                         break;
                 }
             }
@@ -215,56 +246,45 @@ public class OptionActivity extends AppCompatActivity {
                         mEdit.putString("Size", "5");
                         mEdit.apply();
                         order2_rbtn.setEnabled(true);
+                        order2_rbtn.setTextColor(Color.WHITE);
                         order3_rbtn.setEnabled(true);
+                        order3_rbtn.setTextColor(Color.WHITE);
                         break;
 
                     case 2: //Set deck size to 10
-                        if (order2_rbtn.isChecked())
-                        {
-                            Toast.makeText(getApplicationContext(), "Choose a different order!", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            mEdit.putString("Size", "10");
-                            mEdit.apply();
-                        }
+                        mEdit.putString("Size", "10");
+                        mEdit.apply();
                         order2_rbtn.setEnabled(false);
+                        order2_rbtn.setTextColor(Color.RED);
                         order3_rbtn.setEnabled(true);
+                        order3_rbtn.setTextColor(Color.WHITE);
                         break;
 
                     case 3: //Set deck size to 15
-                        if (order2_rbtn.isChecked() || order3_rbtn.isChecked())
-                        {
-                            Toast.makeText(getApplicationContext(), "Choose a different order!", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            mEdit.putString("Size", "15");
-                            mEdit.apply();
-                        }
+                        mEdit.putString("Size", "15");
+                        mEdit.apply();
                         order2_rbtn.setEnabled(false);
+                        order2_rbtn.setTextColor(Color.RED);
                         order3_rbtn.setEnabled(false);
+                        order3_rbtn.setTextColor(Color.RED);
                         break;
 
                     case 4: //Set deck size to 20
-                        if (order2_rbtn.isChecked() || order3_rbtn.isChecked())
-                        {
-                            Toast.makeText(getApplicationContext(), "Choose a different order!", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            mEdit.putString("Size", "20");
-                            mEdit.apply();
-                        }
+                        mEdit.putString("Size", "20");
+                        mEdit.apply();
                         order2_rbtn.setEnabled(false);
+                        order2_rbtn.setTextColor(Color.RED);
                         order3_rbtn.setEnabled(false);
+                        order3_rbtn.setTextColor(Color.RED);
                         break;
 
                     case 5: //Set deck size to ALL
                         mEdit.putString("Size", "0");
                         mEdit.apply();
                         order2_rbtn.setEnabled(true);
+                        order2_rbtn.setTextColor(Color.WHITE);
                         order3_rbtn.setEnabled(true);
+                        order3_rbtn.setTextColor(Color.WHITE);
                         break;
                 }
             }
@@ -282,41 +302,36 @@ public class OptionActivity extends AppCompatActivity {
                 switch (index)
                 {
                     case 1: //Set order complexity to 2
-                        if (size10_rbtn.isChecked() || size15_rbtn.isChecked() || size20_rbtn.isChecked())
-                        {
-                            Toast.makeText(getApplicationContext(), "Choose a different deck size!", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            mEdit.putString("Order", "2");
-                            mEdit.apply();
-                        }
+                        mEdit.putString("Order", "2");
+                        mEdit.apply();
                         size10_rbtn.setEnabled(false);
+                        size10_rbtn.setTextColor(Color.RED);
                         size15_rbtn.setEnabled(false);
+                        size15_rbtn.setTextColor(Color.RED);
                         size20_rbtn.setEnabled(false);
+                        size20_rbtn.setTextColor(Color.RED);
                         break;
 
                     case 2: //Set order complexity to 3
-                        if (size15_rbtn.isChecked() || size20_rbtn.isChecked())
-                        {
-                            Toast.makeText(getApplicationContext(), "Choose a different deck size!", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            mEdit.putString("Order", "3");
-                            mEdit.apply();
-                        }
+                        mEdit.putString("Order", "3");
+                        mEdit.apply();
                         size10_rbtn.setEnabled(true);
+                        size10_rbtn.setTextColor(Color.WHITE);
                         size15_rbtn.setEnabled(false);
+                        size15_rbtn.setTextColor(Color.RED);
                         size20_rbtn.setEnabled(false);
+                        size20_rbtn.setTextColor(Color.RED);
                         break;
 
                     case 3: //Set order complexity to 5
                         mEdit.putString("Order", "5");
                         mEdit.apply();
                         size10_rbtn.setEnabled(true);
+                        size10_rbtn.setTextColor(Color.WHITE);
                         size15_rbtn.setEnabled(true);
+                        size15_rbtn.setTextColor(Color.WHITE);
                         size20_rbtn.setEnabled(true);
+                        size20_rbtn.setTextColor(Color.WHITE);
                         break;
                 }
             }
