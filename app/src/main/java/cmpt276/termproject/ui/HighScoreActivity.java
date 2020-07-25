@@ -5,6 +5,8 @@ package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,9 +17,12 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
 
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -33,20 +38,15 @@ import java.util.ArrayList;
 public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highScores;
-
-
     private MusicManager musicManager;
     private TableRow row;
     private String[] default_scores;
     private TableLayout tableLayout;
-
     private Typeface face;
     private static boolean isInitialized = false;
     ArrayList<String> arr = new ArrayList<>();
     private static String order;
     private static String draw;
-    private String array_name;
-    private int id;
     private String name;
 
     @Override
@@ -133,9 +133,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
         row = new TableRow(this);
         TextView username = new TextView(this);
-
         TextView date = new TextView(this);
-
         TextView score = new TextView(this);
 
         setEntry(entry, score, 0);
@@ -175,8 +173,8 @@ public class HighScoreActivity extends AppCompatActivity {
     private void setEntry(String[] entry, TextView score, int index) {
         if (index >= entry.length) {return;}
         score.setText(entry[index]);
-        score.setGravity(Gravity.CENTER);
         score.setTextSize(25);
+        score.setGravity(Gravity.CENTER);
         score.setTextColor(Color.WHITE);
         row.addView(score);
     }
@@ -196,16 +194,22 @@ public class HighScoreActivity extends AppCompatActivity {
         HeadingName(score_hd, "Username");
         HeadingName(dateT_hd, "Date/Time");
 
+
         tableLayout.addView(row);
+
+
     }
 
     private void HeadingName(TextView hd, String id) {
         hd.setText(id);
         hd.setTypeface(face);
-        hd.setTextSize(34);
+        hd.setTextSize(36);
         hd.setTextColor(Color.WHITE);
         hd.setGravity(Gravity.CENTER);
+
         row.addView(hd);
+
+
     }
 
     // button to reset back to default scores
@@ -253,6 +257,7 @@ public class HighScoreActivity extends AppCompatActivity {
         btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
         button.setLayoutParams(btn_size);
+
     }
 
     @Override
@@ -268,9 +273,6 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
     }
-
-
-
 
 
 }

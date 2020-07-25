@@ -21,6 +21,7 @@ import cmpt276.termproject.ui.HighScoreActivity;
 
 /* Functions to set default scores, save and update new scores.
  * Using Singleton Method and Shared Preferences to pass data
+ * Use separate filenames to update scores for each order/draw pile size
  */
 
 public class HighScores{
@@ -31,12 +32,6 @@ public class HighScores{
     ArrayList<String> arr = new ArrayList<>();
 
     private Context context;
-    private SharedPreferences sp;
-    private SharedPreferences sharedPreferences;
-    private static String order;
-    private static String draw;
-    private static String key;
-
 
     //Singleton Stuff
     private static HighScores instance;
@@ -96,8 +91,7 @@ public class HighScores{
 
     public String getCurrentDateTime(){
         Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm a");
-        return dateFormat.format(date);
+        return DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.SHORT).format(date);
     }
 
     public String getScore(String entry){
