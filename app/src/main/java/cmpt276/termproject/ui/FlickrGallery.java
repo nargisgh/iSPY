@@ -29,13 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.flickrGallery.FlickrFetchr;
-import cmpt276.termproject.model.flickrGallery.FlickrImage;
-import cmpt276.termproject.model.flickrGallery.FlickrManager;
-import cmpt276.termproject.model.flickrGallery.GalleryItem;
-import cmpt276.termproject.model.flickrGallery.PollService;
-import cmpt276.termproject.model.flickrGallery.QueryPrefs;
-import cmpt276.termproject.model.flickrGallery.ThumbnailDownloader;
+import cmpt276.termproject.model.FlickrGallery.FlickrFetchr;
+import cmpt276.termproject.model.FlickrGallery.FlickrImage;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
+import cmpt276.termproject.model.FlickrGallery.GalleryItem;
+import cmpt276.termproject.model.FlickrGallery.PollService;
+import cmpt276.termproject.model.FlickrGallery.QueryPrefs;
+import cmpt276.termproject.model.FlickrGallery.ThumbnailDownloader;
 
 public class FlickrGallery extends AppCompatActivity  {
     //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano

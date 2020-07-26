@@ -19,8 +19,8 @@ import android.widget.ImageView;
 import java.util.List;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.flickrGallery.FlickrImage;
-import cmpt276.termproject.model.flickrGallery.FlickrManager;
+import cmpt276.termproject.model.FlickrGallery.FlickrImage;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 /* Interacts with FlickrManager to display added photos from API
 *  Can Remove or Add */
 public class CameraRoll extends AppCompatActivity {

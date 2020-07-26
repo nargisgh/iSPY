@@ -23,8 +23,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.flickrGallery.FlickrImage;
-import cmpt276.termproject.model.flickrGallery.FlickrManager;
+import cmpt276.termproject.model.FlickrGallery.FlickrImage;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 
 /* Initializing when cards are drawn, checking if pile is empty,
  * setting theme, saving card info, and custom listener for interactive game play */

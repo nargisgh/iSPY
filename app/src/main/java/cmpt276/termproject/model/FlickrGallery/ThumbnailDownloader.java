@@ -16,15 +16,17 @@ import java.util.concurrent.ConcurrentMap;
 * */
 
 public class ThumbnailDownloader<T> extends HandlerThread {
+    //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
+    //Ch 25-29
     private static final String TAG = "ThumbnailDownloader";
     private static final int MESSAGE_DOWNLOAD = 0;
-    private boolean mHasQuit = false;
+    private boolean hasQuit = false;
 
-    private Handler mRequestHandler;
-    private ConcurrentMap<T,String> mRequestMap = new ConcurrentHashMap<>();
+    private Handler requestHandler;
+    private final ConcurrentMap<T,String> requestMap = new ConcurrentHashMap<>();
 
-    private Handler mResponseHandler;
-    private ThumbnailDownloadListener<T> mThumbnailDownloadListener;
+    private final Handler responseHandler;
+    private ThumbnailDownloadListener<T> thumbnailDownloadListener;
     //<T> type is a generic argument rather than locking the user
     // into a specific type of object as the identifier, more flexible
 
@@ -39,22 +41,25 @@ public class ThumbnailDownloader<T> extends HandlerThread {
     }
 
     public void setThumbnailDownloadListener(ThumbnailDownloadListener listener) {
-        mThumbnailDownloadListener = listener;
+        /*Will be called when image has been fully downloaded and is ready o be added to the UI*/
+        thumbnailDownloadListener = listener;
     }
 
     public ThumbnailDownloader(Handler responseHandler) {
         super(TAG);
-        mResponseHandler = responseHandler;
+        this.responseHandler = responseHandler;
     }
     @SuppressLint("HandlerLeak")
     @Override
     protected void onLooperPrepared() {
-        mRequestHandler = new Handler() {
+        /*Called before the Looper checks the queue for the first time
+        * Good place to create Handler implementation*/
+        requestHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == MESSAGE_DOWNLOAD) {
                     T target = (T) msg.obj;
-                    Log.i(TAG, "Got a request for URL: " + mRequestMap.get(target));
+                    Log.i(TAG, "Got a request for URL: " + requestMap.get(target));
                     handleRequest(target);
                 }
             }};
@@ -62,7 +67,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
 
     @Override
     public boolean quit() {
-        mHasQuit = true;
+        hasQuit = true;
         return super.quit();
     }
     public void queueThumbnail(T target, String url)
@@ -71,39 +76,42 @@ public class ThumbnailDownloader<T> extends HandlerThread {
         // for the download and a string URL for the download (Photo adapter will call this)
         Log.i(TAG, "Got a URL: " + url);
         if (url == null) {
-            mRequestMap.remove(target);
+            requestMap.remove(target);
         }
         else {
-            mRequestMap.put(target, url);
-            mRequestHandler.obtainMessage(MESSAGE_DOWNLOAD, target).sendToTarget();
+            requestMap.put(target, url);
+            requestHandler.obtainMessage(MESSAGE_DOWNLOAD, target).sendToTarget();
         }
 
     }
     public void clearQueue() {
-        mRequestHandler.removeMessages(MESSAGE_DOWNLOAD);
-        mRequestMap.clear();
+        requestHandler.removeMessages(MESSAGE_DOWNLOAD);
+        requestMap.clear();
     }
 
     private void handleRequest(final T target) {
+        /*Helper method where downloading happens
+        * Checking existence of URL, then pass Url to instance of FlickrFetchr
+        * Using BitmapFactory to construct a bitmap with the array of bytes returned from */
         try {
-            final String url = mRequestMap.get(target);
+            final String url = requestMap.get(target);
             if (url == null) {
                 return;
             }
-            byte[] bitmapBytes = new DownloadGalleryItems().getUrlBytes(url);
+            byte[] bitmapBytes = new FlickrFetchr().getUrlBytes(url);
             final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
             Log.i(TAG, "Bitmap created");
 
             //Downloading and displaying images
-            mResponseHandler.post(new Runnable() {
+            responseHandler.post(new Runnable() {
                 public void run() {
                     //all code inside run will be executed on main thread
-                    if (!Objects.equals(mRequestMap.get(target), url) || mHasQuit) {
+                    if (!Objects.equals(requestMap.get(target), url) || hasQuit) {
                         return;
                     }
-                    mRequestMap.remove(target);
+                    requestMap.remove(target);
                     //setting bitmap on target PhotoAdapter
-                    mThumbnailDownloadListener.onThumbnailDownloaded(target, bitmap);
+                    thumbnailDownloadListener.onThumbnailDownloaded(target, bitmap);
                 } });
         }
         catch (IOException ioe) {

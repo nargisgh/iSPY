@@ -1,4 +1,4 @@
-package cmpt276.termproject.model.flickrGallery;
+package cmpt276.termproject.model.FlickrGallery;
 
 import android.net.Uri;
 

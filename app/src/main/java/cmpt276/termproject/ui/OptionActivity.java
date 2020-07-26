@@ -45,6 +45,7 @@ public class OptionActivity extends AppCompatActivity {
         flickrManager = FlickrManager.getInstance();
         image_list = flickrManager.getImageList(getApplicationContext());
 
+
         ConstraintLayout os_Layout;
         musicManager = MusicManager.getInstance();
         musicManager.play();

@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 
 public class FlickrImage {
 
-    private String imgID;
-    private Bitmap imgBitmap;
+    private final String imgID;
+    private final Bitmap imgBitmap;
 
     public FlickrImage(String ID, Bitmap bitmap){
         imgID = ID;
