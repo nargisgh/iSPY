@@ -71,4 +71,8 @@ public class HelpActivity extends AppCompatActivity {
         super.onResume();
         musicManager.play();
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }

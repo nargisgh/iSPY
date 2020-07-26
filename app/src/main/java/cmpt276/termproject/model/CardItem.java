@@ -5,7 +5,7 @@ import android.graphics.Rect;
 
 public class CardItem {
 
-    private int item;
+    private final int item;
     private int[] item_coords = new int[2];
     private Bitmap bitmap;
     private String name;

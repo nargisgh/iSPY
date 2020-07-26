@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +19,16 @@ import android.widget.ImageView;
 import java.util.List;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.FlickrGallery.FlickrImage;
-import cmpt276.termproject.model.FlickrGallery.FlickrManager;
-
+import cmpt276.termproject.model.flickrGallery.FlickrImage;
+import cmpt276.termproject.model.flickrGallery.FlickrManager;
+/* Interacts with FlickrManager to display added photos from API
+*  Can Remove or Add */
 public class CameraRoll extends AppCompatActivity {
-
+    //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
+    //Ch. 25-29
     private FlickrManager flickrManager;
     private List<FlickrImage> imageList;
-    private RecyclerView mPhotoRecyclerView;
+    private RecyclerView photoRecyclerView;
     private List<FlickrImage> removeList;
 
     @Override
@@ -40,9 +41,9 @@ public class CameraRoll extends AppCompatActivity {
 
         flickrManager = FlickrManager.getInstance();
         showBitmaps();
-        mPhotoRecyclerView = findViewById(R.id.camroll);
-        mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(CameraRoll.this,5));
-        mPhotoRecyclerView.setAdapter(new PhotoAdapter());
+        photoRecyclerView = findViewById(R.id.camroll);
+        photoRecyclerView.setLayoutManager(new GridLayoutManager(CameraRoll.this,5));
+        photoRecyclerView.setAdapter(new PhotoAdapter());
     }
 
     private void setUpBack() {
@@ -68,7 +69,7 @@ public class CameraRoll extends AppCompatActivity {
                 for (int i = 0 ; i < removeList.size(); i ++){
                     flickrManager.removeImage(removeList.get(i),getApplicationContext());
                 }
-                mPhotoRecyclerView.setAdapter(new PhotoAdapter());
+                photoRecyclerView.setAdapter(new PhotoAdapter());
 
             }
         });
@@ -76,11 +77,11 @@ public class CameraRoll extends AppCompatActivity {
     }
 
 
-    private class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView image;
-        private CheckBox checkBox;
-        private List<FlickrImage> imageList;
-        private FlickrManager flickrManager;
+    private static class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private final ImageView image;
+        private final CheckBox checkBox;
+        private final List<FlickrImage> imageList;
+        private final FlickrManager flickrManager;
         public PhotoHolder(View itemView, List<FlickrImage> imageList) {
             super(itemView);
             flickrManager = FlickrManager.getInstance();
@@ -115,14 +116,14 @@ public class CameraRoll extends AppCompatActivity {
 
     }
 
-
+    //Adapter to display Images in layout
     public class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder>{
         @Override
         public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(CameraRoll.this);
             View view = inflater.inflate(R.layout.list_item_gallery, parent, false);
 
-            return new PhotoHolder(view,imageList);
+            return new PhotoHolder(view, imageList);
         }
 
         @Override
@@ -146,6 +147,6 @@ public class CameraRoll extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        //Disable back button
     }
 }

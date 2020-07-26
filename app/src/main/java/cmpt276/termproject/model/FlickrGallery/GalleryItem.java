@@ -1,49 +1,50 @@
-package cmpt276.termproject.model.FlickrGallery;
+package cmpt276.termproject.model.flickrGallery;
 
 import android.net.Uri;
 
 public class GalleryItem {
-
-    private String mCaption;
-    private String mId;
-    private String mUrl;
-    private String mOwner;
+    //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
+    //Ch 25-29
+    private String Caption;
+    private String ID;
+    private String Url;
+    private String Owner;
 
     public String getOwner() {
-        return mOwner;
+        return Owner;
     }
     public void setOwner(String owner) {
-        mOwner = owner;
+        Owner = owner;
     }
     public Uri getPhotoPageUri() {
         return Uri.parse("https://www.flickr.com/photos/").buildUpon()
-                        .appendPath(mOwner).appendPath(mId).build();
+                        .appendPath(Owner).appendPath(ID).build();
     }
 
     @Override
     public String toString() {
-        return mCaption;
+        return Caption;
     }
 
     public void setId(String id) {
-        this.mId = id;
+        this.ID = id;
     }
 
     public String getId() {
-        return mId;
+        return ID;
     }
 
     public void setCaption(String title) {
-        this.mCaption = title;
+        this.Caption = title;
     }
     public String getCaption(){
-        return mCaption;
+        return Caption;
     }
 
     public void setUrl(String url_s) {
-        this.mUrl = url_s;
+        this.Url = url_s;
     }
     public String getUrl(){
-        return mUrl;
+        return Url;
     }
 }

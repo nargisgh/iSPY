@@ -9,19 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
@@ -34,18 +27,6 @@ public class MainActivity extends AppCompatActivity {
     public MusicManager musicManager;
     private GameManager gameManager;
 
-    private HighScores highScores;
-    private String[] default_scores;
-    private TableLayout tableLayout;
-    private Typeface face;
-    private static boolean isInitialized = false;
-    private static boolean init;
-    private  SharedPreferences sp;
-    private SharedPreferences.Editor editor;
-
-    ArrayList<String> arr = new ArrayList<>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +34,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance(getApplicationContext());
-        highScores = HighScores.getInstance();
+        HighScores highScores = HighScores.getInstance();
 
 
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
-        init = sp.getBoolean("bool",false);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean init = sp.getBoolean("bool", false);
 
         // initializing all options of DEF_array as false once, when app is installed
         //this is to identify if def scores were initialized for a specific option
         if(!init){
             highScores.set_initDEF_False(MainActivity.this);
-            editor = sp.edit();
+            SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("bool",true);
-            editor.commit();
+            editor.apply();
         }
 
 
@@ -165,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = PhotoGallery.makeIntent(MainActivity.this);
+                Intent intent = FlickrGallery.makeIntent(MainActivity.this);
                 startActivity(intent);
             }
         });
