@@ -2,13 +2,8 @@
 Sub Class for placing images on the cards
  */
 package cmpt276.termproject.model;
-import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.util.Log;
-
-
-import java.util.List;
 
  /* Sub Class for placing Images on the cards, (probably better way to do this, I just used the
   default Extract Method in Android Studio) */

@@ -362,4 +362,8 @@ public class OptionActivity extends AppCompatActivity {
         musicManager.play();
         storeOptions();
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }

@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,35 +22,31 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.appbar.AppBarLayout;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.FlickrGallery.DownloadGalleryItems;
-import cmpt276.termproject.model.FlickrGallery.FlickrImage;
-import cmpt276.termproject.model.FlickrGallery.FlickrManager;
-import cmpt276.termproject.model.FlickrGallery.GalleryItem;
-import cmpt276.termproject.model.FlickrGallery.PollService;
-import cmpt276.termproject.model.FlickrGallery.QueryPrefs;
-import cmpt276.termproject.model.FlickrGallery.ThumbnailDownloader;
+import cmpt276.termproject.model.flickrGallery.FlickrFetchr;
+import cmpt276.termproject.model.flickrGallery.FlickrImage;
+import cmpt276.termproject.model.flickrGallery.FlickrManager;
+import cmpt276.termproject.model.flickrGallery.GalleryItem;
+import cmpt276.termproject.model.flickrGallery.PollService;
+import cmpt276.termproject.model.flickrGallery.QueryPrefs;
+import cmpt276.termproject.model.flickrGallery.ThumbnailDownloader;
 
-public class PhotoGallery extends AppCompatActivity  {
-    private static final String TAG = "PhotoGallery";
-    private RecyclerView mPhotoRecyclerView;
-    private List<GalleryItem> mItems = new ArrayList<>();
-    private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
+public class FlickrGallery extends AppCompatActivity  {
+    //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
+    //Ch 25-29
+    private static final String TAG = "FlickrGallery";
+    private RecyclerView photoRecyclerView;
+    private List<GalleryItem> Items = new ArrayList<>();
+    private ThumbnailDownloader<PhotoHolder> thumbnailDownloader;
     public String query;
     private Context context;
     private FlickrManager flickrManager;
-    public CheckBox checkBox;
 
 
 
@@ -60,8 +55,8 @@ public class PhotoGallery extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_gallery);
 
-        mPhotoRecyclerView = findViewById(R.id.photo_recycler_view);
-        mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(PhotoGallery.this,5));
+        photoRecyclerView = findViewById(R.id.photo_recycler_view);
+        photoRecyclerView.setLayoutManager(new GridLayoutManager(FlickrGallery.this,5));
 
         flickrManager = FlickrManager.getInstance();
         context = getApplicationContext();
@@ -73,17 +68,16 @@ public class PhotoGallery extends AppCompatActivity  {
         setUpCameraRoll();
         updateItems();
 
-        Intent i = PollService.newIntent(PhotoGallery.this);
-        PhotoGallery.this.startService(i);
-        //PollService.setServiceAlarm(PhotoGallery.this,true);
+        Intent i = PollService.newIntent(FlickrGallery.this);
+        FlickrGallery.this.startService(i);
         setupAdapter();
    }
 
     private void setUpThread() {
         Handler responseHandler = new Handler();
-        mThumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
+        thumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
 
-        mThumbnailDownloader.setThumbnailDownloadListener(new ThumbnailDownloader.ThumbnailDownloadListener<PhotoHolder>(){
+        thumbnailDownloader.setThumbnailDownloadListener(new ThumbnailDownloader.ThumbnailDownloadListener<PhotoHolder>(){
             //Photoholder makes for a convenient
             // identifier as it is also the target where the downloaded images will eventually go
             @Override
@@ -92,8 +86,8 @@ public class PhotoGallery extends AppCompatActivity  {
                 photoHolder.bindDrawable(drawable);
             }
         });
-        mThumbnailDownloader.start();
-        mThumbnailDownloader.getLooper();
+        thumbnailDownloader.start();
+        thumbnailDownloader.getLooper();
         Log.i(TAG, "Background thread started");
     }
 
@@ -103,7 +97,7 @@ public class PhotoGallery extends AppCompatActivity  {
         camroll_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = CameraRoll.makeIntent(PhotoGallery.this);
+                Intent i = CameraRoll.makeIntent(FlickrGallery.this);
                 startActivity(i);
             }
         });
@@ -119,7 +113,7 @@ public class PhotoGallery extends AppCompatActivity  {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d(TAG, "QueryTextSubmit: " + query);
-                QueryPrefs.setStoredQuery(PhotoGallery.this, query);
+                QueryPrefs.setStoredQuery(FlickrGallery.this, query);
                 updateItems();
 
                 return true;
@@ -134,15 +128,16 @@ public class PhotoGallery extends AppCompatActivity  {
         searchItem.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                query = QueryPrefs.getStoredQuery(PhotoGallery.this);
+                //Updating stored query whenever user submits new query
+                query = QueryPrefs.getStoredQuery(FlickrGallery.this);
                 searchItem.setQuery(query, false); }
         });
 
         clear_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                QueryPrefs.setStoredQuery(PhotoGallery.this, null);
+                //clearing stored query
+                QueryPrefs.setStoredQuery(FlickrGallery.this, null);
                 updateItems();
             }
         });
@@ -151,17 +146,17 @@ public class PhotoGallery extends AppCompatActivity  {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mThumbnailDownloader.interrupt();
-        mThumbnailDownloader.clearQueue();
-        mThumbnailDownloader.quit();
+        thumbnailDownloader.interrupt();
+        thumbnailDownloader.clearQueue();
+        thumbnailDownloader.quit();
         Log.i(TAG, "Background thread destroyed");
 
     }
 
 
     private void updateItems() {
-
-        query = QueryPrefs.getStoredQuery(PhotoGallery.this);
+        //Will start AsyncTask
+        query = QueryPrefs.getStoredQuery(FlickrGallery.this);
         new FetchItemsTask(query).execute();
     }
 
@@ -171,7 +166,7 @@ public class PhotoGallery extends AppCompatActivity  {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mThumbnailDownloader.quitSafely();
+                thumbnailDownloader.quitSafely();
                 finish();
             }
         });
@@ -179,48 +174,47 @@ public class PhotoGallery extends AppCompatActivity  {
 
     public void setupAdapter() {
         if (isAdded()) {
-            mPhotoRecyclerView.setAdapter(new PhotoAdapter(mItems));
-
+            photoRecyclerView.setAdapter(new PhotoAdapter(Items));
         }
     }
 
     private boolean isAdded() {
-        return mItems != null;
+        return Items != null;
     }
-
 
     //when you click each photo
     private class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private GalleryItem mGalleryItem;
-        private ImageView mItemImageView;
-        private CheckBox checkBox;
+        private GalleryItem galleryItem;
+        private final ImageView itemImageView;
+        private final CheckBox checkBox;
         public PhotoHolder(View itemView) {
             super(itemView);
-            mItemImageView = itemView.findViewById(R.id.item_image_view);
+            itemImageView = itemView.findViewById(R.id.item_image_view);
             checkBox = itemView.findViewById(R.id.grid_item_checkbox);
             itemView.setOnClickListener(this);
+            //https://dzone.com/articles/grid-images-and-checkboxes
         }
         public void bindDrawable(Drawable drawable){
-            mItemImageView.setImageDrawable(drawable);
+            itemImageView.setImageDrawable(drawable);
         }
         public void bindGalleryItem(GalleryItem galleryItem) {
-            mGalleryItem = galleryItem;
+            this.galleryItem = galleryItem;
         }
 
 
         //Click Image Override
         @Override
         public void onClick(View v) {
-            Toast.makeText(PhotoGallery.this,"You clicked "+mGalleryItem.getCaption(),Toast.LENGTH_LONG).show();
+            Toast.makeText(FlickrGallery.this,"You saved "+ galleryItem.getCaption(),Toast.LENGTH_LONG).show();
 
             Thread saveImg = new Thread(){
                 public void run() {
                     try {
 
-                        byte[] bitmapBytes = new DownloadGalleryItems().getUrlBytes(mGalleryItem.getUrl());
+                        byte[] bitmapBytes = new FlickrFetchr().getUrlBytes(galleryItem.getUrl());
                         final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
 
-                        FlickrImage clicked_img = new FlickrImage(mGalleryItem.getId(), bitmap);
+                        FlickrImage clicked_img = new FlickrImage(galleryItem.getId(), bitmap);
                         if (checkBox.isChecked()){
                             flickrManager.removeImage(clicked_img,context);
                             checkBox.setChecked(false);
@@ -239,24 +233,19 @@ public class PhotoGallery extends AppCompatActivity  {
             };
             saveImg.start();
 
-            //Intent i = new Intent(Intent.ACTION_VIEW, mGalleryItem.getPhotoPageUri());
-            //startActivity(i);
         }
     }
 
-
-
-
-
     private class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder> {
-        private List<GalleryItem> mGalleryItems;
+        /*Adapter to provide PhotoHolders as needed based on list of GalleryItems*/
+        private final List<GalleryItem> galleryItems;
         public PhotoAdapter(List<GalleryItem> galleryItems) {
-            mGalleryItems = galleryItems;
+            this.galleryItems = galleryItems;
         }
         @Override
         public PhotoHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
         {
-            LayoutInflater inflater = LayoutInflater.from(PhotoGallery.this);
+            LayoutInflater inflater = LayoutInflater.from(FlickrGallery.this);
             View view = inflater.inflate(R.layout.list_item_gallery, viewGroup, false);
             return new PhotoHolder(view);
         }
@@ -265,47 +254,50 @@ public class PhotoGallery extends AppCompatActivity  {
             //call the thread's queue thumbnail method and pass the target
             // photoholder where img will be placed in galleryitem's url to download from
 
-            GalleryItem galleryItem = mGalleryItems.get(position);
+            GalleryItem galleryItem = galleryItems.get(position);
             photoHolder.bindGalleryItem(galleryItem);
-            Drawable placeholder = ContextCompat.getDrawable(PhotoGallery.this,R.drawable.loading_spinner);
+            Drawable placeholder = ContextCompat.getDrawable(FlickrGallery.this,R.drawable.loading_spinner);
             photoHolder.bindDrawable(placeholder);
-            mThumbnailDownloader.queueThumbnail(photoHolder, galleryItem.getUrl());
+            thumbnailDownloader.queueThumbnail(photoHolder, galleryItem.getUrl());
 
         }
         @Override
         public int getItemCount() {
-            return mGalleryItems.size();
+            return galleryItems.size();
         }
     }
 
     //Thread Handling
     @SuppressLint("StaticFieldLeak")
     private class FetchItemsTask extends AsyncTask<Void,Void,List<GalleryItem>> {
-        private String mQuery;
+        /*Easiest way to work with a bg thread to use utility class AsyncTask
+        * Creates bg thread and runs in code doInBg()*/
+        private final String Query;
         public FetchItemsTask(String query) {
-            mQuery = query;
+            Query = query;
         }
 
 
         @Override
         protected List<GalleryItem> doInBackground(Void... voids) {
-            if (mQuery == null) {
-                return new DownloadGalleryItems().searchPhotos("cloud");
-                //return new DownloadGalleryItems().fetchRecentPhotos();
+            /*Get data from the Website and log it*/
+            if (Query == null) {
+                return new FlickrFetchr().searchPhotos("cloud");
+                //return new FlickrFetchr().fetchRecentPhotos();
             }
             else {
-                return new DownloadGalleryItems().searchPhotos(mQuery);
+                return new FlickrFetchr().searchPhotos(Query);
             }
         }
         @Override
         protected void onPostExecute(List<GalleryItem> items) {
-            mItems = items;
+            Items = items;
             setupAdapter();
         }
     }
 
     public static Intent makeIntent(Context context){
-        return new Intent(context,PhotoGallery.class);
+        return new Intent(context, FlickrGallery.class);
     }
 
     private void dynamicScaling (Button button, int width, int height)

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Card {
 
-    private List<CardItem> cardItems = new ArrayList<>();
+    private final List<CardItem> cardItems = new ArrayList<>();
 
     public Card(List<Integer> images){
         for (int img: images){

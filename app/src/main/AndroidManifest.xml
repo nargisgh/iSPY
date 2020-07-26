@@ -17,7 +17,7 @@
         <activity android:name=".ui.CameraRoll"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".ui.PhotoGallery"
+            android:name=".ui.FlickrGallery"
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.HighScoreActivity"
@@ -48,7 +48,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <service android:name=".model.FlickrGallery.PollService" />
+        <service android:name=".model.flickrGallery.PollService" />
     </application>
 
 </manifest>

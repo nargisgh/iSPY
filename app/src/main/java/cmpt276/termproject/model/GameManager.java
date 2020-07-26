@@ -22,7 +22,7 @@ public class GameManager {
     * Setting a consistent
     */
 
-    private Context context;
+    private final Context context;
     private SharedPreferences sharedPreferences;
 
     private static GameManager instance;
