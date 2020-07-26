@@ -19,10 +19,11 @@
     <string name="splash_author_text">A Game By:\nShaheen Eshghi\nHalakseka Jegatheesan\nMikhail Alexeev\nNargis Ghiasi</string>
     <string name="help_title_text">Help</string>
     <string name="help_back_btn">Back</string>
-    <string name="help_desc_text">Every round there will be two cards displayed on the screen. Each card will have 3 themed pictures displayed on it.
-        The cards will have some pictures in common with each other. Your task is to find which pictures are shared between the two cards and you must
-        do so in the least time possible. You can choose a theme for the pictures through the options menu. Choose the superheroes theme for a lower difficulty
-        and the patterns theme for a more challenging game.
+    <string name="help_desc_text">Inspired by Spot It, iSpy will display two stacks of cards with a number of pictures on each card at the beginning of each game. There is always
+        exactly one image that matches between all the cards; you need to match the image from the newly drawn card to the card in the discard pile. You have the choice of choosing the
+        theme of what images you want to use (Superheros or Logos) and don\'t worry, if you find those images easy, you can choose your own from Flickr and save or edit those options.
+        If you want to challenge yourself even more, enable the text feature to match images and their corresponding text, match text-to-text, or mixed! Another way to challenge yourself is
+        having the freedom of choosing deck size and order in the options menu. First time playing? Give it a go with the default game and start making your way up to the highest and fastest score.
     </string>
     <string name="main_play_btn">Play</string>
     <string name="main_quit_btn">Quit</string>
@@ -123,7 +124,9 @@
         <a href="https://www.pngfind.com/download/oRoiTJ_mercedes-benz-logo-png-transparent-mercedes-benz-png/">https://www.pngfind.com/download/oRoiTJ_mercedes-benz-logo-png-transparent-mercedes-benz-png/</a>\n
         <a href="https://www.pngfind.com/download/iJJThwm_ferrari-racing-days-back-in-the-uk-for/">https://www.pngfind.com/download/iJJThwm_ferrari-racing-days-back-in-the-uk-for/</a>\n
         <a href="https://www.pngfind.com/download/hJxwRoh_logo-element-png-element-logo-transparent-png/">https://www.pngfind.com/download/hJxwRoh_logo-element-png-element-logo-transparent-png/</a>\n
-        <a href="https://www.pngfind.com/download/JTTRR_razer-logo-black-and-white-hd-png-download/">https://www.pngfind.com/download/JTTRR_razer-logo-black-and-white-hd-png-download/</a>
+        <a href="https://www.pngfind.com/download/JTTRR_razer-logo-black-and-white-hd-png-download/">https://www.pngfind.com/download/JTTRR_razer-logo-black-and-white-hd-png-download/</a>\n
+        <a href="https://www.wallpapervortex.com/wallpaper-62673_photo_manipulation_vaporwave.html">https://www.wallpapervortex.com/wallpaper-62673_photo_manipulation_vaporwave.html</a>\n
+        <a href="https://www.subpng.com/png-qx716d/">https://www.subpng.com/png-qx716d/</a>
 
     </string>
     <string name="pop_username_text">Username</string>

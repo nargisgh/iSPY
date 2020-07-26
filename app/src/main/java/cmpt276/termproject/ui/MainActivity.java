@@ -9,12 +9,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -182,11 +184,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (curr_theme.equals("Logogang"))
         {
-            mm_Layout.setBackgroundResource(R.drawable.bg_menu_hypno);
+            //set Logogang BG
+            mm_Layout.setBackgroundResource(R.drawable.bg_menu_logo);
             gameManager.setTheme(1);
         }
         else if (curr_theme.equals("Superheroes"))
         {
+            //set Superhero BG
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_heroes);
             gameManager.setTheme(2);
         }
@@ -194,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
         {
             //make Generic BG
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_flickr);
-
             gameManager.setTheme(3);
         }
 
