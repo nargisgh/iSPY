@@ -81,6 +81,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         gameManager = GameManager.getInstance(context);
         setCardTheme();
         RADIUS = context.getResources().getDisplayMetrics().heightPixels / 3.5f;
+
         card_bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.card);
         card_bitmap = Bitmap.createScaledBitmap(card_bitmap,(int)RADIUS * 2 , (int)RADIUS * 2, true);
         this.setZOrderOnTop(true);
@@ -184,15 +185,18 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
         //Draw Card Stacks
         //Draw Pile
-        int card_pile_offset  = 30;
+        int card_pile_offset  = 24;
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
+        Bitmap deck_card = BitmapFactory.decodeResource(getResources(), R.drawable.deck_card);
+
+        Bitmap scaled_card = Bitmap.createScaledBitmap(deck_card,deck_card.getWidth()/8, deck_card.getHeight()/8,true);
         for (int i = 0; i < gameManager.getDrawPile().size(); i++){
-            canvas.drawBitmap(card_bitmap,x - (2 * RADIUS) - OFFSET, y - RADIUS - i * card_pile_offset, paint);
+            canvas.drawBitmap(scaled_card,x - (3 * RADIUS) - OFFSET, y + RADIUS - i * card_pile_offset, paint);
         }
 
         //Discard Pile
         for (int i = 0; i < gameManager.getDiscardPile().size(); i++){
-            canvas.drawBitmap(card_bitmap,x + OFFSET, y - RADIUS - i * card_pile_offset, paint);
+            canvas.drawBitmap(scaled_card,x + (2 * RADIUS) + OFFSET, y + RADIUS - i * card_pile_offset, paint);
         }
 
 
