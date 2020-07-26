@@ -54,14 +54,6 @@ public class Card {
         cardItems.get(index).setBitmap(bitmap);
     }
 
-    public List<Bitmap> getImageBitmaps(){
-        List<Bitmap> bitmaps = new ArrayList<>();
-        for (CardItem cardItem: cardItems){
-            bitmaps.add(cardItem.getItemBitmaps());
-        }
-        return bitmaps;
-    }
-
     public void setIsText(int idx, boolean isText){
         cardItems.get(idx).setMode(isText);
     }

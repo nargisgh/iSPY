@@ -58,6 +58,10 @@ public class GameManager {
 
     }
 
+    public boolean getMode(){
+        return imgs_text_mode;
+    }
+
 
     public Card getTopDrawCard(){
         return draw_pile.get(0);

@@ -170,7 +170,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
         //Draw discard Cards
         int offset = (int) (Math.random() * 90);
-        for (int i = 0; i <num_images; i ++){
+        for (int i = 0; i < num_images; i ++){
             saveCardInfo(gameManager.getTopDiscardCard(), i, rectPlacer, (int) (x + RADIUS + OFFSET), y, offset , section_size);
         }
 

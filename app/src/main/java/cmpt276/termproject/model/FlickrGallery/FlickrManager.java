@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class FlickrManager {
@@ -47,7 +49,7 @@ public class FlickrManager {
                 e.printStackTrace();
             }
         }
-
+        Collections.shuffle(imageList);
     }
 
 

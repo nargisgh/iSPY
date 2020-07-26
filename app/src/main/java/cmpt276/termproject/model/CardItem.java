@@ -44,10 +44,6 @@ public class CardItem {
         this.bitmap = bitmap;
     }
 
-    public Bitmap getItemBitmaps(){
-        return this.bitmap;
-    }
-
     public void setRect(Rect rect){
         this.rect = rect;
     }
