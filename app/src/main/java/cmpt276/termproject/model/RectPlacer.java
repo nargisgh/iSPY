@@ -26,10 +26,11 @@ public class RectPlacer {
     }
 
      public Rect placeRect(float RADIUS , float x, float y, int offset, int section_size, int i) {
-        // Scale Randomizing
-        float min = 0.6f;
-        float max = 1.2f;
-        double scale = min + Math.random() * (max - min);
+        //Scale Factor
+        double num_imgs = 360f / section_size;
+        double card_scale_fac = 3 / (num_imgs + 0.5f);
+
+        double card_center_offset = (1.25f / num_imgs * num_imgs);
 
         int img_rad = (int) (RADIUS / 3f);
 
@@ -41,18 +42,16 @@ public class RectPlacer {
         int width = (int) (Math.cos(rads) * RADIUS * (0.45f));
         int height = (int) (Math.sin(rads) * RADIUS * (0.45f));
 
-        pos_x = (int) (width + x );
-        pos_y = (int) (height + y );
+        pos_x = (int) (width * card_center_offset + x );
+        pos_y = (int) (height * card_center_offset + y );
 
-
-        Rect rect = new Rect(pos_x - img_rad,
-                pos_y - img_rad,
-                pos_x + img_rad,
-                pos_y + img_rad);
+        Rect rect = new Rect(pos_x - (int)(img_rad * card_scale_fac),
+                pos_y - (int)(img_rad * card_scale_fac),
+                pos_x + (int)(img_rad * card_scale_fac),
+                pos_y + (int)(img_rad * card_scale_fac));
 
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
-
 
         return rect;
     }

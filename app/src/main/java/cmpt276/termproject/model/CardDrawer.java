@@ -209,8 +209,9 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
         card.setName(i, item_names.get(data_index));
 
+        float text_size = 3f/( 360f / section_size );
         Paint rect_paint = new Paint();
-        rect_paint.setTextSize(48f);
+        rect_paint.setTextSize(48f * text_size);
         rect_paint.setTextAlign(Paint.Align.CENTER);
         //rect_paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
