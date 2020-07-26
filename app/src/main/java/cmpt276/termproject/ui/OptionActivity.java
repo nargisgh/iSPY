@@ -14,7 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import java.util.List;
+
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.FlickrGallery.FlickrImage;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 import cmpt276.termproject.model.MusicManager;
 
 /* Select theme and allowing the selection to
@@ -28,11 +33,17 @@ public class OptionActivity extends AppCompatActivity {
     RadioGroup order_grp;
     SharedPreferences mPreferences;
     SharedPreferences.Editor mEdit;
+    FlickrManager flickrManager;
+    List<FlickrImage> image_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
+
+        //pull img list
+        flickrManager = FlickrManager.getInstance();
+        image_list = flickrManager.getImageList(getApplicationContext());
 
         ConstraintLayout os_Layout;
         musicManager = MusicManager.getInstance();
