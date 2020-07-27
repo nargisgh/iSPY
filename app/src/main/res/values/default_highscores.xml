@@ -2,75 +2,75 @@
 
 <resources>
     <string-array name="default_highscores_2_5">
-        <item>7.351/Flash / Jun 3, 2020 2:30 PM</item>
-        <item>7.455/BigBrain / Jul 1, 2020 10:00 AM</item>
-        <item>8.988/SuperMan / Apr 25, 2020 12:00 PM</item>
-        <item>9.613/BatMan /  May 30, 2020 3:32 PM</item>
-        <item>10.822/MrSlow / Mar 2, 2020 1:37 PM</item>
+        <item>7.351/Flash / Jun 3, 2020 2:30:06 PM</item>
+        <item>7.455/BigBrain / Jul 1, 2020 10:00:09 AM</item>
+        <item>8.988/SuperMan / Apr 25, 2020 12:00:14 PM</item>
+        <item>9.613/BatMan /  May 30, 2020 3:32:25 PM</item>
+        <item>10.822/MrSlow / Mar 2, 2020 1:37:59 PM</item>
     </string-array>
     <string-array name="default_highscores_2_0">
-        <item>10.350/BatMan / Jun 13, 2020 1:30 PM</item>
-        <item>10.524/MrSlow / Jun 11, 2020 9:00 AM</item>
-        <item>11.881/SuperMan / May 2, 2020 1:00 PM</item>
-        <item>11.985/Flash /  May 30, 2020 4:32 PM</item>
-        <item>12.827/BigBrain / Apr 22, 2020 1:37 PM</item>
+        <item>10.350/BatMan / Jun 13, 2020 1:30:06 PM</item>
+        <item>10.524/MrSlow / Jun 11, 2020 9:00:09 AM</item>
+        <item>11.881/SuperMan / May 2, 2020 1:00:14 PM</item>
+        <item>11.985/Flash /  May 30, 2020 4:32:25 PM</item>
+        <item>12.827/BigBrain / Apr 22, 2020 1:37:59 PM</item>
     </string-array>
 
     <string-array name="default_highscores_3_5">
-        <item>7.555/SuperMan/ Mar 23, 2020 5:30 PM</item>
-        <item>8.232/BigBrain / Jul 1, 2020 11:00 AM</item>
-        <item>8.989/Flash / May 15, 2020 5:00 PM</item>
-        <item>9.612/BatMan /  Apr 20, 2020 6:32 PM</item>
-        <item>13.823/MrSlow / Jul 2, 2020 6:37 PM</item>
+        <item>7.555/SuperMan/ Mar 23, 2020 5:30:06 PM</item>
+        <item>8.232/BigBrain / Jul 1, 2020 11:00:09 AM</item>
+        <item>8.989/Flash / May 15, 2020 5:00:14 PM</item>
+        <item>9.612/BatMan /  Apr 20, 2020 6:32:25 PM</item>
+        <item>10.823/MrSlow / Jul 2, 2020 6:37:59 PM</item>
     </string-array>
     <string-array name="default_highscores_3_10">
-        <item>11.351/MrSlow / Jul 23, 2020 3:30 PM</item>
-        <item>11.502/BigBrain / Jul 5, 2020 11:00 AM</item>
-        <item>12.988/Flash / Mar 25, 2020 3:00 PM</item>
-        <item>13.611/BatMan /  Jun 30, 2020 3:32 PM</item>
-        <item>20.827/SuperMan / Jul 22, 2020 8:37 PM</item>
+        <item>11.351/MrSlow / Jul 23, 2020 3:30:06 PM</item>
+        <item>11.502/BigBrain / Jul 5, 2020 11:00:09 AM</item>
+        <item>12.988/Flash / Mar 25, 2020 3:00:14 PM</item>
+        <item>13.611/BatMan /  Jun 30, 2020 3:32:25 PM</item>
+        <item>13.827/SuperMan / Jul 22, 2020 8:37:59 PM</item>
     </string-array>
     <string-array name="default_highscores_3_0">
-        <item>20.357/BatMan / Jun 18, 2020 6:30 PM</item>
-        <item>20.528/MrSlow / Jun 5, 2020 9:00 AM</item>
-        <item>21.984/SuperMan / Jul 25, 2020 6:00 PM</item>
-        <item>30.999/Flash /  Jul 30, 2020 9:32 PM</item>
-        <item>40.444/BigBrain / Jun 27, 2020 10:37 PM</item>
+        <item>20.357/BatMan / Jun 18, 2020 6:30:06 PM</item>
+        <item>20.528/MrSlow / Jun 5, 2020 9:00:09 AM</item>
+        <item>21.984/SuperMan / Jul 25, 2020 6:00:14 PM</item>
+        <item>21.999/Flash /  Jul 30, 2020 9:32:25 PM</item>
+        <item>22.444/BigBrain / Jun 27, 2020 10:37:59 PM</item>
     </string-array>
     <string-array name="default_highscores_5_5">
-        <item>15.355/Flash / May 23, 2020 4:30 PM</item>
-        <item>16.521/BigBrain / Jun 11, 2020 9:00 AM</item>
-        <item>16.984/MrSlow / Jul 25, 2020 7:00 PM</item>
-        <item>17.611/BatMan /  Jun 30, 2020 7:32 PM</item>
-        <item>40.829/SuperMan / Mar 2, 2020 8:37 PM</item>
+        <item>15.355/Flash / May 23, 2020 4:30:06 PM</item>
+        <item>16.521/BigBrain / Jun 11, 2020 9:00:09 AM</item>
+        <item>16.984/MrSlow / Jul 25, 2020 7:00:14 PM</item>
+        <item>17.611/BatMan /  Jun 30, 2020 7:32:25 PM</item>
+        <item>20.829/SuperMan / Mar 2, 2020 8:37:59 PM</item>
     </string-array>
     <string-array name="default_highscores_5_10">
-        <item>20.358/BigBrain / Jul 3, 2020 4:10 PM</item>
-        <item>21.523/Flash / Jun 14, 2020 11:05 AM</item>
-        <item>31.987/BatMan / Apr 5, 2020 12:30 PM</item>
-        <item>32.619/MrSlow /  May 3, 2020 1:50 PM</item>
-        <item>65.822/SuperMan / Jul 2, 2020 11:18 PM</item>
+        <item>20.358/BigBrain / Jul 3, 2020 4:10:03 PM</item>
+        <item>21.523/Flash / Jun 14, 2020 11:05:13 AM</item>
+        <item>21.987/BatMan / Apr 5, 2020 12:30:14 PM</item>
+        <item>22.619/MrSlow /  May 3, 2020 1:50:25 PM</item>
+        <item>25.822/SuperMan / Jul 2, 2020 11:18:59 PM</item>
     </string-array>
     <string-array name="default_highscores_5_15">
-        <item>45.356/BatMan / Mar 12, 2020 2:30 PM</item>
-        <item>46.523/BigBrain / Apr 24, 2020 10:00 AM</item>
-        <item>50.987/MrSlow / Jun 12, 2020 12:00 PM</item>
-        <item>55.612/Flash /  May 30, 2020 3:32 PM</item>
-        <item>130.825/SuperMan / Jul 25, 2020 1:37 PM</item>
+        <item>25.356/BatMan / Mar 12, 2020 2:30:06 PM</item>
+        <item>26.523/BigBrain / Apr 24, 2020 10:00:09 AM</item>
+        <item>27.987/MrSlow / Jun 12, 2020 12:00:14 PM</item>
+        <item>28.612/Flash /  May 30, 2020 3:32:25 PM</item>
+        <item>30.825/SuperMan / Jul 25, 2020 1:37:59 PM</item>
     </string-array>
     <string-array name="default_highscores_5_20">
-        <item>50.356/MrSlow / May 3, 2020 2:30 PM</item>
-        <item>60.524/BigBrain / Apr 1, 2020 10:00 AM</item>
-        <item>100.980/SuperMan / May 25, 2020 12:00 PM</item>
-        <item>110.617/BatMan /  Jul 30, 2020 3:32 PM</item>
-        <item>180.829/Flash / Jun 2, 2020 1:37 PM</item>
+        <item>30.356/MrSlow / May 3, 2020 2:30:06 PM</item>
+        <item>30.524/BigBrain / Apr 1, 2020 10:00:09 AM</item>
+        <item>32.980/SuperMan / May 25, 2020 12:00:14 PM</item>
+        <item>33.617/BatMan /  Jul 30, 2020 3:32:25 PM</item>
+        <item>40.829/Flash / Jun 2, 2020 1:37:59 PM</item>
     </string-array>
     <string-array name="default_highscores_5_0">
-        <item>60.353/BatMan/ May 3, 2020 2:30 PM</item>
-        <item>70.525/BigBrain / Jun 1, 2020 10:00 AM</item>
-        <item>110.987/SuperMan / Apr 25, 2020 12:00 PM</item>
-        <item>140.618/Flash /  Mar 3, 2020 3:32 PM</item>
-        <item>180.821/MrSlow / Mar  12, 2020 1:37 PM</item>
+        <item>40.353/BatMan/ May 3, 2020 2:30:06 PM</item>
+        <item>40.525/BigBrain / Jun 1, 2020 10:00:09 AM</item>
+        <item>50.987/SuperMan / Apr 25, 2020 12:00:14 PM</item>
+        <item>70.618/Flash /  Mar 3, 2020 3:32:25 PM</item>
+        <item>80.821/MrSlow / Mar  12, 2020 1:37:59 PM</item>
     </string-array>
 
     <string-array name="initialized">
