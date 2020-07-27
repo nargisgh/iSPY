@@ -98,7 +98,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         if (gameManager.getTheme() == 2){
             theme = R.array.theme_2_images;
         }
-        else {
+        else if (gameManager.getTheme() == 3){
             List<FlickrImage> flickrImages = flickrManager.getImageList(getContext());
             Collections.shuffle(flickrImages);
             for (FlickrImage flickrImage: flickrImages){
