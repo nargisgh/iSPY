@@ -15,9 +15,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DownloadGalleryItems {
-
-    private static final String TAG = "DownloadGalleryItems";
+public class FlickrFetchr {
+    //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
+    //Ch 25-29
+    private static final String TAG = "FlickrFetchr";
     private static final String API_KEY = "2ae7a684be1c7d31d4dde74d8c507cf1";
 
     private static final String FETCH_RECENTS_METHOD = "flickr.photos.getRecent";
@@ -30,9 +31,14 @@ public class DownloadGalleryItems {
             .appendQueryParameter("nojsoncallback","1")
             .appendQueryParameter("extras","url_s")
             .build();
-
+    //Fetching JSON from Flickr
 
     public byte[] getUrlBytes(String urlSpec) throws IOException {
+        /*Basic Networking Code, creates URL object from string
+        *Calls openConnection() to create a connection object pointed at URL
+        * HttpURLConnection represents connection and once URL opens connection, call
+        * read() repeatedly until connection runs out if data */
+
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         try {
@@ -60,20 +66,24 @@ public class DownloadGalleryItems {
     }
 
     public String getUrlString(String urlSpec) throws IOException {
+        /*converts bytes fetched by getURLBytes into string*/
         return new String(getUrlBytes(urlSpec));
     }
 
     public List<GalleryItem> fetchRecentPhotos() {
         String url = buildUrl(FETCH_RECENTS_METHOD, null);
-        return DownloadGalleryItems(url);
+        return fetchItems(url);
     }
 
     public List<GalleryItem> searchPhotos(String query) {
         String url = buildUrl(SEARCH_METHOD, query);
-        return DownloadGalleryItems(url);
+        return fetchItems(url);
     }
 
-    private List<GalleryItem> DownloadGalleryItems(String url) {
+    private List<GalleryItem> fetchItems(String url) {
+        /*Reading JSON string into JSONObject
+        * The consrtuctor parses the JSON string passed that maps to the original text.
+        */
         List<GalleryItem> items = new ArrayList<>();
         try {
 
@@ -92,6 +102,9 @@ public class DownloadGalleryItems {
     }
 
     private String buildUrl(String method, String query) {
+        //Building complete URL for Flickr API request
+        //Based on query values
+
         Uri.Builder uriBuilder = ENDPOINT.buildUpon().appendQueryParameter("method", method);
         if (method.equals(SEARCH_METHOD)) {
             uriBuilder.appendQueryParameter("text",query);
@@ -102,6 +115,8 @@ public class DownloadGalleryItems {
 
 
     private void parseItems(List<GalleryItem> items, JSONObject jsonBody) throws IOException, JSONException {
+        /*Nested in JSONObject is JSONArray containing a collection of JSONObjects
+        * each repping metadata for a single photo*/
         JSONObject photosJsonObject = jsonBody.getJSONObject("photos");
         JSONArray photoJsonArray = photosJsonObject.getJSONArray("photo");
         for (int i = 0; i < photoJsonArray.length(); i++) {

@@ -15,7 +15,6 @@ import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -44,8 +43,6 @@ public class HighScoreActivity extends AppCompatActivity {
     ArrayList<String> arr = new ArrayList<>();
     private static String order;
     private static String draw;
-    private String array_name;
-    private int id;
     private String name;
 
     @Override
@@ -266,11 +263,10 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onResume();
         musicManager.play();
 
-
     }
 
+    @Override
+    public void onBackPressed() {
 
-
-
-
+    }
 }

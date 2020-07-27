@@ -3,22 +3,19 @@ package cmpt276.termproject.model.FlickrGallery;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.util.Log;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class FlickrManager {
 
     private List<FlickrImage> imageList;
     private static FlickrManager instance;
-    private List<FlickrImage> removeList;
+    private final List<FlickrImage> removeList;
 
     //Singleton stuff
     private FlickrManager(){
@@ -47,9 +44,8 @@ public class FlickrManager {
                 e.printStackTrace();
             }
         }
-
+        Collections.shuffle(imageList);
     }
-
 
     public void addToRemoveList(FlickrImage img){
         removeList.add(img);
@@ -87,7 +83,6 @@ public class FlickrManager {
 
     public void saveImage(FlickrImage img, Context context){
 
-
         String filename = img.getImgID() + ".png";
         try (FileOutputStream fileOutputStream = context.openFileOutput(filename, Context.MODE_PRIVATE)){
                 img.getImgBitmap().compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
@@ -96,9 +91,6 @@ public class FlickrManager {
             e.printStackTrace();
         }
 
-
     }
-
-
 
 }

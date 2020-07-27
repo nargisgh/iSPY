@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="theme_1_images">
-        <item>patt1</item>
-        <item>patt2</item>
-        <item>patt3</item>
-        <item>patt4</item>
-        <item>patt5</item>
-        <item>patt6</item>
-        <item>patt7</item>
+        <item>adidas</item>
+        <item>apple</item>
+        <item>audi</item>
+        <item>beats</item>
+        <item>benz</item>
+        <item>blogger</item>
+        <item>chevrolet</item>
+        <item>dairyqueen</item>
+        <item>element</item>
+        <item>facebook</item>
+        <item>ferrari</item>
+        <item>honda</item>
+        <item>instagram</item>
+        <item>itunes</item>
+        <item>mastercard</item>
+        <item>mcdonalds</item>
+        <item>monster</item>
+        <item>motorola</item>
+        <item>nike</item>
+        <item>pepsi</item>
+        <item>puma</item>
+        <item>razer</item>
+        <item>skullcandy</item>
+        <item>spotify</item>
+        <item>steam</item>
+        <item>target</item>
+        <item>toyota</item>
+        <item>twitter</item>
+        <item>volkswagen</item>
+        <item>xbox</item>
+        <item>youtube</item>
     </string-array>
 
     <string-array name="theme_2_images">

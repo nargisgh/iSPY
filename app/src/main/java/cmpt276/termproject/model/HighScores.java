@@ -5,18 +5,13 @@ package cmpt276.termproject.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
-import java.sql.Time;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import cmpt276.termproject.R;
-import cmpt276.termproject.ui.HighScoreActivity;
 
 /* Functions to set default scores, save and update new scores.
  * Using Singleton Method and Shared Preferences to pass data
@@ -25,16 +20,9 @@ import cmpt276.termproject.ui.HighScoreActivity;
 public class HighScores{
 
 
-    private List<String> DEFAULT_SCORES = new ArrayList<>();
+    private final List<String> DEFAULT_SCORES = new ArrayList<>();
 
     ArrayList<String> arr = new ArrayList<>();
-
-    private Context context;
-    private SharedPreferences sp;
-    private SharedPreferences sharedPreferences;
-    private static String order;
-    private static String draw;
-    private static String key;
 
 
     //Singleton Stuff
@@ -167,11 +155,9 @@ public class HighScores{
     public boolean get_initDEF_Bool(Context context, String order, String draw){
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
-        boolean init = sp.getBoolean(name,false);
 
 
-
-        return init;
+        return sp.getBoolean(name,false);
 
     }
 
@@ -189,8 +175,7 @@ public class HighScores{
 
 // to identify which option highscores is updating
     public String getFileName(String order, String draw){
-        String name = "order_"+order+"_draw"+draw;
-        return name;
+        return "order_"+order+"_draw"+draw;
     }
 
     // getting order from options activity
@@ -211,9 +196,8 @@ public class HighScores{
 
         String array_name = "default_highscores_"+order+"_"+draw_pile_size;
         int id = context.getResources().getIdentifier(array_name, "array",context.getPackageName());
-        String[] array = context.getResources().getStringArray(id);
 
-        return array;
+        return context.getResources().getStringArray(id);
     }
 
 }

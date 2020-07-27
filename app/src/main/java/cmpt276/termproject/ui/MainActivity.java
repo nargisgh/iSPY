@@ -9,16 +9,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.FlickrGallery.FlickrImage;
 import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.HighScores;
@@ -31,18 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     public MusicManager musicManager;
     private GameManager gameManager;
-
     private HighScores highScores;
-    private String[] default_scores;
-    private TableLayout tableLayout;
-    private Typeface face;
-    private static boolean isInitialized = false;
-    private static boolean init;
     private  SharedPreferences sp;
-    private SharedPreferences.Editor editor;
-
-    ArrayList<String> arr = new ArrayList<>();
-
+    FlickrManager flickrManager;
+    List<FlickrImage> image_list;
 
 
     @Override
@@ -55,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        init = sp.getBoolean("bool",false);
+        boolean init = sp.getBoolean("bool", false);
 
         // initializing all options of DEF_array as false once, when app is installed
         //this is to identify if def scores were initialized for a specific option
         if(!init){
             highScores.set_initDEF_False(MainActivity.this);
-            editor = sp.edit();
+            SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("bool",true);
             editor.apply();
         }
@@ -94,10 +86,37 @@ public class MainActivity extends AppCompatActivity {
         play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = PlayActivity.makeIntent(MainActivity.this);
-                startActivity(intent);
+                if (sp.getString("Theme", "Superheroes").equals( "Flickr")) {
+
+                    flickrManager = FlickrManager.getInstance();
+                    image_list = flickrManager.getImageList(getApplicationContext());
+                    int size = image_list.size();
+                    String order = highScores.getOrder(getApplicationContext());
+                    int remain;
+
+
+                    if (order.equals("2") && (size < 7)) {
+                        remain = 7-size;
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " + remain+ " more image(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                    } else if (order.equals("3") && (size < 13)) {
+                        remain = 13-size;
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " +remain+" more image(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                    } else if (order.equals("5") && (size < 31)) {
+                        remain = 31-size;
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need "+remain+" more images(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Intent intent = PlayActivity.makeIntent(MainActivity.this);
+                        startActivity(intent);
+                    }
+                }
+                else {
+                    Intent intent = PlayActivity.makeIntent(MainActivity.this);
+                    startActivity(intent);
+                }
             }
         });
+
     }
 
     private void setupOptionButton(){
@@ -140,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void setupHighScoreButton() {
         Button hs_btn = findViewById(R.id.main_hscore_btn);
         dynamicScaling(hs_btn, 5, 8);
@@ -164,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = PhotoGallery.makeIntent(MainActivity.this);
+                Intent intent = FlickrGallery.makeIntent(MainActivity.this);
                 startActivity(intent);
             }
         });
@@ -181,18 +199,22 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor mEdit = mPreferences.edit();
         String curr_theme = mPreferences.getString("Theme", "Superheroes");
 
-        if (curr_theme.equals("Hypnomob"))
+        if (curr_theme.equals("Logogang"))
         {
-            mm_Layout.setBackgroundResource(R.drawable.bg_menu_hypno);
+            //set Logogang BG
+            mm_Layout.setBackgroundResource(R.drawable.bg_menu_logo);
             gameManager.setTheme(1);
         }
         else if (curr_theme.equals("Superheroes"))
         {
+            //set Superhero BG
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_heroes);
             gameManager.setTheme(2);
         }
-        else {
+        else
+        {
             //make Generic BG
+            mm_Layout.setBackgroundResource(R.drawable.bg_menu_flickr);
             gameManager.setTheme(3);
         }
 

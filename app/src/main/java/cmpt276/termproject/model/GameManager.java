@@ -22,7 +22,7 @@ public class GameManager {
     * Setting a consistent
     */
 
-    private Context context;
+    private final Context context;
     private SharedPreferences sharedPreferences;
 
     private static GameManager instance;
@@ -56,6 +56,10 @@ public class GameManager {
         imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));
         Log.e("Order", order + " " + draw_pile_size + " " + imgs_text_mode);
 
+    }
+
+    public boolean getMode(){
+        return imgs_text_mode;
     }
 
 

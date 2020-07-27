@@ -1,5 +1,8 @@
 package cmpt276.termproject.model;
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,12 +68,13 @@ public class CardManager {
             temp[i] = p * p + i;
         }
         cards.add(temp);
-
-        // Shuffle the cards before returning them
-        Collections.shuffle(cards);
         card_list = cards;
 
-        return cards;
+        // Shuffle the cards before returning them
+        Collections.shuffle(card_list);
+
+
+        return card_list;
     }
 
 }

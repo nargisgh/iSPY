@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Card {
 
-    private List<CardItem> cardItems = new ArrayList<>();
+    private final List<CardItem> cardItems = new ArrayList<>();
 
     public Card(List<Integer> images){
         for (int img: images){
@@ -52,14 +52,6 @@ public class Card {
 
     public void setImageBitmaps(int index, Bitmap bitmap){
         cardItems.get(index).setBitmap(bitmap);
-    }
-
-    public List<Bitmap> getImageBitmaps(){
-        List<Bitmap> bitmaps = new ArrayList<>();
-        for (CardItem cardItem: cardItems){
-            bitmaps.add(cardItem.getItemBitmaps());
-        }
-        return bitmaps;
     }
 
     public void setIsText(int idx, boolean isText){
