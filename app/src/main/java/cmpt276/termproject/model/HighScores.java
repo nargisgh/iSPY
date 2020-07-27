@@ -14,12 +14,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.ui.HighScoreActivity;
 
 /* Functions to set default scores, save and update new scores.
  * Using Singleton Method and Shared Preferences to pass data
+ * Use separate filenames to update scores for each order/draw pile size
  */
 
 public class HighScores{
@@ -30,12 +32,6 @@ public class HighScores{
     ArrayList<String> arr = new ArrayList<>();
 
     private Context context;
-    private SharedPreferences sp;
-    private SharedPreferences sharedPreferences;
-    private static String order;
-    private static String draw;
-    private static String key;
-
 
     //Singleton Stuff
     private static HighScores instance;
@@ -95,8 +91,7 @@ public class HighScores{
 
     public String getCurrentDateTime(){
         Date date = new Date();
-        return DateFormat.getDateTimeInstance().format(date);
-
+        return DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.SHORT).format(date);
     }
 
     public String getScore(String entry){
@@ -151,43 +146,38 @@ public class HighScores{
         return sec + ms;
     }
 
-
+    // setting all initialization of all DEF scores as false for all options when app first starts
     public void set_initDEF_False(Context context){
         String[] arr = context.getResources().getStringArray(R.array.initialized);
 
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sp.edit();
-        for (int i = 0; i < arr.length; i++)
-            editor.putBoolean(arr[i],false);
-
+        for (int i = 0; i < arr.length; i++) {
+            editor.putBoolean(arr[i], false);
+        }
         editor.apply();
     }
-
+    //getting boolean value to check which option had its DEF scores already initialized
     public boolean get_initDEF_Bool(Context context, String order, String draw){
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
         boolean init = sp.getBoolean(name,false);
-
-
-
         return init;
 
     }
-
+    // set either true or false for initialization of DEF scores; set to false again when resetting; set true when initialized
     public void set_initDEF_Bool(Context context, String order, String draw, Boolean bool){
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(name,bool);
-
         editor.apply();
 
     }
 
 
-// to identify which option highscores is updating
+    // to identify which option highscores is updating
     public String getFileName(String order, String draw){
         String name = "order_"+order+"_draw"+draw;
         return name;
@@ -206,7 +196,7 @@ public class HighScores{
         return sp.getString("Size","5");
 
     }
-//retrieve def array of specific option
+    //retrieve DEF array of specific option
     public String[] getDEF_array(String order, String draw_pile_size,Context context){
 
         String array_name = "default_highscores_"+order+"_"+draw_pile_size;

@@ -5,6 +5,7 @@ package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,15 +15,16 @@ import android.os.Bundle;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
-
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 /*Has functions to populate and update high score table
@@ -33,8 +35,6 @@ import java.util.ArrayList;
 public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highScores;
-
-
     private MusicManager musicManager;
     private TableRow row;
     private String[] default_scores;
@@ -44,8 +44,6 @@ public class HighScoreActivity extends AppCompatActivity {
     ArrayList<String> arr = new ArrayList<>();
     private static String order;
     private static String draw;
-    private String array_name;
-    private int id;
     private String name;
 
     @Override
@@ -57,30 +55,25 @@ public class HighScoreActivity extends AppCompatActivity {
         hs_Layout = findViewById(R.id.hs_Layout);
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
-
-
-// get order and drawsize to get correct default array
         order = highScores.getOrder(HighScoreActivity.this);
         draw = highScores.getDrawPile_size(HighScoreActivity.this);
-
         name = highScores.getFileName(order,draw);
         setOptionsTitle(order,draw);
-
+        set_Options_Title(order,draw);
         default_scores = highScores.getDEF_array(order,draw,HighScoreActivity.this);
         isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
+
         if(!isInitialized) {
             showDEF_scores();
         }
 
         initializeScores();
-
-
+        updatingScores();
         setupResetBtn();
         setupBackBtn();
-
     }
 
-    private void setOptionsTitle(String order, String draw){
+    private void set_Options_Title(String order, String draw){
 
         if( order.equals("2") && draw.equals("0")){
             draw = "7";
@@ -96,25 +89,26 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     public void showDEF_scores(){
-
-
         highScores.set_default_scores(HighScoreActivity.this, default_scores,name);
         arr = highScores.get_default_scores(HighScoreActivity.this,name);
         populateScores();
         isInitialized = true;
         highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
-
     }
 
-
-    public void initializeScores() {
+    public void updatingScores() {
 
         SharedPreferences entry_new = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
+        String input = entry_new.getString("new entry"+ 1, null);
+        if (input != null) {
+            isInitialized = true;
+            highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
+        }
             for (int i = 0; i <= counter; i ++ ) {
-             String input = entry_new.getString("new entry" + i, null);
+               input = entry_new.getString("new entry" + i, null);
                 arr = highScores.getCurrentScores(HighScoreActivity.this,name);
                 populateScores();
                 if (input != null) {
@@ -169,8 +163,8 @@ public class HighScoreActivity extends AppCompatActivity {
     private void setEntry(String[] entry, TextView score, int index) {
         if (index >= entry.length) {return;}
         score.setText(entry[index]);
+        score.setTextSize(25);
         score.setGravity(Gravity.CENTER);
-        score.setTextSize(23);
         score.setTextColor(Color.WHITE);
         row.addView(score);
     }
@@ -216,22 +210,18 @@ public class HighScoreActivity extends AppCompatActivity {
                 populateScores();
                 SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                 entry_new.edit().clear().apply();
-
                 highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,false);
             }
         });
     }
 
-
     private void setupBackBtn() {
         Button back_btn = findViewById(R.id.highscore_back_btn);
         dynamicScaling(back_btn, 6, 8);
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-
             }
         });
     }
@@ -253,18 +243,11 @@ public class HighScoreActivity extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         musicManager.pause();
-
     }
     @Override
     public void onResume() {
         super.onResume();
         musicManager.play();
-
-
     }
-
-
-
-
 
 }
