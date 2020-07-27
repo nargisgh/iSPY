@@ -13,8 +13,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.List;
 
 import cmpt276.termproject.R;
+import cmpt276.termproject.model.FlickrGallery.FlickrImage;
+import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 import cmpt276.termproject.model.GameManager;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
@@ -26,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     public MusicManager musicManager;
     private GameManager gameManager;
+    private HighScores highScores;
+    private  SharedPreferences sp;
+    FlickrManager flickrManager;
+    List<FlickrImage> image_list;
 
 
     @Override
@@ -34,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance(getApplicationContext());
-        HighScores highScores = HighScores.getInstance();
+        highScores = HighScores.getInstance();
 
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
         boolean init = sp.getBoolean("bool", false);
 
         // initializing all options of DEF_array as false once, when app is installed
@@ -77,10 +86,37 @@ public class MainActivity extends AppCompatActivity {
         play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = PlayActivity.makeIntent(MainActivity.this);
-                startActivity(intent);
+                if (sp.getString("Theme", "Superheroes").equals( "Flickr")) {
+
+                    flickrManager = FlickrManager.getInstance();
+                    image_list = flickrManager.getImageList(getApplicationContext());
+                    int size = image_list.size();
+                    String order = highScores.getOrder(getApplicationContext());
+                    int remain;
+
+
+                    if (order.equals("2") && (size <= 7)) {
+                        remain = 8-size;
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " + remain+ " more image(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                    } else if (order.equals("3") && (size <= 13)) {
+                        remain = 14-size;
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " +remain+" more image(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                    } else if (order.equals("5") && (size <= 31)) {
+                        remain = 32-size;
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need "+remain+" more images(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Intent intent = PlayActivity.makeIntent(MainActivity.this);
+                        startActivity(intent);
+                    }
+                }
+                else {
+                    Intent intent = PlayActivity.makeIntent(MainActivity.this);
+                    startActivity(intent);
+                }
             }
         });
+
     }
 
     private void setupOptionButton(){
