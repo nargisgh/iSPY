@@ -91,7 +91,7 @@ public class CameraRoll extends AppCompatActivity {
     }
 
 
-    private static class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final ImageView image;
         private final CheckBox checkBox;
         private final List<FlickrImage> imageList;
