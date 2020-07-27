@@ -113,8 +113,14 @@ public class HighScoreActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
 
+        String input = entry_new.getString("new entry"+ 1, null);
+        if (input != null) {
+            isInitialized = true;
+            highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
+
+        }
             for (int i = 0; i <= counter; i ++ ) {
-             String input = entry_new.getString("new entry" + i, null);
+             input = entry_new.getString("new entry" + i, null);
                 arr = highScores.getCurrentScores(HighScoreActivity.this,name);
                 populateScores();
                 if (input != null) {
