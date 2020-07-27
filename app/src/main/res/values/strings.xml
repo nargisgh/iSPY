@@ -161,5 +161,6 @@
     <string name="order_three_rbtn">3</string>
     <string name="order_five_rbtn">5</string>
     <string name="order_draw_size">order, draw size</string>
+    <string name="ignore">Ignore</string>
 
 </resources>

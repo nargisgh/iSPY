@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupFlickrButton()
     {
         Button flickr_btn = findViewById(R.id.main_flickr_btn);
-        dynamicScaling(flickr_btn, 10, 15);
+        dynamicScaling(flickr_btn, 7, 6);
 
         flickr_btn.setOnClickListener(new View.OnClickListener()
         {

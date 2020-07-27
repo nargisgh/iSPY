@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -101,6 +102,7 @@ public class CameraRoll extends AppCompatActivity {
 
             image = itemView.findViewById(R.id.item_image_view);
             checkBox = itemView.findViewById(R.id.grid_item_checkbox);
+            checkBox.setEnabled(false);
 
             itemView.setOnClickListener(this);
             this.imageList = imageList;
@@ -108,6 +110,7 @@ public class CameraRoll extends AppCompatActivity {
 
         @Override
         public void onClick(View view){
+            checkBox.setEnabled(true);
             Bitmap img_bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
             if (!checkBox.isChecked()) {
                 for (int i = 0; i < imageList.size(); i++) {
@@ -115,7 +118,9 @@ public class CameraRoll extends AppCompatActivity {
                         flickrManager.addToRemoveList(imageList.get(i));
                     }
                 }
+                checkBox.setButtonTintList(CameraRoll.this.getColorStateList(R.color.colorAccent));
                 checkBox.setChecked(true);
+                checkBox.setEnabled(false);
             }
             else{
                 for (int i = 0; i < imageList.size(); i++) {
@@ -126,7 +131,6 @@ public class CameraRoll extends AppCompatActivity {
                 checkBox.setChecked(false);
             }
         }
-
     }
 
     //Adapter to display Images in layout
