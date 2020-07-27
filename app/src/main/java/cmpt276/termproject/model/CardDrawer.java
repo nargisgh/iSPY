@@ -190,7 +190,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
         Bitmap scaled_card = Bitmap.createScaledBitmap(deck_card,deck_card.getWidth()/8, deck_card.getHeight()/8,true);
         for (int i = 0; i < gameManager.getDrawPile().size(); i++){
-            canvas.drawBitmap(scaled_card,x - (3 * RADIUS) - OFFSET, y + RADIUS - i * card_pile_offset, paint);
+            canvas.drawBitmap(scaled_card,x - (2 * RADIUS) - scaled_card.getWidth() - OFFSET, y + RADIUS - i * card_pile_offset, paint);
         }
 
         //Discard Pile
@@ -212,13 +212,11 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         Paint rect_paint = new Paint();
         rect_paint.setTextSize(48f * text_size);
         rect_paint.setTextAlign(Paint.Align.CENTER);
-        //rect_paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
         Bitmap bitmap = Bitmap.createBitmap(bitmaps.get(data_index));
 
         if (card.getIsText(i)){
             canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
-            //canvas.drawBitmap(bitmap, null, rect,null);
         }
         else {
             canvas.drawBitmap(bitmap, null, rect,null);
@@ -263,7 +261,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                         gameStarted();
                     }
                     Card discard_card = gameManager.getTopDiscardCard();
-                    Log.e("Item", card.getName(i) + " " + card.getIsText(i));
 
                     for (int discard_image : discard_card.getImages()) {
                         if (image == discard_image) {
