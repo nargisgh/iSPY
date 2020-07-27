@@ -57,6 +57,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.794" />
 
+        <TextView
+            android:id="@+id/camItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/faster_one"
+            android:textColor="#0F87E6"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@+id/camroll"
+            app:layout_constraintEnd_toStartOf="@+id/delete"
+            app:layout_constraintStart_toEndOf="@+id/cam_back"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="# Images" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

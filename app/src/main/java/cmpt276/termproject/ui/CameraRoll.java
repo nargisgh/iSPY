@@ -1,6 +1,7 @@
 package cmpt276.termproject.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -44,10 +46,19 @@ public class CameraRoll extends AppCompatActivity {
         photoRecyclerView = findViewById(R.id.camroll);
         photoRecyclerView.setLayoutManager(new GridLayoutManager(CameraRoll.this,5));
         photoRecyclerView.setAdapter(new PhotoAdapter());
+
+        updateImageText();
+
+    }
+
+    private void updateImageText() {
+        TextView imageSize = findViewById(R.id.camItems);
+        imageSize.setText(""+ imageList.size()+" Images");
     }
 
     private void setUpBack() {
         Button back = findViewById(R.id.cam_back);
+        dynamicScaling(back,4,10);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +69,7 @@ public class CameraRoll extends AppCompatActivity {
 
     private void setUpDelete(){
         Button delete_btn = findViewById(R.id.delete);
+        dynamicScaling(delete_btn,4,10);
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +82,7 @@ public class CameraRoll extends AppCompatActivity {
                     flickrManager.removeImage(removeList.get(i),getApplicationContext());
                 }
                 photoRecyclerView.setAdapter(new PhotoAdapter());
+                updateImageText();
 
             }
         });
@@ -148,5 +161,13 @@ public class CameraRoll extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //Disable back button
+    }
+    private void dynamicScaling (Button button, int width, int height)
+    {
+        ConstraintLayout.LayoutParams btn_size;
+        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btn_size);
     }
 }
