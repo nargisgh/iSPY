@@ -95,14 +95,14 @@ public class MainActivity extends AppCompatActivity {
                     int remain;
 
 
-                    if (order.equals("2") && (size <= 7)) {
-                        remain = 8-size;
+                    if (order.equals("2") && (size < 7)) {
+                        remain = 7-size;
                         Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " + remain+ " more image(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
-                    } else if (order.equals("3") && (size <= 13)) {
-                        remain = 14-size;
+                    } else if (order.equals("3") && (size < 13)) {
+                        remain = 13-size;
                         Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " +remain+" more image(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
-                    } else if (order.equals("5") && (size <= 31)) {
-                        remain = 32-size;
+                    } else if (order.equals("5") && (size < 31)) {
+                        remain = 31-size;
                         Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need "+remain+" more images(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
                     }
                     else {
