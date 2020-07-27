@@ -16,7 +16,7 @@ import cmpt276.termproject.model.MusicManager;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private int SPLASH_TIMER = 6000;
+    private final int SPLASH_TIMER = 6000;
     public MusicManager musicManager;
 
     @Override

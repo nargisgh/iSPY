@@ -21,7 +21,6 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
@@ -48,10 +47,7 @@ public class PlayActivity extends AppCompatActivity  {
 
     private CardDrawer cardDrawer;
     boolean isPlaying = false;
-    private static  boolean changed;
     private String filename;
-    private static String order;
-    private static String draw;
 
 
     @Override
@@ -62,9 +58,9 @@ public class PlayActivity extends AppCompatActivity  {
         highScore = HighScores.getInstance();
         musicManager = MusicManager.getInstance();
 
-        order = highScore.getOrder(PlayActivity.this);
-        draw = highScore.getDrawPile_size(PlayActivity.this);
-        filename = highScore.getFileName(order,draw);
+        String order = highScore.getOrder(PlayActivity.this);
+        String draw = highScore.getDrawPile_size(PlayActivity.this);
+        filename = highScore.getFileName(order, draw);
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
 
@@ -247,6 +243,9 @@ public class PlayActivity extends AppCompatActivity  {
         }
     }
 
+    @Override
+    public void onBackPressed() {
 
+    }
 
 }

@@ -47,7 +47,7 @@
         android:fontFamily="@font/mclaren"
         android:text="@string/help_desc_text"
         android:textColor="#FFFFFF"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

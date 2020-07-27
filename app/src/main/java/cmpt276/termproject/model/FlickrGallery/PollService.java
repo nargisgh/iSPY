@@ -1,23 +1,20 @@
 package cmpt276.termproject.model.FlickrGallery;
 
-import android.app.AlarmManager;
 import android.app.IntentService;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.os.SystemClock;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class PollService extends IntentService {
+    //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
+    //Ch 25-29
     private static final String TAG = "PollService";
-    private static final long POLL_INTERVAL_MS = TimeUnit.MINUTES.toMillis(1);
 
+    /*IntentService
+    * Bsck end, service will poll Flickr in the bg to preform newtorking in bg safely*/
     public PollService() {
         super(TAG);
     }
@@ -36,10 +33,10 @@ public class PollService extends IntentService {
         String lastResultId = QueryPrefs.getLastResultId(this);
         List<GalleryItem> items;
         if (query == null) {
-            items = new DownloadGalleryItems().fetchRecentPhotos();
+            items = new FlickrFetchr().fetchRecentPhotos();
         }
         else {
-            items = new DownloadGalleryItems().searchPhotos(query);
+            items = new FlickrFetchr().searchPhotos(query);
         }
         if (items.size() == 0) {
             return;
@@ -61,22 +58,6 @@ public class PollService extends IntentService {
         boolean isNetworkAvailable = cm.getActiveNetworkInfo() != null;
         return isNetworkAvailable && cm.getActiveNetworkInfo().isConnected();
     }
-
-    /*public static void setServiceAlarm(Context context, boolean isOn) {
-        //System service that will send intents for us
-
-        Intent i = PollService.newIntent(context);
-        PendingIntent pi = PendingIntent.getService(context, 0, i, 0);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (isOn) {
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(), POLL_INTERVAL_MS, pi);
-        }
-        else {
-            alarmManager.cancel(pi);
-            pi.cancel();
-        }
-        QueryPrefs.setAlarmOn(context, isOn);
-    }*/
 
 
 }

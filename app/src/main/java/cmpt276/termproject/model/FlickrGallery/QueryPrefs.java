@@ -3,16 +3,13 @@ package cmpt276.termproject.model.FlickrGallery;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
-import cmpt276.termproject.model.GameManager;
-
 
 public class QueryPrefs {
-    //singleton stuff
-    private static QueryPrefs instance;
-    private static final String PREF_IS_ALARM_ON = "isAlarmOn";
     private static final String PREF_SEARCH_QUERY = "searchQuery";
     private static final String PREF_LAST_RESULT_ID = "lastResultId";
 
+    /*
+    * */
     public static String getStoredQuery(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(PREF_SEARCH_QUERY, null);
@@ -32,12 +29,4 @@ public class QueryPrefs {
                 .edit().putString(PREF_LAST_RESULT_ID, lastResultId).apply();
     }
 
-    public static boolean isAlarmOn(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(PREF_IS_ALARM_ON, false);
-    }
-    public static void setAlarmOn(Context context, boolean isOn) {
-        PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putBoolean(PREF_IS_ALARM_ON, isOn).apply();
-    }
 }
