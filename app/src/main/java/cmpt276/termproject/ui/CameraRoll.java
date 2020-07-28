@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -51,9 +52,10 @@ public class CameraRoll extends AppCompatActivity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateImageText() {
         TextView imageSize = findViewById(R.id.cam_roll_num_images);
-        imageSize.setText(""+ imageList.size()+" Images");
+        imageSize.setText(""+ imageList.size()+ getString(R.string.images));
     }
 
     private void setUpBack() {
