@@ -60,7 +60,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/faster_one"
             android:textColor="#0F87E6"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_20ssp"
             app:layout_constraintBottom_toTopOf="@+id/camroll_items_view"
             app:layout_constraintEnd_toStartOf="@+id/cam_roll_delete_btn"
             app:layout_constraintStart_toEndOf="@+id/cam_roll_back_btn"

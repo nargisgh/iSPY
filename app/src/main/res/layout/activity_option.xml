@@ -50,7 +50,7 @@
             android:fontFamily="@font/mclaren"
             android:text="@string/themes_heroes_rbtn"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/_10ssp"></RadioButton>
+            android:textSize="@dimen/_10ssp" />
 
         <RadioButton
             android:id="@+id/themes_logo_rbtn"
@@ -59,7 +59,7 @@
             android:fontFamily="@font/mclaren"
             android:text="@string/themes_logo_rbtn"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/_10ssp"></RadioButton>
+            android:textSize="@dimen/_10ssp" />
 
         <RadioButton
             android:id="@+id/themes_flickr_rbtn"
