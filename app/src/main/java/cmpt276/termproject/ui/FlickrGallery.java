@@ -210,7 +210,7 @@ public class FlickrGallery extends AppCompatActivity  {
         @Override
         public void onClick(View v) {
             checkBox.setEnabled(true);
-            Toast.makeText(FlickrGallery.this,"You clicked "+ galleryItem.getCaption(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(FlickrGallery.this,"You clicked "+ galleryItem.getCaption(),Toast.LENGTH_SHORT).show();
             Thread saveImg = new Thread(){
                 public void run() {
                     try {
@@ -237,6 +237,12 @@ public class FlickrGallery extends AppCompatActivity  {
 
                 }
             };
+            if(checkBox.isChecked()){
+                Toast.makeText(FlickrGallery.this,"Deselected "+ galleryItem.getCaption(),Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(FlickrGallery.this,"You saved "+ galleryItem.getCaption(),Toast.LENGTH_SHORT).show();
+            }
             saveImg.start();
 
         }
