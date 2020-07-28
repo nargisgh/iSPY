@@ -18,6 +18,7 @@ conventions of the game in detail with sources provided.
 
 ## Key Features
     * Custom images curated - Menu and Splash screen
+    * Custom made app icon
     * Aesthetically pleasing
     * Consistent theme and fonts throughout the entire app
     * Background music implemented throughout the game
