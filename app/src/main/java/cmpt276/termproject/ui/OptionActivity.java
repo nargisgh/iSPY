@@ -89,7 +89,7 @@ public class OptionActivity extends AppCompatActivity {
         //Store user options and defaults
         String curr_theme = mPreferences.getString("Theme", "Superheroes");
         String curr_mode = mPreferences.getString("Mode", "False");
-        String curr_size = mPreferences.getString("Size", "5");
+        String curr_size = mPreferences.getString("Size", "0");
         String curr_order = mPreferences.getString("Order", "2");
 
         //Restore user options from last application run
