@@ -55,7 +55,7 @@ public class CameraRoll extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void updateImageText() {
         TextView imageSize = findViewById(R.id.cam_roll_num_images);
-        imageSize.setText(""+ imageList.size()+ getString(R.string.images));
+        imageSize.setText(""+ imageList.size()+ " "+ getString(R.string.images));
     }
 
     private void setUpBack() {
