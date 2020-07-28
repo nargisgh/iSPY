@@ -48,7 +48,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <service android:name=".model.flickrGallery.PollService" />
+        <service android:name=".model.FlickrGallery.PollService" />
     </application>
 
 </manifest>
