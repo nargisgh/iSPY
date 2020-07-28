@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,17 +34,12 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private Paint paint = null;
     private boolean game_over = false;
     private boolean game_started = false;
-
     private Bitmap card_bitmap;
     private List<Bitmap> bitmaps;
     private List<String> item_names;
-
-
     private Canvas canvas;
-
     private static  float RADIUS ;
     private static final int OFFSET = 20;
-
     private GameListener gameListener;
     private final GameManager gameManager;
 
@@ -80,7 +74,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         gameManager = GameManager.getInstance(context);
         setCardTheme();
         RADIUS = context.getResources().getDisplayMetrics().heightPixels / 3.5f;
-
         card_bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.card);
         card_bitmap = Bitmap.createScaledBitmap(card_bitmap,(int)RADIUS * 2 , (int)RADIUS * 2, true);
         this.setZOrderOnTop(true);
@@ -90,7 +83,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     // Set the Theme from the available 2 and create bitmap array
     public void setCardTheme(){
         FlickrManager flickrManager = FlickrManager.getInstance();
-
         bitmaps = new ArrayList<>();
         item_names = new ArrayList<>();
         Log.e("Theme", " " + gameManager.getTheme());
@@ -163,8 +155,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         // RESET THE BOARD
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
-
-
         RectPlacer rectPlacer = new RectPlacer();
         canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
         //Draw discard Cards
@@ -198,21 +188,17 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawBitmap(scaled_card,x + (2 * RADIUS) + OFFSET, y + RADIUS - i * card_pile_offset, paint);
         }
 
-
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
     public void saveCardInfo(Card card, int i, RectPlacer rectPlacer, int x , int y , int offset, int section_size){
         int data_index = card.getImages().get(i);
         Rect rect = rectPlacer.placeRect( RADIUS, x, y, offset, section_size,i);
-
         card.setName(i, item_names.get(data_index));
-
         float text_size = 3f/( 360f / section_size );
         Paint rect_paint = new Paint();
         rect_paint.setTextSize(48f * text_size);
         rect_paint.setTextAlign(Paint.Align.CENTER);
-
         Bitmap bitmap = Bitmap.createBitmap(bitmaps.get(data_index));
 
         if (card.getIsText(i)){
@@ -224,7 +210,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         card.setItemRect(i, rect);
         card.setImageBitmaps(i, bitmap);
         card.setItemCoordinates(i, new int[]{rectPlacer.getPosX(), rectPlacer.getPosY()});
-
     }
 
 
@@ -245,12 +230,10 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
                 int width = rect.width();
                 int height = rect.height();
+
                 //GetItem gives center of rect , subtract half of width to compensate
                 int pos_x = card.getItemX(i) - width / 2;
                 int pos_y = card.getItemY(i) - height / 2;
-
-
-
 
                 int image = card.getImages().get(i);
                 //Check if click an Image
@@ -274,7 +257,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                     }
                 }
             }
-
         }
 
         if (action == MotionEvent.ACTION_UP){

@@ -11,7 +11,6 @@ public class RectPlacer {
     private int pos_x;
     private int pos_y;
 
-
     int getPosX() {
         return pos_x;
     }
@@ -24,9 +23,7 @@ public class RectPlacer {
         //Scale Factor
         double num_imgs = 360f / section_size;
         double card_scale_fac = 3 / (num_imgs + 0.5f);
-
         double card_center_offset = (1.25f / num_imgs * num_imgs);
-
         int img_rad = (int) (RADIUS / 3f);
 
         //Rotation randomizing
@@ -51,4 +48,3 @@ public class RectPlacer {
         return rect;
     }
 }
-

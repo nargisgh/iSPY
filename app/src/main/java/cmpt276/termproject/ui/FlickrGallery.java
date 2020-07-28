@@ -1,5 +1,4 @@
 package cmpt276.termproject.ui;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -28,7 +26,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.FlickrFetchr;
 import cmpt276.termproject.model.FlickrGallery.FlickrImage;
@@ -55,19 +52,14 @@ public class FlickrGallery extends AppCompatActivity  {
     private FlickrManager flickrManager;
     private ProgressBar progressBar;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flickr_gallery);
-
         photoRecyclerView = findViewById(R.id.photo_recycler_view);
         photoRecyclerView.setLayoutManager(new GridLayoutManager(FlickrGallery.this,5));
-
         flickrManager = FlickrManager.getInstance();
         context = getApplicationContext();
-
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
         setUpThread();
@@ -75,7 +67,6 @@ public class FlickrGallery extends AppCompatActivity  {
         setUpBack();
         setUpCameraRoll();
         updateItems();
-
         Intent i = PollService.newIntent(FlickrGallery.this);
         FlickrGallery.this.startService(i);
         setupAdapter();
@@ -110,8 +101,6 @@ public class FlickrGallery extends AppCompatActivity  {
             }
         });
     }
-
-
 
     private void setUpSearchAndClear() {
         final SearchView searchItem = findViewById(R.id.gallery_search_bar);
@@ -158,9 +147,7 @@ public class FlickrGallery extends AppCompatActivity  {
         thumbnailDownloader.clearQueue();
         thumbnailDownloader.quit();
         Log.i(TAG, "Background thread destroyed");
-
     }
-
 
     private void updateItems() {
         //Will start AsyncTask
@@ -210,7 +197,6 @@ public class FlickrGallery extends AppCompatActivity  {
             this.galleryItem = galleryItem;
         }
 
-
         //Click Image Override
         @Override
         public void onClick(View v) {
@@ -219,7 +205,6 @@ public class FlickrGallery extends AppCompatActivity  {
             Thread saveImg = new Thread(){
                 public void run() {
                     try {
-
                         byte[] bitmapBytes = new FlickrFetchr().getUrlBytes(galleryItem.getUrl());
                         final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
 
@@ -249,7 +234,6 @@ public class FlickrGallery extends AppCompatActivity  {
                 Toast.makeText(FlickrGallery.this,"You saved "+ galleryItem.getCaption(),Toast.LENGTH_SHORT).show();
             }
             saveImg.start();
-
         }
     }
 
@@ -270,13 +254,11 @@ public class FlickrGallery extends AppCompatActivity  {
         public void onBindViewHolder(PhotoHolder photoHolder, int position) {
             //call the thread's queue thumbnail method and pass the target
             // photoholder where img will be placed in galleryitem's url to download from
-
             GalleryItem galleryItem = galleryItems.get(position);
             photoHolder.bindGalleryItem(galleryItem);
             Drawable placeholder = ContextCompat.getDrawable(FlickrGallery.this,R.drawable.loading_spinner);
             photoHolder.bindDrawable(placeholder);
             thumbnailDownloader.queueThumbnail(photoHolder, galleryItem.getUrl());
-
         }
         @Override
         public int getItemCount() {
@@ -293,7 +275,6 @@ public class FlickrGallery extends AppCompatActivity  {
         public FetchItemsTask(String query) {
             Query = query;
         }
-
 
         @Override
         protected List<GalleryItem> doInBackground(Void... voids) {
@@ -328,9 +309,7 @@ public class FlickrGallery extends AppCompatActivity  {
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
+    public void onBackPressed() {}
 
     @Override
     protected void onUserLeaveHint() {

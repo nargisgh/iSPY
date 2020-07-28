@@ -1,10 +1,8 @@
 package cmpt276.termproject.ui;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.FlickrImage;
 import cmpt276.termproject.model.FlickrGallery.FlickrManager;
@@ -38,18 +34,14 @@ public class CameraRoll extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_roll);
-
         setUpBack();
         setUpDelete();
-
         flickrManager = FlickrManager.getInstance();
         showBitmaps();
         photoRecyclerView = findViewById(R.id.camroll_items_view);
         photoRecyclerView.setLayoutManager(new GridLayoutManager(CameraRoll.this,5));
         photoRecyclerView.setAdapter(new PhotoAdapter());
-
         updateImageText();
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -72,7 +64,6 @@ public class CameraRoll extends AppCompatActivity {
     private void setUpDelete(){
         Button delete_btn = findViewById(R.id.cam_roll_delete_btn);
         dynamicScaling(delete_btn,4,10);
-
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,12 +76,9 @@ public class CameraRoll extends AppCompatActivity {
                 }
                 photoRecyclerView.setAdapter(new PhotoAdapter());
                 updateImageText();
-
             }
         });
-
     }
-
 
     private class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final ImageView image;
@@ -100,11 +88,9 @@ public class CameraRoll extends AppCompatActivity {
         public PhotoHolder(View itemView, List<FlickrImage> imageList) {
             super(itemView);
             flickrManager = FlickrManager.getInstance();
-
             image = itemView.findViewById(R.id.item_image_view);
             checkBox = itemView.findViewById(R.id.grid_item_checkbox);
             checkBox.setEnabled(false);
-
             itemView.setOnClickListener(this);
             this.imageList = imageList;
         }

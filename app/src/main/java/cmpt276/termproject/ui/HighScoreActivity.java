@@ -14,14 +14,12 @@ import android.os.Bundle;
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.HighScores;
 import cmpt276.termproject.model.MusicManager;
-
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 /*Has functions to populate and update high score table
@@ -32,8 +30,6 @@ import java.util.ArrayList;
 public class HighScoreActivity extends AppCompatActivity {
 
     private HighScores highScores;
-
-
     private MusicManager musicManager;
     private TableRow row;
     private String[] default_scores;
@@ -55,7 +51,6 @@ public class HighScoreActivity extends AppCompatActivity {
         hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
 
-
 // get order and drawsize to get correct default array
         order = highScores.getOrder(HighScoreActivity.this);
         draw = highScores.getDrawPileSize(HighScoreActivity.this);
@@ -70,11 +65,8 @@ public class HighScoreActivity extends AppCompatActivity {
         }
 
         initializeScores();
-
-
         setupResetBtn();
         setupBackBtn();
-
     }
 
     private void setOptionsTitle(String order, String draw){
@@ -98,7 +90,6 @@ public class HighScoreActivity extends AppCompatActivity {
         populateScores();
         isInitialized = true;
         highScores.setInitDEFBool(HighScoreActivity.this,order,draw,true);
-
     }
 
 
@@ -107,12 +98,10 @@ public class HighScoreActivity extends AppCompatActivity {
         SharedPreferences entry_new = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = entry_new.edit();
         int counter = entry_new.getInt("counter", 0);
-
         String input = entry_new.getString("new entry"+ 1, null);
         if (input != null) {
             isInitialized = true;
             highScores.setInitDEFBool(HighScoreActivity.this,order,draw,true);
-
         }
             for (int i = 0; i <= counter; i ++ ) {
              input = entry_new.getString("new entry" + i, null);
@@ -133,7 +122,6 @@ public class HighScoreActivity extends AppCompatActivity {
         TextView username = new TextView(this);
         TextView date = new TextView(this);
         TextView score = new TextView(this);
-
         setEntry(entry, score, 0);
         setEntry(entry, username, 1);
         setEntry(entry, date, 2);
@@ -144,7 +132,6 @@ public class HighScoreActivity extends AppCompatActivity {
         tableLayout = findViewById(R.id.highscore_table);
         tableLayout.removeAllViews();
         setHeadings();
-
         for(int i = 0; i<arr.size();i++){
             String[] entry = default_scores[i].split("/");
             populate(entry);
@@ -158,7 +145,6 @@ public class HighScoreActivity extends AppCompatActivity {
         tableLayout = findViewById(R.id.highscore_table);
         tableLayout.removeAllViews();
         setHeadings();
-
         for(int i = 1; i<=arr.size();i++){
             SharedPreferences sharedPreferences = getSharedPreferences("updated scores"+name, Context.MODE_PRIVATE);
             String[] entry = sharedPreferences.getString("score"+i,"").split("/");
@@ -180,17 +166,14 @@ public class HighScoreActivity extends AppCompatActivity {
         TextView name_hd;
         TextView score_hd;
         TextView dateT_hd;
-
         face = ResourcesCompat.getFont(this, R.font.faster_one);
         row = new TableRow(this);
         name_hd = new TextView(this);
         score_hd = new TextView(this);
         dateT_hd = new TextView(this);
-
         HeadingName(name_hd, "Score");
         HeadingName(score_hd, "Username");
         HeadingName(dateT_hd, "Date/Time");
-
         tableLayout.addView(row);
     }
 
@@ -207,7 +190,6 @@ public class HighScoreActivity extends AppCompatActivity {
     private void setupResetBtn() {
         Button reset_btn = findViewById(R.id.highscore_reset_btn);
         dynamicScaling(reset_btn, 6, 8);
-
         reset_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,7 +199,6 @@ public class HighScoreActivity extends AppCompatActivity {
                 populateScores();
                 SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                 entry_new.edit().clear().apply();
-
                 highScores.setInitDEFBool(HighScoreActivity.this,order,draw,false);
             }
         });
@@ -227,7 +208,6 @@ public class HighScoreActivity extends AppCompatActivity {
     private void setupBackBtn() {
         Button back_btn = findViewById(R.id.highscore_back_btn);
         dynamicScaling(back_btn, 6, 8);
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,17 +234,14 @@ public class HighScoreActivity extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         musicManager.pause();
-
     }
+
     @Override
     public void onResume() {
         super.onResume();
         musicManager.play();
-
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
+    public void onBackPressed() {}
 }

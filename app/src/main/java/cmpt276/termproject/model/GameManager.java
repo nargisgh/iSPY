@@ -2,19 +2,14 @@
 Handles the general game play: draw pile, discard pile, cards, etc.
  */
 package cmpt276.termproject.model;
-
-
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
 public class GameManager {
 
     /* Getters for the Card pile
@@ -24,11 +19,9 @@ public class GameManager {
 
     private final Context context;
     private SharedPreferences sharedPreferences;
-
     private static GameManager instance;
     private List<Card> draw_pile;
     private List<Card> discard_pile;
-
     private int draw_pile_size;
     private boolean imgs_text_mode;
     private int order = 2;
@@ -50,18 +43,15 @@ public class GameManager {
 
     public void setupGameSettings(){
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
         order = Integer.parseInt(sharedPreferences.getString("Order", "2"));
         draw_pile_size = Integer.parseInt(sharedPreferences.getString("Size", "0"));
         imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));
         Log.e("Order", order + " " + draw_pile_size + " " + imgs_text_mode);
-
     }
 
     public boolean getMode(){
         return imgs_text_mode;
     }
-
 
     public Card getTopDrawCard(){
         return draw_pile.get(0);

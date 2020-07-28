@@ -1,5 +1,4 @@
 package cmpt276.termproject.model;
-
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 

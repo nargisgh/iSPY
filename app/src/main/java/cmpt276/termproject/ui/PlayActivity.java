@@ -21,7 +21,6 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -35,20 +34,15 @@ Pop Up dialog when game is over */
 public class PlayActivity extends AppCompatActivity  {
 
     private MediaPlayer sfx_player = new MediaPlayer();
-
     private String name;
     private String dateTime;
-
     private Chronometer chronometer;
-
     private double game_start_time;
     public MusicManager musicManager;
     public HighScores highScore;
-
     private CardDrawer cardDrawer;
     boolean isPlaying = false;
     private String filename;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,37 +51,24 @@ public class PlayActivity extends AppCompatActivity  {
 
         highScore = HighScores.getInstance();
         musicManager = MusicManager.getInstance();
-
         String order = highScore.getOrder(PlayActivity.this);
         String draw = highScore.getDrawPileSize(PlayActivity.this);
         filename = highScore.getFileName(order, draw);
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
-
         setup();
-
-
         chronometer = findViewById(R.id.stopwatch);
-
-
     }
-
 
     private void setup(){
         //Setup Game Manager Class
         GameManager gameManager = GameManager.getInstance(getApplicationContext());
         gameManager.setupGameSettings();
         gameManager.createCards();
-
         FrameLayout frameLayout = findViewById(R.id.frame);
-
         cardDrawer = new CardDrawer(getApplicationContext());
-
         setupGameListener();
-
         frameLayout.addView(cardDrawer);
-
-
         setupBackButton();
     }
 
@@ -187,7 +168,6 @@ public class PlayActivity extends AppCompatActivity  {
                     counter ++;
                     editor.putString("new entry"+counter, entry);
                     editor.putInt("counter",counter);
-
                     editor.apply();
                     musicManager.pause();
                     dialog.dismiss();
@@ -208,7 +188,6 @@ public class PlayActivity extends AppCompatActivity  {
     private void setupBackButton(){
         Button back_btn = findViewById(R.id.play_back_btn);
         dynamicScaling(back_btn, 5, 8);
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

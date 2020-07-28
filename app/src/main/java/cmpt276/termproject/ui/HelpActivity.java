@@ -28,9 +28,7 @@ public class HelpActivity extends AppCompatActivity {
 
         musicManager = MusicManager.getInstance();
         musicManager.play();
-
         setupBackButton();
-
         hs_Layout = findViewById(R.id.hs_Layout);
         hs_Layout.setBackgroundResource(R.drawable.bg_help);
         src_text = findViewById(R.id.help_src_text);
@@ -44,12 +42,10 @@ public class HelpActivity extends AppCompatActivity {
     private void setupBackButton(){
         ConstraintLayout.LayoutParams btn_size;
         Button back_btn = findViewById(R.id.help_back_btn);
-
         btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
         btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
         back_btn.setLayoutParams(btn_size);
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,18 +57,19 @@ public class HelpActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context){
         return new Intent(context, HelpActivity.class);
     }
+
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         musicManager.pause();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         musicManager.play();
     }
-    @Override
-    public void onBackPressed() {
 
-    }
+    @Override
+    public void onBackPressed() {}
 }

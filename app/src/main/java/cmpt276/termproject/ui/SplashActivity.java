@@ -29,7 +29,6 @@ public class SplashActivity extends AppCompatActivity {
         ConstraintLayout ss_Layout;
         ss_Layout = findViewById(R.id.ss_Layout);
         ss_Layout.setBackgroundResource(R.drawable.bg_welcome);
-
         setupQuitBtn();
         setupSkipBtn();
         setupAnimation();

@@ -5,12 +5,10 @@ package cmpt276.termproject.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import cmpt276.termproject.R;
 
 /* Functions to set default scores, save and update new scores.
@@ -18,7 +16,6 @@ import cmpt276.termproject.R;
  */
 
 public class HighScores{
-
 
     private final List<String> DEFAULT_SCORES = new ArrayList<>();
 
@@ -37,8 +34,6 @@ public class HighScores{
         return instance;
     }
 
-
-
     //Initialise DEF_Array
     private void init(){
         for (int i = 0; i < 5; i ++){
@@ -49,9 +44,7 @@ public class HighScores{
     //populate default_scores
     public void setDefaultScores(Context context, String[] default_scores, String filename){
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         for(int i=0;i<default_scores.length;i++){
             int j = i+1;
             editor.putString("score"+j, default_scores[i]);
@@ -64,12 +57,10 @@ public class HighScores{
         arr = new ArrayList<>();
         for (int i = 1; i <= 5; i ++){
             SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
-
             arr.add(sharedPreferences.getString("score"+i, ""));
         }
         return arr;
     }
-
 
     public ArrayList<String> getCurrentScores(Context context, String filename){
         arr = new ArrayList<>();
@@ -99,11 +90,9 @@ public class HighScores{
 
     public void update(String entry, Context context,String filename) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
         String[] temp_s = getCurrentScores(context,filename).toArray(new String[0]);
+
         for (int i = 0; i < 5; i++) {
             if (entry.equals(temp_s[i])) {
                 return;
@@ -139,13 +128,11 @@ public class HighScores{
         return sec + ms;
     }
 
-
     public void setInitDEFFalse(Context context){
         String[] arr = context.getResources().getStringArray(R.array.initialized);
-
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sp.edit();
+
         for (int i = 0; i < arr.length; i++)
             editor.putBoolean(arr[i],false);
 
@@ -156,7 +143,6 @@ public class HighScores{
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
         return sp.getBoolean(name,false);
-
     }
 
     public void setInitDEFBool(Context context, String order, String draw, Boolean bool){
@@ -165,9 +151,7 @@ public class HighScores{
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(name,bool);
         editor.apply();
-
     }
-
 
     // to identify which option highscores is updating
     public String getFileName(String order, String draw){
@@ -178,22 +162,18 @@ public class HighScores{
     public String getOrder(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getString("Order","2");
-
     }
 
     // getting draw pile size from options activity
     public String getDrawPileSize(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getString("Size","0");
-
     }
     //retrieve DEF array of specific option
     public String[] getDEFArray(String order, String draw_pile_size, Context context){
 
         String array_name = "default_highscores_"+order+"_"+draw_pile_size;
         int id = context.getResources().getIdentifier(array_name, "array",context.getPackageName());
-
         return context.getResources().getStringArray(id);
     }
-
 }

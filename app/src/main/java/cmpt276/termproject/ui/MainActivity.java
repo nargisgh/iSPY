@@ -8,15 +8,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.util.List;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.FlickrImage;
 import cmpt276.termproject.model.FlickrGallery.FlickrManager;
@@ -36,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     FlickrManager flickrManager;
     List<FlickrImage> image_list;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         musicManager = MusicManager.getInstance();
         gameManager = GameManager.getInstance(getApplicationContext());
         highScores = HighScores.getInstance();
-
-
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         boolean init = sp.getBoolean("bool", false);
 
@@ -57,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("bool",true);
             editor.apply();
         }
-
 
         setupPlayButton();
         setupOptionButton();
@@ -82,18 +75,15 @@ public class MainActivity extends AppCompatActivity {
     private void setupPlayButton(){
         Button play_btn = findViewById(R.id.main_play_btn);
         dynamicScaling(play_btn, 5, 6);
-
         play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (sp.getString("Theme", "Superheroes").equals( "Flickr")) {
-
                     flickrManager = FlickrManager.getInstance();
                     image_list = flickrManager.getImageList(getApplicationContext());
                     int size = image_list.size();
                     String order = highScores.getOrder(getApplicationContext());
                     int remain;
-
 
                     if (order.equals("2") && (size < 7)) {
                         remain = 7-size;
@@ -241,6 +231,5 @@ public class MainActivity extends AppCompatActivity {
         musicManager.stop();
         finishAffinity();
     }
-
 
 }

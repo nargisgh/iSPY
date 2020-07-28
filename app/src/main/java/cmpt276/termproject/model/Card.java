@@ -4,7 +4,6 @@ Handles card properties and sets the size, orientation and position of images on
 package cmpt276.termproject.model;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class Card {
             cardItems.add(new CardItem(img));
         }
     }
-
 
     public void setItemCoordinates(int image_idx, int[] coordinates){
         cardItems.get(image_idx).setItemCoords(coordinates);
@@ -40,7 +38,6 @@ public class Card {
         }
         return items;
     }
-
 
     public void setItemRect(int index, Rect rect){
         cardItems.get(index).setRect(rect);
