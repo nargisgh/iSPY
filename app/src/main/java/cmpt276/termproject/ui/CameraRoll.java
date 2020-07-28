@@ -57,7 +57,7 @@ public class CameraRoll extends AppCompatActivity {
     }
 
     private void setUpBack() {
-        Button back = findViewById(R.id.cam_back);
+        Button back = findViewById(R.id.cam_roll_back_btn);
         dynamicScaling(back,4,10);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

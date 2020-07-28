@@ -37,6 +37,7 @@ conventions of the game in detail with sources provided.
     * Flickr provides a default neutral search that gives the user an idea of what images they can use
     * Flickr will allow user to edit(delete) or view selected images when "My Camera Roll" button is clicked
     * User will be notified if not enough images are chosen from Flickr for selected order
+    * Flickr theme smaller deck sizes are locked unless the user has minimum number of images to play all decks
     * High scores will be shown based on order and draw pile size user selected
 
 
