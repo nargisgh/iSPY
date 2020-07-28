@@ -9,7 +9,8 @@ public class QueryPrefs {
     private static final String PREF_LAST_RESULT_ID = "lastResultId";
 
     /*
-    * */
+    Handles the queries for the Flickr API, fetches the results
+    */
     public static String getStoredQuery(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(PREF_SEARCH_QUERY, null);

@@ -13,6 +13,12 @@ import java.util.List;
 
 public class FlickrManager {
 
+    /*
+    Manager for the Flickr images, creates the bitmaps list, allows for storing and
+    removing the flickr Images
+     */
+
+
     private List<FlickrImage> imageList;
     private static FlickrManager instance;
     private final List<FlickrImage> removeList;

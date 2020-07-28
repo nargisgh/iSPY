@@ -41,6 +41,11 @@ import cmpt276.termproject.model.FlickrGallery.ThumbnailDownloader;
 public class FlickrGallery extends AppCompatActivity  {
     //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
     //Ch 25-29
+    /*
+    Flickr Gallery class that sets up multithreading for downloading the images from
+    the Flickr API, sets up search and clear button functionality
+     */
+
     private static final String TAG = "FlickrGallery";
     private RecyclerView photoRecyclerView;
     private List<GalleryItem> Items = new ArrayList<>();

@@ -11,6 +11,10 @@ import java.util.List;
 public class PollService extends IntentService {
     //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
     //Ch 25-29
+    /*
+    Handles connection to the Flickr API
+     */
+
     private static final String TAG = "PollService";
 
     /*IntentService
