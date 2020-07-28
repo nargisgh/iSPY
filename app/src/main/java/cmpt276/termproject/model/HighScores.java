@@ -184,7 +184,7 @@ public class HighScores{
     // getting draw pile size from options activity
     public String getDrawPileSize(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        return sp.getString("Size","5");
+        return sp.getString("Size","0");
 
     }
     //retrieve DEF array of specific option
