@@ -58,15 +58,15 @@ public class HighScoreActivity extends AppCompatActivity {
 
 // get order and drawsize to get correct default array
         order = highScores.getOrder(HighScoreActivity.this);
-        draw = highScores.getDrawPile_size(HighScoreActivity.this);
+        draw = highScores.getDrawPileSize(HighScoreActivity.this);
 
         name = highScores.getFileName(order,draw);
         setOptionsTitle(order,draw);
 
-        default_scores = highScores.getDEF_array(order,draw,HighScoreActivity.this);
-        isInitialized = highScores.get_initDEF_Bool(HighScoreActivity.this,order,draw);
+        default_scores = highScores.getDEFArray(order,draw,HighScoreActivity.this);
+        isInitialized = highScores.getInitDEFBool(HighScoreActivity.this,order,draw);
         if(!isInitialized) {
-            showDEF_scores();
+            showDEFScores();
         }
 
         initializeScores();
@@ -92,14 +92,12 @@ public class HighScoreActivity extends AppCompatActivity {
         textView.setText("Order: "+ order+ "    Draw Pile Size: "+draw);
     }
 
-    public void showDEF_scores(){
-
-
-        highScores.set_default_scores(HighScoreActivity.this, default_scores,name);
-        arr = highScores.get_default_scores(HighScoreActivity.this,name);
+    public void showDEFScores(){
+        highScores.setDefaultScores(HighScoreActivity.this, default_scores,name);
+        arr = highScores.getDefaultScores(HighScoreActivity.this,name);
         populateScores();
         isInitialized = true;
-        highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
+        highScores.setInitDEFBool(HighScoreActivity.this,order,draw,true);
 
     }
 
@@ -113,7 +111,7 @@ public class HighScoreActivity extends AppCompatActivity {
         String input = entry_new.getString("new entry"+ 1, null);
         if (input != null) {
             isInitialized = true;
-            highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,true);
+            highScores.setInitDEFBool(HighScoreActivity.this,order,draw,true);
 
         }
             for (int i = 0; i <= counter; i ++ ) {
@@ -123,7 +121,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 if (input != null) {
                     highScores.update(input, HighScoreActivity.this,name);
                 }
-                updated_table();
+                updatedTable();
             }
         editor.putInt("counter", 0);
         editor.apply();
@@ -156,7 +154,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     // adding new highscore to table and updating
-    private void updated_table(){
+    private void updatedTable(){
         tableLayout = findViewById(R.id.highscore_table);
         tableLayout.removeAllViews();
         setHeadings();
@@ -214,13 +212,13 @@ public class HighScoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 arr.clear();
-                highScores.set_default_scores(HighScoreActivity.this,default_scores,name);
-                arr = highScores.get_default_scores(HighScoreActivity.this,name);
+                highScores.setDefaultScores(HighScoreActivity.this,default_scores,name);
+                arr = highScores.getDefaultScores(HighScoreActivity.this,name);
                 populateScores();
                 SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
                 entry_new.edit().clear().apply();
 
-                highScores.set_initDEF_Bool(HighScoreActivity.this,order,draw,false);
+                highScores.setInitDEFBool(HighScoreActivity.this,order,draw,false);
             }
         });
     }

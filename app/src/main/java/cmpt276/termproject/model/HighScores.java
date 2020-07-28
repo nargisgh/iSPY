@@ -47,7 +47,7 @@ public class HighScores{
     }
 
     //populate default_scores
-    public void set_default_scores(Context context, String[] default_scores,String filename){
+    public void setDefaultScores(Context context, String[] default_scores, String filename){
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -60,7 +60,7 @@ public class HighScores{
     }
 
     // get default scores
-    public ArrayList<String> get_default_scores(Context context,String filename){
+    public ArrayList<String> getDefaultScores(Context context, String filename){
         arr = new ArrayList<>();
         for (int i = 1; i <= 5; i ++){
             SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
@@ -117,9 +117,9 @@ public class HighScores{
         }
 
         // Check where to place new high score
-        double time = convert_time_to_double(getScore(entry));
+        double time = convertTimeToDouble(getScore(entry));
         for (int i = 0; i < 5; i ++){
-            if(time < convert_time_to_double(getScore(scores.get(i)))){
+            if(time < convertTimeToDouble(getScore(scores.get(i)))){
                 scores.add(i,entry);
                 break;
             }
@@ -132,7 +132,7 @@ public class HighScores{
     }
 
     // convert string time to secs for easier comparison
-    public double convert_time_to_double(String str){
+    public double convertTimeToDouble(String str){
         String[] time = str.split("\\." );
         double sec = Integer.parseInt(time[0]);
         double ms = Double.parseDouble(time[1]) / 1000f;
@@ -140,7 +140,7 @@ public class HighScores{
     }
 
 
-    public void set_initDEF_False(Context context){
+    public void setInitDEFFalse(Context context){
         String[] arr = context.getResources().getStringArray(R.array.initialized);
 
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
@@ -152,28 +152,24 @@ public class HighScores{
         editor.apply();
     }
 
-    public boolean get_initDEF_Bool(Context context, String order, String draw){
+    public boolean getInitDEFBool(Context context, String order, String draw){
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
-
-
         return sp.getBoolean(name,false);
 
     }
 
-    public void set_initDEF_Bool(Context context, String order, String draw, Boolean bool){
+    public void setInitDEFBool(Context context, String order, String draw, Boolean bool){
         String name = "order_"+order+"_draw_"+draw;
         SharedPreferences sp = context.getSharedPreferences("initialized", Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(name,bool);
-
         editor.apply();
 
     }
 
 
-// to identify which option highscores is updating
+    // to identify which option highscores is updating
     public String getFileName(String order, String draw){
         return "order_"+order+"_draw"+draw;
     }
@@ -186,13 +182,13 @@ public class HighScores{
     }
 
     // getting draw pile size from options activity
-    public String getDrawPile_size(Context context){
+    public String getDrawPileSize(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getString("Size","5");
 
     }
-//retrieve def array of specific option
-    public String[] getDEF_array(String order, String draw_pile_size,Context context){
+    //retrieve DEF array of specific option
+    public String[] getDEFArray(String order, String draw_pile_size, Context context){
 
         String array_name = "default_highscores_"+order+"_"+draw_pile_size;
         int id = context.getResources().getIdentifier(array_name, "array",context.getPackageName());

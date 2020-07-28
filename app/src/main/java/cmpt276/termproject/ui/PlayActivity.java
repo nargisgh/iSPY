@@ -59,7 +59,7 @@ public class PlayActivity extends AppCompatActivity  {
         musicManager = MusicManager.getInstance();
 
         String order = highScore.getOrder(PlayActivity.this);
-        String draw = highScore.getDrawPile_size(PlayActivity.this);
+        String draw = highScore.getDrawPileSize(PlayActivity.this);
         filename = highScore.getFileName(order, draw);
         ConstraintLayout ps_Layout = findViewById(R.id.root);
         ps_Layout.setBackgroundResource(R.drawable.bg_play);

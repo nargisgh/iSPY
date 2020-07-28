@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         // initializing all options of DEF_array as false once, when app is installed
         //this is to identify if def scores were initialized for a specific option
         if(!init){
-            highScores.set_initDEF_False(MainActivity.this);
+            highScores.setInitDEFFalse(MainActivity.this);
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("bool",true);
             editor.apply();
