@@ -47,6 +47,7 @@
     <string name="mode_disabled_rbtn">Disabled</string>
     <string name="options_title_text">Options</string>
     <string name="sources">Sources: \n
+        <a href="https://www.bignerdranch.com/books/android-programming-the-big-nerd-ranch-guide/">https://www.bignerdranch.com/books/android-programming-the-big-nerd-ranch-guide/</a>\n
         <a href="https://www.creativefabrica.com/product/versus-screen/">"https://www.creativefabrica.com/product/versus-screen/</a>\n
         <a href="https://www.kissclipart.com/gangster-vector-clipart-gangster-clip-art-3ha157/">https://www.kissclipart.com/gangster-vector-clipart-gangster-clip-art-3ha157</a>\n
         <a href="https://www.hiclipart.com/free-transparent-background-png-clipart-qlhgl">https://www.hiclipart.com/free-transparent-background-png-clipart-qlhgl</a>\n
@@ -162,5 +163,7 @@
     <string name="order_five_rbtn">5</string>
     <string name="order_draw_size">order, draw size</string>
     <string name="ignore">Ignore</string>
+
+    <string name="images"> Images</string>
 
 </resources>

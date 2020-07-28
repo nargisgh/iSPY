@@ -14,9 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import java.util.List;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.FlickrImage;
 import cmpt276.termproject.model.FlickrGallery.FlickrManager;
@@ -45,7 +43,6 @@ public class OptionActivity extends AppCompatActivity {
         flickrManager = FlickrManager.getInstance();
         image_list = flickrManager.getImageList(getApplicationContext());
 
-
         ConstraintLayout os_Layout;
         musicManager = MusicManager.getInstance();
         musicManager.play();
@@ -58,12 +55,10 @@ public class OptionActivity extends AppCompatActivity {
     private void setupBackButton() {
         ConstraintLayout.LayoutParams btn_size;
         Button back_btn = findViewById(R.id.options_back_btn);
-
         btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
         btn_size.width = (getResources().getDisplayMetrics().widthPixels) / 6;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels) / 8;
         back_btn.setLayoutParams(btn_size);
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,11 +86,13 @@ public class OptionActivity extends AppCompatActivity {
         RadioButton[] order_rbtns = {order2_rbtn, order3_rbtn, order5_rbtn};
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mEdit = mPreferences.edit();
+        //Store user options and defaults
         String curr_theme = mPreferences.getString("Theme", "Superheroes");
         String curr_mode = mPreferences.getString("Mode", "False");
         String curr_size = mPreferences.getString("Size", "5");
         String curr_order = mPreferences.getString("Order", "2");
 
+        //Restore user options from last application run
         if (curr_theme.equals("Logogang"))
         {
             logo_rbtn.setChecked(true);
@@ -138,6 +135,7 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
 
+        //Disable invalid options based on restored options
         if (flickr_rbtn.isChecked())
         {
             enabled_rbtn.setEnabled(false);
@@ -176,6 +174,10 @@ public class OptionActivity extends AppCompatActivity {
             size20_rbtn.setEnabled(false);
             size20_rbtn.setTextColor(Color.RED);
         }
+
+        //From here to the end of the function handles on click events for the different set
+        //of options which includes disabling invalid options based on user selections
+        //and saving for future application runs
 
         theme_grp = findViewById(R.id.options_themes_rgroup);
         theme_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()

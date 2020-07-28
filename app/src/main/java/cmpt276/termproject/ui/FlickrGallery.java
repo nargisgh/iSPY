@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -47,13 +48,14 @@ public class FlickrGallery extends AppCompatActivity  {
     public String query;
     private Context context;
     private FlickrManager flickrManager;
+    private ProgressBar progressBar;
 
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo_gallery);
+        setContentView(R.layout.activity_flickr_gallery);
 
         photoRecyclerView = findViewById(R.id.photo_recycler_view);
         photoRecyclerView.setLayoutManager(new GridLayoutManager(FlickrGallery.this,5));
@@ -61,7 +63,8 @@ public class FlickrGallery extends AppCompatActivity  {
         flickrManager = FlickrManager.getInstance();
         context = getApplicationContext();
 
-
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         setUpThread();
         setUpSearchAndClear();
         setUpBack();
@@ -293,6 +296,7 @@ public class FlickrGallery extends AppCompatActivity  {
         protected void onPostExecute(List<GalleryItem> items) {
             Items = items;
             setupAdapter();
+            progressBar.setVisibility(View.GONE);
         }
     }
 
