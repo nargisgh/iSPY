@@ -12,7 +12,7 @@
         tools:context=".ui.CameraRoll">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/camroll"
+            android:id="@+id/camroll_items_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
-            android:id="@+id/delete"
+            android:id="@+id/cam_roll_delete_btn"
             android:layout_width="112dp"
             android:layout_height="41dp"
             android:layout_marginEnd="28dp"
@@ -34,13 +34,13 @@
             android:textColor="#FF5900"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/camroll"
+            app:layout_constraintBottom_toTopOf="@+id/camroll_items_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.794"/>
 
         <Button
-            android:id="@+id/cam_back"
+            android:id="@+id/cam_roll_back_btn"
             android:layout_width="112dp"
             android:layout_height="41dp"
             android:layout_marginStart="16dp"
@@ -50,22 +50,22 @@
             android:textColor="#FF5900"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/camroll"
+            app:layout_constraintBottom_toTopOf="@+id/camroll_items_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.794"/>
 
         <TextView
-            android:id="@+id/camItems"
+            android:id="@+id/cam_roll_num_images"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/faster_one"
             android:textColor="#0F87E6"
             android:textSize="@dimen/_20sdp"
-            app:layout_constraintBottom_toTopOf="@+id/camroll"
-            app:layout_constraintEnd_toStartOf="@+id/delete"
-            app:layout_constraintStart_toEndOf="@+id/cam_back"
+            app:layout_constraintBottom_toTopOf="@+id/camroll_items_view"
+            app:layout_constraintEnd_toStartOf="@+id/cam_roll_delete_btn"
+            app:layout_constraintStart_toEndOf="@+id/cam_roll_back_btn"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="# Images"/>
 

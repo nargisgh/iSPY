@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,7 +43,7 @@ public class CameraRoll extends AppCompatActivity {
 
         flickrManager = FlickrManager.getInstance();
         showBitmaps();
-        photoRecyclerView = findViewById(R.id.camroll);
+        photoRecyclerView = findViewById(R.id.camroll_items_view);
         photoRecyclerView.setLayoutManager(new GridLayoutManager(CameraRoll.this,5));
         photoRecyclerView.setAdapter(new PhotoAdapter());
 
@@ -53,7 +52,7 @@ public class CameraRoll extends AppCompatActivity {
     }
 
     private void updateImageText() {
-        TextView imageSize = findViewById(R.id.camItems);
+        TextView imageSize = findViewById(R.id.cam_roll_num_images);
         imageSize.setText(""+ imageList.size()+" Images");
     }
 
@@ -69,7 +68,7 @@ public class CameraRoll extends AppCompatActivity {
     }
 
     private void setUpDelete(){
-        Button delete_btn = findViewById(R.id.delete);
+        Button delete_btn = findViewById(R.id.cam_roll_delete_btn);
         dynamicScaling(delete_btn,4,10);
 
         delete_btn.setOnClickListener(new View.OnClickListener() {

@@ -92,7 +92,7 @@ public class FlickrGallery extends AppCompatActivity  {
     }
 
     private void setUpCameraRoll() {
-        Button camroll_btn = findViewById(R.id.CameraRoll);
+        Button camroll_btn = findViewById(R.id.gallery_camera_roll_btn);
         dynamicScaling(camroll_btn, 4, 10);
         camroll_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +106,8 @@ public class FlickrGallery extends AppCompatActivity  {
 
 
     private void setUpSearchAndClear() {
-        final SearchView searchItem = findViewById(R.id.search_pics);
-        Button clear_btn = findViewById(R.id.clear);
+        final SearchView searchItem = findViewById(R.id.gallery_search_bar);
+        Button clear_btn = findViewById(R.id.gallery_clear_btn);
         dynamicScaling(clear_btn, 4, 10);
         searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -161,7 +161,7 @@ public class FlickrGallery extends AppCompatActivity  {
     }
 
     private void setUpBack() {
-        Button back_btn = findViewById(R.id.flickr_back);
+        Button back_btn = findViewById(R.id.gallery_back_btn);
         dynamicScaling(back_btn, 4, 10);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
