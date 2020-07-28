@@ -31,17 +31,11 @@ public class OptionActivity extends AppCompatActivity {
     RadioGroup order_grp;
     SharedPreferences mPreferences;
     SharedPreferences.Editor mEdit;
-    FlickrManager flickrManager;
-    List<FlickrImage> image_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
-
-        //pull img list
-        flickrManager = FlickrManager.getInstance();
-        image_list = flickrManager.getImageList(getApplicationContext());
 
         ConstraintLayout os_Layout;
         musicManager = MusicManager.getInstance();
