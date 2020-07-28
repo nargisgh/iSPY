@@ -121,7 +121,6 @@ public class CameraRoll extends AppCompatActivity {
                 }
                 checkBox.setButtonTintList(CameraRoll.this.getColorStateList(R.color.colorAccent));
                 checkBox.setChecked(true);
-                checkBox.setEnabled(false);
             }
             else{
                 for (int i = 0; i < imageList.size(); i++) {
@@ -131,6 +130,7 @@ public class CameraRoll extends AppCompatActivity {
                 }
                 checkBox.setChecked(false);
             }
+            checkBox.setEnabled(false);
         }
     }
 

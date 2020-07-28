@@ -194,6 +194,7 @@ public class FlickrGallery extends AppCompatActivity  {
             super(itemView);
             itemImageView = itemView.findViewById(R.id.item_image_view);
             checkBox = itemView.findViewById(R.id.grid_item_checkbox);
+            checkBox.setEnabled(false);
             itemView.setOnClickListener(this);
             //https://dzone.com/articles/grid-images-and-checkboxes
         }
@@ -208,7 +209,8 @@ public class FlickrGallery extends AppCompatActivity  {
         //Click Image Override
         @Override
         public void onClick(View v) {
-            Toast.makeText(FlickrGallery.this,"You saved "+ galleryItem.getCaption(),Toast.LENGTH_LONG).show();
+            checkBox.setEnabled(true);
+            Toast.makeText(FlickrGallery.this,"You saved "+ galleryItem.getCaption(),Toast.LENGTH_SHORT).show();
 
             Thread saveImg = new Thread(){
                 public void run() {
@@ -224,8 +226,10 @@ public class FlickrGallery extends AppCompatActivity  {
                         }
                         else{
                             flickrManager.saveImage(clicked_img , context);
+                            checkBox.setButtonTintList(FlickrGallery.this.getColorStateList(R.color.colorAccent));
                             checkBox.setChecked(true);
                         }
+                        checkBox.setEnabled(false);
                         flickrManager.createImageList(context);
 
                     }
@@ -316,6 +320,12 @@ public class FlickrGallery extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
 
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        updateItems();
     }
 }
 
