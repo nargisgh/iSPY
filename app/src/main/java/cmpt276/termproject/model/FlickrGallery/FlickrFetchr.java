@@ -1,12 +1,9 @@
 package cmpt276.termproject.model.FlickrGallery;
-
 import android.net.Uri;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,10 +17,8 @@ public class FlickrFetchr {
     //Ch 25-29
     private static final String TAG = "FlickrFetchr";
     private static final String API_KEY = "2ae7a684be1c7d31d4dde74d8c507cf1";
-
     private static final String FETCH_RECENTS_METHOD = "flickr.photos.getRecent";
     private static final String SEARCH_METHOD = "flickr.photos.search";
-
     private static final Uri ENDPOINT = Uri.parse("https://api.flickr.com/services/rest/")
             .buildUpon()
             .appendQueryParameter("api_key", API_KEY)
@@ -49,7 +44,6 @@ public class FlickrFetchr {
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException(connection.getResponseMessage() + ": with " + urlSpec);
             }
-
 
             int bytesRead = 0;
             byte[] buffer = new byte[1024];
@@ -113,7 +107,6 @@ public class FlickrFetchr {
         return uriBuilder.build().toString();
     }
 
-
     private void parseItems(List<GalleryItem> items, JSONObject jsonBody) throws IOException, JSONException {
         /*Nested in JSONObject is JSONArray containing a collection of JSONObjects
         * each repping metadata for a single photo*/
@@ -131,6 +124,5 @@ public class FlickrFetchr {
             item.setOwner(photoJsonObject.getString("owner"));
             items.add(item);
         }
-
     }
 }

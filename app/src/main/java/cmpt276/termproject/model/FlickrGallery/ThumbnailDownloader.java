@@ -1,5 +1,4 @@
 package cmpt276.termproject.model.FlickrGallery;
-
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,7 +6,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -49,6 +47,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
         super(TAG);
         this.responseHandler = responseHandler;
     }
+
     @SuppressLint("HandlerLeak")
     @Override
     protected void onLooperPrepared() {

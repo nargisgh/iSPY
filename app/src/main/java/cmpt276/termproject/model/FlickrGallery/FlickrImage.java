@@ -1,5 +1,4 @@
 package cmpt276.termproject.model.FlickrGallery;
-
 import android.graphics.Bitmap;
 
 public class FlickrImage {

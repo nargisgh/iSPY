@@ -1,5 +1,4 @@
 package cmpt276.termproject.model.FlickrGallery;
-
 import android.net.Uri;
 
 public class GalleryItem {

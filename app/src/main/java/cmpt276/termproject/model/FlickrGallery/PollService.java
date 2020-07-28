@@ -1,11 +1,9 @@
 package cmpt276.termproject.model.FlickrGallery;
-
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.util.Log;
-
 import java.util.List;
 
 public class PollService extends IntentService {
@@ -26,7 +24,6 @@ public class PollService extends IntentService {
     public static Intent newIntent(Context context) {
         return new Intent(context, PollService.class);
     }
-
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -54,14 +51,12 @@ public class PollService extends IntentService {
         }
         QueryPrefs.setLastResultId(this, resultId);
     }
+
     private boolean isNetworkAvailableAndConnected() {
         /* checking network availability */
-
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         assert cm != null;
         boolean isNetworkAvailable = cm.getActiveNetworkInfo() != null;
         return isNetworkAvailable && cm.getActiveNetworkInfo().isConnected();
     }
-
-
 }

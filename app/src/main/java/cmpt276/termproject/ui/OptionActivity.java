@@ -14,10 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import java.util.List;
 import cmpt276.termproject.R;
-import cmpt276.termproject.model.FlickrGallery.FlickrImage;
-import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 import cmpt276.termproject.model.MusicManager;
 
 /* Select theme and allowing the selection to
@@ -348,19 +345,20 @@ public class OptionActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context){
         return new Intent(context,OptionActivity.class);
     }
+
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         musicManager.pause();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         musicManager.play();
         storeOptions();
     }
-    @Override
-    public void onBackPressed() {
 
-    }
+    @Override
+    public void onBackPressed() {}
 }

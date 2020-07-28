@@ -1,8 +1,6 @@
 package cmpt276.termproject.model.FlickrGallery;
-
 import android.content.Context;
 import android.preference.PreferenceManager;
-
 
 public class QueryPrefs {
     private static final String PREF_SEARCH_QUERY = "searchQuery";
@@ -29,5 +27,4 @@ public class QueryPrefs {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit().putString(PREF_LAST_RESULT_ID, lastResultId).apply();
     }
-
 }

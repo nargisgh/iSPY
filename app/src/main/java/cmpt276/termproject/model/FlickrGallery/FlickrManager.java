@@ -1,13 +1,10 @@
 package cmpt276.termproject.model.FlickrGallery;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +14,6 @@ public class FlickrManager {
     Manager for the Flickr images, creates the bitmaps list, allows for storing and
     removing the flickr Images
      */
-
 
     private List<FlickrImage> imageList;
     private static FlickrManager instance;
@@ -86,7 +82,6 @@ public class FlickrManager {
         imageList.remove(img);
     }
 
-
     public void saveImage(FlickrImage img, Context context){
 
         String filename = img.getImgID() + ".png";
@@ -96,7 +91,5 @@ public class FlickrManager {
         catch (Exception e){
             e.printStackTrace();
         }
-
     }
-
 }
