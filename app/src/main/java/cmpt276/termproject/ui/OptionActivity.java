@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -23,18 +24,14 @@ be used to update theme throughout the entire app*/
 
 public class OptionActivity extends AppCompatActivity {
     public MusicManager musicManager;
-    RadioGroup theme_grp;
-    RadioGroup mode_grp;
-    RadioGroup size_grp;
-    RadioGroup order_grp;
-    SharedPreferences mPreferences;
-    SharedPreferences.Editor mEdit;
+    private RadioGroup theme_grp;
+    private RadioGroup mode_grp;
+    private RadioGroup size_grp;
+    private RadioGroup order_grp;
+    private SharedPreferences mPreferences;
+    private SharedPreferences.Editor mEdit;
 
-    private enum DeckSize{ FIVE, TEN, FIFTEEN, TWENTY, ALL }
-
-    private enum Theme{ SUPER, LOGO, FLICKR }
-
-    private enum Order{ TWO, THREE, FIVE }
+    private enum Theme{ SUPERHEROES, LOGOGANG, FLICKR }
 
     private enum Mode { TRUE, FALSE }
 
@@ -69,8 +66,8 @@ public class OptionActivity extends AppCompatActivity {
 
     private void storeOptions()
     {
-        RadioButton hero_rbtn = findViewById(R.id.themes_heroes_rbtn);
-        RadioButton logo_rbtn = findViewById(R.id.themes_logo_rbtn);
+        final RadioButton hero_rbtn = findViewById(R.id.themes_heroes_rbtn);
+        final RadioButton logo_rbtn = findViewById(R.id.themes_logo_rbtn);
         final RadioButton flickr_rbtn = findViewById(R.id.themes_flickr_rbtn);
         final RadioButton enabled_rbtn = findViewById(R.id.mode_enabled_rbtn);
         final RadioButton disabled_rbtn = findViewById(R.id.mode_disabled_rbtn);
@@ -90,27 +87,24 @@ public class OptionActivity extends AppCompatActivity {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mEdit = mPreferences.edit();
         //Store user options and defaults
-        String curr_theme = mPreferences.getString("Theme", "Superheroes");
-        String curr_mode = mPreferences.getString("Mode", "False");
+        String curr_theme = mPreferences.getString("Theme", "SUPERHEROES");
+        String curr_mode = mPreferences.getString("Mode", "FALSE");
         String curr_size = mPreferences.getString("Size", "0");
         String curr_order = mPreferences.getString("Order", "2");
 
-//        int theme = mPreferences.getInt("Theme", Theme.SUPER);
-
-
 
         //Restore user options from last application run
-        if (curr_theme.equals("Logogang")) {
+        if (curr_theme.equals(String.valueOf(Theme.LOGOGANG))) {
             logo_rbtn.setChecked(true);
         }
-        else if (curr_theme.equals("Flickr")) {
+        else if (curr_theme.equals(String.valueOf(Theme.FLICKR))) {
             flickr_rbtn.setChecked(true);
         }
         else {
             hero_rbtn.setChecked(true);
         }
 
-        if (curr_mode.equals("True")) {
+        if (curr_mode.equals(String.valueOf(Mode.TRUE))) {
             enabled_rbtn.setChecked(true);
         }
         else {
@@ -132,7 +126,6 @@ public class OptionActivity extends AppCompatActivity {
                 order_rbtns[i].setChecked(true);
             }
         }
-
 
         //Disable invalid options based on restored options
         if (flickr_rbtn.isChecked()) {
@@ -174,41 +167,15 @@ public class OptionActivity extends AppCompatActivity {
                 View theme_btn = theme_grp.findViewById(checkedId);
                 int index = theme_grp.indexOfChild(theme_btn);
 
-                //Add Enums for settings
-                Log.e("Theme", String.valueOf(Theme.values()[index-1]));
-
                 for (int i = 0; i < theme_rbtns.length; i ++ ){
-                    if (getTextButtonValues(theme_rbtns[i]).equals("Flickr")){
-                        disableButton(enabled_rbtn);
-                    }
-                    else {
-                        enableButton(enabled_rbtn);
-                    }
+                    enableButton(enabled_rbtn);
                 }
-
-                switch (index)
-                {
-                    case 1: //Superhero theme chosen
-                        mEdit.putString("Theme", "Superheroes");
-                        mEdit.apply();
-//                        enabled_rbtn.setEnabled(true);
-//                        enabled_rbtn.setTextColor(Color.WHITE);
-                        break;
-
-                    case 2: //Logogang theme chosen
-                        mEdit.putString("Theme", "Logogang");
-                        mEdit.apply();
-//                        enabled_rbtn.setEnabled(true);
-//                        enabled_rbtn.setTextColor(Color.WHITE);
-                        break;
-
-                    case 3: //Custom Flickr theme chosen
-                        mEdit.putString("Theme","Flickr");
-                        mEdit.apply();
-//                        enabled_rbtn.setEnabled(false);
-//                        enabled_rbtn.setTextColor(Color.RED);
-                        break;
+                if (index == 3){
+                    disableButton(enabled_rbtn);
                 }
+                String theme = String.valueOf(Theme.values()[index-1]);
+                mEdit.putString("Theme", theme);
+                mEdit.apply();
             }
         });
 
@@ -222,33 +189,16 @@ public class OptionActivity extends AppCompatActivity {
                 View mode_btn = mode_grp.findViewById(checkedId);
                 int index = mode_grp.indexOfChild(mode_btn);
 
-                Log.e("Mode", (Mode.values()[index-1]) + " ");
                 if (index == 1){
-                    mEdit.putString("Mode", "True");
                     disableButton(flickr_rbtn);
                 }
                 else {
-                    mEdit.putString("Mode", "False");
                     enableButton(flickr_rbtn);
                 }
+                String mode = String.valueOf(Mode.values()[index-1]);
+                mEdit.putString("Mode", mode);
                 mEdit.apply();
 
-//                switch (index)
-//                {
-//                    case 1: //Enabled word and image mode
-//                        mEdit.putString("Mode", "True");
-//                        mEdit.apply();
-//                        flickr_rbtn.setEnabled(false);
-//                        flickr_rbtn.setTextColor(Color.RED);
-//                        break;
-//
-//                    case 2: //Disabled word and image mode
-//                        mEdit.putString("Mode", "False");
-//                        mEdit.apply();
-//                        flickr_rbtn.setEnabled(true);
-//                        flickr_rbtn.setTextColor(Color.WHITE);
-//                        break;
-//                }
             }
         });
 
@@ -261,8 +211,6 @@ public class OptionActivity extends AppCompatActivity {
             {
                 View size_btn = size_grp.findViewById(checkedId);
                 int index = size_grp.indexOfChild(size_btn);
-
-                //Refactored the Clicking on the Size Buttons to remove redundancy
 
                 //Array for storing values of the order buttons
                 int[]  order_vals = getOrderButtonsValues(order_rbtns);
@@ -278,59 +226,9 @@ public class OptionActivity extends AppCompatActivity {
                         disableButton(order_rbtns[i]);
                     }
                 }
-
-                Log.e("Enum", DeckSize.values()[index - 1] + " " + size_val);
-                mEdit.putString("Size", String.valueOf(size_val));
+                String size = String.valueOf(size_val);
+                mEdit.putString("Size", size);
                 mEdit.apply();
-
-
-//                switch (index)
-//                {
-//                    case 1: //Set deck size to 5
-//                        mEdit.putString("Size", "5");
-//                        mEdit.apply();
-////                        order2_rbtn.setEnabled(true);
-////                        order2_rbtn.setTextColor(Color.WHITE);
-////                        order3_rbtn.setEnabled(true);
-////                        order3_rbtn.setTextColor(Color.WHITE);
-//                        break;
-//
-//                    case 2: //Set deck size to 10
-//                        mEdit.putString("Size", "10");
-//                        mEdit.apply();
-////                        order2_rbtn.setEnabled(false);
-////                        order2_rbtn.setTextColor(Color.RED);
-////                        order3_rbtn.setEnabled(true);
-////                        order3_rbtn.setTextColor(Color.WHITE);
-//                        break;
-//
-//                    case 3: //Set deck size to 15
-//                        mEdit.putString("Size", "15");
-//                        mEdit.apply();
-////                        order2_rbtn.setEnabled(false);
-////                        order2_rbtn.setTextColor(Color.RED);
-////                        order3_rbtn.setEnabled(false);
-////                        order3_rbtn.setTextColor(Color.RED);
-//                        break;
-//
-//                    case 4: //Set deck size to 20
-//                        mEdit.putString("Size", "20");
-//                        mEdit.apply();
-////                        order2_rbtn.setEnabled(false);
-////                        order2_rbtn.setTextColor(Color.RED);
-////                        order3_rbtn.setEnabled(false);
-////                        order3_rbtn.setTextColor(Color.RED);
-//                        break;
-//
-//                    case 5: //Set deck size to ALL
-//                        mEdit.putString("Size", "0");
-//                        mEdit.apply();
-////                        order2_rbtn.setEnabled(true);
-////                        order2_rbtn.setTextColor(Color.WHITE);
-////                        order3_rbtn.setEnabled(true);
-////                        order3_rbtn.setTextColor(Color.WHITE);
-//                        break;
-//                }
             }
         });
 
@@ -355,45 +253,9 @@ public class OptionActivity extends AppCompatActivity {
                         disableButton(size_rbtn);
                     }
                 }
-                Log.e("Order", (Order.values()[index-1])+" " +  order_vals[index-1]);
-                mEdit.putString("Order", String.valueOf(order_vals[index-1]));
+                String order = String.valueOf(order_vals[index-1]);
+                mEdit.putString("Order", order);
                 mEdit.apply();
-
-//                switch (index)
-//                {
-//                    case 1: //Set order complexity to 2
-//                        mEdit.putString("Order", "2");
-//                        mEdit.apply();
-////                        size10_rbtn.setEnabled(false);
-////                        size10_rbtn.setTextColor(Color.RED);
-////                        size15_rbtn.setEnabled(false);
-////                        size15_rbtn.setTextColor(Color.RED);
-////                        size20_rbtn.setEnabled(false);
-////                        size20_rbtn.setTextColor(Color.RED);
-//                        break;
-//
-//                    case 2: //Set order complexity to 3
-//                        mEdit.putString("Order", "3");
-//                        mEdit.apply();
-////                        size10_rbtn.setEnabled(true);
-////                        size10_rbtn.setTextColor(Color.WHITE);
-////                        size15_rbtn.setEnabled(false);
-////                        size15_rbtn.setTextColor(Color.RED);
-////                        size20_rbtn.setEnabled(false);
-////                        size20_rbtn.setTextColor(Color.RED);
-//                        break;
-//
-//                    case 3: //Set order complexity to 5
-//                        mEdit.putString("Order", "5");
-//                        mEdit.apply();
-////                        size10_rbtn.setEnabled(true);
-////                        size10_rbtn.setTextColor(Color.WHITE);
-////                        size15_rbtn.setEnabled(true);
-////                        size15_rbtn.setTextColor(Color.WHITE);
-////                        size20_rbtn.setEnabled(true);
-////                        size20_rbtn.setTextColor(Color.WHITE);
-//                        break;
-//                }
             }
         });
     }
@@ -409,10 +271,6 @@ public class OptionActivity extends AppCompatActivity {
         btn.setTextColor(Color.WHITE);
     }
 
-    private String getTextButtonValues(RadioButton btn){
-        return btn.getText().toString();
-    }
-
     private int[] getOrderButtonsValues(RadioButton[] order_rbtns){
         int[] order_vals = new int [order_rbtns.length];
         for (int i = 0; i < order_rbtns.length; i ++ ){
@@ -420,7 +278,6 @@ public class OptionActivity extends AppCompatActivity {
         }
         return order_vals;
     }
-
 
     private int getNumCards(int order){
         return ((order + 1) * order) + 1;

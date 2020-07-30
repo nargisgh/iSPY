@@ -45,8 +45,7 @@ public class GameManager {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         order = Integer.parseInt(sharedPreferences.getString("Order", "2"));
         draw_pile_size = Integer.parseInt(sharedPreferences.getString("Size", "0"));
-        imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));
-        Log.e("Order", order + " " + draw_pile_size + " " + imgs_text_mode);
+        imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "FALSE"));
     }
 
     public boolean getMode(){
