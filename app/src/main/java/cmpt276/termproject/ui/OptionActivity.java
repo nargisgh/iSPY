@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -28,6 +29,8 @@ public class OptionActivity extends AppCompatActivity {
     RadioGroup order_grp;
     SharedPreferences mPreferences;
     SharedPreferences.Editor mEdit;
+
+    private RadioGroup difficulty_group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,15 @@ public class OptionActivity extends AppCompatActivity {
         String curr_mode = mPreferences.getString("Mode", "False");
         String curr_size = mPreferences.getString("Size", "0");
         String curr_order = mPreferences.getString("Order", "2");
+
+        //Difficulty stuff
+        final RadioButton[] difficulty_rbtns = {findViewById(R.id.difficulty_easy_rb),
+                findViewById(R.id.difficulty_med_rb),
+                findViewById(R.id.difficulty_hard_rb)};
+
+        int difficulty = mPreferences.getInt("Difficulty", 0);
+        difficulty_rbtns[difficulty].setChecked(true);
+
 
         //Restore user options from last application run
         if (curr_theme.equals("Logogang"))
@@ -340,6 +352,23 @@ public class OptionActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        difficulty_group = findViewById(R.id.difficulty_radio_group);
+        difficulty_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                View difficulty_btn = difficulty_group.findViewById(checkedId);
+                int index = difficulty_group.indexOfChild(difficulty_btn) - 1;
+
+                mEdit.putInt("Difficulty", index);
+                mEdit.apply();
+            }
+        });
+
+
+
     }
 
     public static Intent makeIntent(Context context){

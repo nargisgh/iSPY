@@ -158,17 +158,15 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         RectPlacer rectPlacer = new RectPlacer();
         canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
         //Draw discard Cards
-        int offset = (int) (Math.random() * 90);
         for (int i = 0; i < num_images; i ++){
-            saveCardInfo(gameManager.getTopDiscardCard(), i, rectPlacer, (int) (x + RADIUS + OFFSET), y, offset , section_size);
+            saveCardInfo(gameManager.getTopDiscardCard(), i, rectPlacer, (int) (x + RADIUS + OFFSET), y , section_size);
         }
 
         if (gameManager.getDrawPile().size() !=  0 ) {
             canvas.drawBitmap(card_bitmap, x - (2 * RADIUS) - OFFSET , y - RADIUS, null);
             //Draw Draw Card
-            offset = (int) (Math.random() * 90);
             for (int i = 0; i < num_images; i++) {
-                saveCardInfo(gameManager.getTopDrawCard(), i, rectPlacer, (int) (x - RADIUS - OFFSET), y, offset, section_size);
+                saveCardInfo(gameManager.getTopDrawCard(), i, rectPlacer, (int) (x - RADIUS - OFFSET), y, section_size);
             }
         }
 
@@ -191,22 +189,44 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
-    public void saveCardInfo(Card card, int i, RectPlacer rectPlacer, int x , int y , int offset, int section_size){
+    public void saveCardInfo(Card card, int i, RectPlacer rectPlacer, int x , int y , int section_size){
+
+
+        int rotation = card.getRotation(i);
+        double scale = card.getScale(i);
         int data_index = card.getImages().get(i);
-        Rect rect = rectPlacer.placeRect( RADIUS, x, y, offset, section_size,i);
+        // Create Rect
+        Rect rect = rectPlacer.placeRect( RADIUS, x, y, section_size,i, scale);
         card.setName(i, item_names.get(data_index));
         float text_size = 3f/( 360f / section_size );
+
+        //Set Paint settings
         Paint rect_paint = new Paint();
+
         rect_paint.setTextSize(48f * text_size);
+        if (scale > 0) {
+            rect_paint.setTextSize(52f * text_size * (float) scale);
+        }
+
         rect_paint.setTextAlign(Paint.Align.CENTER);
         Bitmap bitmap = Bitmap.createBitmap(bitmaps.get(data_index));
 
+        //Rotate canvas
+        canvas.save();
+        canvas.translate(rectPlacer.getPosX(), rectPlacer.getPosY());
+        canvas.rotate(rotation);
+
+        //Draw text/img
         if (card.getIsText(i)){
-            canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
+            canvas.drawText(card.getName(i), 0, 0, rect_paint);
         }
         else {
+            rect.offset(-rectPlacer.getPosX(), -rectPlacer.getPosY());
             canvas.drawBitmap(bitmap, null, rect,null);
         }
+        //Restore canvas after rotation
+        canvas.restore();
+
         card.setItemRect(i, rect);
         card.setImageBitmaps(i, bitmap);
         card.setItemCoordinates(i, new int[]{rectPlacer.getPosX(), rectPlacer.getPosY()});
