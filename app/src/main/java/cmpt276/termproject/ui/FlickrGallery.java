@@ -1,14 +1,23 @@
 package cmpt276.termproject.ui;
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +28,19 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import cmpt276.termproject.R;
@@ -51,6 +68,10 @@ public class FlickrGallery extends AppCompatActivity  {
     private Context context;
     private FlickrManager flickrManager;
     private ProgressBar progressBar;
+    private static final int PERMISSION_REQUEST = 0;
+
+    String URL_IMAGE = "";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +91,56 @@ public class FlickrGallery extends AppCompatActivity  {
         Intent i = PollService.newIntent(FlickrGallery.this);
         FlickrGallery.this.startService(i);
         setupAdapter();
+        setUpImport();
    }
+
+    private void setUpImport() {
+
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_REQUEST){
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST);
+        }
+        Button import_btn = findViewById(R.id.import_btn);
+        dynamicScaling(import_btn,5,10);
+        import_btn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("IntentReset")
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("IntentReset") Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode== RESULT_OK) {
+            assert data != null;
+            Uri selectedImage = data.getData();
+            String [] filePathColumn = {MediaStore.Images.Media.DATA};
+            assert selectedImage != null;
+            Cursor cursor = FlickrGallery.this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            assert cursor != null;
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String filePath = cursor.getString(columnIndex);
+            cursor.close();
+            URL_IMAGE =filePath;
+
+            Bitmap image = BitmapFactory.decodeFile(URL_IMAGE);
+            FlickrImage clicked_img = new FlickrImage("importing", image);
+            flickrManager.saveImage(clicked_img, context);
+
+        }
+        flickrManager.createImageList(context);
+
+    }
 
     private void setUpThread() {
         Handler responseHandler = new Handler();
@@ -92,7 +162,7 @@ public class FlickrGallery extends AppCompatActivity  {
 
     private void setUpCameraRoll() {
         Button camroll_btn = findViewById(R.id.gallery_camera_roll_btn);
-        dynamicScaling(camroll_btn, 4, 10);
+        dynamicScaling(camroll_btn, 5, 10);
         camroll_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +175,7 @@ public class FlickrGallery extends AppCompatActivity  {
     private void setUpSearchAndClear() {
         final SearchView searchItem = findViewById(R.id.gallery_search_bar);
         Button clear_btn = findViewById(R.id.gallery_clear_btn);
-        dynamicScaling(clear_btn, 4, 10);
+        dynamicScaling(clear_btn, 5, 10);
         searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -157,7 +227,7 @@ public class FlickrGallery extends AppCompatActivity  {
 
     private void setUpBack() {
         Button back_btn = findViewById(R.id.gallery_back_btn);
-        dynamicScaling(back_btn, 4, 10);
+        dynamicScaling(back_btn, 5, 10);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
