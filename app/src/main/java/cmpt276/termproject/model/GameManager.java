@@ -1,4 +1,4 @@
-/*
+ /*
 Handles the general game play: draw pile, discard pile, cards, etc.
  */
 package cmpt276.termproject.model;
@@ -27,6 +27,8 @@ public class GameManager {
     private int order = 2;
     private int theme = 1;
     private List<int[]> draw;
+    private int difficultyMode;
+
 
     // Singleton for the Manager
     private GameManager (Context context) {
@@ -45,7 +47,10 @@ public class GameManager {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         order = Integer.parseInt(sharedPreferences.getString("Order", "2"));
         draw_pile_size = Integer.parseInt(sharedPreferences.getString("Size", "0"));
-        imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "FALSE"));
+        imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));
+        Log.e("Order", order + " " + draw_pile_size + " " + imgs_text_mode);
+        difficultyMode = sharedPreferences.getInt("Difficulty", 0);
+
     }
 
     public boolean getMode(){
@@ -80,7 +85,7 @@ public class GameManager {
             for (int img : imgs) {
                 img_list.add(img);
             }
-            draw_pile.add(new Card(img_list));
+            draw_pile.add(new Card(img_list,difficultyMode));
         }
     }
 

@@ -13,9 +13,9 @@ public class Card {
 
     private final List<CardItem> cardItems = new ArrayList<>();
 
-    public Card(List<Integer> images){
+    public Card(List<Integer> images, int difficulty){
         for (int img: images){
-            cardItems.add(new CardItem(img));
+            cardItems.add(new CardItem(img,  difficulty));
         }
     }
 
@@ -66,4 +66,13 @@ public class Card {
     public String getName (int idx){
         return cardItems.get(idx).getName();
     }
+
+    public int getRotation(int idx){
+        return cardItems.get(idx).getRotationAngle();
+    }
+
+    public double getScale(int idx){
+        return cardItems.get(idx).getItemScale();
+    }
+
 }

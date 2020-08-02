@@ -165,5 +165,9 @@
     <string name="ignore">Ignore</string>
 
     <string name="images"> Images</string>
+    <string name="difficulty_tv">Difficulty</string>
+    <string name="diff_easy_str">Easy</string>
+    <string name="diff_med_str">Medium</string>
+    <string name="diff_hard_str">Hard</string>
 
 </resources>
