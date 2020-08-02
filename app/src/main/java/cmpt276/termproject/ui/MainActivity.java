@@ -5,9 +5,13 @@ game, open options, view high scores, view help menu or quit.
 package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -32,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
     private  SharedPreferences sp;
     FlickrManager flickrManager;
     List<FlickrImage> image_list;
+    private static String[] Permissions = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
         }
 
+        //User can't save imgs w/o storage permission
+        checkExternalStoragePermission();
         setupPlayButton();
         setupOptionButton();
         setupHelpButton();
@@ -230,6 +240,21 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
         musicManager.stop();
         finishAffinity();
+    }
+
+    // Need to check permissions first in order to allow app to export images to files
+    //https://stackoverflow.com/questions/8854359/exception-open-failed-eacces-permission-denied-on-android
+    public void checkExternalStoragePermission() {
+        int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        // if writing permission is not granted, user will be asked to deny/allow permission
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    Permissions,
+                    1
+            );
+        }
     }
 
 }
