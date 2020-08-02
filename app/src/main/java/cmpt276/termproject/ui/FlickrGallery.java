@@ -94,53 +94,6 @@ public class FlickrGallery extends AppCompatActivity  {
         setUpImport();
    }
 
-    private void setUpImport() {
-
-        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_REQUEST){
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST);
-        }
-        Button import_btn = findViewById(R.id.import_btn);
-        dynamicScaling(import_btn,5,10);
-        import_btn.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("IntentReset")
-            @Override
-            public void onClick(View v) {
-                @SuppressLint("IntentReset") Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);
-            }
-        });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode== RESULT_OK) {
-            assert data != null;
-            Uri selectedImage = data.getData();
-            String [] filePathColumn = {MediaStore.Images.Media.DATA};
-            assert selectedImage != null;
-            Cursor cursor = FlickrGallery.this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            assert cursor != null;
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String filePath = cursor.getString(columnIndex);
-            cursor.close();
-            URL_IMAGE =filePath;
-
-            Bitmap image = BitmapFactory.decodeFile(URL_IMAGE);
-            FlickrImage clicked_img = new FlickrImage("importing", image);
-            flickrManager.saveImage(clicked_img, context);
-
-        }
-        flickrManager.createImageList(context);
-
-    }
 
     private void setUpThread() {
         Handler responseHandler = new Handler();
@@ -376,6 +329,79 @@ public class FlickrGallery extends AppCompatActivity  {
         btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
         btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
         button.setLayoutParams(btn_size);
+    }
+
+    private void setUpImport() {
+
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_REQUEST){
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST);
+        }
+        Button import_btn = findViewById(R.id.import_btn);
+        dynamicScaling(import_btn,5,10);
+        import_btn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("IntentReset")
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("IntentReset")
+                //Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode== RESULT_OK) {
+            final List<Bitmap> bitmaps = new ArrayList<>();
+            ClipData clipData = data.getClipData();
+            if(clipData!=null){
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    Uri imageUri = clipData.getItemAt(i).getUri();
+                    Log.d("URI", imageUri.toString());
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        bitmaps.add(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                //single image selected
+                Uri imageUri = data.getData();
+                Log.d("URI", imageUri.toString());
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    bitmaps.add(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (final Bitmap b : bitmaps) {
+
+                        FlickrImage clicked_img = new FlickrImage(""+b.toString(), b);
+                        flickrManager.saveImage(clicked_img, context);
+                    }
+                    flickrManager.createImageList(context);
+                }
+            }).start();
+        }
+
+        //https://www.youtube.com/watch?v=AmOmA6Ih3bE
     }
 
     @Override
