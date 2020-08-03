@@ -83,9 +83,11 @@ public class FlickrManager {
     }
 
     public void saveImage(FlickrImage img, Context context){
-        for(int i=0;i<imageList.size();i++){
-            if(img.getImgBitmap().sameAs(imageList.get(i).getImgBitmap())){
-                return;
+        if(imageList!= null && imageList.size()>1) {
+            for (int i = 0; i < imageList.size(); i++) {
+                if (img.getImgBitmap().sameAs(imageList.get(i).getImgBitmap())) {
+                    return;
+                }
             }
         }
         String filename = img.getImgID() + ".png";
