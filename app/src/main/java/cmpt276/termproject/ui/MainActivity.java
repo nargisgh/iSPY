@@ -36,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private  SharedPreferences sp;
     FlickrManager flickrManager;
     List<FlickrImage> image_list;
-    private static String[] Permissions = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+    private static String[] Permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,13 +242,13 @@ public class MainActivity extends AppCompatActivity {
     // Need to check permissions first in order to allow app to export images to files
     //https://stackoverflow.com/questions/8854359/exception-open-failed-eacces-permission-denied-on-android
     public void checkExternalStoragePermission() {
-        int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int writing_permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         // if writing permission is not granted, user will be asked to deny/allow permission
-        if (permission != PackageManager.PERMISSION_GRANTED) {
+        if (writing_permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     this,
-                    Permissions,
+                    Permission,
                     1
             );
         }

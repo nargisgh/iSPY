@@ -18,6 +18,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -55,6 +56,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private final GameManager gameManager;
     private static int counter;
     private static Context context;
+    private  Bitmap result;
 
 
     public interface GameListener {
@@ -209,7 +211,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         surfaceHolder.unlockCanvasAndPost(canvas);
-        storeImage(card_bitmap);
+
 
     }
 
@@ -231,6 +233,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         card.setItemRect(i, rect);
         card.setImageBitmaps(i, bitmap);
         card.setItemCoordinates(i, new int[]{rectPlacer.getPosX(), rectPlacer.getPosY()});
+        result = MergeBitmaps(card_bitmap,bitmap);
+        storeImage(result);
     }
 
 
@@ -296,30 +300,46 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
+
     // storing image into gallery
     // https://stackoverflow.com/questions/8560501/android-save-image-into-gallery
     public static void storeImage(Bitmap bitmap) {
         HighScores highScores = new HighScores();
-        String path = (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString())+ "/Camera";
+        String path = (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString());
         File directory = new File(path);
         directory.mkdirs();
         String time = highScores.getCurrentDateTime();
-        String file_name = "Image_" + counter+"_" + time+".png";
+        String file_name = "Image_" + counter+"_" + time+".jpg";
         File file = new File(directory, file_name);
         //System.out.println(file.getAbsolutePath());
         //if (file.exists()) file.delete();
         Log.e("TAG", path + file_name);
         try {
             FileOutputStream out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
+            MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), file.getName(), file.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
+        //MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
         counter++;
 
     }
+
+
+
+    public Bitmap MergeBitmaps(Bitmap card, Bitmap imgs) {
+//        Bitmap bitmap = Bitmap.createBitmap(card_bitmap);
+//        Canvas canvas = new Canvas(bitmap);
+//        canvas.drawBitmap(card_bitmap);
+        Bitmap result = Bitmap.createBitmap(card);
+        Canvas canvas = new Canvas(result);
+        canvas.drawBitmap(card, 0f, 0f, null);
+        canvas.drawBitmap(imgs, 0, 0, null);
+        return result;
+    }
+
 
 }
