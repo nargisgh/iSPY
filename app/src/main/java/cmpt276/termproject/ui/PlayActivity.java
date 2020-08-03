@@ -25,6 +25,8 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -137,6 +139,9 @@ public class PlayActivity extends AppCompatActivity  {
         Button cancel_btn = dialog.findViewById(R.id.pop_cancel_btn);
         dynamicScaling(cancel_btn, 6, 8);
 
+        Button export_btn = dialog.findViewById(R.id.pop_export_btn);
+        dynamicScaling(export_btn, 6, 8);
+
         final EditText userId = dialog.findViewById(R.id.userId);
         final TextView score_p = dialog.findViewById(R.id.score);
         final TextView dateTime_p = dialog.findViewById(R.id.dateTime);
@@ -183,6 +188,15 @@ public class PlayActivity extends AppCompatActivity  {
                 }
             }
         });
+
+        export_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         dialog.show();
         Window window = dialog.getWindow();
         assert window != null;

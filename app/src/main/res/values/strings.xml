@@ -165,5 +165,6 @@
     <string name="ignore">Ignore</string>
 
     <string name="images"> Images</string>
+    <string name="pop_export_btn">Export</string>
 
 </resources>

@@ -155,4 +155,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.76"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/pop_export_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/buttonColor"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/pop_export_btn"
+        android:textColor="#FF5900"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/pop_cancel_btn"
+        app:layout_constraintEnd_toStartOf="@+id/pop_cancel_btn"
+        app:layout_constraintStart_toEndOf="@+id/pop_save_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
