@@ -319,11 +319,11 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-            MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), file.getName(), file.getName());
+            //MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), file.getName(), file.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
+        MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
         counter++;
 
     }
@@ -334,10 +334,11 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 //        Bitmap bitmap = Bitmap.createBitmap(card_bitmap);
 //        Canvas canvas = new Canvas(bitmap);
 //        canvas.drawBitmap(card_bitmap);
+        CardExporter exporter = CardExporter.getInstance();
         Bitmap result = Bitmap.createBitmap(card);
-        Canvas canvas = new Canvas(result);
-        canvas.drawBitmap(card, 0f, 0f, null);
-        canvas.drawBitmap(imgs, 0, 0, null);
+        //Canvas canvas = new Canvas(result);
+        exporter.getCanvas(gameManager.getNumberImages()).drawBitmap(card, 0f, 0f, null);
+        exporter.getCanvas(gameManager.getNumberImages()).drawBitmap(imgs, 0, 0, null);
         return result;
     }
 
