@@ -42,6 +42,7 @@ import cmpt276.termproject.model.FlickrGallery.FlickrManager;
 
 public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
+    CardExporter exporter = CardExporter.getInstance();
     private SurfaceHolder surfaceHolder = null;
     private Paint paint = null;
     private boolean game_over = false;
@@ -226,9 +227,9 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         Bitmap bitmap = Bitmap.createBitmap(bitmaps.get(data_index));
 
         if (card.getIsText(i)) {
-            canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
+            exporter.getCanvas(gameManager.getNumberImages()).drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
         } else {
-            canvas.drawBitmap(bitmap, null, rect, null);
+            exporter.getCanvas(gameManager.getNumberImages()).drawBitmap(bitmap, null, rect, null);
         }
         card.setItemRect(i, rect);
         card.setImageBitmaps(i, bitmap);
@@ -334,7 +335,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 //        Bitmap bitmap = Bitmap.createBitmap(card_bitmap);
 //        Canvas canvas = new Canvas(bitmap);
 //        canvas.drawBitmap(card_bitmap);
-        CardExporter exporter = CardExporter.getInstance();
         Bitmap result = Bitmap.createBitmap(card);
         //Canvas canvas = new Canvas(result);
         exporter.getCanvas(gameManager.getNumberImages()).drawBitmap(card, 0f, 0f, null);
