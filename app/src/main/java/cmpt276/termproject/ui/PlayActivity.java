@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -64,6 +65,7 @@ public class PlayActivity extends AppCompatActivity  {
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
         setup();
         chronometer = findViewById(R.id.stopwatch);
+
     }
 
     private void setup(){
@@ -152,6 +154,7 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 musicManager.pause();
                 dialog.dismiss();
+                cardDrawer.deleteCardImgs();
                 finish();
             }
         });
@@ -194,6 +197,7 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v)
             {
                 Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
+                cardDrawer.exportCardImgs();
             }
         });
 
