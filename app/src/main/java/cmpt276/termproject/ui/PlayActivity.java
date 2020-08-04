@@ -163,6 +163,7 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 name = userId.getText().toString();
                 userId.setText(name);
+                cardDrawer.deleteCardImgs();
 
                 if(userId.getText().toString().length()>10){
                     userId.setError(""+userId.getText().toString().length() +"/10 characters");
@@ -189,6 +190,7 @@ public class PlayActivity extends AppCompatActivity  {
                 else{
                     userId.setError("Invalid Username");
                 }
+
             }
         });
 
