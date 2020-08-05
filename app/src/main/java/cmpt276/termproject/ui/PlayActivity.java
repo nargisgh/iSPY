@@ -201,7 +201,6 @@ public class PlayActivity extends AppCompatActivity  {
             {
                 cardDrawer.exportCardImgs();
                 Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
-                cardDrawer.exportCardImgs();
             }
         });
 
