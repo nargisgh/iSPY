@@ -259,7 +259,8 @@
             android:fontFamily="@font/mclaren"
             android:text="@string/difficulty_tv"
             android:textColor="#00FFD8"
-            android:textSize="@dimen/_15ssp" />
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/difficulty_easy_rb"

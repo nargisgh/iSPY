@@ -48,4 +48,5 @@ public class RectPlacer {
 
          return rect;
     }
-}
+
+ }

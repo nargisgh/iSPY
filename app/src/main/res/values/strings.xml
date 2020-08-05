@@ -139,6 +139,7 @@
     <string name="pop_udate_text">Date/Time</string>
     <string name="pop_title_text">Great Job!</string>
     <string name="pop_save_text">Save</string>
+    <string name="pop_export_btn">Export</string>
     <string name="draw_pile_text">Draw Pile</string>
     <string name="discard_pile_text">Discard Pile</string>
     <string name="search">search</string>
