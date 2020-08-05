@@ -5,9 +5,13 @@ game, open options, view high scores, view help menu or quit.
 package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private  SharedPreferences sp;
     FlickrManager flickrManager;
     List<FlickrImage> image_list;
+    private static String[] Permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
         }
 
+        //User can't save imgs w/o storage permission
+        checkExternalStoragePermission();
         setupPlayButton();
         setupOptionButton();
         setupHelpButton();
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (sp.getString("Theme", "Superheroes").equals( "Flickr")) {
+                if (sp.getString("Theme", "Superheroes").equals( "FLICKR")) {
                     flickrManager = FlickrManager.getInstance();
                     image_list = flickrManager.getImageList(getApplicationContext());
                     int size = image_list.size();
@@ -187,15 +194,15 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout mm_Layout = findViewById(R.id.mm_Layout);
         SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor mEdit = mPreferences.edit();
-        String curr_theme = mPreferences.getString("Theme", "Superheroes");
+        String curr_theme = mPreferences.getString("Theme", "SUPERHEROES");
 
-        if (curr_theme.equals("Logogang"))
+        if (curr_theme.equals("LOGOGANG"))
         {
             //set Logogang BG
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_logo);
             gameManager.setTheme(1);
         }
-        else if (curr_theme.equals("Superheroes"))
+        else if (curr_theme.equals("SUPERHEROES"))
         {
             //set Superhero BG
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_heroes);
@@ -230,6 +237,21 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
         musicManager.stop();
         finishAffinity();
+    }
+
+    // Need to check permissions first in order to allow app to export images to files
+    //https://stackoverflow.com/questions/8854359/exception-open-failed-eacces-permission-denied-on-android
+    public void checkExternalStoragePermission() {
+        int writing_permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        // if writing permission is not granted, user will be asked to deny/allow permission
+        if (writing_permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    Permission,
+                    1
+            );
+        }
     }
 
 }

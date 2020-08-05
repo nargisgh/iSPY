@@ -242,4 +242,51 @@
             android:textSize="@dimen/_10ssp" />
 
     </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/difficulty_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/options_size_rgroup">
+
+        <TextView
+            android:id="@+id/diffuclty_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mclaren"
+            android:text="@string/difficulty_tv"
+            android:textColor="#00FFD8"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/difficulty_easy_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mclaren"
+            android:text="@string/diff_easy_str"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_10ssp" />
+
+        <RadioButton
+            android:id="@+id/difficulty_med_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mclaren"
+            android:text="@string/diff_med_str"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_10ssp" />
+
+        <RadioButton
+            android:id="@+id/difficulty_hard_rb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mclaren"
+            android:text="@string/diff_hard_str"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_10ssp" />
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

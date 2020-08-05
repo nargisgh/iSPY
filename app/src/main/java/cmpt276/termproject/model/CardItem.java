@@ -1,6 +1,7 @@
 package cmpt276.termproject.model;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Log;
 
 public class CardItem {
 
@@ -11,9 +12,14 @@ public class CardItem {
     private boolean isText;
     private Rect rect;
 
-    public CardItem(int item){
+    private int rotationAngle;
+    private double itemScale;
+
+    public CardItem(int item, int difficulty ){
         this.item = item;
+        setDifficulty(difficulty);
     }
+
 
     public void setMode(boolean isText){
         this.isText = isText;
@@ -57,4 +63,34 @@ public class CardItem {
     public String getName(){
         return name;
     }
+
+
+    public void setDifficulty(int difficulty){
+        if (difficulty == 1) {
+            rotationAngle = (int) (Math.random() * 360);
+        }
+        if (difficulty == 2){
+            rotationAngle = (int) (Math.random() * 360);
+            itemScale = (Math.random() * (1.5f - 0.75f)) + 0.75f;
+        }
+        Log.e("Rotation", difficulty + "");
+    }
+
+
+    public void setRotationAngle(int angle){
+        rotationAngle = angle;
+    }
+
+    public int getRotationAngle(){
+        return rotationAngle;
+    }
+
+    public void setItemScale(double scale){
+        itemScale = scale;
+    }
+
+    public double getItemScale(){
+        return itemScale;
+    }
+
 }
