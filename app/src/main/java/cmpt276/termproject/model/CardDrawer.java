@@ -318,20 +318,16 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         String time = highScores.getCurrentDateTime();
         String file_name = "Card" + card_counter + "_" + time + ".png";
         File file = new File(directory, file_name);
-        //System.out.println(file.getAbsolutePath());
-        //if (file.exists()) file.delete();
         Log.e("Path Name", path + file_name);
         try {
             FileOutputStream out = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.flush();
             out.close();
-            //MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), file.getName(), file.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }
         MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
-        //counter++;
 
     }
 
@@ -342,32 +338,18 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         int num_images = gameManager.getNumberImages();
         int section_size = 360 / num_images;
 
-
         int size = Math.round(64 * getResources().getDisplayMetrics().density);
 
         Card card;
         Bitmap result = Bitmap.createBitmap(card_bitmap.getWidth(), card_bitmap.getHeight(), card_bitmap.getConfig());
-        //result = Bitmap.createScaledBitmap(card_bitmap, (int) RADIUS * 2, (int) RADIUS * 2, true);
-
         Canvas canvas = new Canvas(result);
-        //int card_width = card_bitmap.getWidth();
-
 
         float text_size = 3f / (360f / section_size);
         Paint rect_paint = new Paint();
         rect_paint.setTextSize(48f * text_size);
         rect_paint.setTextAlign(Paint.Align.CENTER);
 
-        //canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
-
-
-
-        //canvas.drawBitmap(front, move, move, null);
-        //return result;
-
         RectPlacer rectPlacer = new RectPlacer();
-
-        //int offset = (int) (Math.random() * 90);
 
         canvas.drawBitmap(card_bitmap, 0f, 0f, null);
         for (int i = 0; i < num_images; i++) {
@@ -378,18 +360,13 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             int img_width = img.getWidth();
             int img_height = img.getHeight();
             float ratio = img_width/(float)img_height;
-            //float move = (card_width - img_width) / 2;
 
-            //img = Bitmap.createScaledBitmap(img , size/2, (int) (size/ratio)/2, true);
             img = Bitmap.createScaledBitmap(img , (int) (size*ratio)/2, size/2, true);
 
             Rect rect = rectPlacer.placeRectCardImg(RADIUS, card_bitmap.getWidth()/2, card_bitmap.getHeight()/2, size, section_size, i);
-            //canvas.drawBitmap(img, move,move, null);
             if (card.getIsText(i)) {
-                //canvas.drawText(card.getName(i), move,move, rect_paint);
                 canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
             } else {
-                //canvas.drawBitmap(img, i*size,0, null);
                 canvas.drawBitmap(img, null, rect, null);
             }
         }

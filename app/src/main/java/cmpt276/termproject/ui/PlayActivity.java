@@ -183,8 +183,9 @@ public class PlayActivity extends AppCompatActivity  {
                     editor.putInt("counter",counter);
                     editor.apply();
                     musicManager.pause();
-                    dialog.dismiss();
-                    finish();
+                    Toast.makeText(getApplicationContext(), "Username and score are saved!", Toast.LENGTH_SHORT).show();
+                    //dialog.dismiss();
+                    //finish();
                 }
 
                 else{
@@ -201,6 +202,7 @@ public class PlayActivity extends AppCompatActivity  {
             {
                 cardDrawer.exportCardImgs();
                 Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
+
             }
         });
 
