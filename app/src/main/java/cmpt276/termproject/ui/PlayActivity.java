@@ -154,7 +154,7 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 musicManager.pause();
                 dialog.dismiss();
-                //cardDrawer.deleteCardImgs();
+                cardDrawer.deleteCardImgs();
                 finish();
             }
         });
@@ -163,7 +163,6 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 name = userId.getText().toString();
                 userId.setText(name);
-                cardDrawer.deleteCardImgs();
 
                 if(userId.getText().toString().length()>10){
                     userId.setError(""+userId.getText().toString().length() +"/10 characters");
