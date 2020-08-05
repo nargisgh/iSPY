@@ -47,7 +47,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private static final int OFFSET = 20;
     private GameListener gameListener;
     private final GameManager gameManager;
-    private int counter;
+    private int counter = 0;
     private List<Bitmap> img_bitmap = new ArrayList<>();
     private static Context context;
 
@@ -310,13 +310,13 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     // storing image into gallery
     // https://stackoverflow.com/questions/8560501/android-save-image-into-gallery
-    public static void storeImage(Bitmap bitmap, int counter) {
+    public static void storeImage(Bitmap bitmap, int card_counter) {
         HighScores highScores = new HighScores();
         String path = (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString());
         File directory = new File(path);
         directory.mkdirs();
         String time = highScores.getCurrentDateTime();
-        String file_name = "Card" + counter + "_" + time + ".png";
+        String file_name = "Card" + card_counter + "_" + time + ".png";
         File file = new File(directory, file_name);
         //System.out.println(file.getAbsolutePath());
         //if (file.exists()) file.delete();
