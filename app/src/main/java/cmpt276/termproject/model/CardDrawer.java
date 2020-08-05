@@ -209,6 +209,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         int data_index = card.getImages().get(i);
         // Create Rect
         Rect rect = rectPlacer.placeRect( RADIUS, x, y, section_size,i, scale);
+
         card.setName(i, item_names.get(data_index));
         float text_size = 3f/( 360f / section_size );
 

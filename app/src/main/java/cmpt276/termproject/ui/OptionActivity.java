@@ -31,6 +31,9 @@ public class OptionActivity extends AppCompatActivity {
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEdit;
 
+    private RadioGroup difficulty_group;
+
+
     private enum Theme{ SUPERHEROES, LOGOGANG, FLICKR }
 
     private enum Mode { TRUE, FALSE }
@@ -91,6 +94,15 @@ public class OptionActivity extends AppCompatActivity {
         String curr_mode = mPreferences.getString("Mode", "FALSE");
         String curr_size = mPreferences.getString("Size", "0");
         String curr_order = mPreferences.getString("Order", "2");
+
+
+        //Difficulty stuff
+        final RadioButton[] difficulty_rbtns = {findViewById(R.id.difficulty_easy_rb),
+                findViewById(R.id.difficulty_med_rb),
+                findViewById(R.id.difficulty_hard_rb)};
+
+        int difficulty = mPreferences.getInt("Difficulty", 0);
+        difficulty_rbtns[difficulty].setChecked(true);
 
 
         //Restore user options from last application run
@@ -258,6 +270,22 @@ public class OptionActivity extends AppCompatActivity {
                 mEdit.apply();
             }
         });
+
+        difficulty_group = findViewById(R.id.difficulty_radio_group);
+        difficulty_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                View difficulty_btn = difficulty_group.findViewById(checkedId);
+                int index = difficulty_group.indexOfChild(difficulty_btn) - 1;
+
+                mEdit.putInt("Difficulty", index);
+                mEdit.apply();
+            }
+        });
+
+
+
     }
 
 
