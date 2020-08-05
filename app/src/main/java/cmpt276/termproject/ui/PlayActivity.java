@@ -141,7 +141,7 @@ public class PlayActivity extends AppCompatActivity  {
         Button cancel_btn = dialog.findViewById(R.id.pop_cancel_btn);
         dynamicScaling(cancel_btn, 6, 8);
 
-        Button export_btn = dialog.findViewById(R.id.pop_export_btn);
+        final Button export_btn = dialog.findViewById(R.id.pop_export_btn);
         dynamicScaling(export_btn, 6, 8);
 
         final EditText userId = dialog.findViewById(R.id.userId);
@@ -194,12 +194,13 @@ public class PlayActivity extends AppCompatActivity  {
             }
         });
 
-        export_btn.setOnClickListener(new View.OnClickListener() {
+        export_btn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
                 cardDrawer.exportCardImgs();
+                Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -238,6 +239,7 @@ public class PlayActivity extends AppCompatActivity  {
         super.onUserLeaveHint();
         musicManager.pause();
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -247,8 +249,6 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
+    public void onBackPressed() {}
 
 }
