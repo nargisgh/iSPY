@@ -56,8 +56,8 @@
 
             <Button
                 android:id="@+id/gallery_clear_btn"
-                android:layout_width="@dimen/_155sdp"
-                android:layout_height="32dp"
+                android:layout_width="164dp"
+                android:layout_height="29dp"
                 android:layout_marginBottom="6dp"
                 android:background="@color/buttonColor"
                 android:fontFamily="@font/press_start_2p"
@@ -73,8 +73,8 @@
 
             <Button
                 android:id="@+id/gallery_camera_roll_btn"
-                android:layout_width="@dimen/_155sdp"
-                android:layout_height="32dp"
+                android:layout_width="164dp"
+                android:layout_height="29dp"
                 android:layout_marginBottom="6dp"
                 android:background="@color/buttonColor"
                 android:fontFamily="@font/press_start_2p"
@@ -83,14 +83,15 @@
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toTopOf="@+id/photo_recycler_view"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.657"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
             <Button
                 android:id="@+id/gallery_back_btn"
-                android:layout_width="@dimen/_155sdp"
-                android:layout_height="32dp"
+                android:layout_width="164dp"
+                android:layout_height="29dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="6dp"
                 android:background="@color/buttonColor"
@@ -101,6 +102,23 @@
                 app:layout_constraintBottom_toTopOf="@+id/photo_recycler_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:id="@+id/import_btn"
+                android:layout_width="164dp"
+                android:layout_height="29dp"
+                android:layout_marginBottom="6dp"
+                android:background="@color/buttonColor"
+                android:fontFamily="@font/press_start_2p"
+                android:text="Import"
+                android:textColor="#FF5900"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toTopOf="@+id/photo_recycler_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.33"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
