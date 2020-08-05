@@ -382,7 +382,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             //img = Bitmap.createScaledBitmap(img , size/2, (int) (size/ratio)/2, true);
             img = Bitmap.createScaledBitmap(img , (int) (size*ratio)/2, size/2, true);
 
-            Rect rect = rectPlacer.placeRect(RADIUS, card_bitmap.getWidth()/2, card_bitmap.getHeight()/2, size, section_size, i);
+            Rect rect = rectPlacer.placeRectCardImg(RADIUS, card_bitmap.getWidth()/2, card_bitmap.getHeight()/2, size, section_size, i);
             //canvas.drawBitmap(img, move,move, null);
             if (card.getIsText(i)) {
                 //canvas.drawText(card.getName(i), move,move, rect_paint);
