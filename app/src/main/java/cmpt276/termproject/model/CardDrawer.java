@@ -13,10 +13,15 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.media.MediaScannerConnection;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,6 +47,9 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private static final int OFFSET = 20;
     private GameListener gameListener;
     private final GameManager gameManager;
+    private int counter;
+    private List<Bitmap> img_bitmap = new ArrayList<>();
+    private static Context context;
 
     public interface GameListener {
         void onGameOver();
@@ -78,6 +86,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         card_bitmap = Bitmap.createScaledBitmap(card_bitmap,(int)RADIUS * 2 , (int)RADIUS * 2, true);
         this.setZOrderOnTop(true);
         this.getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        this.context = context;
     }
 
     // Set the Theme from the available 2 and create bitmap array
@@ -187,6 +196,9 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         surfaceHolder.unlockCanvasAndPost(canvas);
+        Bitmap result = MergeBitmaps();
+        img_bitmap.add(result);
+
     }
 
     public void saveCardInfo(Card card, int i, RectPlacer rectPlacer, int x , int y , int section_size){
@@ -294,4 +306,110 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
       return true;
     }
+
+    // storing image into gallery
+    // https://stackoverflow.com/questions/8560501/android-save-image-into-gallery
+    public static void storeImage(Bitmap bitmap, int counter) {
+        HighScores highScores = new HighScores();
+        String path = (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString());
+        File directory = new File(path);
+        directory.mkdirs();
+        String time = highScores.getCurrentDateTime();
+        String file_name = "Card" + counter + "_" + time + ".png";
+        File file = new File(directory, file_name);
+        //System.out.println(file.getAbsolutePath());
+        //if (file.exists()) file.delete();
+        Log.e("Path Name", path + file_name);
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
+            //MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), file.getName(), file.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
+        //counter++;
+
+    }
+
+    // https://stackoverflow.com/questions/31813638/how-to-merge-bitmaps-in-android
+//https://stackoverflow.com/questions/25721628/android-drawing-multiple-different-size-bitmaps-to-same-size-canvas
+
+    public Bitmap MergeBitmaps() {
+        int num_images = gameManager.getNumberImages();
+        int section_size = 360 / num_images;
+
+
+        int size = Math.round(64 * getResources().getDisplayMetrics().density);
+
+        Card card;
+        Bitmap result = Bitmap.createBitmap(card_bitmap.getWidth(), card_bitmap.getHeight(), card_bitmap.getConfig());
+        //result = Bitmap.createScaledBitmap(card_bitmap, (int) RADIUS * 2, (int) RADIUS * 2, true);
+
+        Canvas canvas = new Canvas(result);
+        //int card_width = card_bitmap.getWidth();
+
+
+        float text_size = 3f / (360f / section_size);
+        Paint rect_paint = new Paint();
+        rect_paint.setTextSize(48f * text_size);
+        rect_paint.setTextAlign(Paint.Align.CENTER);
+
+        //canvas.drawBitmap(card_bitmap, x + OFFSET, y - RADIUS, null);
+
+
+
+        //canvas.drawBitmap(front, move, move, null);
+        //return result;
+
+        RectPlacer rectPlacer = new RectPlacer();
+
+        //int offset = (int) (Math.random() * 90);
+
+        canvas.drawBitmap(card_bitmap, 0f, 0f, null);
+        for (int i = 0; i < num_images; i++) {
+            card = gameManager.getTopDiscardCard();
+            int data_index = card.getImages().get(i);
+            Bitmap img = bitmaps.get(data_index);
+            card.setName(i, item_names.get(data_index));
+            int img_width = img.getWidth();
+            int img_height = img.getHeight();
+            float ratio = img_width/(float)img_height;
+            //float move = (card_width - img_width) / 2;
+
+            //img = Bitmap.createScaledBitmap(img , size/2, (int) (size/ratio)/2, true);
+            img = Bitmap.createScaledBitmap(img , (int) (size*ratio)/2, size/2, true);
+
+            Rect rect = rectPlacer.placeRect(RADIUS, card_bitmap.getWidth()/2, card_bitmap.getHeight()/2, size, section_size, i);
+            //canvas.drawBitmap(img, move,move, null);
+            if (card.getIsText(i)) {
+                //canvas.drawText(card.getName(i), move,move, rect_paint);
+                canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
+            } else {
+                //canvas.drawBitmap(img, i*size,0, null);
+                canvas.drawBitmap(img, null, rect, null);
+            }
+        }
+        return result;
+
+    }
+
+
+
+    public void exportCardImgs(){
+        for(int i =0; i< img_bitmap.size();i++) {
+            storeImage(img_bitmap.get(i), counter);
+            counter++;
+        }
+
+    }
+    public void deleteCardImgs(){
+        for(int i =0; i< img_bitmap.size();i++) {
+            img_bitmap.get(i).recycle();
+        }
+
+    }
+
 }
