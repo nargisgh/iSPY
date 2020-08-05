@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -153,7 +154,6 @@ public class PlayActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 musicManager.pause();
-                dialog.dismiss();
                 cardDrawer.deleteCardImgs();
                 finish();
             }
@@ -201,7 +201,19 @@ public class PlayActivity extends AppCompatActivity  {
             {
                 cardDrawer.exportCardImgs();
                 Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
+                cardDrawer.deleteCardImgs();
 
+            }
+        });
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
+        {
+            @Override
+            public void onCancel(DialogInterface dialog)
+            {
+                musicManager.pause();
+                cardDrawer.deleteCardImgs();
+                finish();
             }
         });
 
