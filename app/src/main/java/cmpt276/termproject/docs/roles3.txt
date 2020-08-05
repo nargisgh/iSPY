@@ -1,0 +1,5 @@
+Scrum Roles:
+Product Owner - Nargis
+Repository Manager - Halakseka
+Team Member - Mikhail
+Scrum Master - Shaheen

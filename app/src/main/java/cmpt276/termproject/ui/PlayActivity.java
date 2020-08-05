@@ -5,13 +5,18 @@ the game.
 package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +26,8 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -58,6 +65,7 @@ public class PlayActivity extends AppCompatActivity  {
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
         setup();
         chronometer = findViewById(R.id.stopwatch);
+
     }
 
     private void setup(){
@@ -133,6 +141,9 @@ public class PlayActivity extends AppCompatActivity  {
         Button cancel_btn = dialog.findViewById(R.id.pop_cancel_btn);
         dynamicScaling(cancel_btn, 6, 8);
 
+        final Button export_btn = dialog.findViewById(R.id.pop_export_btn);
+        dynamicScaling(export_btn, 6, 8);
+
         final EditText userId = dialog.findViewById(R.id.userId);
         final TextView score_p = dialog.findViewById(R.id.score);
         final TextView dateTime_p = dialog.findViewById(R.id.dateTime);
@@ -143,6 +154,7 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 musicManager.pause();
                 dialog.dismiss();
+                cardDrawer.deleteCardImgs();
                 finish();
             }
         });
@@ -151,6 +163,7 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 name = userId.getText().toString();
                 userId.setText(name);
+                cardDrawer.deleteCardImgs();
 
                 if(userId.getText().toString().length()>10){
                     userId.setError(""+userId.getText().toString().length() +"/10 characters");
@@ -177,8 +190,20 @@ public class PlayActivity extends AppCompatActivity  {
                 else{
                     userId.setError("Invalid Username");
                 }
+
             }
         });
+
+        export_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                cardDrawer.exportCardImgs();
+                Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         dialog.show();
         Window window = dialog.getWindow();
         assert window != null;
@@ -214,6 +239,7 @@ public class PlayActivity extends AppCompatActivity  {
         super.onUserLeaveHint();
         musicManager.pause();
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -223,8 +249,6 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
+    public void onBackPressed() {}
 
 }

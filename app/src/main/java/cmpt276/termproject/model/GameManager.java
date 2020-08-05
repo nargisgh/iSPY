@@ -138,4 +138,6 @@ public class GameManager {
     public int getTheme() {
         return theme;
     }
+
+    public int getDraw_pile_size(){return draw_pile_size;}
 }
