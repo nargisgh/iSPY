@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (sp.getString("Theme", "Superheroes").equals( "Flickr")) {
+                if (sp.getString("Theme", "Superheroes").equals( "FLICKR")) {
                     flickrManager = FlickrManager.getInstance();
                     image_list = flickrManager.getImageList(getApplicationContext());
                     int size = image_list.size();
@@ -194,15 +194,15 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout mm_Layout = findViewById(R.id.mm_Layout);
         SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor mEdit = mPreferences.edit();
-        String curr_theme = mPreferences.getString("Theme", "Superheroes");
+        String curr_theme = mPreferences.getString("Theme", "SUPERHEROES");
 
-        if (curr_theme.equals("Logogang"))
+        if (curr_theme.equals("LOGOGANG"))
         {
             //set Logogang BG
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_logo);
             gameManager.setTheme(1);
         }
-        else if (curr_theme.equals("Superheroes"))
+        else if (curr_theme.equals("SUPERHEROES"))
         {
             //set Superhero BG
             mm_Layout.setBackgroundResource(R.drawable.bg_menu_heroes);
