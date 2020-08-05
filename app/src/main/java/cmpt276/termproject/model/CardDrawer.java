@@ -196,7 +196,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         surfaceHolder.unlockCanvasAndPost(canvas);
-        Bitmap result = MergeBitmaps();
+        Bitmap result = MergeBitmaps(gameManager.getTopDiscardCard(),num_images,section_size,rectPlacer);
         img_bitmap.add(result);
 
     }
@@ -332,40 +332,17 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     // https://stackoverflow.com/questions/31813638/how-to-merge-bitmaps-in-android
-//https://stackoverflow.com/questions/25721628/android-drawing-multiple-different-size-bitmaps-to-same-size-canvas
+    public Bitmap MergeBitmaps(Card card, int num_images,int section_size,RectPlacer rectPlacer) {
 
-    public Bitmap MergeBitmaps() {
-        int num_images = gameManager.getNumberImages();
-        int section_size = 360 / num_images;
-
-        Card card = gameManager.getTopDiscardCard();
         Bitmap result = Bitmap.createBitmap(card_bitmap.getWidth(), card_bitmap.getHeight(), card_bitmap.getConfig());
-        Canvas canvas = new Canvas(result);
+        canvas = new Canvas(result);
+        canvas.drawBitmap(card_bitmap, 0, 0, null);
 
-        float text_size = 3f / (360f / section_size);
-        Paint rect_paint = new Paint();
-        rect_paint.setTextSize(48f * text_size);
-        rect_paint.setTextAlign(Paint.Align.CENTER);
-        RectPlacer rectPlacer = new RectPlacer();
-
-        canvas.drawBitmap(card_bitmap, 0f, 0f, null);
         for (int i = 0; i < num_images; i++) {
-            int data_index = card.getImages().get(i);
-            Bitmap img = bitmaps.get(data_index);
-            card.setName(i, item_names.get(data_index));
-            double scale = card.getScale(i);
-            Rect rect = rectPlacer.placeRect(RADIUS,card_bitmap.getWidth()/2,card_bitmap.getHeight()/2,section_size,i,scale);
-
-            if (card.getIsText(i)) {
-                canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
-            } else {
-                canvas.drawBitmap(img, null, rect, null);
-            }
+            saveCardInfo(card, i, rectPlacer, card_bitmap.getWidth() / 2, card_bitmap.getHeight() / 2, section_size);
         }
         return result;
-
     }
-
 
 
     public void exportCardImgs(){
@@ -381,5 +358,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
 
     }
+
+
+
 
 }

@@ -154,7 +154,7 @@ public class PlayActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 musicManager.pause();
                 dialog.dismiss();
-                cardDrawer.deleteCardImgs();
+                //cardDrawer.deleteCardImgs();
                 finish();
             }
         });
