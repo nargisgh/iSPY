@@ -338,9 +338,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         int num_images = gameManager.getNumberImages();
         int section_size = 360 / num_images;
 
-        int size = Math.round(64 * getResources().getDisplayMetrics().density);
-
-        Card card;
+        Card card = gameManager.getTopDiscardCard();
         Bitmap result = Bitmap.createBitmap(card_bitmap.getWidth(), card_bitmap.getHeight(), card_bitmap.getConfig());
         Canvas canvas = new Canvas(result);
 
@@ -348,22 +346,16 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         Paint rect_paint = new Paint();
         rect_paint.setTextSize(48f * text_size);
         rect_paint.setTextAlign(Paint.Align.CENTER);
-
         RectPlacer rectPlacer = new RectPlacer();
 
         canvas.drawBitmap(card_bitmap, 0f, 0f, null);
         for (int i = 0; i < num_images; i++) {
-            card = gameManager.getTopDiscardCard();
             int data_index = card.getImages().get(i);
             Bitmap img = bitmaps.get(data_index);
             card.setName(i, item_names.get(data_index));
-            int img_width = img.getWidth();
-            int img_height = img.getHeight();
-            float ratio = img_width/(float)img_height;
+            double scale = card.getScale(i);
+            Rect rect = rectPlacer.placeRect(RADIUS,card_bitmap.getWidth()/2,card_bitmap.getHeight()/2,section_size,i,scale);
 
-            img = Bitmap.createScaledBitmap(img , (int) (size*ratio)/2, size/2, true);
-
-            Rect rect = rectPlacer.placeRectCardImg(RADIUS, card_bitmap.getWidth()/2, card_bitmap.getHeight()/2, size, section_size, i);
             if (card.getIsText(i)) {
                 canvas.drawText(card.getName(i), rectPlacer.getPosX(), rectPlacer.getPosY(), rect_paint);
             } else {
