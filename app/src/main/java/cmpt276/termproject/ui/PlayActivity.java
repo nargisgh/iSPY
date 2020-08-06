@@ -42,6 +42,7 @@ Pop Up dialog when game is over */
 public class PlayActivity extends AppCompatActivity  {
 
     private MediaPlayer sfx_player = new MediaPlayer();
+    private MediaPlayer mp_gamestate;
     private String name;
     private String dateTime;
     private Chronometer chronometer;
@@ -66,7 +67,8 @@ public class PlayActivity extends AppCompatActivity  {
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
         setup();
         chronometer = findViewById(R.id.stopwatch);
-
+        mp_gamestate = MediaPlayer.create(getApplicationContext(), R.raw.start);
+        mp_gamestate.start();
     }
 
     private void setup(){
@@ -96,6 +98,8 @@ public class PlayActivity extends AppCompatActivity  {
                 double time = elapsed_time_ms/1000;
                 //Ex format: 8.5
 
+                mp_gamestate = MediaPlayer.create(getApplicationContext(), R.raw.win);
+                mp_gamestate.start();
                 popup(dateTime, String.valueOf(time));
             }
 

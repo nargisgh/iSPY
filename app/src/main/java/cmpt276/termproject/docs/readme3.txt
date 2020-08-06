@@ -15,8 +15,6 @@ and draw pile size will have different default scores to beat. Help screen expla
 conventions of the game in detail with sources provided.
 
 
-
-
 ## Key Features
     * Custom images curated - Menu and Splash screen
     * Custom made app icon
