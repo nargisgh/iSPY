@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -135,8 +136,20 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     private void popup(final String dateTime,final String time){
-        musicManager.play();
-        isPlaying = true;
+        CountDownTimer timer = new CountDownTimer(2000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                musicManager.play();
+                isPlaying = true;
+            }
+        };
+        timer.start();
+
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
 
