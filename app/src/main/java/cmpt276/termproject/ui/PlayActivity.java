@@ -5,19 +5,15 @@ the game.
 package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -139,8 +135,8 @@ public class PlayActivity extends AppCompatActivity  {
         Button save_btn = dialog.findViewById(R.id.pop_save_btn);
         dynamicScaling(save_btn, 6, 8);
 
-        Button cancel_btn = dialog.findViewById(R.id.pop_cancel_btn);
-        dynamicScaling(cancel_btn, 6, 8);
+        Button done_btn = dialog.findViewById(R.id.pop_done_btn);
+        dynamicScaling(done_btn, 6, 8);
 
         final Button export_btn = dialog.findViewById(R.id.pop_export_btn);
         dynamicScaling(export_btn, 6, 8);
@@ -150,7 +146,7 @@ public class PlayActivity extends AppCompatActivity  {
         final TextView dateTime_p = dialog.findViewById(R.id.dateTime);
         score_p.setText(time);
         dateTime_p.setText(dateTime);
-        cancel_btn.setOnClickListener(new View.OnClickListener() {
+        done_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicManager.pause();
