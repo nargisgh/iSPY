@@ -6,7 +6,6 @@ package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -67,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
         setupFlickrButton();
         setTheme();
     }
-
-
 
     @Override
     protected void onResume()

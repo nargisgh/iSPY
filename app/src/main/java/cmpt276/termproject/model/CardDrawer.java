@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -203,7 +202,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     public void saveCardInfo(Card card, int i, RectPlacer rectPlacer, int x , int y , int section_size){
 
-
         int rotation = card.getRotation(i);
         double scale = card.getScale(i);
         int data_index = card.getImages().get(i);
@@ -328,7 +326,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             e.printStackTrace();
         }
         MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
-
     }
 
     // https://stackoverflow.com/questions/31813638/how-to-merge-bitmaps-in-android
@@ -344,7 +341,6 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         return result;
     }
 
-
     public void exportCardImgs(){
         for(int i =0; i< img_bitmap.size();i++) {
             storeImage(img_bitmap.get(i), counter);
@@ -352,14 +348,11 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
 
     }
+
     public void deleteCardImgs(){
         for(int i =0; i< img_bitmap.size();i++) {
             img_bitmap.get(i).recycle();
         }
 
     }
-
-
-
-
 }

@@ -18,9 +18,7 @@ import cmpt276.termproject.R;
 public class HighScores{
 
     private final List<String> DEFAULT_SCORES = new ArrayList<>();
-
     ArrayList<String> arr = new ArrayList<>();
-
 
     //Singleton Stuff
     private static HighScores instance;

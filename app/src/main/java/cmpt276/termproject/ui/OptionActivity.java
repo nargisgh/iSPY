@@ -10,8 +10,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -30,12 +28,8 @@ public class OptionActivity extends AppCompatActivity {
     private RadioGroup order_grp;
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEdit;
-
     private RadioGroup difficulty_group;
-
-
     private enum Theme{ SUPERHEROES, LOGOGANG, FLICKR }
-
     private enum Mode { TRUE, FALSE }
 
     @Override
@@ -84,9 +78,7 @@ public class OptionActivity extends AppCompatActivity {
         RadioButton order5_rbtn = findViewById(R.id.order_five_rbtn);
         final RadioButton[] size_rbtns = {size5_rbtn, size10_rbtn, size15_rbtn, size20_rbtn, sizeAll_rbtn};
         final RadioButton[] order_rbtns = {order2_rbtn, order3_rbtn, order5_rbtn};
-
         final RadioButton[] theme_rbtns = {hero_rbtn,logo_rbtn,flickr_rbtn};
-
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mEdit = mPreferences.edit();
         //Store user options and defaults
@@ -95,7 +87,6 @@ public class OptionActivity extends AppCompatActivity {
         String curr_size = mPreferences.getString("Size", "0");
         String curr_order = mPreferences.getString("Order", "2");
 
-
         //Difficulty stuff
         final RadioButton[] difficulty_rbtns = {findViewById(R.id.difficulty_easy_rb),
                 findViewById(R.id.difficulty_med_rb),
@@ -103,7 +94,6 @@ public class OptionActivity extends AppCompatActivity {
 
         int difficulty = mPreferences.getInt("Difficulty", 0);
         difficulty_rbtns[difficulty].setChecked(true);
-
 
         //Restore user options from last application run
         if (curr_theme.equals(String.valueOf(Theme.LOGOGANG))) {
@@ -122,7 +112,6 @@ public class OptionActivity extends AppCompatActivity {
         else {
             disabled_rbtn.setChecked(true);
         }
-
 
         for (int i = 0; i < 5; i++) {
             if (curr_size.equals("0")) {
@@ -284,10 +273,7 @@ public class OptionActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
-
 
     private void disableButton(RadioButton btn){
         btn.setEnabled(false);
@@ -310,7 +296,6 @@ public class OptionActivity extends AppCompatActivity {
     private int getNumCards(int order){
         return ((order + 1) * order) + 1;
     }
-
 
     public static Intent makeIntent(Context context){
         return new Intent(context,OptionActivity.class);

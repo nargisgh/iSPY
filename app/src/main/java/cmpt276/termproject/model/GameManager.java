@@ -29,7 +29,6 @@ public class GameManager {
     private List<int[]> draw;
     private int difficultyMode;
 
-
     // Singleton for the Manager
     private GameManager (Context context) {
         imgs_text_mode = true;

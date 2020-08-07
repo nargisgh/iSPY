@@ -1,3 +1,7 @@
+/*
+Manager for the Flickr images, creates the bitmaps list, allows for storing and
+removing the flickr Images.
+*/
 package cmpt276.termproject.model.FlickrGallery;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,11 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class FlickrManager {
-
-    /*
-    Manager for the Flickr images, creates the bitmaps list, allows for storing and
-    removing the flickr Images
-     */
 
     private List<FlickrImage> imageList;
     private static FlickrManager instance;

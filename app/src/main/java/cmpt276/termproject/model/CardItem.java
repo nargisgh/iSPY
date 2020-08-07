@@ -11,7 +11,6 @@ public class CardItem {
     private String name;
     private boolean isText;
     private Rect rect;
-
     private int rotationAngle;
     private double itemScale;
 
@@ -19,7 +18,6 @@ public class CardItem {
         this.item = item;
         setDifficulty(difficulty);
     }
-
 
     public void setMode(boolean isText){
         this.isText = isText;
@@ -75,7 +73,6 @@ public class CardItem {
         }
         Log.e("Rotation", difficulty + "");
     }
-
 
     public void setRotationAngle(int angle){
         rotationAngle = angle;

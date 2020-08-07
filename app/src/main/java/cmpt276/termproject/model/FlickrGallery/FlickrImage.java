@@ -1,11 +1,10 @@
+/*
+Image object for the Flickr Images, stores ID and bitmap so they can be referenced.
+*/
 package cmpt276.termproject.model.FlickrGallery;
 import android.graphics.Bitmap;
 
 public class FlickrImage {
-
-    /*
-    Image object for the Flickr Images, stores ID and bitmap so they can be referenced
-     */
 
     private final String imgID;
     private final Bitmap imgBitmap;

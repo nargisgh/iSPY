@@ -1,3 +1,6 @@
+/*
+Assembling a bg thread.
+*/
 package cmpt276.termproject.model.FlickrGallery;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -10,8 +13,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-/* Assembling a bg thread
-* */
 
 public class ThumbnailDownloader<T> extends HandlerThread {
     //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano

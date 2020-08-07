@@ -5,7 +5,6 @@ the game.
 package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,7 +23,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.CardDrawer;
 import cmpt276.termproject.model.GameManager;
@@ -62,7 +60,6 @@ public class PlayActivity extends AppCompatActivity  {
         ps_Layout.setBackgroundResource(R.drawable.bg_play);
         setup();
         chronometer = findViewById(R.id.stopwatch);
-
     }
 
     private void setup(){
@@ -87,8 +84,6 @@ public class PlayActivity extends AppCompatActivity  {
 
                 dateTime = highScore.getCurrentDateTime();
                 double elapsed_time_ms = System.currentTimeMillis() - game_start_time;
-
-                //ms = String.valueOf((int)elapsed_time % 1000 / 10);
                 double time = elapsed_time_ms/1000;
                 //Ex format: 8.5
 
@@ -180,8 +175,6 @@ public class PlayActivity extends AppCompatActivity  {
                     editor.apply();
                     musicManager.pause();
                     Toast.makeText(getApplicationContext(), "Username and score are saved!", Toast.LENGTH_SHORT).show();
-                    //dialog.dismiss();
-                    //finish();
                 }
 
                 else{

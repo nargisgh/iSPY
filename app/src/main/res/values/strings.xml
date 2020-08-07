@@ -37,7 +37,7 @@
     <string name="themes_rgheader_text">Choose a theme:</string>
     <string name="themes_logo_rbtn">LogogangⓇ</string>
     <string name="themes_heroes_rbtn">Superheroes</string>
-    <string name="themes_flickr_rbtn">Custom (Flickr)</string>
+    <string name="themes_flickr_rbtn">Custom/Flickr</string>
     <string name="size_rgheader2_text">Deck Size</string>
     <string name="size_five_rbtn">5</string>
     <string name="size_ten_rbtn">10</string>
