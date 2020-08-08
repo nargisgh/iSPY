@@ -10,7 +10,7 @@
     <string name="username">UserName:</string>
     <string name="back">Back</string>
     <string name="discard_pile">Discard Pile</string>
-    <string name="draw_pile">Draw Pile</string>
+    <string name="draw_pile">\ \    Draw Pile: \</string>
     <string name="draw">draw</string>
     <string name="splash_skip_btn">Tap Here to Skip</string>
     <string name="splash_quit_btn">Quit</string>
@@ -174,5 +174,6 @@
     <string name="diff_hard_str">Hard</string>
     <string name="done">Done</string>
     <string name="custom">Custom</string>
+    <string name="order">\ Order: \</string>
 
 </resources>

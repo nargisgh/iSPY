@@ -5,6 +5,8 @@ package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -69,6 +71,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setupBackBtn();
     }
 
+    @SuppressLint("SetTextI18n")
     private void setOptionsTitle(String order, String draw){
 
         if( order.equals("2") && draw.equals("0")){
@@ -80,8 +83,8 @@ public class HighScoreActivity extends AppCompatActivity {
         else if(order.equals("5") && draw.equals("0")){
             draw = "31";
         }
-        TextView textView = (TextView)findViewById(R.id.option_info);
-        textView.setText("Order: "+ order+ "    Draw Pile Size: "+draw);
+        TextView textView = findViewById(R.id.option_info);
+        textView.setText(getString(R.string.order)+ order+ getString(R.string.draw_pile)+draw);
     }
 
     public void showDEFScores(){

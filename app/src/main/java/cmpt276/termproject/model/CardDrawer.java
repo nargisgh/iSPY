@@ -2,6 +2,7 @@
 Handles creating cards, setting card theme, drawing pictures on cards, etc.
  */
 package cmpt276.termproject.model;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -15,7 +16,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -48,7 +48,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
     private GameListener gameListener;
     private final GameManager gameManager;
     private int counter = 0;
-    private List<Bitmap> img_bitmap = new ArrayList<>();
+    private final List<Bitmap> img_bitmap = new ArrayList<>();
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
 
     public interface GameListener {

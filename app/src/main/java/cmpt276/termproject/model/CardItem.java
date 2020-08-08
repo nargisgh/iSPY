@@ -7,7 +7,6 @@ public class CardItem {
 
     private final int item;
     private int[] item_coords = new int[2];
-    private Bitmap bitmap;
     private String name;
     private boolean isText;
     private Rect rect;
@@ -44,7 +43,6 @@ public class CardItem {
     }
 
     public void setBitmap(Bitmap bitmap){
-        this.bitmap = bitmap;
     }
 
     public void setRect(Rect rect){

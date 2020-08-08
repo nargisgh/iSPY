@@ -2,6 +2,7 @@
 Handles the general game play: draw pile, discard pile, cards, etc.
  */
 package cmpt276.termproject.model;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -18,7 +19,7 @@ public class GameManager {
     */
 
     private final Context context;
-    private SharedPreferences sharedPreferences;
+    @SuppressLint("StaticFieldLeak")
     private static GameManager instance;
     private List<Card> draw_pile;
     private List<Card> discard_pile;
@@ -43,7 +44,7 @@ public class GameManager {
     }
 
     public void setupGameSettings(){
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         order = Integer.parseInt(sharedPreferences.getString("Order", "2"));
         draw_pile_size = Integer.parseInt(sharedPreferences.getString("Size", "0"));
         imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));

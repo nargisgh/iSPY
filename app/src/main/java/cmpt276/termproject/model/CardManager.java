@@ -11,7 +11,6 @@ import java.util.List;
 
 public class CardManager {
 
-    private List<int[]> card_list;
     private static CardManager instance;
 
     //Use singleton to share the data between classes
@@ -65,11 +64,10 @@ public class CardManager {
             temp[i] = p * p + i;
         }
         cards.add(temp);
-        card_list = cards;
 
         // Shuffle the cards before returning them
-        Collections.shuffle(card_list);
+        Collections.shuffle(cards);
 
-        return card_list;
+        return cards;
     }
 }

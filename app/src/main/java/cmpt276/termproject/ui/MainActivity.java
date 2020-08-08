@@ -5,7 +5,7 @@ game, open options, view high scores, view help menu or quit.
 package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;

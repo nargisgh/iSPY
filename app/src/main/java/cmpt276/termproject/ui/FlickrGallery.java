@@ -256,8 +256,9 @@ public class FlickrGallery extends AppCompatActivity  {
         public PhotoAdapter(List<GalleryItem> galleryItems) {
             this.galleryItems = galleryItems;
         }
+        @NonNull
         @Override
-        public PhotoHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
+        public PhotoHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType)
         {
             LayoutInflater inflater = LayoutInflater.from(FlickrGallery.this);
             View view = inflater.inflate(R.layout.list_item_gallery, viewGroup, false);
@@ -352,6 +353,7 @@ public class FlickrGallery extends AppCompatActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode== RESULT_OK) {
             final List<Bitmap> bitmaps = new ArrayList<>();
+            assert data != null;
             ClipData clipData = data.getClipData();
             if(clipData!=null){
                 for (int i = 0; i < clipData.getItemCount(); i++) {
@@ -368,6 +370,7 @@ public class FlickrGallery extends AppCompatActivity  {
             } else {
                 //single image selected
                 Uri imageUri = data.getData();
+                assert imageUri != null;
                 Log.d("URI", imageUri.toString());
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(imageUri);

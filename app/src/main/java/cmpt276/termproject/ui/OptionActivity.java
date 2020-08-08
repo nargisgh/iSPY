@@ -26,7 +26,6 @@ public class OptionActivity extends AppCompatActivity {
     private RadioGroup mode_grp;
     private RadioGroup size_grp;
     private RadioGroup order_grp;
-    private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEdit;
     private RadioGroup difficulty_group;
     private enum Theme{ SUPERHEROES, LOGOGANG, FLICKR }
@@ -79,7 +78,7 @@ public class OptionActivity extends AppCompatActivity {
         final RadioButton[] size_rbtns = {size5_rbtn, size10_rbtn, size15_rbtn, size20_rbtn, sizeAll_rbtn};
         final RadioButton[] order_rbtns = {order2_rbtn, order3_rbtn, order5_rbtn};
         final RadioButton[] theme_rbtns = {hero_rbtn,logo_rbtn,flickr_rbtn};
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mEdit = mPreferences.edit();
         //Store user options and defaults
         String curr_theme = mPreferences.getString("Theme", "SUPERHEROES");
