@@ -37,10 +37,14 @@ conventions of the game in detail with sources provided.
     * Flickr images can only be incorporated in game if Flickr theme is selected
     * Flickr allows user to search, select, and delete images to use for game
     * Flickr provides a default neutral search that gives the user an idea of what images they can use
-    * Flickr will allow user to edit(delete) or view selected images when "My Camera Roll" button is clicked
-    * User will be notified if not enough images are chosen from Flickr for selected order
+    * Flickr will allow user to edit (delete) or view selected images when "My Camera Roll" button is clicked
+    * User will be notified if not enough images are chosen from Flickr for selected order and blocked from starting a game until more images are selected or options are changed
     * Flickr theme smaller deck sizes are locked unless the user has minimum number of images to play all decks
     * High scores will be shown based on order and draw pile size selected by user in options
+    * Sound effects for game start and game win
+    * 3 difficulty modes available in options (easy, medium, hard) that change card images' size and orientation to make the game more/less challenging
+    * Word mode option allows user to challenge themselves by matching images to their word descriptions or words to words randomly for each card
+    * Export option on game end pop up screen allows user to save game cards to storage exactly as they were displayed in the game (images maintain same position, size and orientation on cards)
 
 
 ## Authors:
