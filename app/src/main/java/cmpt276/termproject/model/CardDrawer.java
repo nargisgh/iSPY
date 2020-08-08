@@ -15,6 +15,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -195,8 +196,8 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         surfaceHolder.unlockCanvasAndPost(canvas);
-        Bitmap result = MergeBitmaps(gameManager.getTopDiscardCard(),num_images,section_size,rectPlacer);
-        img_bitmap.add(result);
+        Bitmap merged_bitmap = mergeBitmaps(gameManager.getTopDiscardCard(),num_images,section_size,rectPlacer);
+        img_bitmap.add(merged_bitmap);
 
     }
 
@@ -316,29 +317,29 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         String time = highScores.getCurrentDateTime();
         String file_name = "Card" + card_counter + "_" + time + ".png";
         File file = new File(directory, file_name);
-        Log.e("Path Name", path + file_name);
         try {
-            FileOutputStream out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-            out.flush();
-            out.close();
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
+
     }
 
     // https://stackoverflow.com/questions/31813638/how-to-merge-bitmaps-in-android
-    public Bitmap MergeBitmaps(Card card, int num_images,int section_size,RectPlacer rectPlacer) {
+    public Bitmap mergeBitmaps(Card card, int num_images, int section_size, RectPlacer rectPlacer) {
 
-        Bitmap result = Bitmap.createBitmap(card_bitmap.getWidth(), card_bitmap.getHeight(), card_bitmap.getConfig());
-        canvas = new Canvas(result);
+        Bitmap bitmap = Bitmap.createBitmap(card_bitmap.getWidth(), card_bitmap.getHeight(), card_bitmap.getConfig());
+        canvas = new Canvas(bitmap);
         canvas.drawBitmap(card_bitmap, 0, 0, null);
 
         for (int i = 0; i < num_images; i++) {
             saveCardInfo(card, i, rectPlacer, card_bitmap.getWidth() / 2, card_bitmap.getHeight() / 2, section_size);
         }
-        return result;
+        return bitmap;
     }
 
     public void exportCardImgs(){
