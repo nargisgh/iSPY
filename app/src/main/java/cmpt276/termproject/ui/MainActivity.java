@@ -91,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
 
                     if (order.equals("2") && (size < 7)) {
                         remain = 7-size;
-                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " + remain+ " more image(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " + remain+ " more image(s). Please go select more from Custom.", Toast.LENGTH_LONG).show();
                     } else if (order.equals("3") && (size < 13)) {
                         remain = 13-size;
-                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " +remain+" more image(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need " +remain+" more image(s). Please go select more from Custom.", Toast.LENGTH_LONG).show();
                     } else if (order.equals("5") && (size < 31)) {
                         remain = 31-size;
-                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need "+remain+" more images(s). Please go select more from Flickr.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Not enough images selected to play! You need "+remain+" more images(s). Please go select more from Custom.", Toast.LENGTH_LONG).show();
                     }
                     else {
                         Intent intent = PlayActivity.makeIntent(MainActivity.this);
@@ -168,10 +168,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupFlickrButton()
     {
-        Button flickr_btn = findViewById(R.id.main_flickr_btn);
-        dynamicScaling(flickr_btn, 7, 6);
+        Button custom_btn = findViewById(R.id.main_custom_btn);
+        dynamicScaling(custom_btn, 7, 6);
 
-        flickr_btn.setOnClickListener(new View.OnClickListener()
+        custom_btn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
