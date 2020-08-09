@@ -14,6 +14,10 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/*expects an object of type T to use as identifier
+ for the download and a string URL for the download (Photo adapter will call this)
+Will be called when image has been fully downloaded and is ready to be added to the UI*/
+
 public class ThumbnailDownloader<T> extends HandlerThread {
     //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
     //Ch 25-29
@@ -40,7 +44,6 @@ public class ThumbnailDownloader<T> extends HandlerThread {
     }
 
     public void setThumbnailDownloadListener(ThumbnailDownloadListener listener) {
-        /*Will be called when image has been fully downloaded and is ready o be added to the UI*/
         thumbnailDownloadListener = listener;
     }
 
@@ -72,8 +75,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
     }
     public void queueThumbnail(T target, String url)
     {
-        //expects an object of type T to use as identifier
-        // for the download and a string URL for the download (Photo adapter will call this)
+
         Log.i(TAG, "Got a URL: " + url);
         if (url == null) {
             requestMap.remove(target);
