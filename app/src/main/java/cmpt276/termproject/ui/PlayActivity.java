@@ -35,11 +35,11 @@ Pop Up dialog when game is over */
 
 public class PlayActivity extends AppCompatActivity  {
 
-    private MediaPlayer sfx_player = new MediaPlayer();
+    private MediaPlayer sfxPlayer = new MediaPlayer();
     private String name;
     private String dateTime;
     private Chronometer chronometer;
-    private double game_start_time;
+    private double gameStartTime;
     public MusicManager musicManager;
     public HighScores highScore;
     private CardDrawer cardDrawer;
@@ -56,8 +56,8 @@ public class PlayActivity extends AppCompatActivity  {
         String order = highScore.getOrder(PlayActivity.this);
         String draw = highScore.getDrawPileSize(PlayActivity.this);
         filename = highScore.getFileName(order, draw);
-        ConstraintLayout ps_Layout = findViewById(R.id.root);
-        ps_Layout.setBackgroundResource(R.drawable.bg_play);
+        ConstraintLayout psLayout = findViewById(R.id.root);
+        psLayout.setBackgroundResource(R.drawable.bg_play);
         setup();
         chronometer = findViewById(R.id.stopwatch);
     }
@@ -83,8 +83,8 @@ public class PlayActivity extends AppCompatActivity  {
                 chronometer.stop();
 
                 dateTime = highScore.getCurrentDateTime();
-                double elapsed_time_ms = System.currentTimeMillis() - game_start_time;
-                double time = elapsed_time_ms/1000;
+                double elapsedTimeMs = System.currentTimeMillis() - gameStartTime;
+                double time = elapsedTimeMs/1000;
                 //Ex format: 8.5
 
                 popup(dateTime, String.valueOf(time));
@@ -92,7 +92,7 @@ public class PlayActivity extends AppCompatActivity  {
 
             @Override
             public void onGameStart(){
-                game_start_time = System.currentTimeMillis();
+                gameStartTime = System.currentTimeMillis();
                 Log.e("Chrono", "started");
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
@@ -100,22 +100,22 @@ public class PlayActivity extends AppCompatActivity  {
 
             @Override
             public void onSfxPlay(boolean failed) {
-                sfx_player.release();
-                sfx_player = MediaPlayer.create(getApplicationContext(), R.raw.fail);
-                sfx_player.seekTo(715);
+                sfxPlayer.release();
+                sfxPlayer = MediaPlayer.create(getApplicationContext(), R.raw.fail);
+                sfxPlayer.seekTo(715);
                 if (!failed){
-                    sfx_player = MediaPlayer.create(getApplicationContext(),R.raw.success);
-                    sfx_player.seekTo(310);
+                    sfxPlayer = MediaPlayer.create(getApplicationContext(),R.raw.success);
+                    sfxPlayer.seekTo(310);
                 }
-                sfx_player.start();
+                sfxPlayer.start();
             }
         });
 
-        sfx_player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        sfxPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                sfx_player.reset();
-                sfx_player.release();
+                sfxPlayer.reset();
+                sfxPlayer.release();
             }
         });
 
@@ -127,21 +127,21 @@ public class PlayActivity extends AppCompatActivity  {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
 
-        Button save_btn = dialog.findViewById(R.id.pop_save_btn);
-        dynamicScaling(save_btn, 6, 8);
+        Button saveBtn = dialog.findViewById(R.id.pop_save_btn);
+        dynamicScaling(saveBtn, 6, 8);
 
-        Button done_btn = dialog.findViewById(R.id.pop_done_btn);
-        dynamicScaling(done_btn, 6, 8);
+        Button doneBtn = dialog.findViewById(R.id.pop_done_btn);
+        dynamicScaling(doneBtn, 6, 8);
 
-        final Button export_btn = dialog.findViewById(R.id.pop_export_btn);
-        dynamicScaling(export_btn, 6, 8);
+        final Button exportBtn = dialog.findViewById(R.id.pop_export_btn);
+        dynamicScaling(exportBtn, 6, 8);
 
         final EditText userId = dialog.findViewById(R.id.userId);
-        final TextView score_p = dialog.findViewById(R.id.score);
-        final TextView dateTime_p = dialog.findViewById(R.id.dateTime);
-        score_p.setText(time);
-        dateTime_p.setText(dateTime);
-        done_btn.setOnClickListener(new View.OnClickListener() {
+        final TextView scoreP = dialog.findViewById(R.id.score);
+        final TextView dateTimeP = dialog.findViewById(R.id.dateTime);
+        scoreP.setText(time);
+        dateTimeP.setText(dateTime);
+        doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicManager.pause();
@@ -150,7 +150,7 @@ public class PlayActivity extends AppCompatActivity  {
                 finish();
             }
         });
-        save_btn.setOnClickListener(new View.OnClickListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = userId.getText().toString();
@@ -166,9 +166,9 @@ public class PlayActivity extends AppCompatActivity  {
                     String entry = (time + "/ " + name + "/" + dateTime);
 
                     // put string stored in filename var into sharpref file name
-                    SharedPreferences entry_new = getSharedPreferences("entry"+filename, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = entry_new.edit();
-                    int counter = entry_new.getInt("counter", 0);
+                    SharedPreferences entryNew = getSharedPreferences("entry"+filename, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = entryNew.edit();
+                    int counter = entryNew.getInt("counter", 0);
                     counter ++;
                     editor.putString("new entry"+counter, entry);
                     editor.putInt("counter",counter);
@@ -184,7 +184,7 @@ public class PlayActivity extends AppCompatActivity  {
             }
         });
 
-        export_btn.setOnClickListener(new View.OnClickListener()
+        exportBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -215,9 +215,9 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     private void setupBackButton(){
-        Button back_btn = findViewById(R.id.play_back_btn);
-        dynamicScaling(back_btn, 5, 8);
-        back_btn.setOnClickListener(new View.OnClickListener() {
+        Button backBtn = findViewById(R.id.play_back_btn);
+        dynamicScaling(backBtn, 5, 8);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -231,11 +231,11 @@ public class PlayActivity extends AppCompatActivity  {
 
     private void dynamicScaling (Button button, int width, int height)
     {
-        ConstraintLayout.LayoutParams btn_size;
-        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
-        button.setLayoutParams(btn_size);
+        ConstraintLayout.LayoutParams btnSize;
+        btnSize = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btnSize.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btnSize.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btnSize);
     }
 
     @Override
