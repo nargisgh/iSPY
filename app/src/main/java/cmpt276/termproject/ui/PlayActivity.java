@@ -173,7 +173,7 @@ public class PlayActivity extends AppCompatActivity  {
                     editor.putString("new entry"+counter, entry);
                     editor.putInt("counter",counter);
                     editor.apply();
-                    musicManager.pause();
+                    //musicManager.pause();
                     Toast.makeText(getApplicationContext(), "Username and score are saved!", Toast.LENGTH_SHORT).show();
                 }
 
