@@ -153,6 +153,7 @@ public class PlayActivity extends AppCompatActivity  {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Username and score are saved!", Toast.LENGTH_SHORT).show();
                 name = userId.getText().toString();
                 userId.setText(name);
 
@@ -174,7 +175,6 @@ public class PlayActivity extends AppCompatActivity  {
                     editor.putInt("counter",counter);
                     editor.apply();
                     //musicManager.pause();
-                    Toast.makeText(getApplicationContext(), "Username and score are saved!", Toast.LENGTH_SHORT).show();
                 }
 
                 else{

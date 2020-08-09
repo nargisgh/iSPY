@@ -8,7 +8,7 @@ import android.util.Log;
 public class CardItem {
 
     private final int item;
-    private int[] item_coords = new int[2];
+    private int[] itemCoords = new int[2];
     private String name;
     private boolean isText;
     private Rect rect;
@@ -29,15 +29,15 @@ public class CardItem {
     }
 
     public void setItemCoords(int [] coords) {
-        item_coords = coords;
+        itemCoords = coords;
     }
 
     public int getItemX(){
-        return item_coords[0];
+        return itemCoords[0];
     }
 
     public int getItexY(){
-        return item_coords[1];
+        return itemCoords[1];
     }
 
     public int getItem(){
