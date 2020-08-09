@@ -3,6 +3,8 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 
+//Setting card image mode with different size or rotation/position of the images
+
 public class CardItem {
 
     private final int item;

@@ -69,7 +69,7 @@ public class FlickrManager {
 
     public void removeImage(FlickrImage img, Context context){
         //Remove from internal Storage
-        String filename = img.getImgID() + ".png";
+        String filename = img.getImgId() + ".png";
         String[] files = context.fileList();
 
         for (String file: files){
@@ -89,7 +89,7 @@ public class FlickrManager {
                 }
             }
         }
-        String filename = img.getImgID() + ".png";
+        String filename = img.getImgId() + ".png";
         try (FileOutputStream fileOutputStream = context.openFileOutput(filename, Context.MODE_PRIVATE)){
                 img.getImgBitmap().compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
             }

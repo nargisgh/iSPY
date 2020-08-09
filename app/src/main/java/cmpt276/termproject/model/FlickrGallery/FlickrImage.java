@@ -6,16 +6,16 @@ import android.graphics.Bitmap;
 
 public class FlickrImage {
 
-    private final String imgID;
+    private final String imgId;
     private final Bitmap imgBitmap;
 
     public FlickrImage(String ID, Bitmap bitmap){
-        imgID = ID;
+        imgId = ID;
         imgBitmap = bitmap;
     }
 
-    public String getImgID(){
-        return imgID;
+    public String getImgId(){
+        return imgId;
     }
 
     public Bitmap getImgBitmap(){

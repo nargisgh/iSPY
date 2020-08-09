@@ -21,10 +21,10 @@ public class GameManager {
     private final Context context;
     @SuppressLint("StaticFieldLeak")
     private static GameManager instance;
-    private List<Card> draw_pile;
-    private List<Card> discard_pile;
-    private int draw_pile_size;
-    private boolean imgs_text_mode;
+    private List<Card> drawPile;
+    private List<Card> discardPile;
+    private int drawPileSize;
+    private boolean imgsTextMode;
     private int order = 2;
     private int theme = 1;
     private List<int[]> draw;
@@ -32,7 +32,7 @@ public class GameManager {
 
     // Singleton for the Manager
     private GameManager (Context context) {
-        imgs_text_mode = true;
+        imgsTextMode = true;
         this.context = context;
         setupGameSettings();
     }
@@ -46,58 +46,58 @@ public class GameManager {
     public void setupGameSettings(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         order = Integer.parseInt(sharedPreferences.getString("Order", "2"));
-        draw_pile_size = Integer.parseInt(sharedPreferences.getString("Size", "0"));
-        imgs_text_mode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));
-        Log.e("Order", order + " " + draw_pile_size + " " + imgs_text_mode);
+        drawPileSize = Integer.parseInt(sharedPreferences.getString("Size", "0"));
+        imgsTextMode = Boolean.parseBoolean(sharedPreferences.getString("Mode", "False"));
+        Log.e("Order", order + " " + drawPileSize + " " + imgsTextMode);
         difficultyMode = sharedPreferences.getInt("Difficulty", 0);
 
     }
 
     public boolean getMode(){
-        return imgs_text_mode;
+        return imgsTextMode;
     }
 
     public Card getTopDrawCard(){
-        return draw_pile.get(0);
+        return drawPile.get(0);
     }
 
     public Card getTopDiscardCard(){
-        return discard_pile.get(0);
+        return discardPile.get(0);
     }
 
     public List<Card> getDrawPile(){
-        return draw_pile;
+        return drawPile;
     }
 
     public List<Card> getDiscardPile(){
-        return discard_pile;
+        return discardPile;
     }
 
     public int getNumberImages(){
-        return discard_pile.get(0).getImages().size();
+        return discardPile.get(0).getImages().size();
     }
 
     public void updateCards(){
-        draw_pile = new ArrayList<>();
-        discard_pile = new ArrayList<>();
+        drawPile = new ArrayList<>();
+        discardPile = new ArrayList<>();
         for (int[] imgs : draw) {
-            List<Integer> img_list = new ArrayList<>();
+            List<Integer> imgList = new ArrayList<>();
             for (int img : imgs) {
-                img_list.add(img);
+                imgList.add(img);
             }
-            draw_pile.add(new Card(img_list,difficultyMode));
+            drawPile.add(new Card(imgList,difficultyMode));
         }
     }
 
     public void createCards(){
-        CardManager card_generator = CardManager.getInstance();
-        draw = card_generator.generateCards(order);
+        CardManager cardGenerator = CardManager.getInstance();
+        draw = cardGenerator.generateCards(order);
 
         //Keeps only draw_pile_size elements in the list
         Collections.shuffle(draw);
-        if (draw_pile_size != 0) {
-            int new_size = draw.size() - draw_pile_size;
-            for (int i = 0; i < new_size ; i ++ ){
+        if (drawPileSize != 0) {
+            int newSize = draw.size() - drawPileSize;
+            for (int i = 0; i < newSize ; i ++ ){
                 draw.remove(draw.size()- 1);
             }
         }
@@ -105,8 +105,8 @@ public class GameManager {
         updateCards();
 
         //Set the Card Mode to Text Randomly
-        if (imgs_text_mode) {
-            for (Card card : draw_pile) {
+        if (imgsTextMode) {
+            for (Card card : drawPile) {
                 for (int i = 0; i < card.getImages().size(); i++) {
                     Random bool = new Random();
                     card.setIsText(i, bool.nextBoolean());
@@ -115,7 +115,7 @@ public class GameManager {
         }
 
         //Shuffle Images on the cards
-        for (Card card: draw_pile){
+        for (Card card: drawPile){
             Collections.shuffle(card.getImages());
         }
         //Draw first card at start
@@ -125,9 +125,9 @@ public class GameManager {
     public void  drawCard() {
         // Draw a card if the draw pile is has cards left and place it into the discard pile
         // and remove the card from the draw pile
-        if (draw_pile.size() > 0) {
-            discard_pile.add(0,draw_pile.get(0));
-            draw_pile.remove(0);
+        if (drawPile.size() > 0) {
+            discardPile.add(0, drawPile.get(0));
+            drawPile.remove(0);
         }
     }
 
@@ -139,5 +139,5 @@ public class GameManager {
         return theme;
     }
 
-    public int getDraw_pile_size(){return draw_pile_size;}
+    public int getDrawPileSize(){return drawPileSize;}
 }

@@ -8,7 +8,7 @@ public class GalleryItem {
     //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
     //Ch 25-29
     private String Caption;
-    private String ID;
+    private String Id;
     private String Url;
     private String Owner;
 
@@ -20,7 +20,7 @@ public class GalleryItem {
     }
     public Uri getPhotoPageUri() {
         return Uri.parse("https://www.flickr.com/photos/").buildUpon()
-                        .appendPath(Owner).appendPath(ID).build();
+                        .appendPath(Owner).appendPath(Id).build();
     }
 
     @Override
@@ -29,11 +29,11 @@ public class GalleryItem {
     }
 
     public void setId(String id) {
-        this.ID = id;
+        this.Id = id;
     }
 
     public String getId() {
-        return ID;
+        return Id;
     }
 
     public void setCaption(String title) {
@@ -43,8 +43,8 @@ public class GalleryItem {
         return Caption;
     }
 
-    public void setUrl(String url_s) {
-        this.Url = url_s;
+    public void setUrl(String urlS) {
+        this.Url = urlS;
     }
     public String getUrl(){
         return Url;

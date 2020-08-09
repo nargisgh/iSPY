@@ -105,7 +105,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
             Collections.shuffle(flickrImages);
             for (FlickrImage flickrImage: flickrImages){
                 bitmaps.add(flickrImage.getImgBitmap());
-                item_names.add(flickrImage.getImgID());
+                item_names.add(flickrImage.getImgId());
             }
             return;
         }
