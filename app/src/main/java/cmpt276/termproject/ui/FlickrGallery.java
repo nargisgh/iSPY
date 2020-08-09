@@ -398,7 +398,10 @@ public class FlickrGallery extends AppCompatActivity  {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     protected void onUserLeaveHint() {

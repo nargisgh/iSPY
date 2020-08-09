@@ -151,8 +151,10 @@ public class CameraRoll extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //Disable back button
+        super.onBackPressed();
+        finish();
     }
+
     private void dynamicScaling (Button button, int width, int height)
     {
         ConstraintLayout.LayoutParams btn_size;

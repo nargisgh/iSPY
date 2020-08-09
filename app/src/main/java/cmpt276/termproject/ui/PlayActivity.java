@@ -253,6 +253,9 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
 }
