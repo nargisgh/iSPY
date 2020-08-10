@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,8 @@ Pop Up dialog when game is over */
 public class PlayActivity extends AppCompatActivity  {
 
     private MediaPlayer sfxPlayer = new MediaPlayer();
+    private MediaPlayer sfx_player = new MediaPlayer();
+    private MediaPlayer mp_gamestate;
     private String name;
     private String dateTime;
     private Chronometer chronometer;
@@ -60,6 +63,8 @@ public class PlayActivity extends AppCompatActivity  {
         psLayout.setBackgroundResource(R.drawable.bg_play);
         setup();
         chronometer = findViewById(R.id.stopwatch);
+        mp_gamestate = MediaPlayer.create(getApplicationContext(), R.raw.start);
+        mp_gamestate.start();
     }
 
     private void setup(){
@@ -87,6 +92,8 @@ public class PlayActivity extends AppCompatActivity  {
                 double time = elapsedTimeMs/1000;
                 //Ex format: 8.5
 
+                mp_gamestate = MediaPlayer.create(getApplicationContext(), R.raw.win);
+                mp_gamestate.start();
                 popup(dateTime, String.valueOf(time));
             }
 
@@ -122,8 +129,20 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     private void popup(final String dateTime,final String time){
-        musicManager.play();
-        isPlaying = true;
+        CountDownTimer timer = new CountDownTimer(2000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                musicManager.play();
+                isPlaying = true;
+            }
+        };
+        timer.start();
+
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_pop_up);
 
