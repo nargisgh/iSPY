@@ -19,8 +19,8 @@ public class Card {
         }
     }
 
-    public void setItemCoordinates(int image_idx, int[] coordinates){
-        cardItems.get(image_idx).setItemCoords(coordinates);
+    public void setItemCoordinates(int imageIdx, int[] coordinates){
+        cardItems.get(imageIdx).setItemCoords(coordinates);
     }
 
     public int getItemX(int index){

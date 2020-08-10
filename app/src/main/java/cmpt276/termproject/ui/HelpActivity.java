@@ -17,9 +17,9 @@ import cmpt276.termproject.model.MusicManager;
 /*Help Text and Sources provided in LinkMovement method*/
 public class HelpActivity extends AppCompatActivity {
 
-    ConstraintLayout hs_Layout;
+    ConstraintLayout hsLayout;
     public MusicManager musicManager;
-    TextView src_text;
+    TextView srcText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,24 +29,24 @@ public class HelpActivity extends AppCompatActivity {
         musicManager = MusicManager.getInstance();
         musicManager.play();
         setupBackButton();
-        hs_Layout = findViewById(R.id.hs_Layout);
-        hs_Layout.setBackgroundResource(R.drawable.bg_help);
-        src_text = findViewById(R.id.help_src_text);
-        src_text.setMovementMethod(new LinkMovementMethod());
-        ConstraintLayout.LayoutParams text_size;
-        text_size = (ConstraintLayout.LayoutParams) src_text.getLayoutParams();
-        text_size.height = (getResources().getDisplayMetrics().heightPixels)/6;
-        src_text.setLayoutParams(text_size);
+        hsLayout = findViewById(R.id.hs_Layout);
+        hsLayout.setBackgroundResource(R.drawable.bg_help);
+        srcText = findViewById(R.id.help_src_text);
+        srcText.setMovementMethod(new LinkMovementMethod());
+        ConstraintLayout.LayoutParams textSize;
+        textSize = (ConstraintLayout.LayoutParams) srcText.getLayoutParams();
+        textSize.height = (getResources().getDisplayMetrics().heightPixels)/6;
+        srcText.setLayoutParams(textSize);
     }
 
     private void setupBackButton(){
-        ConstraintLayout.LayoutParams btn_size;
-        Button back_btn = findViewById(R.id.help_back_btn);
-        btn_size = (ConstraintLayout.LayoutParams) back_btn.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/6;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/8;
-        back_btn.setLayoutParams(btn_size);
-        back_btn.setOnClickListener(new View.OnClickListener() {
+        ConstraintLayout.LayoutParams btnSize;
+        Button backBtn = findViewById(R.id.help_back_btn);
+        btnSize = (ConstraintLayout.LayoutParams) backBtn.getLayoutParams();
+        btnSize.width = (getResources().getDisplayMetrics().widthPixels)/6;
+        btnSize.height = (getResources().getDisplayMetrics().heightPixels)/8;
+        backBtn.setLayoutParams(btnSize);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -71,5 +71,8 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

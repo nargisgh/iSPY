@@ -18,9 +18,7 @@ import cmpt276.termproject.R;
 public class HighScores{
 
     private final List<String> DEFAULT_SCORES = new ArrayList<>();
-
     ArrayList<String> arr = new ArrayList<>();
-
 
     //Singleton Stuff
     private static HighScores instance;
@@ -41,13 +39,13 @@ public class HighScores{
         }
     }
 
-    //populate default_scores
-    public void setDefaultScores(Context context, String[] default_scores, String filename){
+    //populate defaultScores
+    public void setDefaultScores(Context context, String[] defaultScores, String filename){
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        for(int i=0;i<default_scores.length;i++){
+        for(int i=0;i<defaultScores.length;i++){
             int j = i+1;
-            editor.putString("score"+j, default_scores[i]);
+            editor.putString("score"+j, defaultScores[i]);
         }
         editor.apply();
     }
@@ -91,10 +89,10 @@ public class HighScores{
     public void update(String entry, Context context,String filename) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("updated scores"+filename, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        String[] temp_s = getCurrentScores(context,filename).toArray(new String[0]);
+        String[] tempS = getCurrentScores(context,filename).toArray(new String[0]);
 
         for (int i = 0; i < 5; i++) {
-            if (entry.equals(temp_s[i])) {
+            if (entry.equals(tempS[i])) {
                 return;
             }
         }
@@ -170,10 +168,10 @@ public class HighScores{
         return sp.getString("Size","0");
     }
     //retrieve DEF array of specific option
-    public String[] getDEFArray(String order, String draw_pile_size, Context context){
+    public String[] getDEFArray(String order, String drawPileSize, Context context){
 
-        String array_name = "default_highscores_"+order+"_"+draw_pile_size;
-        int id = context.getResources().getIdentifier(array_name, "array",context.getPackageName());
+        String arrayName = "default_highscores_"+order+"_"+drawPileSize;
+        int id = context.getResources().getIdentifier(arrayName, "array",context.getPackageName());
         return context.getResources().getStringArray(id);
     }
 }

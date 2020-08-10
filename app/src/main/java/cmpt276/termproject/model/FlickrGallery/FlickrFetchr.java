@@ -12,6 +12,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Basic Networking Code, creates URL object from string
+ *Calls openConnection() to create a connection object pointed at URL
+ * HttpURLConnection represents connection and once URL opens connection, call
+ * read() repeatedly until connection runs out if data */
+
 public class FlickrFetchr {
     //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
     //Ch 25-29
@@ -29,11 +34,6 @@ public class FlickrFetchr {
     //Fetching JSON from Flickr
 
     public byte[] getUrlBytes(String urlSpec) throws IOException {
-        /*Basic Networking Code, creates URL object from string
-        *Calls openConnection() to create a connection object pointed at URL
-        * HttpURLConnection represents connection and once URL opens connection, call
-        * read() repeatedly until connection runs out if data */
-
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         try {

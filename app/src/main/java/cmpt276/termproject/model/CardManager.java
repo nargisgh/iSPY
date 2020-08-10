@@ -11,7 +11,6 @@ import java.util.List;
 
 public class CardManager {
 
-    private List<int[]> card_list;
     private static CardManager instance;
 
     //Use singleton to share the data between classes
@@ -25,16 +24,16 @@ public class CardManager {
     }
 
     public List<int[]> generateCards(int p){
-        int min_factor = 2;
+        int minFactor = 2;
 
-        for (;  min_factor < 1 + (int)(Math.pow(p, 0.5f)); min_factor ++ ){
-            if (p % min_factor == 0) {
+        for (;  minFactor < 1 + (int)(Math.pow(p, 0.5f)); minFactor ++ ){
+            if (p % minFactor == 0) {
                 break;
             }
         }
 
-        if (min_factor == 1 + (int)(Math.pow(p, 0.5f))){
-            min_factor = p;
+        if (minFactor == 1 + (int)(Math.pow(p, 0.5f))){
+            minFactor = p;
         }
 
         List<int[]> cards = new ArrayList<>();
@@ -48,7 +47,7 @@ public class CardManager {
             cards.add(temp);
         }
 
-        for (int i = 0 ; i < min_factor; i ++){
+        for (int i = 0 ; i < minFactor; i ++){
             int j;
             for (j = 0; j < p ; j ++){
                 int[] temp = new int [p + 1 ];
@@ -60,16 +59,15 @@ public class CardManager {
             }
         }
 
-        int[] temp = new int[min_factor + 1];
-        for (int i = 0 ; i < min_factor + 1; i ++){
+        int[] temp = new int[minFactor + 1];
+        for (int i = 0 ; i < minFactor + 1; i ++){
             temp[i] = p * p + i;
         }
         cards.add(temp);
-        card_list = cards;
 
         // Shuffle the cards before returning them
-        Collections.shuffle(card_list);
+        Collections.shuffle(cards);
 
-        return card_list;
+        return cards;
     }
 }

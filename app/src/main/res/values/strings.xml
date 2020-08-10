@@ -10,7 +10,7 @@
     <string name="username">UserName:</string>
     <string name="back">Back</string>
     <string name="discard_pile">Discard Pile</string>
-    <string name="draw_pile">Draw Pile</string>
+    <string name="draw_pile">\ \    Draw Pile: \</string>
     <string name="draw">draw</string>
     <string name="splash_skip_btn">Tap Here to Skip</string>
     <string name="splash_quit_btn">Quit</string>
@@ -21,9 +21,11 @@
     <string name="help_back_btn">Back</string>
     <string name="help_desc_text">Inspired by Spot It, iSpy will display two stacks of cards with a number of pictures on each card at the beginning of each game. There is always
         exactly one image that matches between all the cards; you need to match the image from the newly drawn card to the card in the discard pile. You have the choice of choosing the
-        theme of what images you want to use (Superheros or Logos) and don\'t worry, if you find those images easy, you can choose your own from Flickr and save or edit those options.
-        If you want to challenge yourself even more, enable the text feature to match images and their corresponding text, match text-to-text, or mixed! Another way to challenge yourself is
-        having the freedom of choosing deck size and order in the options menu. First time playing? Give it a go with the default game and start making your way up to the highest and fastest score.
+        theme of what images you want to use (Superheros or Logos). If you want to switch up the images, you can choose your own from Flickr or import from photo gallery to save/edit
+        those options. If you want to challenge yourself even more, enable the text feature to match images and their corresponding text, match text-to-text, or mixed, and choose options
+        between easy/medium/hard for rotated and different sized image sets! Another way to challenge yourself is having the freedom of choosing deck size and order in the options menu.
+        New features also includes exporting the deck on your own device so you can practice or print. First time playing? Give it a go with the default game and start making your way up
+        to the highest and fastest score.
     </string>
     <string name="main_play_btn">Play</string>
     <string name="main_quit_btn">Quit</string>
@@ -35,7 +37,7 @@
     <string name="themes_rgheader_text">Choose a theme:</string>
     <string name="themes_logo_rbtn">LogogangⓇ</string>
     <string name="themes_heroes_rbtn">Superheroes</string>
-    <string name="themes_flickr_rbtn">Custom (Flickr)</string>
+    <string name="themes_flickr_rbtn">Custom/Flickr</string>
     <string name="size_rgheader2_text">Deck Size</string>
     <string name="size_five_rbtn">5</string>
     <string name="size_ten_rbtn">10</string>
@@ -172,5 +174,8 @@
     <string name="diff_easy_str">Easy</string>
     <string name="diff_med_str">Medium</string>
     <string name="diff_hard_str">Hard</string>
+    <string name="done">Done</string>
+    <string name="custom">Custom</string>
+    <string name="order">\ Order: \</string>
 
 </resources>

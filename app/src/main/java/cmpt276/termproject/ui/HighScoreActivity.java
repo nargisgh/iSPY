@@ -5,6 +5,8 @@ package cmpt276.termproject.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,7 +34,7 @@ public class HighScoreActivity extends AppCompatActivity {
     private HighScores highScores;
     private MusicManager musicManager;
     private TableRow row;
-    private String[] default_scores;
+    private String[] defaultScores;
     private TableLayout tableLayout;
     private Typeface face;
     private static boolean isInitialized = false;
@@ -46,9 +48,9 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
         highScores = HighScores.getInstance();
-        ConstraintLayout hs_Layout;
-        hs_Layout = findViewById(R.id.hs_Layout);
-        hs_Layout.setBackgroundResource(R.drawable.bg_hscore);
+        ConstraintLayout hsLayout;
+        hsLayout = findViewById(R.id.hs_Layout);
+        hsLayout.setBackgroundResource(R.drawable.bg_hscore);
         musicManager = MusicManager.getInstance();
 
 // get order and drawsize to get correct default array
@@ -58,7 +60,7 @@ public class HighScoreActivity extends AppCompatActivity {
         name = highScores.getFileName(order,draw);
         setOptionsTitle(order,draw);
 
-        default_scores = highScores.getDEFArray(order,draw,HighScoreActivity.this);
+        defaultScores = highScores.getDEFArray(order,draw,HighScoreActivity.this);
         isInitialized = highScores.getInitDEFBool(HighScoreActivity.this,order,draw);
         if(!isInitialized) {
             showDEFScores();
@@ -69,6 +71,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setupBackBtn();
     }
 
+    @SuppressLint("SetTextI18n")
     private void setOptionsTitle(String order, String draw){
 
         if( order.equals("2") && draw.equals("0")){
@@ -80,12 +83,12 @@ public class HighScoreActivity extends AppCompatActivity {
         else if(order.equals("5") && draw.equals("0")){
             draw = "31";
         }
-        TextView textView = (TextView)findViewById(R.id.option_info);
-        textView.setText("Order: "+ order+ "    Draw Pile Size: "+draw);
+        TextView textView = findViewById(R.id.option_info);
+        textView.setText(getString(R.string.order)+ order+ getString(R.string.draw_pile)+draw);
     }
 
     public void showDEFScores(){
-        highScores.setDefaultScores(HighScoreActivity.this, default_scores,name);
+        highScores.setDefaultScores(HighScoreActivity.this, defaultScores,name);
         arr = highScores.getDefaultScores(HighScoreActivity.this,name);
         populateScores();
         isInitialized = true;
@@ -95,16 +98,16 @@ public class HighScoreActivity extends AppCompatActivity {
 
     public void initializeScores() {
 
-        SharedPreferences entry_new = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = entry_new.edit();
-        int counter = entry_new.getInt("counter", 0);
-        String input = entry_new.getString("new entry"+ 1, null);
+        SharedPreferences entryNew = getSharedPreferences("entry"+name, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = entryNew.edit();
+        int counter = entryNew.getInt("counter", 0);
+        String input = entryNew.getString("new entry"+ 1, null);
         if (input != null) {
             isInitialized = true;
             highScores.setInitDEFBool(HighScoreActivity.this,order,draw,true);
         }
             for (int i = 0; i <= counter; i ++ ) {
-             input = entry_new.getString("new entry" + i, null);
+             input = entryNew.getString("new entry" + i, null);
                 arr = highScores.getCurrentScores(HighScoreActivity.this,name);
                 populateScores();
                 if (input != null) {
@@ -133,7 +136,7 @@ public class HighScoreActivity extends AppCompatActivity {
         tableLayout.removeAllViews();
         setHeadings();
         for(int i = 0; i<arr.size();i++){
-            String[] entry = default_scores[i].split("/");
+            String[] entry = defaultScores[i].split("/");
             populate(entry);
             tableLayout.addView(row);
         }
@@ -163,17 +166,17 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     private void setHeadings() {
-        TextView name_hd;
-        TextView score_hd;
-        TextView dateT_hd;
+        TextView nameHd;
+        TextView scoreHd;
+        TextView dateTHd;
         face = ResourcesCompat.getFont(this, R.font.faster_one);
         row = new TableRow(this);
-        name_hd = new TextView(this);
-        score_hd = new TextView(this);
-        dateT_hd = new TextView(this);
-        HeadingName(name_hd, "Score");
-        HeadingName(score_hd, "Username");
-        HeadingName(dateT_hd, "Date/Time");
+        nameHd = new TextView(this);
+        scoreHd = new TextView(this);
+        dateTHd = new TextView(this);
+        HeadingName(nameHd, "Score");
+        HeadingName(scoreHd, "Username");
+        HeadingName(dateTHd, "Date/Time");
         tableLayout.addView(row);
     }
 
@@ -188,17 +191,17 @@ public class HighScoreActivity extends AppCompatActivity {
 
     // button to reset back to default scores
     private void setupResetBtn() {
-        Button reset_btn = findViewById(R.id.highscore_reset_btn);
-        dynamicScaling(reset_btn, 6, 8);
-        reset_btn.setOnClickListener(new View.OnClickListener() {
+        Button resetBtn = findViewById(R.id.highscore_reset_btn);
+        dynamicScaling(resetBtn, 6, 8);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 arr.clear();
-                highScores.setDefaultScores(HighScoreActivity.this,default_scores,name);
+                highScores.setDefaultScores(HighScoreActivity.this, defaultScores,name);
                 arr = highScores.getDefaultScores(HighScoreActivity.this,name);
                 populateScores();
-                SharedPreferences entry_new = getSharedPreferences("entry", Context.MODE_PRIVATE);
-                entry_new.edit().clear().apply();
+                SharedPreferences entryNew = getSharedPreferences("entry", Context.MODE_PRIVATE);
+                entryNew.edit().clear().apply();
                 highScores.setInitDEFBool(HighScoreActivity.this,order,draw,false);
             }
         });
@@ -206,9 +209,9 @@ public class HighScoreActivity extends AppCompatActivity {
 
 
     private void setupBackBtn() {
-        Button back_btn = findViewById(R.id.highscore_back_btn);
-        dynamicScaling(back_btn, 6, 8);
-        back_btn.setOnClickListener(new View.OnClickListener() {
+        Button backBtn = findViewById(R.id.highscore_back_btn);
+        dynamicScaling(backBtn, 6, 8);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -223,11 +226,11 @@ public class HighScoreActivity extends AppCompatActivity {
 
     private void dynamicScaling (Button button, int width, int height)
     {
-        ConstraintLayout.LayoutParams btn_size;
-        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
-        button.setLayoutParams(btn_size);
+        ConstraintLayout.LayoutParams btnSize;
+        btnSize = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btnSize.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btnSize.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btnSize);
     }
 
     @Override
@@ -243,5 +246,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

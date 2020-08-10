@@ -1,20 +1,15 @@
 package cmpt276.termproject.ui;
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -28,18 +23,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +85,6 @@ public class FlickrGallery extends AppCompatActivity  {
         setUpImport();
    }
 
-
     private void setUpThread() {
         Handler responseHandler = new Handler();
         thumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
@@ -114,9 +104,9 @@ public class FlickrGallery extends AppCompatActivity  {
     }
 
     private void setUpCameraRoll() {
-        Button camroll_btn = findViewById(R.id.gallery_camera_roll_btn);
-        dynamicScaling(camroll_btn, 5, 10);
-        camroll_btn.setOnClickListener(new View.OnClickListener() {
+        Button camRollBtn = findViewById(R.id.gallery_camera_roll_btn);
+        dynamicScaling(camRollBtn, 5, 10);
+        camRollBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = CameraRoll.makeIntent(FlickrGallery.this);
@@ -127,8 +117,8 @@ public class FlickrGallery extends AppCompatActivity  {
 
     private void setUpSearchAndClear() {
         final SearchView searchItem = findViewById(R.id.gallery_search_bar);
-        Button clear_btn = findViewById(R.id.gallery_clear_btn);
-        dynamicScaling(clear_btn, 5, 10);
+        Button clearBtn = findViewById(R.id.gallery_clear_btn);
+        dynamicScaling(clearBtn, 5, 10);
         searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -153,7 +143,7 @@ public class FlickrGallery extends AppCompatActivity  {
                 searchItem.setQuery(query, false); }
         });
 
-        clear_btn.setOnClickListener(new View.OnClickListener() {
+        clearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //clearing stored query
@@ -179,9 +169,9 @@ public class FlickrGallery extends AppCompatActivity  {
     }
 
     private void setUpBack() {
-        Button back_btn = findViewById(R.id.gallery_back_btn);
-        dynamicScaling(back_btn, 5, 10);
-        back_btn.setOnClickListener(new View.OnClickListener() {
+        Button backBtn = findViewById(R.id.gallery_back_btn);
+        dynamicScaling(backBtn, 5, 10);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 thumbnailDownloader.quitSafely();
@@ -231,13 +221,13 @@ public class FlickrGallery extends AppCompatActivity  {
                         byte[] bitmapBytes = new FlickrFetchr().getUrlBytes(galleryItem.getUrl());
                         final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
 
-                        FlickrImage clicked_img = new FlickrImage(galleryItem.getId(), bitmap);
+                        FlickrImage clickedImg = new FlickrImage(galleryItem.getId(), bitmap);
                         if (checkBox.isChecked()){
-                            flickrManager.removeImage(clicked_img,context);
+                            flickrManager.removeImage(clickedImg,context);
                             checkBox.setChecked(false);
                         }
                         else{
-                            flickrManager.saveImage(clicked_img , context);
+                            flickrManager.saveImage(clickedImg , context);
                             checkBox.setButtonTintList(FlickrGallery.this.getColorStateList(R.color.colorAccent));
                             checkBox.setChecked(true);
                         }
@@ -266,8 +256,9 @@ public class FlickrGallery extends AppCompatActivity  {
         public PhotoAdapter(List<GalleryItem> galleryItems) {
             this.galleryItems = galleryItems;
         }
+        @NonNull
         @Override
-        public PhotoHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
+        public PhotoHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType)
         {
             LayoutInflater inflater = LayoutInflater.from(FlickrGallery.this);
             View view = inflater.inflate(R.layout.list_item_gallery, viewGroup, false);
@@ -324,11 +315,11 @@ public class FlickrGallery extends AppCompatActivity  {
 
     private void dynamicScaling (Button button, int width, int height)
     {
-        ConstraintLayout.LayoutParams btn_size;
-        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
-        button.setLayoutParams(btn_size);
+        ConstraintLayout.LayoutParams btnSize;
+        btnSize = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btnSize.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btnSize.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btnSize);
     }
 
     private void setUpImport() {
@@ -336,9 +327,9 @@ public class FlickrGallery extends AppCompatActivity  {
         if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_REQUEST){
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST);
         }
-        Button import_btn = findViewById(R.id.import_btn);
-        dynamicScaling(import_btn,5,10);
-        import_btn.setOnClickListener(new View.OnClickListener() {
+        Button importBtn = findViewById(R.id.import_btn);
+        dynamicScaling(importBtn,5,10);
+        importBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("IntentReset")
             @Override
             public void onClick(View v) {
@@ -362,6 +353,7 @@ public class FlickrGallery extends AppCompatActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode== RESULT_OK) {
             final List<Bitmap> bitmaps = new ArrayList<>();
+            assert data != null;
             ClipData clipData = data.getClipData();
             if(clipData!=null){
                 for (int i = 0; i < clipData.getItemCount(); i++) {
@@ -378,6 +370,7 @@ public class FlickrGallery extends AppCompatActivity  {
             } else {
                 //single image selected
                 Uri imageUri = data.getData();
+                assert imageUri != null;
                 Log.d("URI", imageUri.toString());
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(imageUri);
@@ -393,8 +386,8 @@ public class FlickrGallery extends AppCompatActivity  {
                 public void run() {
                     for (final Bitmap b : bitmaps) {
 
-                        FlickrImage clicked_img = new FlickrImage(""+b.toString(), b);
-                        flickrManager.saveImage(clicked_img, context);
+                        FlickrImage clickedImg = new FlickrImage(""+b.toString(), b);
+                        flickrManager.saveImage(clickedImg, context);
                     }
                     flickrManager.createImageList(context);
                 }
@@ -405,7 +398,10 @@ public class FlickrGallery extends AppCompatActivity  {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     protected void onUserLeaveHint() {

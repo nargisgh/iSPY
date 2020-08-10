@@ -3,15 +3,15 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 
+//Setting card image mode with different size or rotation/position of the images
+
 public class CardItem {
 
     private final int item;
-    private int[] item_coords = new int[2];
-    private Bitmap bitmap;
+    private int[] itemCoords = new int[2];
     private String name;
     private boolean isText;
     private Rect rect;
-
     private int rotationAngle;
     private double itemScale;
 
@@ -19,7 +19,6 @@ public class CardItem {
         this.item = item;
         setDifficulty(difficulty);
     }
-
 
     public void setMode(boolean isText){
         this.isText = isText;
@@ -30,15 +29,15 @@ public class CardItem {
     }
 
     public void setItemCoords(int [] coords) {
-        item_coords = coords;
+        itemCoords = coords;
     }
 
     public int getItemX(){
-        return item_coords[0];
+        return itemCoords[0];
     }
 
     public int getItexY(){
-        return item_coords[1];
+        return itemCoords[1];
     }
 
     public int getItem(){
@@ -46,7 +45,6 @@ public class CardItem {
     }
 
     public void setBitmap(Bitmap bitmap){
-        this.bitmap = bitmap;
     }
 
     public void setRect(Rect rect){
@@ -75,7 +73,6 @@ public class CardItem {
         }
         Log.e("Rotation", difficulty + "");
     }
-
 
     public void setRotationAngle(int angle){
         rotationAngle = angle;

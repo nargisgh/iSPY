@@ -62,9 +62,9 @@ public class CameraRoll extends AppCompatActivity {
     }
 
     private void setUpDelete(){
-        Button delete_btn = findViewById(R.id.cam_roll_delete_btn);
-        dynamicScaling(delete_btn,4,10);
-        delete_btn.setOnClickListener(new View.OnClickListener() {
+        Button deleteBtn = findViewById(R.id.cam_roll_delete_btn);
+        dynamicScaling(deleteBtn,4,10);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (flickrManager.getRemoveList() == null){
@@ -98,10 +98,10 @@ public class CameraRoll extends AppCompatActivity {
         @Override
         public void onClick(View view){
             checkBox.setEnabled(true);
-            Bitmap img_bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+            Bitmap imgBitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
             if (!checkBox.isChecked()) {
                 for (int i = 0; i < imageList.size(); i++) {
-                    if (img_bitmap == imageList.get(i).getImgBitmap()) {
+                    if (imgBitmap == imageList.get(i).getImgBitmap()) {
                         flickrManager.addToRemoveList(imageList.get(i));
                     }
                 }
@@ -110,7 +110,7 @@ public class CameraRoll extends AppCompatActivity {
             }
             else{
                 for (int i = 0; i < imageList.size(); i++) {
-                    if (img_bitmap == imageList.get(i).getImgBitmap()) {
+                    if (imgBitmap == imageList.get(i).getImgBitmap()) {
                         flickrManager.removeFromRemoveList(imageList.get(i));
                     }
                 }
@@ -151,14 +151,16 @@ public class CameraRoll extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //Disable back button
+        super.onBackPressed();
+        finish();
     }
+
     private void dynamicScaling (Button button, int width, int height)
     {
-        ConstraintLayout.LayoutParams btn_size;
-        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
-        button.setLayoutParams(btn_size);
+        ConstraintLayout.LayoutParams btnSize;
+        btnSize = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btnSize.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btnSize.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btnSize);
     }
 }

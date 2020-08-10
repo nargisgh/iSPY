@@ -26,9 +26,9 @@ public class SplashActivity extends AppCompatActivity {
         musicManager = MusicManager.getInstance();
         musicManager.setThemeSong(SplashActivity.this);
         musicManager.play();
-        ConstraintLayout ss_Layout;
-        ss_Layout = findViewById(R.id.ss_Layout);
-        ss_Layout.setBackgroundResource(R.drawable.bg_welcome);
+        ConstraintLayout ssLayout;
+        ssLayout = findViewById(R.id.ss_Layout);
+        ssLayout.setBackgroundResource(R.drawable.bg_welcome);
         setupQuitBtn();
         setupSkipBtn();
         setupAnimation();
@@ -37,20 +37,20 @@ public class SplashActivity extends AppCompatActivity {
     private void setupAnimation()
     {
         TextView title1 = findViewById(R.id.splash_title1_text);
-        Animation title1_anim = AnimationUtils.loadAnimation(this, R.anim.splash_title1_animation);
-        title1.startAnimation(title1_anim);
+        Animation title1Anim = AnimationUtils.loadAnimation(this, R.anim.splash_title1_animation);
+        title1.startAnimation(title1Anim);
 
         TextView title2 = findViewById(R.id.splash_title2_text);
-        Animation title2_anim = AnimationUtils.loadAnimation(this, R.anim.splash_title2_animation);
-        title2.startAnimation(title2_anim);
+        Animation title2Anim = AnimationUtils.loadAnimation(this, R.anim.splash_title2_animation);
+        title2.startAnimation(title2Anim);
 
         TextView skip = findViewById(R.id.splash_skip_btn);
-        Animation skip_anim = AnimationUtils.loadAnimation(this, R.anim.splash_skip_animation);
-        skip.startAnimation(skip_anim);
+        Animation skipAnim = AnimationUtils.loadAnimation(this, R.anim.splash_skip_animation);
+        skip.startAnimation(skipAnim);
 
         // Multithreaded process that checks that the Animation is finished, waits for SPLASH_TIMER
         // and goes to next activity
-        title1_anim.setAnimationListener(new Animation.AnimationListener() {
+        title1Anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {}
 
@@ -85,10 +85,10 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void setupSkipBtn(){
-        Button skip_btn = findViewById(R.id.splash_skip_btn);
-        dynamicScaling(skip_btn, 1, 20);
+        Button skipBtn = findViewById(R.id.splash_skip_btn);
+        dynamicScaling(skipBtn, 1, 20);
 
-        skip_btn.setOnClickListener(new View.OnClickListener() {
+        skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = MainActivity.makeIntent(SplashActivity.this);
@@ -100,10 +100,10 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void setupQuitBtn(){
-        Button quit_btn = findViewById(R.id.splash_quit_btn);
-        dynamicScaling(quit_btn, 15, 20);
+        Button quitBtn = findViewById(R.id.splash_quit_btn);
+        dynamicScaling(quitBtn, 15, 20);
 
-        quit_btn.setOnClickListener(new View.OnClickListener() {
+        quitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicManager.stop();
@@ -114,11 +114,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void dynamicScaling (Button button, int width, int height)
     {
-        ConstraintLayout.LayoutParams btn_size;
-        btn_size = (ConstraintLayout.LayoutParams) button.getLayoutParams();
-        btn_size.width = (getResources().getDisplayMetrics().widthPixels)/width;
-        btn_size.height = (getResources().getDisplayMetrics().heightPixels)/height;
-        button.setLayoutParams(btn_size);
+        ConstraintLayout.LayoutParams btnSize;
+        btnSize = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        btnSize.width = (getResources().getDisplayMetrics().widthPixels)/width;
+        btnSize.height = (getResources().getDisplayMetrics().heightPixels)/height;
+        button.setLayoutParams(btnSize);
     }
 
     @Override
