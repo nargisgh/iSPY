@@ -37,7 +37,6 @@ Pop Up dialog when game is over */
 public class PlayActivity extends AppCompatActivity  {
 
     private MediaPlayer sfxPlayer = new MediaPlayer();
-    private MediaPlayer sfx_player = new MediaPlayer();
     private MediaPlayer mp_gamestate;
     private String name;
     private String dateTime;
