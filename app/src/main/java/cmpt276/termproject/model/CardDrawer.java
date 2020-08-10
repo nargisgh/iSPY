@@ -334,7 +334,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, null, null);
 
     }
-
+    // combining card bitmap and word/img bitmaps as one bitmap to store as an image
     // https://stackoverflow.com/questions/31813638/how-to-merge-bitmaps-in-android
     public Bitmap mergeBitmaps(Card card, int numImages, int sectionSize, RectPlacer rectPlacer) {
 
