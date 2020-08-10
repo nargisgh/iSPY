@@ -210,7 +210,6 @@ public class PlayActivity extends AppCompatActivity  {
                 cardDrawer.exportCardImgs();
                 Toast.makeText(getApplicationContext(), "Game cards saved to gallery!", Toast.LENGTH_SHORT).show();
                 cardDrawer.deleteCardImgs();
-
             }
         });
 
@@ -273,6 +272,7 @@ public class PlayActivity extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        cardDrawer.deleteCardImgs();
         finish();
     }
 
