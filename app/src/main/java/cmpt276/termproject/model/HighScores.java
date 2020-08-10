@@ -73,7 +73,6 @@ public class HighScores{
     public String getCurrentDateTime(){
         Date date = new Date();
         return DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.SHORT).format(date);
-
     }
 
     public String getScore(String entry){

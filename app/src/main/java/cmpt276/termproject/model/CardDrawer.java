@@ -22,10 +22,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.FlickrImage;
 import cmpt276.termproject.model.FlickrGallery.FlickrManager;
@@ -117,9 +122,9 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         //Set bitmaps and text
         for (int i = 0;  i < themes.size(); i ++) {
             String name = themes.get(i);
-            int bitmap_id = getResources().getIdentifier( name, "drawable", getContext().getPackageName());
-            Bitmap decoded_bitmap = BitmapFactory.decodeResource(res, bitmap_id);
-            bitmaps.add(decoded_bitmap);
+            int bitmapId = getResources().getIdentifier( name, "drawable", getContext().getPackageName());
+            Bitmap decodedBitmap = BitmapFactory.decodeResource(res, bitmapId);
+            bitmaps.add(decodedBitmap);
             itemNames.add(name);
         }
     }
@@ -265,13 +270,13 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
                 int height = rect.height();
 
                 //GetItem gives center of rect , subtract half of width to compensate
-                int pos_x = card.getItemX(i) - width / 2;
-                int pos_y = card.getItemY(i) - height / 2;
+                int posX = card.getItemX(i) - width / 2;
+                int posY = card.getItemY(i) - height / 2;
 
                 int image = card.getImages().get(i);
                 //Check if click an Image
-                if (x > pos_x && x < pos_x + width && y > pos_y && y < pos_y + height) {
-                    //Log.e("Coords", pos_x+ " " + (pos_x+width) + " " + pos_y + " "  +  (pos_y+height) );
+                if (x > posX && x < posX + width && y > posY && y < posY + height) {
+                    //Log.e("Coords", posX+ " " + (posX+width) + " " + posY + " "  +  (posY+height) );
 
                     if (gameManager.getDiscardPile().size() == 1){
                         gameStarted();
@@ -310,13 +315,13 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
 
     // storing image into gallery
     // https://stackoverflow.com/questions/8560501/android-save-image-into-gallery
-    public static void storeImage(Bitmap bitmap, int card_counter) {
-        HighScores highScores = new HighScores();
+    public static void storeImage(Bitmap bitmap, int cardCounter) {
         String path = (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString());
         File directory = new File(path);
         directory.mkdirs();
-        String time = highScores.getCurrentDateTime();
-        String fileName = "Card" + card_counter + "_" + time + ".png";
+        Date date = new Date();
+        String dateTime = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.LONG).format(date);
+        String fileName = "Card" + cardCounter + "_" + dateTime + ".png";
         File file = new File(directory, fileName);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
