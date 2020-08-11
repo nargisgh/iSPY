@@ -9,6 +9,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -59,7 +62,7 @@ public class ThumbnailDownloader<T> extends HandlerThread {
         * Good place to create Handler implementation*/
         requestHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg) {
+            public void handleMessage(@NonNull Message msg) {
                 if (msg.what == MESSAGE_DOWNLOAD) {
                     T target = (T) msg.obj;
                     Log.i(TAG, "Got a request for URL: " + requestMap.get(target));

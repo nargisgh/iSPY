@@ -1,4 +1,5 @@
 package cmpt276.termproject.ui;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -122,8 +123,9 @@ public class CameraRoll extends AppCompatActivity {
 
     //Adapter to display Images in layout
     public class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder>{
+        @NonNull
         @Override
-        public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public PhotoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(CameraRoll.this);
             View view = inflater.inflate(R.layout.list_item_gallery, parent, false);
 

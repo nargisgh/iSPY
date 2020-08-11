@@ -4,6 +4,8 @@ Holds the information about each Item in the flickr gallery.
 package cmpt276.termproject.model.FlickrGallery;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 public class GalleryItem {
     //Source: "Android Programming: The Big Nerd Ranch Guide 3rd edition" - Bill Philips, Chris Stewart, and Kristin Marsciano
     //Ch 25-29
@@ -23,6 +25,7 @@ public class GalleryItem {
                         .appendPath(Owner).appendPath(Id).build();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return Caption;

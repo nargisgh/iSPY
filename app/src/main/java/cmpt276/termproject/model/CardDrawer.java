@@ -23,13 +23,11 @@ import android.view.SurfaceView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import cmpt276.termproject.R;
 import cmpt276.termproject.model.FlickrGallery.FlickrImage;
@@ -92,7 +90,7 @@ public class CardDrawer extends SurfaceView implements SurfaceHolder.Callback {
         cardBitmap = Bitmap.createScaledBitmap(cardBitmap,(int)RADIUS * 2 , (int)RADIUS * 2, true);
         this.setZOrderOnTop(true);
         this.getHolder().setFormat(PixelFormat.TRANSLUCENT);
-        this.context = context;
+        CardDrawer.context = context;
     }
 
     // Set the Theme from the available 2 and create bitmap array
